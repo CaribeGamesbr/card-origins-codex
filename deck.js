@@ -45,13 +45,25 @@ const summarySupportEffects={
  'UNBEATABLE FLAVOR':'Cura 5% HP por turno'
 };
 const conditionalCircuit={
- 'WHITEOUT':'−15% DMG no próximo golpe inimigo',
- 'CRYOSTASIS LINK':'40% do Shield replicado',
- 'THERMAL SHOCK':'+60% próximo tick de Burn',
- 'COMBUSTION LINK':'+1 turno de Burn',
- 'FLASHOVER':'+20% no Chain Hit',
- 'FRACTURED MOMENT':'+15% de chance crítica em Ice',
- 'WITHERING SKY':'+1 turno de Bleed (máx. 4)'
+ 'WHITEOUT':'Alvo com Frostbite/Bleed → −15% DMG no próximo ataque',
+ 'CRYOSTASIS LINK':'Shield recebido → parceira ganha 40% desse escudo',
+ 'THERMAL SHOCK':'Alvo com Burn → próximo tick +60% (consome Frostbite, se houver)',
+ 'COMBUSTION LINK':'Burn aplicado → +1 turno (máx. 4)',
+ 'CONDUCTOR LINK':'Primeiro chain → salto extra com 60% do dano',
+ 'RAZOR CURRENT':'Bleed aplicado → +1 turno no Bleed de outro inimigo',
+ 'ENTANGLED LINK':'Turno extra Quantum → 20% chance de +25% Crit DMG à parceira',
+ 'NULL LINK':'Redução de atributo aplicada → efeito 40% mais forte',
+ 'WARBOUND LINK':'Fighting Spirit → pontos Warbound (gatilho condicional)',
+ 'WILDFIRE':'Wind atinge Burn → cópia de Burn com 90% de força',
+ 'FLASHOVER':'Chain de alvo com Burn → +20% dano do Chain Hit',
+ 'SUPERCONDUCTOR':'Efeito ainda não confirmado nos prints',
+ 'STORMFRONT':'Chain em alvo com Bleed → copia Bleed com 80% da força',
+ 'PARADOX':'Turno extra Quantum → redução de atributo +30% mais forte',
+ 'BREAKPOINT':'Fim do turno extra Quantum → Physical +15% Crit Chance',
+ 'OPPRESSION':'2 pontos Pressure → Physical ganha Fighting Spirit',
+ 'BLOOD AND ASH':'2 Ember → próximo Burn de Fire +35%',
+ 'FRACTURED MOMENT':'Turno extra Quantum → próximo hit Ice +15% Crit Chance',
+ 'WITHERING SKY':'Alvo com 2+ debuffs → Bleed dura +1 turno (máx. 4)'
 };
 function fullImage(card){
  if(!card||!card.image)return;
@@ -75,7 +87,13 @@ function render(){
     const art=card?imgMarkup(card):'<span class="deck-no-art">+</span>';
     const hp=card?.verified&&Number.isFinite(Number(card.hp))?formatNum(Number(card.hp)):'—';
     const dmg=card?.verified&&Number.isFinite(Number(card.dmg))?formatNum(Number(card.dmg)):'—';
-    const bonus=card?(passive[i]?'<span class="deck-status-passive">+'+passive[i]+'% DMG ressonância</span>':'<span class="deck-status-conditional">Sem bônus fixo de link</span>'):'<span class="deck-status-conditional">Slot vazio</span>';
+    const neighborLinks=[i-1,i].filter(n=>n>=0&&n<links.length&&links[n]);
+    const bonus=!card?'<span class="deck-status-conditional">Slot vazio</span>':
+      neighborLinks.length
+      ?'<div class="deck-card-links"><span class="deck-links-label">'+neighborLinks.length+' CIRCUITO'+(neighborLinks.length>1?'S':'')+' ATIVO'+(neighborLinks.length>1?'S':'')+'</span>'+
+       neighborLinks.map(n=>'<div class="deck-card-link"><strong>'+safe(links[n].name)+'</strong><span>'+safe(conditionalCircuit[links[n].name]||'Efeito condicional do circuito')+'</span></div>').join('')+
+       (passive[i]?'<span class="deck-status-passive">+'+passive[i]+'% DMG em hits (ressonância)</span>':'')+'</div>'
+      :'<span class="deck-status-conditional">Sem circuito entre slots adjacentes</span>';
     return '<div class="deck-card-cell"><button type="button" class="deck-main-card '+(card?'filled':'empty')+'" data-deck-card="'+i+'" aria-label="Trocar carta do slot '+(i+1)+'"><span class="deck-card-number">'+(i+1)+'</span><span class="deck-card-image">'+art+'</span></button><div class="deck-card-meta"><div class="deck-card-name">'+safe(card?.name||'Escolher carta')+'</div><small>'+safe(card?card.border+' · '+card.element:'Escolha uma carta')+'</small><div class="deck-card-nums"><span>HP <strong>'+hp+'</strong></span><span>DMG <strong>'+dmg+'</strong></span></div>'+bonus+'<div class="deck-card-tools"><button type="button" data-deck-card="'+i+'">Trocar</button>'+(card?.image?'<button type="button" data-deck-view="'+i+'">Ampliar ⛶</button>':'')+'</div></div></div>';
   }).join('');
   link.innerHTML=links.map((c,i)=>{
@@ -92,10 +110,10 @@ function render(){
     ['HP TOTAL',formatNum(hpTotal),complete?'Soma dos 4 prints':'Parcial: '+verified.length+'/4 verificados'],
     ['DMG TOTAL',formatNum(dmgTotal),complete?'Soma dos 4 prints':'Parcial: '+verified.length+'/4 verificados'],
     ['CIRCUITOS',active+'/3','Somente vizinhos'],
-    ['BUFF PASSIVO',passive.some(Boolean)?'+'+Math.max(...passive)+'% DMG':'—',passive.some(Boolean)?'Nas cartas ligadas por ressonância':'Sem ressonância ativa']
+    ['RESSONÂNCIA FIXA',passive.some(Boolean)?'+'+Math.max(...passive)+'% DMG':'—',passive.some(Boolean)?'Por hit nas cartas com link de mesmo elemento':'Conversões ativam efeitos condicionais']
   ].map(([label,value,note])=>'<div class="deck-qkpi"><small>'+label+'</small><strong>'+value+'</strong><span>'+note+'</span></div>').join('');
   const buffs=document.getElementById('deckQuickBuffs');
-  if(buffs)buffs.innerHTML='<span class="deck-buff-intro">BUFFS DOS LINKS:</span>'+links.map((c,i)=>{
+  if(buffs)buffs.innerHTML='<span class="deck-buff-intro">EFEITOS DOS CIRCUITOS:</span>'+links.map((c,i)=>{
     return '<button type="button" class="deck-buff-pill '+(c?'active':'inactive')+'" '+(c?'data-deck-link="'+i+'"':'disabled')+'>'+(c?'<b>'+safe(c.name)+':</b> '+safe(conditionalCircuit[c.name]||(c.kind==='RESSONÂNCIA'?'+6% DMG passivo + efeito condicional':'Efeito condicional no detalhe')):'Link '+(i+1)+' inativo')+'</button>';
   }).join('');
   sup.innerHTML=equipped.map((id,i)=>{
