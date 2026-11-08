@@ -112,10 +112,10 @@
     toggle?.addEventListener('click',()=>{
       const expanded=toggle.getAttribute('aria-expanded')!=='true';
       toggle.setAttribute('aria-expanded',String(expanded));
-      toggle.textContent=expanded?'◈ Ocultar status total':'◈ Ver status total do time';
+      toggle.textContent=expanded?'◈ Ocultar detalhes':'◈ Ver buffs detalhados';
       const panel=document.getElementById('deckStatsPanel');if(panel)panel.hidden=!expanded;
     });
-    if(toggle){toggle.textContent='◈ Ocultar status total';toggle.setAttribute('aria-expanded','true')}
+    if(toggle){toggle.textContent='◈ Ver buffs detalhados';toggle.setAttribute('aria-expanded','false')}
     window.addEventListener('codex-team-changed',render);
     window.addEventListener('codex-support-changed',render);
     render();
