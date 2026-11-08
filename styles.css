@@ -157,3 +157,104 @@
 @media(max-width:1140px){.ts-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.ts-circuits{grid-template-columns:1fr 1fr}}
 @media(max-width:700px){.deck-stats-panel{padding:12px}.ts-title h3{font-size:20px}.ts-members,.ts-supports,.ts-circuits{grid-template-columns:1fr}.ts-member-stats b{font-size:13px}}
 @media(max-width:390px){.ts-kpi strong{font-size:19px}.ts-kpi{padding:11px 8px}.ts-kpi small{font-size:8px}}
+
+
+/* Deck Compact v2 — cartas completas e status sempre visíveis */
+.deck-hud{max-width:1250px;margin:12px auto 25px}
+.deck-hud-header{padding:12px 16px;gap:10px}
+.deck-hud-header h2{font-size:27px}
+.deck-hud-header h2 span{font-size:12px}
+.deck-actions{gap:8px}
+.deck-mode{font-size:9px}
+.deck-preset,.deck-status-toggle{padding:8px 10px;font-size:10px}
+.deck-hud-body{padding:14px}
+.deck-panel-label{padding-bottom:9px;font-size:11px}
+.deck-panel-label small{font-size:9px}
+.deck-live-count{font-size:9px;padding:5px 8px}
+.deck-main-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));max-width:825px;margin:0 auto;gap:12px;align-items:start}
+.deck-card-cell{min-width:0;max-width:210px;border:1px solid #485c90;border-radius:10px;background:linear-gradient(145deg,#162440,#11172e);box-shadow:0 5px 16px #0005;overflow:hidden}
+.deck-main-card{display:block;width:100%;height:auto;min-height:0;aspect-ratio:475/665;border:0;border-radius:0;box-shadow:none;overflow:hidden;background:#131a31}
+.deck-main-card:hover{transform:none}
+.deck-main-card .deck-card-image{display:block;position:absolute;inset:0;width:100%;height:100%;overflow:hidden;background:#11182f}
+.deck-main-card .deck-card-image img{display:block;width:100%;height:100%;object-fit:contain!important;object-position:center center!important}
+.deck-main-card.filled:before{display:none}
+.deck-main-card .deck-card-number{display:none}
+.deck-main-card.empty .deck-card-image{display:grid;place-items:center}
+.deck-card-meta{padding:9px 10px 10px;display:flex;flex-direction:column;gap:4px;min-height:112px}
+.deck-card-name{font-size:11px;font-weight:1000;text-transform:uppercase;line-height:1.25;color:#f3e9ff;overflow-wrap:anywhere}
+.deck-card-meta>small{color:#bba6e4;font-size:9px;text-transform:uppercase}
+.deck-card-nums{margin:5px 0 2px;display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.deck-card-nums>span{font-size:9px;font-weight:900;color:#8eadb6}
+.deck-card-nums strong{font-size:14px;display:block;color:#90e4b9;margin-top:2px;letter-spacing:-.01em}
+.deck-card-nums>span:last-child strong{color:#ffaea3}
+.deck-status-passive{display:block;color:#8cf0ca;font-size:9px;font-weight:900}
+.deck-status-conditional{display:block;color:#9dacca;font-size:9px}
+.deck-card-tools{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:auto;padding-top:4px}
+.deck-card-tools button{font-size:9px;line-height:1.2;font-weight:900;border:1px solid #4b6f95;border-radius:5px;color:#d4ecff;background:#233653;padding:6px 4px;cursor:pointer}
+.deck-card-tools button:last-child{border-color:#62568b;background:#332b54;color:#edcfff}
+.deck-card-tools button:hover{filter:brightness(1.25)}
+.deck-circuit-strip{max-width:825px;margin:10px auto;gap:10px}
+.deck-link{min-height:48px;padding:7px 6px;box-shadow:none}
+.deck-link strong{font-size:10px}
+.deck-link small{font-size:8px;margin-top:2px}
+.deck-link .deck-link-diamond{top:7px}
+.deck-quick-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;max-width:825px;margin:13px auto 7px}
+.deck-qkpi{background:linear-gradient(120deg,#192846,#1b1d3b);border:1px solid #49618c;border-radius:7px;padding:9px 10px;min-width:0}
+.deck-qkpi:nth-child(2){border-color:#85618c;background:#302240}
+.deck-qkpi:nth-child(3){border-color:#437d92;background:#1c3542}
+.deck-qkpi:nth-child(4){border-color:#538a79;background:#203a42}
+.deck-qkpi small{display:block;color:#a7bcda;font-size:8px;font-weight:1000;letter-spacing:.045em}
+.deck-qkpi strong{display:block;color:#f5ecff;font-size:19px;line-height:1.2;font-weight:1000;margin-top:5px}
+.deck-qkpi span{display:block;color:#a4abc7;font-size:8px;line-height:1.35;margin-top:3px}
+.deck-quick-buffs{max-width:825px;margin:6px auto 5px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.deck-buff-intro{font-size:9px;font-weight:1000;color:#9eabd7;margin-right:3px}
+.deck-buff-pill{font-size:9px;font-weight:700;line-height:1.4;background:#1b3542;border:1px solid #3b7794;color:#bfe5f5;border-radius:5px;padding:6px 8px;cursor:pointer}
+.deck-buff-pill b{color:#ebf9ff}
+.deck-buff-pill:hover{filter:brightness(1.18)}
+.deck-buff-pill.inactive{opacity:.45;cursor:not-allowed}
+.deck-support-label{margin-top:14px;padding-top:14px}
+.deck-support-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));max-width:1050px;margin:0 auto;gap:9px}
+.deck-support-card{height:111px;display:flex;align-items:stretch;gap:7px;padding:6px;border-radius:8px}
+.deck-support-card .deck-support-art{display:block;width:70px;height:96px;flex:0 0 70px;overflow:hidden;border-radius:5px;background:#0d1731}
+.deck-support-card .deck-support-art img{width:100%;height:100%;object-fit:contain!important;object-position:center center!important}
+.deck-support-card .deck-support-num{z-index:3;top:9px;left:9px;padding:3px;font-size:8px}
+.deck-support-card .deck-support-caption{position:static;z-index:1;background:none;padding:6px 3px 4px 0;display:flex;flex-direction:column;justify-content:center;flex:1;min-width:0}
+.deck-support-caption strong{font-size:10px;line-height:1.25;overflow-wrap:anywhere}
+.deck-support-caption small{font-size:8px;margin-top:3px}
+.deck-support-caption em{display:block;font-style:normal;font-size:9px;line-height:1.4;color:#bfe7e4;margin-top:6px}
+.deck-hud-bottom{margin-top:12px;padding-top:8px;font-size:9px}
+.deck-below-title{margin:18px 0 12px}
+.deck-image-overlay{position:fixed;inset:0;z-index:110;display:flex;align-items:center;justify-content:center;padding:15px;background:#050615ed;backdrop-filter:blur(8px)}
+.deck-image-dialog{position:relative;display:flex;align-items:center;flex-direction:column;max-width:min(560px,100%);max-height:96vh}
+.deck-image-dialog img{display:block;max-height:83vh;max-width:100%;width:auto;object-fit:contain;box-shadow:0 20px 45px #000a;border-radius:12px}
+.deck-image-dialog p{color:#fff;font-size:12px;font-weight:900;margin:10px 0 0;text-align:center}
+.deck-image-close{position:absolute;right:-10px;top:-7px;border:1px solid #b59eea;border-radius:50%;width:36px;height:36px;background:#211633;color:white;font-size:16px;font-weight:900;cursor:pointer;z-index:2}
+.deck-stats-panel{max-width:1050px;margin:12px auto;padding:16px}
+@media(max-width:1050px){
+ .deck-main-grid,.deck-circuit-strip,.deck-quick-stats,.deck-quick-buffs{max-width:760px}
+ .deck-main-grid{gap:8px}
+ .deck-support-grid{grid-template-columns:repeat(2,minmax(0,1fr));max-width:660px}
+}
+@media(max-width:660px){
+ .deck-hud{margin:8px 0 20px}
+ .deck-hud-header{padding:10px}
+ .deck-hud-header h2{font-size:22px}
+ .deck-main-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;overflow:visible;scroll-snap-type:none}
+ .deck-main-card{height:auto;flex:none;aspect-ratio:475/665}
+ .deck-card-cell{max-width:none}
+ .deck-card-meta{min-height:110px}
+ .deck-card-name{font-size:10px}
+ .deck-card-nums strong{font-size:13px}
+ .deck-circuit-strip{display:grid;grid-template-columns:1fr;gap:6px;overflow:visible;padding-bottom:0}
+ .deck-link{min-height:40px;flex:none}
+ .deck-quick-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+ .deck-quick-buffs{display:flex}
+ .deck-support-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;overflow:visible}
+ .deck-support-card{height:102px;min-width:0;flex:none}
+ .deck-support-card .deck-support-art{width:51px;height:89px;flex:0 0 51px}
+ .deck-support-card .deck-support-caption strong{font-size:9px}
+ .deck-support-caption em{font-size:8px}
+ .deck-hud-body{padding:10px}
+ .deck-panel-label{font-size:10px}
+}
+@media(max-width:390px){.deck-card-nums strong{font-size:12px}.deck-card-tools button{font-size:8px}.deck-card-meta{padding:7px}.deck-support-card .deck-support-art{width:42px;flex:0 0 42px}}
