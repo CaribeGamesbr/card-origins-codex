@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#0a0b1a"/>
+  <meta name="description" content="Card Origins Codex: catálogo da coleção com cartas, suportes, mecânicas, filtros e construtor de equipes."/>
+  <title>Card Origins — Codex</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <script defer src="data.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="ic-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.6"/><rect x="14" y="3" width="7" height="7" rx="1.6"/><rect x="3" y="14" width="7" height="7" rx="1.6"/><rect x="14" y="14" width="7" height="7" rx="1.6"/></symbol>
+    <symbol id="ic-cards" viewBox="0 0 24 24"><rect x="7" y="3" width="13" height="17" rx="2"/><path d="M4 7v13a2 2 0 0 0 2 2h10"/></symbol>
+    <symbol id="ic-stars" viewBox="0 0 24 24"><path d="m12 2 2.2 6.8L21 11l-6.8 2.2L12 20l-2.2-6.8L3 11l6.8-2.2z"/><path d="m19 17 .8 2.2L22 20l-2.2.8L19 23l-.8-2.2L16 20l2.2-.8z"/></symbol>
+    <symbol id="ic-shield" viewBox="0 0 24 24"><path d="M12 2 20 6v6c0 5-3.8 8.2-8 10-4.2-1.8-8-5-8-10V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="ic-branches" viewBox="0 0 24 24"><path d="M8 3v8a4 4 0 0 0 4 4h4"/><path d="M8 11a4 4 0 0 0 4-4h4"/><circle cx="8" cy="3" r="2"/><circle cx="18" cy="7" r="2"/><circle cx="18" cy="15" r="2"/><circle cx="8" cy="21" r="2"/><path d="M8 11v8"/></symbol>
+    <symbol id="ic-book" viewBox="0 0 24 24"><path d="M3 5.5a2 2 0 0 1 2-2h5a4 4 0 0 1 2 1 4 4 0 0 1 2-1h5a2 2 0 0 1 2 2v14a2 2 0 0 0-2-1h-5a4 4 0 0 0-2 1 4 4 0 0 0-2-1H5a2 2 0 0 0-2 1z"/><path d="M12 4.5v15"/></symbol>
+    <symbol id="ic-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="ic-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="ic-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="ic-close" viewBox="0 0 24 24"><path d="M5 5 19 19M19 5 5 19"/></symbol>
+    <symbol id="ic-sword" viewBox="0 0 24 24"><path d="m4 20 8-8m1-5 7-4-4 7-8 8-3-3 8-8Z"/><path d="m2 15 7 7"/></symbol>
+    <symbol id="ic-star" viewBox="0 0 24 24"><path d="m12 2 3.1 6.4 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1Z"/></symbol>
+    <symbol id="ic-filter" viewBox="0 0 24 24"><path d="M4 5h16M7 12h10m-7 7h4"/></symbol>
+    <symbol id="ic-external" viewBox="0 0 24 24"><path d="M13 5h6v6m0-6-9 9"/><path d="M19 15v4H5V5h4"/></symbol>
+    <symbol id="ic-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+    <symbol id="ic-spark" viewBox="0 0 24 24"><path d="m12 2 2.8 7.2L22 12l-7.2 2.8L12 22l-2.8-7.2L2 12l7.2-2.8z"/></symbol>
+    <symbol id="ic-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></symbol>
+  </svg>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark"><span>CO</span><small>✦</small></div>
+        <div><div class="brand-name">CARD ORIGINS</div><div class="brand-subtitle">C O D E X <span class="mini-dot">●</span> FAN PROJECT</div></div>
+      </div>
+      <div class="side-divider"></div>
+      <div class="side-label">EXPLORAR</div>
+      <nav class="side-nav" aria-label="Menu principal">
+        <button data-nav="home" class="nav-link active"><svg><use href="#ic-grid"/></svg><span>Visão geral</span></button>
+        <button data-nav="cards" class="nav-link"><svg><use href="#ic-cards"/></svg><span>Cartas</span><span class="nav-counter" id="navCardCount">357</span></button>
+        <button data-nav="supports" class="nav-link"><svg><use href="#ic-shield"/></svg><span>Suportes</span><span class="nav-counter" id="navSupportCount">37</span></button>
+        <button data-nav="builder" class="nav-link"><svg><use href="#ic-sword"/></svg><span>Montador de time</span><span class="new-dot"></span></button>
+        <button data-nav="skill" class="nav-link"><svg><use href="#ic-branches"/></svg><span>Skill Tree</span></button>
+        <button data-nav="guide" class="nav-link"><svg><use href="#ic-book"/></svg><span>Guia do jogo</span></button>
+      </nav>
+      <div class="side-label with-margin">SUA COLEÇÃO</div>
+      <div class="collection-status"><div class="status-head"><span class="status-light"></span><span>Importação do Drive</span></div><strong id="sideTotal">394 registros</strong><p>Snapshot de 08 nov 2026</p><span style="color:#b2a4c8;font-size:11px">Versão pública independente</span></div>
+      <div class="sidebar-foot"><span class="diamond">◇</span><div><strong>Codex v1.0</strong><small>Wiki não oficial • Sem login</small></div></div>
+    </aside>
+    <div class="mobile-scrim" id="mobileScrim"></div>
+    <main class="main-column">
+      <header class="topbar"><button class="mobile-menu" id="mobileMenu" aria-label="Abrir menu"><svg><use href="#ic-menu"/></svg></button><div class="top-crumb">CODEX <svg><use href="#ic-chevron"/></svg> <span id="crumbText">Visão geral</span></div><div class="top-actions"><button class="global-search" id="quickSearch"><svg><use href="#ic-search"/></svg><span>Pesquisar cartas, suportes...</span><kbd>/</kbd></button><div class="header-version"><span class="status-light"></span><span>COLEÇÃO LOCAL</span></div></div></header>
+      <div class="workspace">
+        <section class="page active" id="page-home">
+          <div class="hero">
+            <div class="hero-particles"></div>
+            <div class="hero-copy"><div class="eyebrow"><span class="eyebrow-line"></span> A SUA ENCICLOPÉDIA DE CARTAS</div><h1>Todo o universo de<br/><em>Card Origins.</em><span class="starburst">✦</span></h1><p>Explore sua coleção, descubra sinergias e monte a equipe ideal. Um codex construído a partir dos seus próprios registros.</p><div class="hero-buttons"><button class="primary-btn" data-nav="cards">Explorar cartas <svg><use href="#ic-arrow"/></svg></button><button class="outline-btn" data-nav="builder">Montar minha equipe <svg><use href="#ic-sword"/></svg></button></div><div class="hero-proof"><span class="three-dots"><i></i><i></i><i></i></span><span>Catálogo organizado a partir de registros de cartas</span></div></div>
+            <div class="hero-art" aria-hidden="true"><div class="hero-glow"></div><img class="hero-img hero-img-back" src="assets/cards/350.webp" alt=""/><img class="hero-img hero-img-front" src="assets/cards/353.webp" alt=""/><img class="hero-img hero-img-side" src="assets/cards/357.webp" alt=""/><div class="hero-sigil">✧</div></div>
+          </div>
+          <div class="stats-row"><div class="stat-box"><div class="stat-icon violet"><svg><use href="#ic-cards"/></svg></div><div><span>CARTAS REGISTRADAS</span><strong id="statCards">357</strong><small>Todos os elementos</small></div></div><div class="stat-box"><div class="stat-icon teal"><svg><use href="#ic-shield"/></svg></div><div><span>SUPORTES</span><strong id="statSupports">37</strong><small>Buff • Heal • Debuff • Shield</small></div></div><div class="stat-box"><div class="stat-icon amber"><svg><use href="#ic-spark"/></svg></div><div><span>ELEMENTOS</span><strong>07</strong><small>Dois ciclos elementais</small></div></div><div class="stat-box"><div class="stat-icon rose"><svg><use href="#ic-branches"/></svg></div><div><span>SKILL TREE</span><strong>70<span class="stat-denominator">/146</span></strong><small>Progresso registrado</small></div></div></div>
+          <div class="section-heading"><div><span class="overline">COLEÇÃO EM DESTAQUE</span><h2>Capturas verificadas <span class="tiny-flare">✦</span></h2></div><button class="text-link" data-nav="cards">Ver todas as cartas <svg><use href="#ic-arrow"/></svg></button></div>
+          <div class="featured-grid" id="featuredGrid"></div>
+          <div class="home-bottom"><div class="game-panel quick-team"><div class="panel-eyebrow">TIME BUILD HELPER</div><h2>Quatro cartas. <em>Infinitas possibilidades.</em></h2><p>Organize seus quatro slots, descubra circuitos adjacentes e visualize pares de reações possíveis na Tower of God.</p><button class="secondary-btn" data-nav="builder">Criar formação <svg><use href="#ic-arrow"/></svg></button><div class="orbital-rings"></div></div><div class="game-panel distribution"><div class="panel-eyebrow">SEU INVENTÁRIO</div><h2>Distribuição elemental</h2><div id="elementDistribution"></div></div></div>
+          <p class="source-disclaimer">Esta wiki é um projeto de fã. O catálogo foi organizado a partir de nomes de cartas registrados. Apenas algumas artes e habilidades foram verificadas visualmente; as demais artes ainda não foram incluídas.</p>
+        </section>
+        <section class="page" id="page-cards">
+          <div class="page-intro"><div><span class="overline">ARCHIVE / 01</span><h1>Catálogo <em>de cartas</em></h1><p>Filtre os registros por elemento, borda, variante ou nome. Clique em uma carta para ver seus detalhes.</p></div><div class="intro-counter"><span>REGISTROS ENCONTRADOS</span><strong id="cardsTotalLabel">357</strong></div></div>
+          <div class="filterbar"><label class="filter-search"><svg><use href="#ic-search"/></svg><input id="cardSearch" type="search" placeholder="Pesquisar pelo nome da carta..." autocomplete="off"/></label><select id="elementFilter" aria-label="Filtrar elemento"><option value="">Todos os elementos</option></select><select id="borderFilter" aria-label="Filtrar borda"><option value="">Todas as bordas</option><option>Normal</option><option>Calamity</option><option>Umbral</option><option>Astral</option><option>Paradox</option><option>Origin</option></select><select id="variantFilter" aria-label="Filtrar variante"><option value="">Todas as variantes</option><option value="Mutated">Mutated</option><option value="Cursed">Cursed</option><option value="Base">Sem variante</option></select><select id="sortFilter" aria-label="Ordenar"><option value="new">Recentes primeiro</option><option value="old">Antigas primeiro</option><option value="az">Nome A–Z</option><option value="border">Borda mais alta</option></select></div>
+          <div class="results-line"><span id="cardsResultText">Carregando cartas...</span><button class="clear-filters" id="clearCardFilters">Limpar filtros</button></div>
+          <div class="catalog-grid" id="cardsGrid"></div><div class="load-more-area"><button class="outline-btn" id="moreCards">Mostrar mais cartas <svg><use href="#ic-arrow"/></svg></button></div>
+        </section>
+        <section class="page" id="page-supports">
+          <div class="page-intro"><div><span class="overline">ARCHIVE / 02</span><h1>Cartas <em>de suporte</em></h1><p>Suportes equipados no mesmo slot da carta principal. Busque pelo nome ou classificação registrada no arquivo.</p></div><div class="intro-counter"><span>REGISTROS ENCONTRADOS</span><strong id="supportsTotalLabel">37</strong></div></div>
+          <div class="filterbar"><label class="filter-search"><svg><use href="#ic-search"/></svg><input id="supportSearch" type="search" placeholder="Pesquisar suporte..." autocomplete="off"/></label><select id="supportKind" aria-label="Tipo de suporte"><option value="">Todos os tipos / bordas</option><option>Buff</option><option>Heal</option><option>Debuff</option><option>Shield</option><option>Calamity</option><option>Umbral</option></select></div>
+          <div class="results-line"><span id="supportsResultText"></span><span style="color:#a89ab8;font-size:11px">Catálogo de suportes</span></div>
+          <div class="support-grid" id="supportsGrid"></div>
+        </section>
+        <section class="page" id="page-builder">
+          <div class="page-intro"><div><span class="overline">TACTICAL LAB / 03</span><h1>Construtor <em>de equipes</em></h1><p>Selecione quatro cartas da sua coleção. A análise mostra possibilidades de circuitos e reações, sem inventar uma nota oficial de Team Check.</p></div><button class="outline-btn smaller" id="clearTeam">Limpar equipe</button></div>
+          <div class="builder-guide"><svg><use href="#ic-spark"/></svg><span>Os circuitos ligam somente cartas <strong>adjacentes</strong>. Os pares de reação da Tower consideram toda a equipe.</span></div>
+          <div class="team-slots" id="teamSlots"></div>
+          <div class="team-analysis"><div class="game-panel"><div class="panel-eyebrow">ORIGIN CIRCUITS</div><h2>Conexões adjacentes</h2><div id="circuitResults" class="analysis-list"></div></div><div class="game-panel"><div class="panel-eyebrow">TOWER OF GOD</div><h2>Reações potenciais</h2><div id="reactionResults" class="analysis-list"></div></div></div>
+          <div class="builder-footer"><span>Seu time fica salvo somente neste navegador. Nenhuma alteração é enviada ao Roblox ou ao Google Drive.</span><button id="copyTeam" class="secondary-btn">Copiar composição <svg><use href="#ic-arrow"/></svg></button></div>
+        </section>
+        <section class="page" id="page-skill">
+          <div class="page-intro"><div><span class="overline">PROGRESSION / 04</span><h1>Skill <em>Tree</em></h1><p>Mapa de talentos e progresso registrado no print de 08/11/2026.</p></div><div class="intro-counter"><span>SKILL POINTS</span><strong>03</strong></div></div>
+          <div class="skill-overview"><div class="skill-screenshot"><img src="assets/ui/skill-tree.svg" alt="Diagrama ilustrativo do progresso da Skill Tree do Card Origins com caminhos General, Elements, Debuffs, Traits, Colosseum, Infinite e Border Stats."/><button id="zoomSkill" class="image-zoom">Ampliar imagem ↗</button></div><div class="skill-summary"><div class="panel-eyebrow">VISÃO GERAL</div><h2>70 <span>/ 146</span></h2><p>Talentos aprendidos</p><div class="skill-rail"><span style="width:47.95%"></span></div><div class="skill-numbers"><div><b>03</b><small>Pontos disponíveis</small></div><div><b>22</b><small>Prontos para aprender</small></div></div><div class="note-quiet">Os efeitos dos talentos individuais ainda dependem de capturas ampliadas da janela de cada talento.</div></div></div>
+          <div class="section-heading"><div><span class="overline">CAMINHOS</span><h2>Progresso por categoria</h2></div></div><div class="skill-path-grid" id="skillPaths"></div>
+        </section>
+        <section class="page" id="page-guide">
+          <div class="page-intro"><div><span class="overline">FIELD MANUAL / 05</span><h1>Guia <em>de mecânicas</em></h1><p>Regras essenciais consolidadas a partir das capturas do guia e da sua wiki anterior.</p></div><span class="overline">GUIA DO JOGO</span></div>
+          <div class="guide-grid">
+            <article class="game-panel guide-card"><div class="panel-eyebrow">01 / ELEMENTAL</div><h2>Ciclos de vantagem</h2><p>Atacar o elemento contra o qual sua carta é forte causa <strong>+50% de dano</strong>. Na desvantagem, o dano cai <strong>30%</strong> e o efeito elemental não ativa.</p><div class="cycle">🔥 Fogo <i>›</i> ❄️ Gelo <i>›</i> ⚡ Relâmpago <i>›</i> 🍃 Vento <i>›</i> 🔥</div><div class="cycle">✧ Quântico <i>›</i> ◈ Imaginário <i>›</i> ◆ Físico <i>›</i> ✧</div><small>Entre os dois ciclos, confrontos são neutros.</small></article>
+            <article class="game-panel guide-card"><div class="panel-eyebrow">02 / ORIGIN CIRCUITS</div><h2>Sinergia de vizinhos</h2><p>Até três circuitos ativos: slots 1–2, 2–3 e 3–4. Há <strong>7 Resonances</strong> de mesmo elemento e <strong>12 Conversions</strong> de elementos diferentes.</p><div class="guide-emphasis"><span>3</span><div>conexões possíveis<br/><small>em uma formação de quatro cartas</small></div></div></article>
+            <article class="game-panel guide-card"><div class="panel-eyebrow">03 / TOWER OF GOD</div><h2>Quebre as Wards</h2><p>Inimigos protegidos começam com <strong>85% de redução de dano</strong>. Uma reação válida abre a proteção por 2 turnos. Depois de 2 usos da mesma reação, ela deixa de quebrar a Ward.</p><div class="guide-emphasis amber-text"><span>2+</span><div>pares diferentes de reação<br/><small>recomendados para a Tower</small></div></div></article>
+            <article class="game-panel guide-card"><div class="panel-eyebrow">04 / RELICS</div><h2>Sets de relíquias</h2><p>Cinco slots: Crown, Core, Mantle, Sigil e Echo. Bônus de conjunto em <strong>2 ou 4 peças</strong>, sem bônus de cinco peças.</p><div class="relic-pills"><span>Ashen Covenant</span><span>Shattered Halo</span><span>Hollow Sanctuary</span><span>Calamity Script</span><span>Prism of Origin</span></div></article>
+            <article class="game-panel guide-card"><div class="panel-eyebrow">05 / UPGRADES</div><h2>Bordas e raridade</h2><p>Multiplicadores registrados no tutorial mais recente:</p><div class="mini-table"><div>Normal <b>×1</b></div><div>Calamity <b>×100</b></div><div>Umbral <b>×10 mil</b></div><div>Astral <b>×1 milhão</b></div><div>Paradox <b>×100 milhões</b></div><div>Origin <b>×10 bilhões</b></div></div></article>
+            <article class="game-panel guide-card"><div class="panel-eyebrow">06 / COMBAT</div><h2>Efeitos e reações</h2><p>O guia registra <strong>74 reações</strong> entre debuffs. Em algumas combinações a ordem importa, e uma reação não desencadeia outra reação em cadeia.</p><div class="relic-pills"><span>Burn</span><span>Bleed</span><span>Frostbite</span><span>Shock</span><span>Poison</span><span>Fatigue</span><span>Charmed</span></div></article>
+          </div>
+          <div class="guide-caveat"><svg><use href="#ic-book"/></svg><p>As regras desta página são um resumo de referência. Para valores detalhados, reações especiais e mudanças de versão, consulte o tutorial dentro do jogo.</p></div>
+        </section>
+        <footer class="site-footer"><div><span class="footer-logo">CO <b>✦</b></span> CARD ORIGINS CODEX <span class="footer-divider">/</span> PROJETO NÃO OFICIAL</div><span>Feito para sua coleção • Snapshot 08.11.2026</span></footer>
+      </div>
+    </main>
+  </div>
+  <div class="modal-backdrop" id="modalBackdrop" hidden><div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Detalhes" tabindex="-1"></div></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

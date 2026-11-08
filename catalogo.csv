@@ -1,0 +1,395 @@
+﻿tipo,numero,nome,elemento,borda_ou_tipo,variante,hp,dmg,habilidade,descricao,verificado_em_print
+card,357,KAIRO,Lightning,Calamity,,3630,1209,STATIC AFTERIMAGE,"Na primeira vez que o inimigo atual usa uma habilidade, cria um Afterimage que repete o efeito contra o próprio inimigo no turno seguinte com 30% da força (25% contra bosses). Cura vira dano próprio, buffs viram perda de atributos e efeitos ofensivos acertam o próprio inimigo.",Sim
+card,356,THE CRIMSON COMMANDER,Fire,Normal,,1516,505,HELL FLARE COMMAND,"Quando um inimigo cai abaixo de um novo limiar de 25% de HP, sela-o com Black Flame por 2 turnos: não pode curar acima do limiar, e o excesso de cura vira Burn. Contra bosses, apenas o primeiro limiar pode ser selado por vez.",Sim
+card,355,VIRTUAL CHIMERA,Fire,Calamity,,4041,1348,VIRTUAL CASCADE,"Na primeira vez que causa dano direto ao inimigo atual, armazena 35% desse acerto por 2 turnos (um armazenamento por vez, limitado a 50% do DMG). Se o alvo agir, libera os dados no próximo inimigo vivo e aplica Burn ao alvo atual. Se o alvo morrer antes de agir, libera imediatamente com 60% de força.",Sim
+card,354,VECTOR STORM,Wind,Normal,,1634,554,EVERY DIRECTION LEADS BACK TO YOU,"Recebe 35% menos dano de ataques inimigos e devolve o dano prevenido ao atacante, limitado a 60% do DMG da carta por golpe. Na primeira reflexão contra cada inimigo, aplica Shock e Blind por 1 turno. Reflexões não desencadeiam novas reflexões.",Sim
+card,353,KING OF GAMES,Quantum,Calamity,,6048,2015,GRAVEYARD DRAW,"Ao entrar, copia uma habilidade aleatória de um aliado morto pelo restante da batalha. Se não houver aliados mortos, recebe +20% de DMG permanente.",Sim
+card,352,PSYCHIC PEAK,Quantum,Calamity,,2923,973,PSYCHIC SHELTER,"Enquanto está fora de campo, redireciona para si como Psychic Pressure 10% do dano sofrido pelo aliado ativo. Ao entrar, libera 25% da pressão acumulada contra cada inimigo e depois cura 15% do HP máximo.",Sim
+card,351,GHOST COMMUNICATOR,Imaginary,Umbral,,3539,1180,VENGEFUL POSSESSION,"No início, vincula-se ao primeiro aliado que morrer. Quando isso acontece, herda sua habilidade por 2 turnos e restaura 20% do HP máximo. Depois, mantém uma parte dessa habilidade com 30% de eficácia até o fim da batalha.",Sim
+card,350,SCARLET DUELIST,Wind,Calamity,,2619,873,HOUSE OF TEMPO,"Ao entrar, começa um duelo de 3 turnos com o inimigo atual. Repetir duas vezes o mesmo tipo de ação pune o alvo: Attack recebe Blinding, Ability recebe Silence por 1 turno, e Heal reverte a cura em dano equivalente. Ao fim do duelo, aplica Fatigue e ganha um turno extra.",Sim
+card,272,FALLEN ANGEL,Quantum,Normal,,,,,,Não
+card,349,ANGEL,Imaginary,Normal,Mutated,,,,,Não
+card,344,SPINNING BALL TRAVELER,Wind,Normal,Mutated,,,,,Não
+card,342,STARRY BETRAYER,Lightning,Normal,Mutated,,,,,Não
+card,348,RED HEAD KNIGHT,Fire,Normal,Mutated,,,,,Não
+card,347,OBERON,Quantum,Normal,Mutated,,,,,Não
+card,339,ANGEL,Imaginary,Calamity,Mutated,,,,,Não
+card,340,KNIGHT KING,Fire,Normal,Mutated,,,,,Não
+card,341,NOIR,Quantum,Normal,Mutated,,,,,Não
+card,346,STONE AGE SCIENTIST,Wind,Normal,Mutated,,,,,Não
+card,337,OBERON,Quantum,Calamity,,,,,,Não
+card,343,USELESS GODDESS,Ice,Normal,Mutated,,,,,Não
+card,345,MASKED ADVENTURER,Quantum,Normal,Mutated,,,,,Não
+card,338,CODE BEARER,Wind,Normal,Mutated,,,,,Não
+card,336,MAGICIAN,Lightning,Normal,Mutated,,,,,Não
+card,330,APOTHECARY CAT,Wind,Normal,Mutated,,,,,Não
+card,335,SILVERFOX VANGUARD,Imaginary,Normal,Mutated,,,,,Não
+card,334,THE TRICKSTER,Quantum,Normal,Mutated,,,,,Não
+card,333,BLADE OF SUNLIGHT,Imaginary,Normal,Mutated,,,,,Não
+card,329,COSMIC SONGSTRESS,Wind,Normal,Mutated,,,,,Não
+card,327,AUTO MEMOIR,Wind,Normal,Mutated,,,,,Não
+card,331,KING OF THE SEVEN SEAS,Ice,Normal,Mutated,,,,,Não
+card,326,TWO TIMING PRO,Physical,Normal,Mutated,,,,,Não
+card,332,RED HEAD KNIGHT,Fire,Calamity,,,,,,Não
+card,328,SCARLET KNIGHT,Fire,Normal,Mutated,,,,,Não
+card,325,STONE AGE SCIENTIST,Wind,Calamity,Mutated,,,,,Não
+card,322,FEVER GAMBLER,Physical,Normal,Mutated,,,,,Não
+card,321,SPINNING BALL TRAVELER,Wind,Calamity,Mutated,,,,,Não
+card,320,UNEMPLOYED ADVENTURER,Wind,Normal,Mutated,,,,,Não
+card,323,MASKED ADVENTURER,Quantum,Calamity,"Mutated, Cursed",,,,,Não
+card,317,STARRY BETRAYER,Lightning,Calamity,Mutated,,,,,Não
+card,318,CINDER DRIFTER,Fire,Normal,Mutated,,,,,Não
+card,319,USELESS GODDESS,Ice,Calamity,Mutated,,,,,Não
+card,314,NOIR,Quantum,Calamity,Mutated,,,,,Não
+card,324,WALKER,Imaginary,Normal,Mutated,,,,,Não
+card,316,BLUE WOLF,Ice,Normal,Mutated,,,,,Não
+card,315,SHOPKEEPER PAST,Imaginary,Normal,Mutated,,,,,Não
+card,313,GHOST COMMUNICATOR,Imaginary,Normal,Mutated,,,,,Não
+card,308,REBEL ACE,Ice,Normal,Mutated,,,,,Não
+card,310,ARTHURIAN BLADE,Physical,Normal,Mutated,,,,,Não
+card,305,TEN SHADOWS VESSEL,Quantum,Normal,Mutated,,,,,Não
+card,312,RADIANT SYNTHESIS,Imaginary,Normal,Mutated,,,,,Não
+card,306,KNIGHT KING,Fire,Calamity,Mutated,,,,,Não
+card,303,REALITY'S WORST DUET,Wind,Normal,Mutated,,,,,Não
+card,311,ANGEL,Imaginary,Umbral,,,,,,Não
+card,301,GEMSTONE PRODIGY,Quantum,Normal,Mutated,,,,,Não
+card,309,UMBRA WITCH,Lightning,Normal,Mutated,,,,,Não
+card,304,FIRE DRAGON SLAYER,Fire,Normal,Mutated,,,,,Não
+card,307,THE TRICKSTER,Quantum,Calamity,,,,,,Não
+card,302,RIME ARISTOCRAT,Ice,Normal,Mutated,,,,,Não
+card,289,FACELESS GENTLEMAN,Quantum,Normal,Mutated,,,,,Não
+card,299,CODE BEARER,Wind,Calamity,Mutated,,,,,Não
+card,294,RABBIT GHOUL,Fire,Normal,Mutated,,,,,Não
+card,291,BLADE OF SUNLIGHT,Imaginary,Calamity,Mutated,,,,,Não
+card,295,RED HEAD KNIGHT,Fire,Umbral,,,,,,Não
+card,296,MAGICIAN,Lightning,Calamity,Mutated,,,,,Não
+card,297,UNYIELDING WANDSWORD,Ice,Normal,Mutated,,,,,Não
+card,300,OBERON,Quantum,Umbral,,,,,,Não
+card,298,SILVERFOX VANGUARD,Imaginary,Calamity,Mutated,,,,,Não
+card,293,TOWER KING,Fire,Normal,Mutated,,,,,Não
+card,292,COSMIC SONGSTRESS,Wind,Calamity,,,,,,Não
+card,290,CURSED KING VESSEL,Physical,Normal,Cursed,,,,,Não
+card,288,SLAYER OF THE PAST,Imaginary,Normal,Mutated,,,,,Não
+card,279,AUTO MEMOIR,Wind,Calamity,,,,,,Não
+card,285,HORNED MAID,Fire,Normal,,,,,,Não
+card,286,APOTHECARY CAT,Wind,Calamity,Mutated,,,,,Não
+card,282,CELLO WITCH,Quantum,Normal,Mutated,,,,,Não
+card,281,SILENT MARKSWOMAN,Ice,Normal,Mutated,,,,,Não
+card,287,WIDOW,Imaginary,Normal,,,,,,Não
+card,284,KING OF THE SEVEN SEAS,Ice,Calamity,Mutated,,,,,Não
+card,283,FIRE SOLDIER,Fire,Normal,Mutated,,,,,Não
+card,278,EMY,Ice,Normal,Mutated,,,,,Não
+card,280,RIDER OF BLACK,Fire,Normal,,,,,,Não
+card,277,SCARLET KNIGHT,Fire,Calamity,Mutated,,,,,Não
+card,271,DRAGON PROTECTOR,Physical,Normal,,,,,,Não
+card,274,LEGENDARY RAGE,Physical,Normal,Mutated,,,,,Não
+card,266,CHAINSAW DEVIL HUNTER,Fire,Normal,,,,,,Não
+card,270,EARLY ACCESS TEMPEST,Imaginary,Normal,,,,,,Não
+card,276,TWO TIMING PRO,Physical,Calamity,,,,,,Não
+card,275,STONE AGE SCIENTIST,Wind,Umbral,,,,,,Não
+card,268,YELLOW FLASH,Lightning,Normal,,,,,,Não
+card,273,BLUE ROSE WILDER,Ice,Normal,,,,,,Não
+card,269,COOL MAD SCIENTIST,Imaginary,Normal,,,,,,Não
+card,265,FULLMETAL ALCHEMIST,Fire,Normal,,,,,,Não
+card,267,MASKED ADVENTURER,Quantum,Umbral,,,,,,Não
+card,261,NO LONGER HUMAN,Imaginary,Normal,,,,,,Não
+card,257,DR. HEART,Ice,Normal,,,,,,Não
+card,263,SYLPH BLADE,Wind,Normal,,,,,,Não
+card,262,PUMPKIN GIRL,Fire,Normal,,,,,,Não
+card,259,WALKER,Imaginary,Calamity,Mutated,,,,,Não
+card,264,SIMPLE DOMAIN SORCERER,Ice,Normal,Mutated,,,,,Não
+card,255,TECH LEAD,Lightning,Normal,Mutated,,,,,Não
+card,254,FEVER GAMBLER,Physical,Calamity,,,,,,Não
+card,258,VOID HUNTER OF ICE,Ice,Normal,,,,,,Não
+card,260,PSYCHIC PEAK,Quantum,Normal,,,,,,Não
+card,256,THE SPIDER'S SHARPSHOOTER,Fire,Normal,,,,,,Não
+card,253,SPINNING BALL TRAVELER,Wind,Umbral,,,,,,Não
+card,248,SCYTHE TACTICIAN,Wind,Normal,,,,,,Não
+card,251,BLUE COMMUNICATOR,Ice,Normal,,,,,,Não
+card,249,WATER SILVA,Ice,Normal,,,,,,Não
+card,252,MINUS,Imaginary,Normal,Mutated,,,,,Não
+card,250,SCARLET DUELIST,Wind,Normal,Mutated,,,,,Não
+card,247,GLACIAL MONARCH,Physical,Normal,,,,,,Não
+card,246,FOX CONTRACT HUNTER,Fire,Normal,,,,,,Não
+card,243,SINNER #9,Physical,Normal,,,,,,Não
+card,245,SERGEYEVNA,Ice,Normal,,,,,,Não
+card,241,BLACK FLAME HEIR,Lightning,Normal,,,,,,Não
+card,244,SECOND KILLER,Quantum,Normal,,,,,,Não
+card,242,SHARK AGENT,Ice,Normal,,,,,,Não
+card,239,HUMANITY'S STRONGEST,Physical,Normal,Mutated,,,,,Não
+card,238,ISHTAR,Quantum,Normal,,,,,,Não
+card,237,THE SUN GOD'S JAILER,Quantum,Normal,,,,,,Não
+card,240,CLAYBORN GUARDIAN,Wind,Normal,,,,,,Não
+card,236,THE SKY-REACHING STUDENT,Fire,Normal,,,,,,Não
+card,230,LITTLE OWL MAN,Wind,Normal,,,,,,Não
+card,231,CINDER DRIFTER,Fire,Calamity,,,,,,Não
+card,234,BLOOD FIEND,Fire,Normal,,,,,,Não
+card,235,WIND SPIRIT,Wind,Normal,,,,,,Não
+card,233,CRIMSON PRAYER,Imaginary,Normal,,,,,,Não
+card,229,PEARLESS GEM,Ice,Normal,,,,,,Não
+card,232,USELESS GODDESS,Ice,Umbral,,,,,,Não
+card,227,EMY,Ice,Normal,,,,,,Não
+card,226,FROZEN PRODIGY,Ice,Normal,Mutated,,,,,Não
+card,221,BLACK EYEPATCH,Physical,Normal,,,,,,Não
+card,224,BOMB GIRL,Fire,Normal,,,,,,Não
+card,228,KAIRO,Lightning,Normal,,,,,,Não
+card,225,DARK WITCH,Physical,Normal,Mutated,,,,,Não
+card,223,DEMONIC EMPEROR,Lightning,Normal,,,,,,Não
+card,222,INTROVERT GUITARIST,Physical,Normal,,,,,,Não
+card,218,THE PALE SHAPE,Ice,Normal,,,,,,Não
+card,220,ABYSSAL PIANIST,Wind,Normal,,,,,,Não
+card,219,GHOST COMMUNICATOR,Imaginary,Calamity,,,,,,Não
+card,217,CLASSROOM MASTERMIND,Wind,Normal,Mutated,,,,,Não
+card,213,KING OF CURSES,Fire,Normal,,,,,,Não
+card,210,LOW CORTISOL,Lightning,Normal,Mutated,,,,,Não
+card,214,BLUE WOLF,Ice,Calamity,,,,,,Não
+card,215,ANCIENT VAMPIRE QUEEN,Physical,Normal,,,,,,Não
+card,211,UNEMPLOYED ADVENTURER,Wind,Calamity,Mutated,,,,,Não
+card,212,HOLLOW HARVESTER,Lightning,Normal,,,,,,Não
+card,216,IDOL,Wind,Normal,Mutated,,,,,Não
+card,207,RADIANT SYNTHESIS,Imaginary,Calamity,,,,,,Não
+card,208,UNBROKEN HEIR,Physical,Normal,,,,,,Não
+card,209,ONE EYED OWL,Fire,Normal,,,,,,Não
+card,205,DEATHLESS OUTLAW,Quantum,Normal,,,,,,Não
+card,206,SHOPKEEPER PAST,Imaginary,Calamity,,,,,,Não
+card,200,STARRY BETRAYER,Lightning,Umbral,Mutated,,,,,Não
+card,201,BLUE-HAIRED ONI SISTER,Ice,Normal,,,,,,Não
+card,193,BLINDFOLD ANDROID,Physical,Normal,,,,,,Não
+card,203,NOIR,Quantum,Umbral,,,,,,Não
+card,198,ALIEN WATCH PRODIGY,Quantum,Normal,,,,,,Não
+card,195,CLOCKWORK TRINITY,Quantum,Normal,,,,,,Não
+card,204,BLACKWING DEVIL,Wind,Normal,,,,,,Não
+card,202,EXPLOSION ARCHWIZARD,Fire,Normal,,,,,,Não
+card,197,TEN SHADOWS VESSEL,Quantum,Calamity,,,,,,Não
+card,199,STRONGEST MAID OF FREEDOM,Physical,Normal,,,,,,Não
+card,196,KNIGHT KING,Fire,Umbral,,,,,,Não
+card,194,METHANOSIAN REGENERATOR,Fire,Normal,,,,,,Não
+card,191,REALITY'S WORST DUET,Wind,Calamity,,,,,,Não
+card,188,THE GENTLE DARK PRINCE,Fire,Normal,,,,,,Não
+card,189,BLACKBLOOD WAILER,Fire,Normal,,,,,,Não
+card,185,SILVERFOX VANGUARD,Imaginary,Umbral,,,,,,Não
+card,187,UMBRA WITCH,Lightning,Calamity,,,,,,Não
+card,184,ARTHURIAN BLADE,Physical,Calamity,,,,,,Não
+card,192,FIRE DRAGON SLAYER,Fire,Calamity,,,,,,Não
+card,190,MOON WALKER,Quantum,Normal,,,,,,Não
+card,186,VIRTUAL CHIMERA,Fire,Normal,,,,,,Não
+card,181,CODE BEARER,Wind,Umbral,,,,,,Não
+card,182,THE HOLY MAIDEN KNIGHT,Physical,Normal,,,,,,Não
+card,183,CONDUCTOID AMPLIFIER,Lightning,Normal,,,,,,Não
+card,178,CYBORG GUNSLINGER,Physical,Normal,,,,,,Não
+card,179,RIME ARISTOCRAT,Ice,Calamity,,,,,,Não
+card,180,HERMIT,Ice,Normal,,,,,,Não
+card,177,MAGICIAN,Lightning,Umbral,,,,,,Não
+card,175,GEMSTONE PRODIGY,Quantum,Calamity,,,,,,Não
+card,174,SWIFT,Ice,Normal,,,,,,Não
+card,176,UNYIELDING WANDSWORD,Ice,Calamity,,,,,,Não
+card,173,LV 999 GAMER,Quantum,Normal,,,,,,Não
+card,170,CELESTIAL VERDICT,Quantum,Normal,,,,,,Não
+card,172,SPIDER'S HEAD,Imaginary,Normal,,,,,,Não
+card,169,ULTIMATE DECOY,Lightning,Normal,,,,,,Não
+card,171,THE HERO'S DESCENDANT,Lightning,Normal,,,,,,Não
+card,163,RULER,Imaginary,Normal,,,,,,Não
+card,162,THE SCARLET CATALYST,Fire,Normal,,,,,,Não
+card,167,THE ANTLERED HOLLOW,Imaginary,Normal,,,,,,Não
+card,165,REBEL ACE,Ice,Calamity,,,,,,Não
+card,168,ULTIMATE GAMBLER,Imaginary,Normal,,,,,,Não
+card,161,NECROFRIGGIAN WRATH,Ice,Normal,,,,,,Não
+card,164,THE FORGOTTEN FIFTH,Quantum,Normal,,,,,,Não
+card,160,SWORD CHAMPION OF THE CLOUD CITY,Ice,Normal,,,,,,Não
+card,158,THE BURNING IDEALIST,Fire,Normal,,,,,,Não
+card,166,THE BLOODTHIRSTY MAGICIAN,Fire,Normal,,,,,,Não
+card,159,GAME PRINCESS,Fire,Normal,,,,,,Não
+card,157,FALSE ARCHON,Ice,Normal,,,,,,Não
+card,153,THE LONGSHOT DUELIST,Lightning,Normal,,,,,,Não
+card,151,THE EYEPATCHED COMMANDER,Quantum,Normal,,,,,,Não
+card,149,TOWER KING,Fire,Calamity,,,,,,Não
+card,156,RABBIT GHOUL,Fire,Calamity,,,,,,Não
+card,150,BLADE OF SUNLIGHT,Imaginary,Umbral,,,,,,Não
+card,152,THE PACIFIST VIKING,Imaginary,Normal,,,,,,Não
+card,154,GENIUS NEUROSCIENTIST,Physical,Normal,,,,,,Não
+card,155,CONSTANCE,Fire,Normal,,,,,,Não
+card,148,HEAVENLY EMPRESS,Imaginary,Normal,,,,,,Não
+card,146,GRAVEBORN COLOSSUS,Imaginary,Normal,,,,,,Não
+card,147,ADDO,Fire,Normal,,,,,,Não
+card,145,GHOUL HUNGER,Fire,Normal,,,,,,Não
+card,140,SOVEREIGN OF HUMANITY,Imaginary,Normal,Cursed,,,,,Não
+card,143,JUZO,Physical,Normal,,,,,,Não
+card,144,BALD HERO,Physical,Normal,,,,,,Não
+card,142,THE CRIMSON LION MAGE,Fire,Normal,,,,,,Não
+card,141,APOTHECARY CAT,Wind,Umbral,,,,,,Não
+card,139,TIMEBOUND SURVIVOR,Imaginary,Normal,,,,,,Não
+card,136,KING OF THE SEVEN SEAS,Ice,Umbral,,,,,,Não
+card,134,THE TRICKSTER,Quantum,Umbral,,,,,,Não
+card,137,SLAYER OF THE PAST,Imaginary,Calamity,,,,,,Não
+card,138,FACELESS GENTLEMAN,Quantum,Calamity,,,,,,Não
+card,135,DEMON KING,Quantum,Normal,,,,,,Não
+card,133,EXPLOSIVE QUINCY,Fire,Normal,,,,,,Não
+card,123,HELL'S TATTOOED CONVICT,Fire,Normal,,,,,,Não
+card,128,NAVIGATOR,Fire,Normal,,,,,,Não
+card,132,CRIMSON ANATOMIST,Quantum,Normal,,,,,,Não
+card,131,LEGENDARY RANKER,Imaginary,Normal,,,,,,Não
+card,121,THUNDER BREATHING PRODIGY,Lightning,Normal,,,,,,Não
+card,126,SWORD EMPRESS,Lightning,Normal,,,,,,Não
+card,127,THE SHY MATCHA STRATEGIST,Quantum,Normal,,,,,,Não
+card,124,WITCH OF ENVY,Quantum,Normal,,,,,,Não
+card,129,FALLEN GUARDIAN,Imaginary,Normal,,,,,,Não
+card,130,THE WIELDER OF DURANDAL,Quantum,Normal,,,,,,Não
+card,125,THE TEMPTRESS OF FLAMES,Fire,Normal,,,,,,Não
+card,122,FIRE SOLDIER,Fire,Calamity,,,,,,Não
+card,116,CELLO WITCH,Quantum,Calamity,,,,,,Não
+card,120,SILVER STAR USER,Imaginary,Normal,,,,,,Não
+card,118,HALLOWEEN WITCH,Quantum,Normal,,,,,,Não
+card,119,TRUE SUN BREATHER,Fire,Normal,,,,,,Não
+card,111,SCARLET KNIGHT,Fire,Umbral,,,,,,Não
+card,113,KING OF GAMES,Quantum,Normal,,,,,,Não
+card,117,THE MEMOKEEPER,Wind,Normal,,,,,,Não
+card,112,ASHEY,Ice,Normal,,,,,,Não
+card,115,SILENT MARKSWOMAN,Ice,Calamity,,,,,,Não
+card,114,THE THORN PRINCESS,Physical,Normal,,,,,,Não
+card,110,CURSED VESSEL,Imaginary,Normal,Cursed,,,,,Não
+card,109,THE ASPIRING GREAT GENERAL,Fire,Normal,,,,,,Não
+card,105,STAR WARRIOR RAISED ON EARTH,Imaginary,Normal,,,,,,Não
+card,106,CHAOTIC DEVIL HUNTER,Fire,Normal,,,,,,Não
+card,107,EMY,Ice,Calamity,,,,,,Não
+card,104,WIDOW,Imaginary,Calamity,,,,,,Não
+card,103,THE MASKED SYNDICATE BOSS,Ice,Normal,,,,,,Não
+card,108,CURSED KING VESSEL,Physical,Calamity,Cursed,,,,,Não
+card,102,HORNED MAID,Fire,Calamity,,,,,,Não
+card,100,SPIRIT WHISPERER,Lightning,Normal,,,,,,Não
+card,101,THE FABLED HERO,Physical,Normal,,,,,,Não
+card,98,MASKED REBEL,Lightning,Normal,,,,,,Não
+card,99,YELLOW FLASH,Lightning,Normal,,,,,,Não
+card,97,CHRONO SOVEREIGN,Imaginary,Normal,,,,,,Não
+card,96,WEIRD GIRL,Fire,Normal,,,,,,Não
+card,90,COSMIC SONGSTRESS,Wind,Umbral,,,,,,Não
+card,95,AUTO MEMOIR,Wind,Umbral,,,,,,Não
+card,87,OLDEST EMPEROR,Fire,Normal,,,,,,Não
+card,94,LEGENDARY RAGE,Physical,Calamity,,,,,,Não
+card,93,THE ONI PRINCESS,Ice,Normal,Cursed,,,,,Não
+card,88,STONE AGE SCIENTIST,Wind,Astral,,,,,,Não
+card,92,LAW OF CAUSALITY,Imaginary,Normal,,,,,,Não
+card,86,RIDER OF BLACK,Fire,Calamity,,,,,,Não
+card,91,SUBSTITUTE SOUL,Imaginary,Normal,,,,,,Não
+card,85,TWO TIMING PRO,Physical,Umbral,,,,,,Não
+card,89,DUAL COMMUNICATOR,Imaginary,Normal,,,,,,Não
+card,79,GOLDEN WITCH,Imaginary,Normal,,,,,,Não
+card,81,FALLEN ANGEL,Quantum,Calamity,,,,,,Não
+card,82,SIMPLE DOMAIN SORCERER,Ice,Calamity,,,,,,Não
+card,83,ASURA REBORN,Lightning,Normal,,,,,,Não
+card,84,BLUE ROSE WILDER,Ice,Calamity,,,,,,Não
+card,80,DELUSIONAL OVERLORD,Quantum,Normal,,,,,,Não
+card,75,TECH LEAD,Lightning,Calamity,Cursed,,,,,Não
+card,78,WALKER,Imaginary,Umbral,,,,,,Não
+card,74,MINUS,Imaginary,Calamity,,,,,,Não
+card,77,MASKED ADVENTURER,Quantum,Astral,,,,,,Não
+card,76,UNDYING FLAMEKNIGHT,Lightning,Normal,,,,,,Não
+card,73,COOL MAD SCIENTIST,Imaginary,Calamity,,,,,,Não
+card,70,AURA MONSTER,Quantum,Normal,,,,,,Não
+card,72,VOID SLASHER,Lightning,Normal,,,,,,Não
+card,71,CHAINSAW DEVIL HUNTER,Fire,Calamity,,,,,,Não
+card,66,GLUTTONY MONSTER,Physical,Normal,,,,,,Não
+card,63,FULLMETAL ALCHEMIST,Fire,Calamity,,,,,,Não
+card,64,PRIDE MONSTER,Fire,Normal,,,,,,Não
+card,69,HUMANITY'S STRONGEST,Physical,Calamity,,,,,,Não
+card,68,WRATH MONSTER,Fire,Normal,,,,,,Não
+card,61,PUMPKIN GIRL,Fire,Calamity,,,,,,Não
+card,65,SPINNING BALL TRAVELER,Wind,Astral,,,,,,Não
+card,67,GREED MONSTER,Quantum,Normal,,,,,,Não
+card,62,SYLPH BLADE,Wind,Calamity,,,,,,Não
+card,56,GLACIAL MONARCH,Physical,Calamity,,,,,,Não
+card,55,SCYTHE TACTICIAN,Wind,Calamity,,,,,,Não
+card,57,THE SPIDER'S SHARPSHOOTER,Fire,Calamity,,,,,,Não
+card,60,FEVER GAMBLER,Physical,Umbral,,,,,,Não
+card,49,FROZEN PRODIGY,Ice,Calamity,,,,,,Não
+card,58,NO LONGER HUMAN,Imaginary,Calamity,,,,,,Não
+card,54,FOX CONTRACT HUNTER,Fire,Calamity,,,,,,Não
+card,59,THE HOLLOW SOVEREIGN,Imaginary,Normal,,,,,,Não
+card,53,SINNER #9,Physical,Calamity,,,,,,Não
+card,52,USELESS GODDESS,Ice,Astral,,,,,,Não
+card,51,THE SUN GOD'S JAILER,Quantum,Calamity,,,,,,Não
+card,50,YELLOW FLASH,Lightning,Calamity,,,,,,Não
+card,43,IDOL,Wind,Calamity,Cursed,,,,,Não
+card,48,DR. HEART,Ice,Calamity,,,,,,Não
+card,42,CRIMSON PRAYER,Imaginary,Calamity,,,,,,Não
+card,47,UNEMPLOYED ADVENTURER,Wind,Umbral,,,,,,Não
+card,41,BLOOD FIEND,Fire,Calamity,,,,,,Não
+card,44,SUSTAINER OF HEAVENLY PRINCIPLES,Quantum,Normal,,,,,,Não
+card,45,CLASSROOM MASTERMIND,Wind,Calamity,,,,,,Não
+card,40,STARRY BETRAYER,Lightning,Astral,,,,,,Não
+card,46,CLAYBORN GUARDIAN,Wind,Calamity,,,,,,Não
+card,38,DARK WITCH,Physical,Calamity,,,,,,Não
+card,39,THE SKY-REACHING STUDENT,Fire,Calamity,,,,,,Não
+card,37,BLUE COMMUNICATOR,Ice,Calamity,,,,,,Não
+card,35,WATER SILVA,Ice,Calamity,,,,,,Não
+card,36,CINDER DRIFTER,Fire,Umbral,,,,,,Não
+card,32,SECOND KILLER,Quantum,Calamity,,,,,,Não
+card,29,BLUE WOLF,Ice,Umbral,,,,,,Não
+card,33,SAILOR GUARDIAN,Imaginary,Normal,,,,,,Não
+card,31,SHARK AGENT,Ice,Calamity,,,,,,Não
+card,30,WIND SPIRIT,Wind,Calamity,,,,,,Não
+card,34,SERGEYEVNA,Ice,Calamity,,,,,,Não
+card,27,NOIR,Quantum,Astral,,,,,,Não
+card,28,GOLDEN KING,Imaginary,Normal,,,,,,Não
+card,25,SHOPKEEPER PAST,Imaginary,Umbral,,,,,,Não
+card,26,LOW CORTISOL,Lightning,Calamity,,,,,,Não
+card,22,RADIANT SYNTHESIS,Imaginary,Umbral,,,,,,Não
+card,21,ARTHURIAN BLADE,Physical,Umbral,,,,,,Não
+card,20,KNIGHT KING,Fire,Astral,,,,,,Não
+card,24,BLACKWING DEVIL,Wind,Calamity,,,,,,Não
+card,23,ANCIENT VAMPIRE QUEEN,Physical,Calamity,,,,,,Não
+card,18,HOLLOW HARVESTER,Lightning,Calamity,,,,,,Não
+card,14,THE GENTLE DARK PRINCE,Fire,Calamity,,,,,,Não
+card,16,CODE BEARER,Wind,Astral,,,,,,Não
+card,17,REBEL ACE,Ice,Umbral,,,,,,Não
+card,19,UMBRA WITCH,Lightning,Umbral,,,,,,Não
+card,15,TEN SHADOWS VESSEL,Quantum,Umbral,,,,,,Não
+card,13,RIME ARISTOCRAT,Ice,Umbral,,,,,,Não
+card,11,MOON WALKER,Quantum,Calamity,,,,,,Não
+card,7,SCARLET KNIGHT,Fire,Astral,,,,,,Não
+card,10,ULTIMATE DECOY,Lightning,Calamity,,,,,,Não
+card,9,THE FORGOTTEN FIFTH,Quantum,Calamity,,,,,,Não
+card,8,NECROFRIGGIAN WRATH,Ice,Calamity,,,,,,Não
+card,12,GEMSTONE PRODIGY,Quantum,Umbral,,,,,,Não
+card,6,SILENT MARKSWOMAN,Ice,Umbral,,,,,,Não
+card,2,FULLMETAL ALCHEMIST,Fire,Umbral,Cursed,,,,,Não
+card,5,ASHEY,Ice,Calamity,Cursed,,,,,Não
+card,3,VECTOR STORM,Wind,Calamity,Cursed,,,,,Não
+card,4,WEIRD GIRL,Fire,Calamity,Cursed,,,,,Não
+card,1,BLUE WOLF,Ice,Astral,Cursed,,,,,Não
+support,,LOG,,Buff,,,,,,Não
+support,,CHAKRA MASTERY,,Buff,,,,,,Não
+support,,CHEMICAL MASK,,Debuff,,,,,,Não
+support,,ASHEN ARCANUM,,Debuff,,,,ASHEN ARCANUM,"A carta equipada aplica Burn com cada ataque. Se já aplica Burn por conta própria, esses Burns viram Immolation. Burn e Immolation aplicados por ela causam +10% de dano.",Sim
+support,,MAGIC BOOK,,Buff,,,,,,Não
+support,,OWRIN,,Buff,,,,,,Não
+support,,GUIDING STAR,,Shield,,,,,,Não
+support,,CHAKRA MASTERY,,Calamity,,,,,,Não
+support,,UNBEATABLE FLAVOR,,Heal,,,,UNBEATABLE FLAVOR,"A cada turno, a carta equipada recupera 5% do próprio HP máximo.",Sim
+support,,BINDING VOW,,Heal,,,,BINDING VOW,"Uma vez por batalha, quando a carta equipada recebe um golpe fatal, ela revive com 65% do HP, mas seu dano é reduzido em 50%. Apenas uma utilização por equipe.",Sim
+support,,LOOK UP!,,Debuff,,,,,,Não
+support,,MAGICAL COMPASS,,Buff,,,,,,Não
+support,,WATCHFUL BLOOM,,Heal,,,,,,Não
+support,,LOG,,Calamity,,,,,,Não
+support,,LIMIT BREAKER,,Buff,,,,LIMIT BREAKER,"Se Erudition for o Path selecionado, aumenta em 6 pontos percentuais o dano de splash e dá +7,5% DMG à carta equipada. Caso contrário, concede +7,5% HP e DMG, e seus ataques em alvo único causam 2% de splash aos demais inimigos.",Sim
+support,,DIVINE SPIRIT WATERS,,Heal,,,,,,Não
+support,,GUIDING STAR,,Calamity,,,,,,Não
+support,,SERENITY,,Buff,,,,,,Não
+support,,MAELSTROM ELEMENTALIST,,Buff,,,,,,Não
+support,,CRIMSON NOVA,,Buff,,,,,,Não
+support,,ATHENA,,Buff,,,,,,Não
+support,,TRUCK KUN,,Buff,,,,,,Não
+support,,ECHO OF THE FALLEN,,Buff,,,,,,Não
+support,,UNBEATABLE FLAVOR,,Calamity,,,,,,Não
+support,,BLADES OF VENGEANCE,,Buff,,,,,,Não
+support,,LOOK UP!,,Calamity,,,,,,Não
+support,,ASCENSION,,Buff,,,,,,Não
+support,,CHEMICAL MASK,,Calamity,,,,,,Não
+support,,CHEMICAL MASK,,Calamity,,,,,,Não
+support,,ADRENALINE,,Heal,,,,,,Não
+support,,LOG,,Umbral,,,,,,Não
+support,,ASHEN ARCANUM,,Calamity,,,,,,Não
+support,,SHATTERED VEIL,,Calamity,,,,,,Não
+support,,SCISSOR,,Buff,,,,,,Não
+support,,WATCHFUL BLOOM,,Calamity,,,,,,Não
+support,,OWRIN,,Calamity,,,,,,Não
+support,,DORO,,Shield,,,,,,Não
