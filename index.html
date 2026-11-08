@@ -10,6 +10,7 @@
   <script defer src="data.js"></script>
   <script defer src="app.js"></script>
   <script defer src="deck.js"></script>
+  <script defer src="team-status.js"></script>
 </head>
 <body>
   <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg">
@@ -85,7 +86,7 @@
           <div class="deck-hud" id="deckHud">
             <div class="deck-hud-header">
               <div><span class="deck-eyebrow">ORIGINS / DECK BUILDER</span><h2>DECK <span>// TEAM 1</span></h2></div>
-              <div class="deck-actions"><span class="deck-mode">INFINITE <i>◆</i> EXEMPLO DO PRINT</span><button type="button" id="deckPreset" class="deck-preset">↺ Carregar time do print</button></div>
+              <div class="deck-actions"><span class="deck-mode">INFINITE <i>◆</i> EXEMPLO DO PRINT</span><button type="button" id="deckStatusToggle" class="deck-status-toggle" aria-expanded="true" aria-controls="deckStatsPanel">◈ Status total do time</button><button type="button" id="deckPreset" class="deck-preset">↺ Carregar time do print</button></div>
             </div>
             <div class="deck-hud-body">
               <div class="deck-panel-label"><span>TEAM 1 <small>4 cartas em ordem</small></span><span id="deckCircuitCount" class="deck-live-count">0 / 3 CIRCUITS</span></div>
@@ -94,6 +95,7 @@
               <div id="deckCircuitDetail" class="deck-circuit-detail" hidden></div>
               <div class="deck-panel-label deck-support-label"><span>SUPPORT CARDS <small>um suporte por slot</small></span><span>CLIQUE PARA TROCAR</span></div>
               <div id="deckSupportCards" class="deck-support-grid" aria-label="Cartas de suporte"></div>
+              <div id="deckStatsPanel" class="deck-stats-panel" aria-label="Status e buffs completos do time"></div>
               <div class="deck-hud-bottom"><span>Simulação da sua equipe: as alterações não modificam o Roblox.</span><span>Toque na carta ou no suporte para trocar</span></div>
             </div>
           </div>
