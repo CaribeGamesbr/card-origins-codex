@@ -58,7 +58,7 @@ function render(){
     return '<button type="button" class="deck-support-card" data-deck-support="'+i+'" aria-label="Escolher suporte do slot '+(i+1)+'"><span class="deck-support-num">SUP '+(i+1)+'</span><span class="deck-support-art">'+imgMarkup(support)+'</span><span class="deck-support-caption"><strong>'+safe(support?support.name:'Adicionar suporte')+'</strong><small>'+safe(support?support.kind:'Vazio')+'</small></span></button>';
   }).join('');
 }
-function setSupport(slot,id){equipped[slot]=id;try{localStorage.setItem('codex-support-team',JSON.stringify(equipped))}catch{}render();closePicker()}
+function setSupport(slot,id){equipped[slot]=id;try{localStorage.setItem('codex-support-team',JSON.stringify(equipped))}catch{}render();window.dispatchEvent(new Event('codex-support-changed'));closePicker()}
 function closePicker(){document.getElementById('deckSupportModal')?.remove();openSlot=-1;filterValue=''}
 function openPicker(slot){
   closePicker();openSlot=slot;
@@ -84,7 +84,7 @@ document.addEventListener('click',e=>{
     window.CARDO_DECK_API?.setTeam(PRESET_TEAM);
     equipped=PRESET_SUPPORT.slice();
     try{localStorage.setItem('codex-support-team',JSON.stringify(equipped))}catch{}
-    render();return;
+    render();window.dispatchEvent(new Event('codex-support-changed'));return;
   }
   const circuit=e.target.closest('[data-deck-link]');
   if(circuit){
