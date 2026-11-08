@@ -35,7 +35,7 @@
     'ASHEN ARCANUM':['+10% dano de Burn/Immolation'],
     'DIVINE SPIRIT WATERS':['Cura até 70% de HP','+10% Stats após gatilho'],
     'UNBEATABLE FLAVOR':['Cura 5% de HP máximo por turno'],
-    'LIMIT BREAKER':['Erudition: +6 pontos de splash','Erudition: +7,5% DMG']
+    'LIMIT BREAKER':['Erudition: +6% dano de splash','Erudition: +7,5% DMG']
   };
   const personalTags={
     'c-3':['−35% dano recebido','Reflexão: até 60% do DMG'],
