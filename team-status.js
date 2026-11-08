@@ -77,10 +77,12 @@
       const sup=equipped[slot];
       const name=card?card.name:'Slot vazio';
       const buffs=[];
-      if(resonance[slot])buffs.push(tag('+'+resonance[slot]+'% DMG de ressonância','passive'));
-      else if(card)buffs.push(tag('Sem bônus passivo de ressonância','neutral'));
+      const cardLinks=links.filter(x=>x.data && (x.slot===slot || x.slot+1===slot));
+      if(resonance[slot])buffs.push(tag('+'+resonance[slot]+'% DMG em hits por ressonância','passive'));
+      if(card && !cardLinks.length)buffs.push(tag('Nenhum circuito adjacente ativo','neutral'));
+      for(const link of cardLinks)buffs.push(tag(link.data.name+': '+link.data.badge));
       buffs.push(...skillTags(card).map(b=>tag(b)));
-      return '<article class="ts-member"><header><span class="ts-slot">0'+(slot+1)+'</span><strong>'+escape(name)+'</strong><small>'+escape(card?card.border+' · '+card.element:'Escolha uma carta')+'</small></header><div class="ts-member-stats"><span>HP <b>'+printValue(card,'hp')+'</b></span><span>DMG <b>'+printValue(card,'dmg')+'</b></span><span>DMG por link <b>'+(card?'+'+resonance[slot]+'%':'—')+'</b></span></div><div class="ts-tags">'+buffs.join('')+'</div><div class="ts-support-inline">SUPORTE '+(slot+1)+': <strong>'+escape(sup?.name||'Nenhum')+'</strong></div></article>';
+      return '<article class="ts-member"><header><span class="ts-slot">0'+(slot+1)+'</span><strong>'+escape(name)+'</strong><small>'+escape(card?card.border+' · '+card.element:'Escolha uma carta')+'</small></header><div class="ts-member-stats"><span>HP <b>'+printValue(card,'hp')+'</b></span><span>DMG <b>'+printValue(card,'dmg')+'</b></span><span>DMG fixo (ress.) <b>'+(card&&resonance[slot]?'+'+resonance[slot]+'%':'—')+'</b></span></div><div class="ts-tags">'+buffs.join('')+'</div><div class="ts-support-inline">SUPORTE '+(slot+1)+': <strong>'+escape(sup?.name||'Nenhum')+'</strong></div></article>';
     }).join('');
     const circuitsHtml=links.map(({slot,data})=>{
       if(!data)return '<div class="ts-circuit is-empty"><span class="ts-linknum">LINK '+(slot+1)+'</span><strong>Sem circuito ativo</strong><p>Para habilitar, selecione duas cartas com uma combinação de elementos registrada.</p></div>';
@@ -97,13 +99,13 @@
     const uniqueElements=new Set(active.filter(Boolean).map(card=>card.element)).size;
     panel.innerHTML='<div class="ts-title"><div><span class="deck-eyebrow">TEAM CHECK / SUMMARY</span><h3>STATUS TOTAL <em>// TEAM 1</em></h3></div><span class="ts-team-complete">'+selected+'/4 CARTAS · '+uniqueElements+' ELEMENTOS</span></div>'
       +'<div class="ts-kpis">'+summary+'</div>'
-      +'<div class="ts-section-title"><h4>STATUS POR CARTA</h4><span>HP e DMG dos prints · bônus por ressonância</span></div>'
+      +'<div class="ts-section-title"><h4>STATUS POR CARTA</h4><span>HP/DMG dos prints, ressonâncias passivas e circuitos condicionais</span></div>'
       +'<div class="ts-members">'+cards+'</div>'
       +'<div class="ts-section-title"><h4>ORIGIN CIRCUITS — 3 LINKS</h4><span>Os bônus condicionais só ativam quando seus gatilhos acontecem</span></div>'
       +'<div class="ts-circuits">'+circuitsHtml+'</div>'
       +'<div class="ts-section-title"><h4>EFEITOS DOS SUPORTES</h4><span>Vinculados às cartas nos respectivos slots</span></div>'
       +'<div class="ts-supports">'+supportRows+'</div>'
-      +'<div class="ts-calculation-note"><strong>COMO LER ESTES VALORES:</strong> HP e DMG são a soma dos números exibidos nos prints das cartas conferidas, não a vida simultânea disponível em batalha. Só uma carta luta por vez. Bônus condicionais, buffs de habilidades, suportes, Traits, Ascension, Curse, Relics e Path não são somados diretamente a HP/DMG sem fórmula confirmada. O +6% de ressonância se aplica a dano de hits das cartas vinculadas, não à estatística DMG exibida.</div>';
+      +'<div class="ts-calculation-note"><strong>COMO LER ESTES VALORES:</strong> HP e DMG são a soma dos números exibidos nos prints das cartas conferidas, não a vida simultânea disponível em batalha. Só uma carta luta por vez. Bônus condicionais, buffs de habilidades, suportes, Traits, Ascension, Curse, Relics e Path não são somados diretamente a HP/DMG sem fórmula confirmada. O +6% de ressonância se aplica a hits das duas cartas conectadas por um link de MESMO elemento; circuitos de conversão têm efeitos condicionais, mas não somam +6% de ressonância. Um mesmo efeito tem limites de ativação por rodada e dois circuitos não necessariamente ativam com o mesmo gatilho.</div>';
     const toggle=document.getElementById('deckStatusToggle');
     if(toggle){panel.hidden=toggle.getAttribute('aria-expanded')==='false'}
   }
