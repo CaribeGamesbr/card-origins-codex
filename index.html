@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="styles.css"/>
   <script defer src="data.js"></script>
   <script defer src="app.js"></script>
+  <script defer src="deck.js"></script>
 </head>
 <body>
   <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg">
@@ -42,7 +43,7 @@
         <button data-nav="home" class="nav-link active"><svg><use href="#ic-grid"/></svg><span>Visão geral</span></button>
         <button data-nav="cards" class="nav-link"><svg><use href="#ic-cards"/></svg><span>Cartas</span><span class="nav-counter" id="navCardCount">357</span></button>
         <button data-nav="supports" class="nav-link"><svg><use href="#ic-shield"/></svg><span>Suportes</span><span class="nav-counter" id="navSupportCount">37</span></button>
-        <button data-nav="builder" class="nav-link"><svg><use href="#ic-sword"/></svg><span>Montador de time</span><span class="new-dot"></span></button>
+        <button data-nav="builder" class="nav-link"><svg><use href="#ic-sword"/></svg><span>Deck / Time</span><span class="new-dot"></span></button>
         <button data-nav="skill" class="nav-link"><svg><use href="#ic-branches"/></svg><span>Skill Tree</span></button>
         <button data-nav="guide" class="nav-link"><svg><use href="#ic-book"/></svg><span>Guia do jogo</span></button>
       </nav>
@@ -79,9 +80,24 @@
           <div class="support-grid" id="supportsGrid"></div>
         </section>
         <section class="page" id="page-builder">
-          <div class="page-intro"><div><span class="overline">TACTICAL LAB / 03</span><h1>Construtor <em>de equipes</em></h1><p>Selecione quatro cartas da sua coleção. A análise mostra possibilidades de circuitos e reações, sem inventar uma nota oficial de Team Check.</p></div><button class="outline-btn smaller" id="clearTeam">Limpar equipe</button></div>
+          <div class="page-intro"><div><span class="overline">TACTICAL LAB / 03</span><h1>Seu <em>Deck</em></h1><p>Monte o Team 1 com 4 cartas e 4 suportes, seguindo o painel do jogo. Veja os circuitos entre os slots e as reações possíveis.</p></div><button class="outline-btn smaller" id="clearTeam">Limpar equipe</button></div>
           <div class="builder-guide"><svg><use href="#ic-spark"/></svg><span>Os circuitos ligam somente cartas <strong>adjacentes</strong>. Os pares de reação da Tower consideram toda a equipe.</span></div>
-          <div class="team-slots" id="teamSlots"></div>
+          <div class="deck-hud" id="deckHud">
+            <div class="deck-hud-header">
+              <div><span class="deck-eyebrow">ORIGINS / DECK BUILDER</span><h2>DECK <span>// TEAM 1</span></h2></div>
+              <div class="deck-actions"><span class="deck-mode">INFINITE <i>◆</i> EXEMPLO DO PRINT</span><button type="button" id="deckPreset" class="deck-preset">↺ Carregar time do print</button></div>
+            </div>
+            <div class="deck-hud-body">
+              <div class="deck-panel-label"><span>TEAM 1 <small>4 cartas em ordem</small></span><span id="deckCircuitCount" class="deck-live-count">0 / 3 CIRCUITS</span></div>
+              <div id="deckMainCards" class="deck-main-grid" aria-label="Cartas do time"></div>
+              <div id="deckCircuitStrip" class="deck-circuit-strip" aria-label="Origin Circuits ativos"></div>
+              <div class="deck-panel-label deck-support-label"><span>SUPPORT CARDS <small>um suporte por slot</small></span><span>CLIQUE PARA TROCAR</span></div>
+              <div id="deckSupportCards" class="deck-support-grid" aria-label="Cartas de suporte"></div>
+              <div class="deck-hud-bottom"><span>Simulação da sua equipe: as alterações não modificam o Roblox.</span><span>Toque na carta ou no suporte para trocar</span></div>
+            </div>
+          </div>
+          <div class="deck-below-title"><span>ANÁLISE TÁTICA</span><h2>Conexões e reações do time</h2></div>
+          <div class="team-slots deck-original-slots" id="teamSlots"></div>
           <div class="team-analysis"><div class="game-panel"><div class="panel-eyebrow">ORIGIN CIRCUITS</div><h2>Conexões adjacentes</h2><div id="circuitResults" class="analysis-list"></div></div><div class="game-panel"><div class="panel-eyebrow">TOWER OF GOD</div><h2>Reações potenciais</h2><div id="reactionResults" class="analysis-list"></div></div></div>
           <div class="builder-footer"><span>Seu time fica salvo somente neste navegador. Nenhuma alteração é enviada ao Roblox ou ao Google Drive.</span><button id="copyTeam" class="secondary-btn">Copiar composição <svg><use href="#ic-arrow"/></svg></button></div>
         </section>
