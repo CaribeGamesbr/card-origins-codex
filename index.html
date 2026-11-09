@@ -11,6 +11,7 @@
   <script defer src="skill-data.js"></script>
   <script defer src="app.js"></script>
   <script defer src="skill-codex.js"></script>
+  <script defer src="skill-tree-scene.js"></script>
   <script defer src="mode-codex.js"></script>
   <script defer src="deck.js"></script>
   <script defer src="team-status.js"></script>
@@ -113,17 +114,48 @@
           <div class="builder-footer"><span>Seu time fica salvo somente neste navegador. Nenhuma alteração é enviada ao Roblox ou ao Google Drive.</span><button id="copyTeam" class="secondary-btn">Copiar composição <svg><use href="#ic-arrow"/></svg></button></div>
         </section>
         <section class="page" id="page-skill">
-          <div class="page-intro"><div><span class="overline">PROGRESSION / 04</span><h1>Skill <em>Tree</em></h1><p>Catálogo consultável dos 146 talentos das sete árvores, transcrito dos prints do jogo. Aprendidos, disponíveis e bloqueados ficam separados.</p></div><div class="intro-counter"><span>APRENDIDOS NO PRINT</span><strong>74 / 146</strong></div></div>
-          <div class="skill-summary-v2">
-            <div class="sk-mini"><span>APRENDIDOS</span><strong>74 / 146</strong><small>50,7% da Skill Tree</small></div>
-            <div class="sk-mini"><span>INFINITE</span><strong>19 / 19</strong><small>Caminho completo</small></div>
-            <div class="sk-mini"><span>GENERAL</span><strong>14 / 14</strong><small>Caminho completo</small></div>
-            <div class="sk-mini"><span>ÚLTIMO PRINT</span><strong>7 pontos</strong><small>Border Stats, referência temporal</small></div>
+          <div class="st-scene" id="skillScene" aria-label="Skill Tree interativa do Card Origins">
+            <header class="st-head">
+              <div class="st-heading"><h1>SKILL TREE</h1><p>PICK A PATH, THEN A TALENT TO INSPECT</p></div>
+              <div class="st-top-counter">
+                <div class="st-point-decor"><span id="stPointCount">5</span></div>
+                <strong>SKILL POINTS</strong>
+                <span>NEXT POINT IN <b>3,080</b> ROLLS</span>
+                <small>22 TALENTS READY TO LEARN</small>
+              </div>
+              <div class="st-head-actions">
+                <button type="button" id="stLearnAll" class="st-action st-action-green" title="Simular localmente todos os talentos como aprendidos; não altera Roblox">LEARN ALL <span>ⓘ</span></button>
+                <button type="button" id="stResetSkills" class="st-action st-action-gold" title="Restaurar simulação para os dados originais do print">RESET SKILLS</button>
+                <button type="button" id="stClose" class="st-action st-action-close" aria-label="Fechar Skill Tree">✕</button>
+              </div>
+            </header>
+            <aside class="st-paths" aria-label="Caminhos da Skill Tree">
+              <div class="st-panel-heading"><h2>PATHS</h2><span id="stPathOverall">75 / 146</span></div>
+              <div class="st-path-buttons" id="skillPaths"></div>
+              <div class="st-path-footer">
+                <button type="button" class="st-foot-btn st-purple" id="stWebView">WEB VIEW: ON [V]</button>
+                <button type="button" class="st-foot-btn st-yellow" id="stNextReady">NEXT READY (22) [F]</button>
+                <button type="button" class="st-foot-btn st-purple" id="stCenterPath">CENTER PATH [C]</button>
+              </div>
+            </aside>
+            <main class="st-map" aria-label="Mapa circular das árvores de talentos">
+              <div class="st-map-background" aria-hidden="true"></div>
+              <svg id="stTreeSvg" viewBox="0 0 1000 800" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Árvore radial interativa com 146 talentos. Clique em um nó para inspecionar."></svg>
+              <div class="st-map-caption"><span id="stMapMode">VISÃO GERAL</span><span>◉ <b id="stMapLearned">75</b>/146 APRENDIDOS</span></div>
+              <div class="st-map-controls">
+                <span>ESC</span> CLOSE <span>V</span> WEB VIEW <span>C</span> CENTER
+                <button type="button" id="stZoomOut" aria-label="Reduzir zoom">−</button>
+                <span id="stZoomLevel">100%</span>
+                <button type="button" id="stZoomIn" aria-label="Aumentar zoom">+</button>
+              </div>
+            </main>
+            <aside class="st-detail" id="stDetail" aria-live="polite" aria-label="Detalhes do caminho ou talento"></aside>
+            <div class="st-simulation-tip" id="stSimulationTip" role="status" hidden>Simulação visual local — seu jogo Roblox não é alterado.</div>
+            <div class="st-view-panel" id="stCatalogPanel" hidden>
+              <div class="st-view-head"><h2>CATÁLOGO DE TALENTOS</h2><button type="button" class="st-foot-btn st-purple" id="stBackToMap">↩ VOLTAR AO MAPA</button></div>
+              <div id="skillCodex" class="skill-codex" aria-label="Lista filtrável dos talentos"></div>
+            </div>
           </div>
-          <div class="section-heading"><div><span class="overline">SETE CAMINHOS</span><h2>Progresso por categoria</h2></div></div>
-          <div class="skill-path-grid" id="skillPaths"></div>
-          <div id="skillCodex" class="skill-codex" aria-label="Pesquisar e consultar todos os talentos"></div>
-          <div class="guide-caveat"><p>Fonte: prints da Skill Tree enviados em novembro de 2026. Bônus de talentos bloqueados e prontos para aprender não contam como ativos. Alguns efeitos não foram exibidos individualmente e permanecem sinalizados.</p></div>
         </section>
         <section class="page" id="page-circuits">
           <div class="page-intro"><div><span class="overline">MECHANICS / 05</span><h1>Origin <em>Circuits</em></h1><p>Os 19 circuitos do jogo: combinações de vizinhos, condições, bônus e limites por rodada.</p></div><div class="intro-counter"><span>CIRCUITOS</span><strong>19</strong></div></div>
