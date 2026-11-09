@@ -7,6 +7,7 @@
   <meta name="description" content="Card Origins Codex: catálogo da coleção com cartas, suportes, mecânicas, filtros e construtor de equipes."/>
   <title>Card Origins — Codex</title>
   <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="chaos.css"/>
   <script defer src="data.js"></script>
   <script defer src="skill-data.js"></script>
   <script defer src="app.js"></script>
@@ -16,6 +17,8 @@
   <script defer src="mode-codex.js"></script>
   <script defer src="deck.js"></script>
   <script defer src="team-status.js"></script>
+  <script defer src="chaos-engine.js"></script>
+  <script defer src="chaos-ui.js"></script>
 </head>
 <body>
   <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg">
@@ -47,17 +50,18 @@
       <div class="side-label">EXPLORAR</div>
       <nav class="side-nav" aria-label="Menu principal">
         <button data-nav="home" class="nav-link active"><svg><use href="#ic-grid"/></svg><span>Visão geral</span></button>
-        <button data-nav="cards" class="nav-link"><svg><use href="#ic-cards"/></svg><span>Cartas</span><span class="nav-counter" id="navCardCount">357</span></button>
+        <button data-nav="cards" class="nav-link"><svg><use href="#ic-cards"/></svg><span>Cartas</span><span class="nav-counter" id="navCardCount">365</span></button>
         <button data-nav="supports" class="nav-link"><svg><use href="#ic-shield"/></svg><span>Suportes</span><span class="nav-counter" id="navSupportCount">37</span></button>
         <button data-nav="builder" class="nav-link"><svg><use href="#ic-sword"/></svg><span>Deck / Time</span><span class="new-dot"></span></button>
         <button data-nav="skill" class="nav-link"><svg><use href="#ic-branches"/></svg><span>Skill Tree</span></button>
         <button data-nav="circuits" class="nav-link"><svg><use href="#ic-branches"/></svg><span>Origin Circuits</span></button>
         <button data-nav="colosseum" class="nav-link"><svg><use href="#ic-sword"/></svg><span>Colosseum</span></button>
+        <button data-nav="chaos" class="nav-link"><svg><use href="#ic-stars"/></svg><span>Memory of Chaos</span><span class="new-dot"></span></button>
         <button data-nav="infinite" class="nav-link"><svg><use href="#ic-spark"/></svg><span>Infinite Tower</span></button>
         <button data-nav="guide" class="nav-link"><svg><use href="#ic-book"/></svg><span>Guia do jogo</span></button>
       </nav>
       <div class="side-label with-margin">SUA COLEÇÃO</div>
-      <div class="collection-status"><div class="status-head"><span class="status-light"></span><span>Importação do Drive</span></div><strong id="sideTotal">394 registros</strong><p>Snapshot de 08 nov 2026</p><span style="color:#b2a4c8;font-size:11px">Versão pública independente</span></div>
+      <div class="collection-status"><div class="status-head"><span class="status-light"></span><span>Importação do Drive</span></div><strong id="sideTotal">402 registros</strong><p>Snapshot de 08 nov 2026</p><span style="color:#b2a4c8;font-size:11px">Versão pública independente</span></div>
       <div class="sidebar-foot"><span class="diamond">◇</span><div><strong>Codex v1.0</strong><small>Wiki não oficial • Sem login</small></div></div>
     </aside>
     <div class="mobile-scrim" id="mobileScrim"></div>
@@ -195,6 +199,81 @@
         <section class="page" id="page-colosseum">
           <div class="page-intro"><div><span class="overline">GAME MODES / 06</span><h1>Colosseum <em>of Champions</em></h1><p>Guia das 14 waves, equipes, elementos, reações, Blessings, Elite Dice, Champions, moedas e Shop.</p></div><div class="intro-counter"><span>WAVES</span><strong>14</strong></div></div>
           <div id="colosseumCodex"></div>
+        </section>
+        <section class="page" id="page-chaos">
+          <div class="page-intro">
+            <div><span class="overline">GAME MODES / MEMORY OF CHAOS</span><h1>Memory <em>of Chaos</em></h1>
+              <p>Construtor de duas equipes e laboratório de estratégias para o Stage 03 — Broken Mind, baseado nas capturas do jogo.</p></div>
+            <div class="intro-counter"><span>TIME 1 + TIME 2</span><strong>4 + 4</strong></div>
+          </div>
+          <div class="cx-app">
+            <div class="cx-banner">
+              <div class="cx-banner-art"><span class="cx-chapter">CHAPTER 01 — FORGOTTEN HALL</span>
+                <h2>BEYOND THE SHATTERED SKY</h2><div class="cx-stage-numbers">
+                  <span>01 ✓</span><span>02 ✓</span><span class="is-current">03</span><span>04</span><span>05 🔒</span>
+                </div><p><strong>STAGE 03 • BROKEN MIND</strong><span>3 estrelas no print · Regras de equipe e inimigos transcritas das imagens.</span></p>
+              </div>
+              <div class="cx-banner-stats"><div><span>FASES</span><strong>02</strong></div><div><span>CARTAS</span><strong>08</strong></div><div><span>TURNOS / FASE</span><strong>22</strong></div></div>
+            </div>
+            <div class="cx-notice"><strong>MODELO EXPERIMENTAL</strong> Este simulador não executa o combate real do Roblox. Não temos HP/DMG dos oito inimigos, nem a fórmula completa de habilidades; valores de dano, risco e turnos são aproximações configuráveis para comparar estratégias. <b>Nenhum percentual é chance real de vitória.</b></div>
+            <div class="cx-stage-rules">
+              <article><span class="cx-caption">DEBUFF DO STAGE 03</span><h3>Broken Mind</h3>
+                <p>A cada <strong>2 turnos inimigos</strong>, a carta ativa recebe <b>Burn</b>. Se já estiver em Burn, recebe 1 <b>Immolation</b>. Ao alcançar 2 Immolation, também recebe <b>Fatigue</b> por 3 turnos.</p>
+              </article>
+              <article><span class="cx-caption">OBJETIVOS PARA 3 ESTRELAS</span><h3>Condições do jogo</h3>
+                <ul><li>Vencer as duas fases.</li><li>Não perder nenhuma das 8 cartas.</li><li>Vencer cada fase em até 22 rodadas.</li></ul>
+              </article>
+              <article><span class="cx-caption">ROTATION 3 · NO PRINT</span><h3>Inimigos +10%</h3>
+                <p>A rotação muda a cada 3 dias, altera os inimigos e debuffs e pode fortalecer oponentes em 5% até 3 vezes. <b>Este modelo usa os inimigos do print</b>, não acompanha rotações em tempo real.</p>
+              </article>
+            </div>
+            <div class="cx-section-bar">
+              <div><span class="cx-caption">SIMULADOR DE EQUIPES</span><h2>Escolha 4 cartas para cada fase</h2><p>Uma cópia não pode ocupar dois slots. O mesmo personagem só pode aparecer nos dois times se tiver bordas diferentes.</p></div>
+              <div class="cx-section-buttons">
+                <button id="cxReset" type="button" class="cx-button cx-outline">↺ Exemplo inicial</button>
+                <button id="cxCopy" type="button" class="cx-button cx-outline">▣ Copiar times</button>
+              </div>
+            </div>
+            <div id="cxTeams" class="cx-teams" aria-label="Equipes de 4 cartas para 2 fases"></div>
+            <div class="cx-controls">
+              <div class="cx-controls-label">
+                <h3>Laboratório de estratégia</h3>
+                <p>Altere a pressão hipotética dos inimigos e teste como a equipe se comporta em diferentes cenários.</p>
+              </div>
+              <label class="cx-hardness">PRESSÃO DOS INIMIGOS <b id="cxPressureValue">1.00×</b>
+                <input id="cxPressure" type="range" min="0.7" max="1.7" step="0.05" value="1" aria-label="Fator de dificuldade hipotético"/>
+              </label>
+              <label class="cx-samples">TESTES
+                <select id="cxSamples"><option value="30">30</option><option selected value="100">100</option><option value="250">250</option><option value="500">500</option></select>
+              </label>
+              <div class="cx-controls-buttons">
+                <button id="cxSimulate" type="button" class="cx-button cx-main">▶ Simular</button>
+                <button id="cxOptimize" type="button" class="cx-button cx-gold">✦ Procurar melhor time</button>
+              </div>
+            </div>
+            <p class="cx-warning" id="cxRosterWarning" role="status"></p>
+            <p id="cxOptimizationNote" class="cx-note" aria-live="polite">Os times iniciais são exemplos. Clique nas cartas para trocar a ordem ou montar suas próprias equipes.</p>
+            <div class="cx-analysis">
+              <div class="cx-output"><h2>Resultado dos testes</h2><div id="cxResultPanel" aria-live="polite"></div></div>
+              <div class="cx-opponents"><h2>Inimigos e habilidades da Stage 03</h2><div id="cxEnemyInfo"></div></div>
+            </div>
+            <details class="cx-rules-more">
+              <summary>Regras e recompensas do Memory of Chaos (dos prints)</summary>
+              <p>São 5 stages, vencidas em ordem. Em cada stage, o Time 1 enfrenta 4 inimigos e depois o Time 2 enfrenta outros 4. Perder qualquer fase reprova o stage.</p>
+              <p>Cada stage aplica uma regra de debuff. A cada 3 dias a rotação muda: novos times inimigos, elementos e debuffs reajustados e aumento de força de 5% por rotação até 3×.</p>
+              <p>Em cada rotação, a recompensa Origin Soul é proporcional às estrelas: 1 estrela paga 25%; 2 pagam 50%; 3 pagam 100%. Os stages pagam 100, 110, 120, 130 e 140 Origin Soul, respectivamente, quando 3 estrelas. O print da tela informa 1 estrela = 1 Origin Soul na rotação exibida; o valor pode depender das condições da rotação — confira a tela atual do jogo.</p>
+              <p>Uma vez por semana, completar 3 estrelas gera cartas por stage: 10.000 (1), 20.000 (2), 30.000 (3), 40.000 (4), 50.000 (5).</p>
+            </details>
+          </div>
+          <div id="cxPicker" class="cx-picker-overlay" hidden>
+            <div class="cx-picker-dialog" role="dialog" aria-label="Escolher carta" aria-modal="true">
+              <div class="cx-picker-header"><div><span class="cx-caption">MEMORY OF CHAOS · SUA COLEÇÃO</span><h3 id="cxPickerHeading">Trocar carta</h3></div><button type="button" id="cxClosePicker" aria-label="Fechar seletor">✕</button></div>
+              <label class="cx-picker-search">⌕ <input type="search" id="cxPickerSearch" placeholder="Pesquisar nome, borda, elemento ou habilidade"/></label>
+              <p class="cx-note">Somente cartas com HP e DMG transcritos são simuláveis. Outras cartas do catálogo precisam de prints das estatísticas.</p>
+              <div class="cx-picker-results" id="cxPickerResults"></div>
+              <button id="cxClearSlot" type="button" class="cx-button cx-outline">Esvaziar este slot</button>
+            </div>
+          </div>
         </section>
         <section class="page" id="page-infinite">
           <div class="page-intro"><div><span class="overline">GAME MODES / 07</span><h1>Infinite <em>Tower</em></h1><p>O Endless Ascent: geração de cartas, Elements Mode, equipe, Paths e talentos de progressão.</p></div><div class="intro-counter"><span>MELHOR ANDAR NO PRINT</span><strong>494</strong></div></div>
