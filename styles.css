@@ -620,7 +620,7 @@
 
 /* Skill Tree — spacious talent layout and overview switch */
 #page-skill .st-overview{
- position:absolute;top:9px;left:50%;transform:translateX(-50%);
+ position:absolute;top:9px;left:12px;transform:none;
  z-index:7;cursor:pointer;border:1px solid #ad85d8;border-radius:9px;
  color:#f8e6ff;background:linear-gradient(130deg,#38265e,#231f46);
  font-weight:950;font-size:11px;letter-spacing:.045em;padding:10px 17px;
