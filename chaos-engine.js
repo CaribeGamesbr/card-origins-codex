@@ -113,8 +113,8 @@ function simulatePhase(team,phase,random,hardness=1){
        enemyHP-=amount;
        if(m.heal)health[active]=Math.min(max[active],health[active]+amount*m.heal);
      }else dodges++;
-     if(enemyHP<=0){defeated++;log.push(foe.name+' derrotado no turno '+rounds);burn=false;immolation=0;fatigue=0;break}
-     // Approximate each enemy turn and the rotating stage debuff.
+     if(enemyHP<=0){defeated++;log.push(foe.name+' derrotado no turno '+rounds);break}
+     // Approximate each enemy turn and stage debuff; status is treated as persisting on the active card until KO.
      enemyTurns++;
      let amountIn=baseHit*foe.hazard*(.75+.5*random());
      if(foe.name==='Fire Soldier')amountIn*=1.1;
@@ -122,7 +122,7 @@ function simulatePhase(team,phase,random,hardness=1){
      if(foe.name==='Horned Maid'&&fatigue>0)amountIn*=1.13;
      if(foe.name==='Scythe Tactician')amountIn*=1.08;
      if(enemyTurns%2===0){
-       if(!burn){burn=true}else immolation++;
+       if(!burn){burn=true}else immolation=Math.min(2,immolation+1);
        if(immolation>=2)fatigue=3;
      }
      if(burn)amountIn+=max[active]*.013;
