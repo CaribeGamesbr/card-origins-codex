@@ -179,7 +179,7 @@ function rankCard(c,phase,slot){
 function recommend(allData,opts={}){
  const data=cardsOnly(allData);
  const owned=data.filter(c=>screenshotKnown.has(c.id)&&hasStats(c));
- const baseline=[['c-2','c-3','new-black-eyepatch-calamity','new-silverfox-vanguard-astral'],['c-1','c-353','new-silver-star-user-calamity','c-5']]
+ const baseline=[['c-3','c-350','new-black-flame-heir-calamity','new-the-grinning-spectator-normal'],['c-1','c-353','new-silver-star-user-calamity','c-5']]
   .map(ids=>ids.map(id=>data.find(c=>c.id===id)));
  const chosen=baseline.flat().some(x=>!x)?[...owned.sort((a,b)=>b.dmg-a.dmg).slice(0,8)].reduce((p,x,i)=>(p[Math.floor(i/4)].push(x),p),[[],[]]):baseline;
  let best=chosen,bestStat=trials(best,{samples:36,hardness:opts.hardness||1,seed:91011});
