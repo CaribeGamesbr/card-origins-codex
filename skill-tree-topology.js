@@ -1016,7 +1016,7 @@ window.CARDO_SKILL_TOPOLOGY = {
         4
       ],
       [
-        4,
+        5,
         3
       ],
       [
