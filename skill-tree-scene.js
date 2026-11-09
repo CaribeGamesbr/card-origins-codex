@@ -34,7 +34,11 @@
  const segments=[];
  const rad=d=>d*Math.PI/180;
  const polar=(angle,radius)=>({x:500+Math.cos(rad(angle))*radius,y:405+Math.sin(rad(angle))*radius});
- const initialPoints=Math.max(0,Number(data.skillPointsLatestScreenshot)||0);
+ // Simulation rule chosen by the user: 146 total points, 75 already spent.
+ // This is deliberately distinct from the game's 5 unspent points in a screenshot.
+ const baselineSpent=Math.max(0,Number(data.countLearned)||0);
+ const totalBudget=Math.max(baselineSpent,Number(data.total)||data.nodes.length);
+ const initialPoints=totalBudget-baselineSpent;
  const progressKey='card-origins-codex-skill-progress-v1';
  const originalLearned=new Set(data.nodes.filter(n=>n.status==='learned').map(n=>n.id));
  const hiddenIds=new Set();
@@ -73,8 +77,9 @@
  }
  const purchased=()=>new Set(progress.purchased);
  const costOf=n=>Math.max(0,Number(n?.cost)||0);
- const pointsSpent=()=>progress.purchased.reduce((sum,id)=>sum+costOf(allById.get(id)),0);
- const pointsLeft=()=>Math.max(0,initialPoints+progress.added-pointsSpent());
+ const pointsSpentOnNew=()=>progress.purchased.reduce((sum,id)=>sum+costOf(allById.get(id)),0);
+ const pointsSpent=()=>baselineSpent+pointsSpentOnNew();
+ const pointsLeft=()=>Math.max(0,initialPoints+progress.added-pointsSpentOnNew());
  const isLearned=n=>!!n&&(originalLearned.has(n.id)||progress.purchased.includes(n.id));
  // A screenshot-ready talent is always available. Further talents are unlocked
  // by simulator purchases of a directly linked prerequisite. The graph itself
@@ -123,10 +128,10 @@
  }
  function resetSkills(){
    if(!progress.purchased.length&&!progress.added){notice('A simulação já está igual ao print.');return}
-   if(typeof window.confirm==='function'&&!window.confirm('Reiniciar a simulação e voltar aos 5 pontos e talentos do último print?'))return;
+   if(typeof window.confirm==='function'&&!window.confirm('Reiniciar a simulação e voltar aos 71 pontos restantes e 75 talentos aprendidos?'))return;
    progress.purchased=[];progress.added=0;saveProgress();
    state.selectedId=null;renderSidebar();showPath();renderMap();renderStats();
-   notice('Simulação reiniciada para o último print. Nenhuma alteração no Roblox.');
+   notice('Simulação reiniciada: '+initialPoints+' pontos restantes dos '+totalBudget+' do orçamento. Nenhuma alteração no Roblox.');
  }
 
  function locate(){
