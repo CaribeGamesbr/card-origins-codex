@@ -53,7 +53,7 @@
       <div class="side-label">EXPLORAR</div>
       <nav class="side-nav" aria-label="Menu principal">
         <button data-nav="home" class="nav-link active"><svg><use href="#ic-grid"/></svg><span>Visão geral</span></button>
-        <button data-nav="cards" class="nav-link"><svg><use href="#ic-cards"/></svg><span>Cartas</span><span class="nav-counter" id="navCardCount">369</span></button>
+        <button data-nav="cards" class="nav-link"><svg><use href="#ic-cards"/></svg><span>Cartas</span><span class="nav-counter" id="navCardCount">371</span></button>
         <button data-nav="supports" class="nav-link"><svg><use href="#ic-shield"/></svg><span>Suportes</span><span class="nav-counter" id="navSupportCount">37</span></button>
         <button data-nav="builder" class="nav-link"><svg><use href="#ic-sword"/></svg><span>Deck / Time</span><span class="new-dot"></span></button>
         <button data-nav="skill" class="nav-link"><svg><use href="#ic-branches"/></svg><span>Skill Tree</span></button>
@@ -64,7 +64,7 @@
         <button data-nav="guide" class="nav-link"><svg><use href="#ic-book"/></svg><span>Guia do jogo</span></button>
       </nav>
       <div class="side-label with-margin">SUA COLEÇÃO</div>
-      <div class="collection-status"><div class="status-head"><span class="status-light"></span><span>Importação do Drive</span></div><strong id="sideTotal">406 registros</strong><p>Atualizado em 09 nov 2026</p><span style="color:#b2a4c8;font-size:11px">Versão pública independente</span></div>
+      <div class="collection-status"><div class="status-head"><span class="status-light"></span><span>Importação do Drive</span></div><strong id="sideTotal">408 registros</strong><p>Atualizado em 09 nov 2026</p><span style="color:#b2a4c8;font-size:11px">Versão pública independente</span></div>
       <div class="sidebar-foot"><span class="diamond">◇</span><div><strong>Codex v1.0</strong><small>Wiki não oficial • Sem login</small></div></div>
     </aside>
     <div class="mobile-scrim" id="mobileScrim"></div>
@@ -218,7 +218,7 @@
               </div>
               <div class="cx-banner-stats"><div><span>FASES</span><strong>02</strong></div><div><span>CARTAS</span><strong>08</strong></div><div><span>TURNOS / FASE</span><strong>22</strong></div></div>
             </div>
-            <div class="cx-notice"><strong>MODELO EXPERIMENTAL</strong> Memory of Chaos usa apenas as cartas principais: <b>não há suportes neste modo.</b> Os oito inimigos têm HP máximo e DMG conferidos nos prints, mas o simulador não executa o jogo real. Há 369 cartas catalogadas, porém só 24 possuem HP, DMG e habilidade registrados. Efeitos e turnos são aproximações. <b>Nenhum percentual é chance real de vitória.</b></div>
+            <div class="cx-notice"><strong>MODELO EXPERIMENTAL</strong> Memory of Chaos usa apenas as cartas principais: <b>não há suportes neste modo.</b> Os oito inimigos têm HP máximo e DMG conferidos nos prints, mas o simulador não executa o jogo real. Há 371 cartas catalogadas, porém só 26 possuem HP, DMG e habilidade registrados. Efeitos e turnos são aproximações. <b>Nenhum percentual é chance real de vitória.</b></div>
             <div class="cx-stage-rules">
               <article><span class="cx-caption">DEBUFF DO STAGE 03</span><h3>Broken Mind</h3>
                 <p>A cada <strong>2 turnos inimigos</strong>, a carta ativa recebe <b>Burn</b>. Se já estiver em Burn, recebe 1 <b>Immolation</b>. Ao alcançar 2 Immolation, também recebe <b>Fatigue</b> por 3 turnos.</p>
@@ -239,8 +239,8 @@
             </div>
             <div id="cxTeams" class="cx-teams" aria-label="Equipes de 4 cartas para 2 fases"></div>
             <section class="cx-card-data-section" aria-label="Atributos das cartas">
-              <div class="cx-card-data-title"><h3>Catálogo completo — 369 cartas</h3><span id="cxDataCoverage">Conferindo atributos…</span></div>
-              <p>O seletor mostra todas as 369 cartas. As cartas sem HP/DMG podem ser escolhidas, mas não entram no cálculo até você preencher os valores reais vistos no jogo. Habilidades desconhecidas não são inventadas.</p>
+              <div class="cx-card-data-title"><h3>Catálogo completo — 371 cartas</h3><span id="cxDataCoverage">Conferindo atributos…</span></div>
+              <p>O seletor mostra todas as 371 cartas. As cartas sem HP/DMG podem ser escolhidas, mas não entram no cálculo até você preencher os valores reais vistos no jogo. Habilidades desconhecidas não são inventadas.</p>
               <details id="cxStatsPanel" class="cx-card-stats-editor">
                 <summary>✎ Completar HP, DMG e habilidade de uma carta</summary>
                 <div class="cx-stats-fields">
@@ -310,9 +310,9 @@
           </div>
           <div id="cxPicker" class="cx-picker-overlay" hidden>
             <div class="cx-picker-dialog" role="dialog" aria-label="Escolher carta" aria-modal="true">
-              <div class="cx-picker-header"><div><span class="cx-caption">MEMORY OF CHAOS · CATÁLOGO DE 369 CARTAS</span><h3 id="cxPickerHeading">Trocar carta</h3></div><button type="button" id="cxClosePicker" aria-label="Fechar seletor">✕</button></div>
+              <div class="cx-picker-header"><div><span class="cx-caption">MEMORY OF CHAOS · CATÁLOGO DE 371 CARTAS</span><h3 id="cxPickerHeading">Trocar carta</h3></div><button type="button" id="cxClosePicker" aria-label="Fechar seletor">✕</button></div>
               <label class="cx-picker-search">⌕ <input type="search" id="cxPickerSearch" placeholder="Pesquisar nome, borda, elemento ou habilidade"/></label>
-              <p class="cx-note">Todas as 369 cartas estão disponíveis para seleção, mas apenas as que têm HP e DMG conhecidos podem participar dos cálculos. Se faltar um atributo, preencha no formulário abaixo dos times.</p>
+              <p class="cx-note">Todas as 371 cartas estão disponíveis para seleção, mas apenas as que têm HP e DMG conhecidos podem participar dos cálculos. Se faltar um atributo, preencha no formulário abaixo dos times.</p>
               <div class="cx-picker-results" id="cxPickerResults"></div>
               <button id="cxClearSlot" type="button" class="cx-button cx-outline">Esvaziar este slot</button>
             </div>

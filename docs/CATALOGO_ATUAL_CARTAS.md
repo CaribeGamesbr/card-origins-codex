@@ -1,8 +1,8 @@
-# Catalogo das 406 cartas registradas
+# Catalogo das 408 cartas registradas
 
 Gerado de `data.js`; nao e uma lista de cartas existentes em todo o jogo, mas dos **registros desta colecao**. Nomes iguais em bordas diferentes podem ser cartas distintas.
 
-**Total:** 406 registros = 369 principais + 37 suportes. 24 principais tem HP/DMG/habilidade; 345 estao com campos mecanicos incompletos.
+**Total:** 408 registros = 371 principais + 37 suportes. 26 principais tem HP/DMG/habilidade; 345 estao com campos mecanicos incompletos.
 
 ## Cartas principais
 
@@ -377,6 +377,8 @@ Gerado de `data.js`; nao e uma lista de cartas existentes em todo o jogo, mas do
 | new-little-owl-man-calamity | LITTLE OWL MAN | Calamity | Wind | 3450 | 1151 | PREDATOR'S PRESSURE | [arte](../assets/cards/LITTLE_OWL_MAN_CALAMITY_WIND.png) |
 | new-rabbit-ghoul-umbral | RABBIT GHOUL | Umbral | Fire | 4812 | 1603 | WINGS THAT BURY THE LIVING | [arte](../assets/cards/RABBIT_GHOUL_UMBRAL_FIRE.png) |
 | new-half-ghoul-normal | HALF GHOUL | Normal | Physical | 2937 | 978 | HUNGER: CENTIPEDE | [arte](../assets/cards/HALF_GHOUL_NORMAL_PHYSICAL.png) |
+| new-sherlock-normal | SHERLOCK | Normal | Fire | 1460 | 486 | PERFECT DEDUCTION | [arte](../assets/cards/SHERLOCK_NORMAL_FIRE.png) |
+| new-two-timing-pro-astral | TWO TIMING PRO | Astral | Physical | 6913 | 2305 | DOUBLE CROSS | [arte](../assets/cards/TWO_TIMING_PRO_ASTRAL_PHYSICAL.png) |
 
 ## Cartas de suporte — fora de Memory of Chaos
 

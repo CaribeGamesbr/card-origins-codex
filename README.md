@@ -6,7 +6,7 @@ Site estático feito para publicar no GitHub Pages. Não é uma wiki oficial de 
 
 - `index.html` — página inicial, catálogo, time builder, skill tree, guia
 - `styles.css` e `app.js` — interface e filtros
-- `data.js` — catálogo local, 369 cartas principais e 37 suportes
+- `data.js` — catálogo local, 371 cartas principais e 37 suportes
 - `catalog.json` e `catalogo.csv` — exportações do catálogo para manutenção
 - `infinite-engine.js`, `infinite-ui.js`, `infinite.css` — simulador interativo de Infinite Tower
 - `docs/` — fontes, transcricoes, historico, pendencias e documentacao dos modelos
@@ -41,7 +41,7 @@ A seção `#chaos` é um laboratório de estratégias para o Stage 03 conforme o
 
 **Não há cartas de suporte neste modo.** `Buscar vitória` otimiza oito cartas principais, quatro por fase. `Buscar 3 estrelas` testa até **100.000 equipes diferentes sem suportes**, em blocos para manter a interface responsiva. A busca só considera sucesso se **uma mesma simulação** vencer as duas fases, não perder nenhuma carta e terminar cada fase em no máximo 22 turnos. **Cada candidata com 3 estrelas passa por 120 batalhas independentes**, até ter pelo menos quatro vitórias nas 120 repetições ou esgotar as 100.000 equipes. Há contador, barra de progresso e botão de parada. Uma batalha bem-sucedida continua sendo só um resultado do modelo, sem garantia de vitória no Roblox.
 
-**Catálogo:** há 369 cartas principais com nome, raridade, elemento e imagem. Apenas 24 têm HP, DMG e habilidade transcritos. O seletor de Memory of Chaos exibe **todas as 369**; quem escolher uma carta ainda sem atributos pode preencher HP máximo, DMG e o texto da habilidade no editor. Isso é salvo apenas no navegador e habilita a carta para comparação numérica. Texto de habilidades novas não é executado automaticamente; seus gatilhos precisam ser incorporados ao motor. **Não se inventam atributos das 345 restantes.**
+**Catálogo:** há 371 cartas principais com nome, raridade, elemento e imagem. Apenas 26 têm HP, DMG e habilidade transcritos. O seletor de Memory of Chaos exibe **todas as 371**; quem escolher uma carta ainda sem atributos pode preencher HP máximo, DMG e o texto da habilidade no editor. Isso é salvo apenas no navegador e habilita a carta para comparação numérica. Texto de habilidades novas não é executado automaticamente; seus gatilhos precisam ser incorporados ao motor. **Não se inventam atributos das 345 restantes.**
 
 **Atenção:** oito prints dos inimigos confirmaram o HP **máximo** e o DMG de Apothecary Cat (6160/1540), Fire Soldier (9240/2310), The Ancient Flame (12320/2763), Star Warrior Raised On… (15400/3454), Omniscient Reader (7084/1771), The Sky-Reaching Student (10624/2656), Horned Maid (14168/3542) e Scythe Tactician (17708/4427). Os HPs menores vistos nas barras são HP atual durante a luta, não HP inicial. Em pressão 1.00×, o modelo usa os HPs máximos e os danos informados, efeitos de inimigos com descrição legível e habilidades selecionadas das cartas (cura, mitigação, contra-ataque, Burn, Stun, Blind, Fatigue e marcas). **Ainda faltam partes cortadas de habilidades, a ordem real de ações, chances e multiplicadores.** O ciclo elemental completo, danos de certos debuffs e o contra-ataque de Star Warrior são aproximações. Traits e relíquias não são simulados. As porcentagens são apenas do modelo, sem calibração contra partidas reais.
 
@@ -61,6 +61,12 @@ A aba `#infinite` possui um laboratorio para o print **Floor 261**, com HP maxim
 
 O usuario pode montar quatro cartas principais com ate quatro suportes, editar os atributos de referencia e o crescimento hipotetico do andar, simular 120 batalhas, comparar os sete Paths ou buscar ate **21.000 tentativas de composicao** com botao de parada. A melhor formacao passa por uma rodada independente de 120 simulacoes e pode ser aplicada ao Team Builder ou copiada. A busca nao e exaustiva.
 
-**Atencao:** os resultados sao estimativas, nao partidas reais. O crescimento padrao de 1% por andar e hipotese; a habilidade *No Continue* da Game Princess foi cortada no print e nao e simulada. A busca numerica atual so usa as **24 cartas principais com HP/DMG confirmados** e **6 suportes com efeitos legiveis**, com implementacoes aproximadas. Ver [`docs/INFINITE_TOWER_SIMULADOR.md`](docs/INFINITE_TOWER_SIMULADOR.md) para as fontes, regras e lacunas.
+**Atencao:** os resultados sao estimativas, nao partidas reais. O crescimento padrao de 1% por andar e hipotese; a habilidade *No Continue* da Game Princess foi cortada no print e nao e simulada. A busca numerica atual so usa as **26 cartas principais com HP/DMG confirmados** e **6 suportes com efeitos legiveis**, com implementacoes aproximadas. Ver [`docs/INFINITE_TOWER_SIMULADOR.md`](docs/INFINITE_TOWER_SIMULADOR.md) para as fontes, regras e lacunas.
 
-Adicionadas quatro variantes novas: King of Curses (Calamity/Fire; 3871 HP, 1290 DMG), Little Owl Man (Calamity/Wind; 3450 HP, 1151 DMG), Rabbit Ghoul (Umbral/Fire; 4812 HP, 1603 DMG) e Half Ghoul (Normal/Physical; 2937 HP, 978 DMG). Total atual: **406 registros = 369 principais + 37 suportes**.
+Adicionadas quatro variantes novas: King of Curses (Calamity/Fire; 3871 HP, 1290 DMG), Little Owl Man (Calamity/Wind; 3450 HP, 1151 DMG), Rabbit Ghoul (Umbral/Fire; 4812 HP, 1603 DMG) e Half Ghoul (Normal/Physical; 2937 HP, 978 DMG). Total atual: **408 registros = 371 principais + 37 suportes**.
+
+## Cartas adicionadas em 09/11/2026 — Sherlock e Two Timing Pro
+
+Sherlock (Normal/Fire; HP 1.460, DMG 486; Perfect Deduction) e Two Timing Pro (Astral/Physical; HP 6.913, DMG 2.305; Double Cross) foram adicionadas com os prints originais. As outras bordas de Two Timing Pro foram preservadas. As novas habilidades estão transcritas no catálogo, mas seus gatilhos ainda não foram implementados nos simuladores. Total: **408 registros = 371 principais + 37 suportes**, sendo **26 principais transcritas e 345 pendentes**.
+
+Registro: [Atualização das duas cartas](docs/ATUALIZACAO_2026-11-09_SHERLOCK_TWO_TIMING_PRO.md).

@@ -25,7 +25,7 @@ Atualizado em 09/11/2026. Jogo Card Origins (Roblox). Esta e uma **ferramenta ex
 
 ## Cartas e suportes disponiveis
 
-- **369 cartas principais** no catalogo; **24 possuem HP, DMG e habilidades transcritas**. As outras **345 aguardam transcricao**. Seria desonesto simular estatisticas dessas 345 a partir da imagem ou nome.
+- **371 cartas principais** no catalogo; **26 possuem HP, DMG e habilidades transcritas**. As outras **345 aguardam transcricao**. Seria desonesto simular estatisticas dessas 345 a partir da imagem ou nome.
 - **37 suportes** no catalogo. O Infinite Tower permite equipar ate quatro suportes (diferentemente do Memory of Chaos, em que os dois times nao os usam). O motor considera **6 suportes com efeitos registrados**: Ashen Arcanum, Unbeatable Flavor, Binding Vow, Limit Breaker, Divine Spirit Waters e Serenity. A implementacao desses efeitos e simplificada.
 - Mais quatro variantes registradas: **King of Curses** (Calamity/Fire; HP 3.871, DMG 1.290), **Little Owl Man** (Calamity/Wind; HP 3.450, DMG 1.151), **Rabbit Ghoul** (Umbral/Fire; HP 4.812, DMG 1.603), **Half Ghoul** (Normal/Physical; HP 2.937, DMG 978). As imagens estao em `assets/cards/`.
 - O sequenciamento das quatro cartas importa: elas lutam em ordem e o motor passa para o proximo slot quando uma cai.

@@ -1,6 +1,6 @@
 # Cartas principais com atributos e habilidades registrados
 
-Gerado automaticamente de `data.js` em 09/11/2026. **24 cartas com HP, DMG e habilidade** entre 369 cartas principais. Transcricoes em portugues associadas aos prints; efeitos com partes faltantes/alteracoes de patch exigem nova verificacao.
+Gerado automaticamente de `data.js` em 09/11/2026. **26 cartas com HP, DMG e habilidade** entre 371 cartas principais. Transcricoes em portugues associadas aos prints; efeitos com partes faltantes/alteracoes de patch exigem nova verificacao.
 
 ## SILVERFOX VANGUARD — Astral / Imaginary
 
@@ -193,4 +193,20 @@ Gerado automaticamente de `data.js` em 09/11/2026. **24 cartas com HP, DMG e hab
 - Efeito registrado: 40% do HP que esta carta retira dos inimigos vira Flesh (metade contra bosses). Ao cair abaixo de 35% de HP, consome todo Flesh para curar ate 50% do HP maximo e entra em Hunger por 2 turnos. Durante Hunger, cada hit tambem causa 25% de DMG ao proximo inimigo e aplica Rupture.
 - Arte no repositorio: `assets/cards/HALF_GHOUL_NORMAL_PHYSICAL.png`.
 - Origem do campo: print original enviado ao Google Drive.
+
+## SHERLOCK — Normal / Fire
+
+- ID do registro: `new-sherlock-normal`; HP maximo: **1460**; DMG: **486**.
+- Habilidade: **PERFECT DEDUCTION**.
+- Efeito registrado: Começa com 15% de Chance Crítica. Cada tentativa de crítico malsucedida concede 1 Evidence (máximo 3). Com 3, o próximo dano é um crítico garantido e expõe Weak Point por 2 turnos: críticos ignoram 25% de Redução de Dano e prolongam o debuff mais recente do alvo em 1 turno.
+- Arte no repositorio: `assets/cards/SHERLOCK_NORMAL_FIRE.png`.
+- Origem do campo: print original enviado pelo usuário em 09/11/2026.
+
+## TWO TIMING PRO — Astral / Physical
+
+- ID do registro: `new-two-timing-pro-astral`; HP maximo: **6913**; DMG: **2305**.
+- Habilidade: **DOUBLE CROSS**.
+- Efeito registrado: Ao entrar, escolhe secretamente um de dois modos: Loyal ou Betrayal. Em Loyal, os ataques causam DMG normal e curam 35% do dano causado; em Betrayal, causam 1,4× DMG, mas a carta perde 10% do HP atual. A cada 2 turnos, troca de modo.
+- Arte no repositorio: `assets/cards/TWO_TIMING_PRO_ASTRAL_PHYSICAL.png`.
+- Origem do campo: print original enviado pelo usuário em 09/11/2026.
 
