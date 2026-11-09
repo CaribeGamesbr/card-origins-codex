@@ -140,10 +140,10 @@
             </aside>
             <div class="st-map" aria-label="Mapa circular das árvores de talentos">
               <div class="st-map-background" aria-hidden="true"></div>
-              <svg id="stTreeSvg" viewBox="0 0 1000 800" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Árvore radial interativa com 146 talentos. Clique em um nó para inspecionar."></svg>
-              <div class="st-map-caption"><span id="stMapMode">VISÃO GERAL</span><span>◉ <b id="stMapLearned">75</b>/146 APRENDIDOS</span></div>
-              <button type="button" id="stOverview" class="st-overview" aria-label="Mostrar os sete caminhos separados">◎ VISÃO GERAL [G]</button>
-              <button type="button" id="stFitAll" class="st-fitall" aria-label="Enquadrar todos os talentos no mapa">⊞ VER TUDO [A]</button>
+              <svg id="stTreeSvg" viewBox="0 0 1000 800" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Árvore radial interativa. No Web View aparece somente o caminho selecionado. Clique em um nó para inspecionar."></svg>
+              <div class="st-map-caption"><span id="stMapMode">WEB VIEW • GENERAL • 14 TALENTOS</span><span>◉ <b id="stMapLearned">75</b>/146 APRENDIDOS</span></div>
+              <button type="button" id="stOverview" class="st-overview" aria-label="Voltar à visão geral com os sete caminhos">◎ 7 ÁRVORES [G]</button>
+              <button type="button" id="stFitAll" class="st-fitall" aria-label="Ajustar zoom para caber a árvore selecionada">⊞ ENQUADRAR [A]</button>
               <div class="st-skill-search" role="search">
                 <label for="stSkillSearch" class="st-search-icon" aria-label="Buscar">⌕</label>
                 <input id="stSkillSearch" type="search" role="combobox" aria-autocomplete="list" aria-controls="stSkillSearchResults" aria-expanded="false" autocomplete="off" spellcheck="false" placeholder="Pesquisar skill em inglês ou português..." />
@@ -152,6 +152,7 @@
               </div>
               <div class="st-map-controls">
                 <span>ESC</span> CLOSE <span>V</span> WEB VIEW <span>C</span> CENTER
+                <button type="button" id="stOpenCatalog" class="st-catalog-shortcut" aria-label="Abrir catálogo pesquisável de todos os talentos">☷ CATÁLOGO</button>
                 <button type="button" id="stZoomOut" aria-label="Reduzir zoom">−</button>
                 <span id="stZoomLevel">100%</span>
                 <button type="button" id="stZoomIn" aria-label="Aumentar zoom">+</button>
