@@ -1,7 +1,7 @@
-/* Reconstructed from original user screenshots of the game's seven Skill Tree paths.
-   Never auto-link a node to the spatially nearest one.
-   Indices follow CARDO_SKILLS.nodes order within each path; missing/unreadable edges are omitted.
-   "unverified" entries are present in the catalog but graph visibility/connectivity is uncertain.
+/* Source: original screenshots sent by the user of Card Origins Skill Tree.
+   Only trace illustrated relationships, no nearest-neighbor auto-links.
+   Unidentified placeholders are hidden in the map but retained in the catalog.
+   An isolated capstone must not be artificially linked.
 */
 window.CARDO_SKILL_TOPOLOGY = {
   "General": {
@@ -69,7 +69,15 @@ window.CARDO_SKILL_TOPOLOGY = {
         1
       ],
       [
+        0,
+        2
+      ],
+      [
         1,
+        3
+      ],
+      [
+        2,
         3
       ],
       [
@@ -78,15 +86,15 @@ window.CARDO_SKILL_TOPOLOGY = {
       ],
       [
         0,
-        2
-      ],
-      [
-        2,
         5
       ],
       [
-        5,
+        0,
         6
+      ],
+      [
+        5,
+        7
       ],
       [
         6,
@@ -101,8 +109,12 @@ window.CARDO_SKILL_TOPOLOGY = {
         9
       ],
       [
-        9,
+        0,
         10
+      ],
+      [
+        9,
+        11
       ],
       [
         10,
@@ -111,11 +123,10 @@ window.CARDO_SKILL_TOPOLOGY = {
       [
         11,
         12
-      ],
-      [
-        12,
-        13
       ]
+    ],
+    "unverified": [
+      13
     ]
   },
   "Elements": {
@@ -356,6 +367,9 @@ window.CARDO_SKILL_TOPOLOGY = {
       ]
     ],
     "unverified": [
+      29
+    ],
+    "hidden": [
       29
     ]
   },
@@ -754,18 +768,6 @@ window.CARDO_SKILL_TOPOLOGY = {
       ],
       [
         2,
-        3
-      ],
-      [
-        3,
-        4
-      ],
-      [
-        4,
-        15
-      ],
-      [
-        2,
         5
       ],
       [
@@ -783,6 +785,18 @@ window.CARDO_SKILL_TOPOLOGY = {
       [
         13,
         14
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        4,
+        15
       ],
       [
         6,
@@ -803,6 +817,10 @@ window.CARDO_SKILL_TOPOLOGY = {
       [
         8,
         12
+      ],
+      [
+        12,
+        13
       ]
     ],
     "unverified": [
@@ -903,6 +921,9 @@ window.CARDO_SKILL_TOPOLOGY = {
       ]
     ],
     "unverified": [
+      11
+    ],
+    "hidden": [
       11
     ]
   },
@@ -1007,15 +1028,7 @@ window.CARDO_SKILL_TOPOLOGY = {
         18
       ],
       [
-        0,
-        6
-      ],
-      [
-        6,
-        7
-      ],
-      [
-        7,
+        1,
         2
       ],
       [
@@ -1023,8 +1036,24 @@ window.CARDO_SKILL_TOPOLOGY = {
         8
       ],
       [
-        6,
-        9
+        8,
+        6
+      ],
+      [
+        2,
+        6
+      ],
+      [
+        7,
+        6
+      ],
+      [
+        9,
+        6
+      ],
+      [
+        0,
+        6
       ],
       [
         0,
