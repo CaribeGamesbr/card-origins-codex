@@ -1,8 +1,10 @@
 /* Memory of Chaos — comparative model, NOT a recreation of Roblox combat.
    Screenshot-confirmed: two separate teams of 4, ordered phases Fire/Imaginary,
    Stage 03 Burn/Immolation/Fatigue, star conditions and the abilities below.
-   UNKNOWN: enemy HP/DMG, cooldown processing, exact battle timing.
-   All synthetic power/damage estimates are intentionally adjustable.
+   VERIFIED for phase 1 (user's card screenshots): enemy MAX HP and DMG,
+   Fire Soldier double hit, Ancient Flame Charred HP, Star Warrior 55% dodge.
+   UNKNOWN: phase 2 HP/DMG, full skill text, cooldowns, exact battle timing.
+   Phase 2 and special-effect timing remain intentionally hypothetical.
 */
 (function(root,factory){
   const engine=factory();
@@ -13,10 +15,10 @@
 const phases=[
  {name:'Fase 1 — Fire',element:'Fire',weak:'Wind',color:'#ff9469',
   enemies:[
-    {name:'Apothecary Cat',element:'Wind',threat:'Copia até quatro debuffs aplicados; cuidado com acúmulo de efeitos.',bulk:1.05,hazard:1.02},
-    {name:'Fire Soldier',element:'Fire',threat:'Dois ataques por rodada, com bônus permanente após abater uma carta.',bulk:1.0,hazard:1.20},
-    {name:'The Ancient Flame…',element:'Fire',threat:'Charred HP e Cremation podem impedir cura e punir equipes lentas.',bulk:1.28,hazard:1.24},
-    {name:'Star Warrior Raised…',element:'Imaginary',threat:'Chance de esquiva de 55%; depois de 5 esquivas ativa adaptação defensiva.',bulk:1.07,hazard:0.97,dodge:.55}
+    {name:'Apothecary Cat',element:'Wind',hp:6160,dmg:1540,seenHp:2575,threat:'Ao receber um debuff pela primeira vez, aprende o efeito. O restante da habilidade não aparece no print.',bulk:1.05,hazard:1.02},
+    {name:'Fire Soldier',element:'Fire',hp:9240,dmg:2310,seenHp:9240,threat:'Cada ataque acerta duas vezes: 100% do DMG e depois 50% do DMG. O restante da habilidade não aparece no print.',bulk:1.0,hazard:1.20},
+    {name:'The Ancient Flame…',element:'Fire',hp:12320,dmg:2763,seenHp:11582,threat:'20% do HP removido pelo dano vira Charred HP e não pode ser curado. O restante da habilidade não aparece no print.',bulk:1.28,hazard:1.24},
+    {name:'Star Warrior Raised…',element:'Imaginary',hp:15400,dmg:3454,seenHp:14572,threat:'55% de chance de esquivar. Cada esquiva bem-sucedida causa contra-ataque, mas o valor está cortado no print.',bulk:1.07,hazard:0.97,dodge:.55}
   ]},
  {name:'Fase 2 — Imaginary',element:'Imaginary',weak:'Quantum',color:'#e9c77b',
   enemies:[
@@ -93,19 +95,21 @@ function estimateCard(c,phase){
 }
 function simulatePhase(team,phase,random,hardness=1){
  const mods=team.map((c)=>modifiers(c,phase===phases[1]?1:0));
- const health=team.map(c=>+c.hp), max=team.map(c=>+c.hp);
+ const health=team.map(c=>+c.hp), max=team.map(c=>+c.hp),healableMax=team.map(c=>+c.hp);
  const skillGuard=mods.map(m=>m.extraLife),clone=mods.map(m=>m.shield);
  const cloneStrikeReady=team.map(()=>false);
  const linkBoost=bonuses(team);
  const spectator=team.findIndex(c=>c.name==='THE GRINNING SPECTATOR');
  const eyeDealTarget=spectator<0?-1:team.reduce((best,c,i)=>i!==spectator&&(best<0||c.dmg>team[best].dmg)?i:best,-1);
  const meanHP=team.reduce((s,c)=>s+c.hp,0)/4;
- // Assumed numbers, not in screenshots: enemy relative HP and damage.
- const baseEnemyHP=4650*hardness, baseHit=(meanHP*.074)*hardness;
+ // Phase 1 values are the full HP/DMG displayed on enemy card screenshots.
+ // Phase 2 has no confirmed stats yet and uses a clearly labeled fallback.
+ const estimatedEnemyHP=4650*hardness, estimatedHit=(meanHP*.074)*hardness;
  let rounds=0,active=0,defeated=0,losses=0,burn=false,immolation=0,fatigue=0,enemyTurns=0;
  const log=[],timeline=[];
  for(let k=0;k<4;k++){
-   const foe=phase.enemies[k];let enemyHP=baseEnemyHP*foe.bulk*(.85+random()*.30);
+   const foe=phase.enemies[k];
+   let enemyHP=foe.hp?foe.hp*hardness:estimatedEnemyHP*foe.bulk*(.85+random()*.30);
    let dodges=0,flameTicks=0,flameCaster=-1,flameActions=0,disoriented=0;
    while(enemyHP>0&&rounds<55&&active<4){
      rounds++;
@@ -129,7 +133,7 @@ function simulatePhase(team,phase,random,hardness=1){
          log.push('Turno '+rounds+': Silverfox Vanguard usou Rasengan (+30%) e aplicou Disorientation.');
        }
        enemyHP-=amount;
-       if(m.heal)health[active]=Math.min(max[active],health[active]+amount*m.heal);
+       if(m.heal)health[active]=Math.min(healableMax[active],health[active]+amount*m.heal);
      }else dodges++;
      timeline.push('T'+rounds+' · '+c.name+(hit?' acertou '+Math.round(amount)+' DMG':' errou')+' em '+foe.name);
      if(c.name==='BLACK FLAME HEIR'&&hit){
@@ -147,14 +151,13 @@ function simulatePhase(team,phase,random,hardness=1){
        // Enemy ability timing is unknown; 30% is explicitly a model assumption.
        if(random()<.30){
          const trigger=team[flameCaster].dmg*.05;enemyHP-=trigger;
-         if(health[flameCaster]>0)health[flameCaster]=Math.min(max[flameCaster],health[flameCaster]+trigger);
+         if(health[flameCaster]>0)health[flameCaster]=Math.min(healableMax[flameCaster],health[flameCaster]+trigger);
          log.push('Turno '+rounds+': ativação inimiga hipotética disparou Black Flame Drain.');
        }
        if(enemyHP<=0){defeated++;log.push(foe.name+' derrotado no turno '+rounds+' pelas chamas negras');break}
      }
-     let amountIn=baseHit*foe.hazard*(.75+.5*random());
-     if(foe.name==='Fire Soldier')amountIn*=1.1;
-     if(foe.name==='The Ancient Flame…')amountIn*=1.16;
+     let amountIn=(foe.dmg?foe.dmg*hardness:estimatedHit*foe.hazard)*(.75+.5*random());
+     if(foe.name==='Fire Soldier')amountIn*=1.5; // Verified: 100% + 50% hit.
      if(foe.name==='Horned Maid'&&fatigue>0)amountIn*=1.13;
      if(foe.name==='Scythe Tactician')amountIn*=1.08;
      if(enemyTurns%2===0){
@@ -174,8 +177,15 @@ function simulatePhase(team,phase,random,hardness=1){
        skillGuard[active]--;
        enemyHP-=c.dmg;m.outgoing*=1.10;
        log.push('Turno '+rounds+': Magician evitou o golpe fatal, contra-atacou com 100% DMG e ganhou +10% DMG.');
-     }else health[active]-=amountIn;
-     timeline.push('T'+rounds+' · '+foe.name+' respondeu com '+Math.round(amountIn)+' DMG estimado');
+     }else{
+       const applied=Math.min(health[active],amountIn);
+       health[active]-=amountIn;
+       if(foe.name==='The Ancient Flame…'){
+         healableMax[active]=Math.max(0,healableMax[active]-applied*.20);
+         log.push('Turno '+rounds+': Ancient Flame tornou '+Math.round(applied*.20)+' HP incurável (Charred HP).');
+       }
+     }
+     timeline.push('T'+rounds+' · '+foe.name+' respondeu com '+Math.round(amountIn)+' DMG '+(foe.dmg?'(base do print, efeitos aproximados)':'(estimativa)'));
      if(enemyHP<=0){defeated++;log.push(foe.name+' derrotado no turno '+rounds+' pelo contra-ataque');break}
      if(health[active]<=0){
        losses++;log.push('Turno '+rounds+': '+c.name+' foi derrotado.');

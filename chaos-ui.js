@@ -13,18 +13,20 @@ const preset=[
  ['c-3','c-350','new-black-flame-heir-calamity','new-the-grinning-spectator-normal'],
  ['c-1','c-353','new-silver-star-user-calamity','c-5']
 ];
-const state={teams:preset.map(t=>t.slice()),difficulty:1.7,samples:100,selection:null,filter:'',result:null,fit:null};
+const state={teams:preset.map(t=>t.slice()),difficulty:1,samples:100,selection:null,filter:'',result:null,fit:null};
 try{
  const old=JSON.parse(localStorage.getItem(storageKey)||'null');
  if(old&&Array.isArray(old.teams)&&old.teams.length===2&&old.teams.every(t=>Array.isArray(t)&&t.length===4)){
    const value=old.teams.map(t=>t.map(id=>byId.has(id)?id:null));
    if(E.rosterValid(value.map(t=>t.map(id=>byId.get(id)))).ok)state.teams=value;
  }
- if(Number.isFinite(old?.difficulty))state.difficulty=Math.min(2.4,Math.max(.7,old.difficulty));
+ // v1 saved pressure 1.70 as a relative guess before enemy stats arrived.
+ // Keep saved teams but recalibrate pressure to 1.00 for screenshot-based HP/DMG.
+ if(old?.calibrationVersion===2&&Number.isFinite(old.difficulty))state.difficulty=Math.min(2,Math.max(.7,old.difficulty));
 }catch(_){}
 const el=id=>document.getElementById(id);
 const actual=()=>state.teams.map(t=>t.map(id=>byId.get(id)||null));
-function save(){try{localStorage.setItem(storageKey,JSON.stringify({teams:state.teams,difficulty:state.difficulty}))}catch(_){}}
+function save(){try{localStorage.setItem(storageKey,JSON.stringify({teams:state.teams,difficulty:state.difficulty,calibrationVersion:2}))}catch(_){}}
 function cardType(c){return E.screenshotKnown.has(c.id)?'VISTA NOS SEUS PRINTS':'COLEÇÃO — CONFIRA POSSE'}
 function cardArt(c){
  const fallback='<span class="cx-placeholder" aria-hidden="true">✧</span>';
@@ -59,7 +61,9 @@ function renderEnemies(){
  const root=el('cxEnemyInfo');if(!root)return;
  root.innerHTML=E.phases.map((phase,i)=>'<article class="cx-enemy-group">'+
  '<div class="cx-enemy-head"><span>FASE '+(i+1)+'</span><strong>'+esc(phase.name)+'</strong><small>Fraco contra '+esc(phase.weak)+'</small></div>'+
- phase.enemies.map((x,k)=>'<details class="cx-enemy"'+(k===0?' open':'')+'><summary><span class="cx-enemy-number">'+(k+1)+'</span><strong>'+esc(x.name)+'</strong><span>'+esc(x.element)+'</span></summary><p>'+esc(x.threat)+'</p></details>').join('')+'</article>').join('');
+ phase.enemies.map((x,k)=>'<details class="cx-enemy"'+(k===0?' open':'')+'><summary><span class="cx-enemy-number">'+(k+1)+'</span><strong>'+esc(x.name)+'</strong><span>'+esc(x.element)+'</span></summary>'+
+ (x.hp?'<p><strong>HP máximo '+x.hp.toLocaleString('pt-BR')+' · DMG '+x.dmg.toLocaleString('pt-BR')+'</strong> — confirmados no print. HP no momento da captura: '+x.seenHp.toLocaleString('pt-BR')+'.</p>':'<p><strong>HP/DMG ainda não informados.</strong> O simulador usa estimativas nesta fase.</p>')+
+ '<p>'+esc(x.threat)+'</p></details>').join('')+'</article>').join('');
 }
 function options(){
  const ready=cards.slice().sort((a,b)=>(E.screenshotKnown.has(b.id)?1:0)-(E.screenshotKnown.has(a.id)?1:0)||
@@ -121,7 +125,7 @@ function battlePlan(result){
  ];
  const phaseNotes=[
   'Fase 1: '+(p1.length?'aproveite a vantagem Wind de '+p1.join(' e ')+'. ':'faltam cartas Wind nessa formação. ')+
-  'Fire Soldier ataca duas vezes e o último inimigo tem 55% de esquiva. Evite prolongar Burn, Immolation e Fatigue.',
+  'Fire Soldier dá golpes de 100%+50%; Ancient Flame impede recuperar parte do HP; o último inimigo tem 55% de esquiva. Evite prolongar Burn, Immolation e Fatigue.',
   'Fase 2: '+(p2.length?'aproveite o dano Quantum de '+p2.join(' e ')+'. ':'considere incluir dano Quantum. ')+
   'Omniscient Reader copia habilidades e Scythe Tactician aplica Bleed. Leve proteção contra debuffs e golpes fatais.'
  ];
@@ -132,7 +136,7 @@ function battlePlan(result){
    '<details class="cx-replay-turns"><summary>Ver ações dos turnos</summary><ol>'+phase.timeline.map(item=>'<li>'+esc(item)+'</li>').join('')+'</ol></details></section>').join('')+'</details>':'';
  return '<div class="cx-battle-plan"><h4>Como tentar vencer no Roblox</h4><ol>'+
   objectives.concat(phaseNotes).map(item=>'<li>'+esc(item)+'</li>').join('')+'</ol>'+
-  '<p>Depois de testar os dois times no jogo, compare os KOs e turnos reais. Os suportes, traits, relíquias, HP/DMG exatos dos inimigos e muitos gatilhos de habilidade ainda não são simulados.</p></div>'+replay;
+  '<p>Depois de testar os dois times no jogo, compare os KOs e turnos reais. O HP máximo e DMG dos quatro inimigos da fase 1 vieram dos prints; a fase 2 ainda é estimada. Suportes, traits, relíquias e vários gatilhos não são simulados.</p></div>'+replay;
 }
 function renderResults(){
  const mount=el('cxResultPanel');
@@ -144,7 +148,7 @@ function renderResults(){
  resultsBar('Cumpriu as 3 condições',r.threeStarRate,'cx-gold')+
  '<div class="cx-result-stats"><div><span>FASE 1</span><strong>'+r.avgTurns[0].toFixed(1)+' turnos</strong><small>'+r.avgLosses[0].toFixed(2)+' KOs médios</small></div>'+
  '<div><span>FASE 2</span><strong>'+r.avgTurns[1].toFixed(1)+' turnos</strong><small>'+r.avgLosses[1].toFixed(2)+' KOs médios</small></div></div>'+
- '<div class="cx-insight"><strong>O que precisa para as 3 estrelas:</strong><p>Vencer ambas as fases, não perder nenhuma carta e finalizar cada fase em até 22 rodadas. Estes números são de uma simulação ilustrativa; o HP e o DMG dos oponentes não estão disponíveis nos prints.</p></div>'+
+ '<div class="cx-insight"><strong>O que precisa para as 3 estrelas:</strong><p>Vencer ambas as fases, não perder nenhuma carta e finalizar cada fase em até 22 rodadas. O HP máximo e o DMG dos inimigos da fase 1 são os números dos prints; os da fase 2 são estimados. A porcentagem é do modelo, não do jogo.</p></div>'+
  battlePlan(r);
 }
 function optimize(){

@@ -37,7 +37,7 @@ O número das novas cartas não estava visível nas capturas e não foi inventad
 
 A seção `#chaos` é um laboratório de estratégias para o Stage 03 conforme os prints recebidos em 09/11/2026. Inclui duas equipes de 4 cartas, seletor de cartas, debuff do stage, descrição dos oito inimigos, condições das 3 estrelas, busca de composições, plano por fase e um registro ilustrativo da batalha.
 
-**Atenção:** o jogo não forneceu HP/DMG dos inimigos nem um simulador oficial. A função compara cenários assumidos e não deve ser interpretada como probabilidade real de vitória. São usadas apenas cartas do catálogo com HP/DMG identificados. As habilidades das cartas recentes foram parcialmente aproximadas (por exemplo, a frequência das habilidades inimigas é desconhecida). Suportes, traits e relíquias não são aplicados ao cálculo. O resultado fica salvo localmente e não é sincronizado com Roblox.
+**Atenção:** quatro prints dos inimigos do Time 1 confirmaram o HP **máximo** e o DMG de Apothecary Cat (6160/1540), Fire Soldier (9240/2310), The Ancient Flame (12320/2763) e Star Warrior Raised On… (15400/3454). Os HPs menores vistos nas barras são HP atual durante a luta, não HP inicial. Em pressão 1.00×, o modelo usa os HPs máximos, os danos informados, o golpe duplo 100%+50% do Fire Soldier, a perda de capacidade de cura da Ancient Flame e a esquiva de 55% do Star Warrior. **Ainda faltam HP/DMG do Time 2 e as partes cortadas das habilidades.** A função compara cenários assumidos e não deve ser interpretada como probabilidade real de vitória. São usadas apenas cartas do catálogo com HP/DMG identificados. Suportes, traits e relíquias não são aplicados ao cálculo. O resultado fica salvo localmente e não é sincronizado com Roblox.
 
 ### Novas cartas
 
