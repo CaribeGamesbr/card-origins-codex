@@ -279,7 +279,7 @@
  }
  function resetView(){
    state.scale=.38;state.cx=500;state.cy=405;
-   state.webView=false;state.selectedId=null;locate();updateWebViewButton();renderMap();showPath();
+   state.webView=false;state.selectedId=null;locate();updateWebViewButton();renderMap();showPath();renderStats();
  }
  function renderStats(){
    const panel=$('stStatsPanel');if(!panel)return;
@@ -404,7 +404,7 @@
  function selectPath(name,focus=true){
   if(!cats.some(c=>c.name===name))return;
   state.category=name;state.selectedId=null;
-  locate();renderSidebar();showPath();updateWebViewButton();
+  locate();renderSidebar();showPath();renderStats();updateWebViewButton();
   if(focus)focusPath();else renderMap();
  }
  function updateWebViewButton(){
@@ -426,14 +426,17 @@
  function toggleCatalog(show){
    state.catalogOpen=!!show;
    const panel=$('stCatalogPanel');if(panel)panel.hidden=!state.catalogOpen;
+   if(show&&$('stStatsPanel')){$('stStatsPanel').hidden=true;$('stShowStats')?.setAttribute('aria-pressed','false')}
  }
  function nextReady(){
-  if(state.simulation||!readyNodes.length)return;
-  state.readyIndex=(state.readyIndex+1)%readyNodes.length;
-  const node=readyNodes[state.readyIndex];inspect(node.id);
+  const available=readyNodes();
+  if(!available.length){notice('Nenhum talento disponível neste momento.');return}
+  state.readyIndex=(state.readyIndex+1)%available.length;
+  const node=available[state.readyIndex];inspect(node.id);
   const p=positions.get(node.id);if(p){state.cx=p.x;state.cy=p.y;state.scale=1.15;renderMap()}
  }
  function closeScene(){
+  if($('stStatsPanel')&&!$('stStatsPanel').hidden){toggleStats(false);return}
   if(state.catalogOpen){toggleCatalog(false);return}
   const home=document.querySelector('.side-nav [data-nav="home"]');if(home)home.click();
   else window.location.hash='home';
@@ -497,7 +500,7 @@
  }
  function init(){
   locate();
-  renderSidebar();showPath();updateWebViewButton();
+  renderSidebar();showPath();renderStats();updateWebViewButton();
   if(state.webView)focusPath();else renderMap();
   const field=$('stSkillSearch');
   if(field){
@@ -510,6 +513,10 @@
     if(event.key==='Escape'){event.preventDefault();closeSearch();field.blur?.()}
    });
   }
+  const grantInput=$('stGrantPoints');
+  if(grantInput)grantInput.addEventListener('keydown',event=>{
+    if(event.key==='Enter'){event.preventDefault();addSkillPoints()}
+  });
   const svg=$('stTreeSvg');
   svg.addEventListener('click',event=>{
    const g=event.target.closest('[data-st-node]');
@@ -544,8 +551,12 @@
       refreshSearch();return;
     }
     if(!event.target.closest('.st-skill-search'))closeSearch();
+    const statsPath=event.target.closest('[data-st-stats-path]');
+    if(statsPath){toggleStats(false);selectPath(statsPath.dataset.stStatsPath);return}
     const path=event.target.closest('[data-st-path]'),
-          inspectBtn=event.target.closest('[data-st-inspect]');
+          inspectBtn=event.target.closest('[data-st-inspect]'),
+          learnBtn=event.target.closest('[data-st-learn]');
+    if(learnBtn){learnTalent(learnBtn.dataset.stLearn);return}
     if(path){selectPath(path.dataset.stPath);return}
     if(inspectBtn){inspect(inspectBtn.dataset.stInspect);return}
     if(event.target.closest('#stZoomIn')){setZoom(state.scale*1.2);return}
@@ -556,12 +567,14 @@
     if(event.target.closest('#stNextReady')){nextReady();return}
     if(event.target.closest('#stWebView')){toggleWebView(!state.webView);return}
     if(event.target.closest('#stBackToMap')){toggleCatalog(false);return}
+    if(event.target.closest('#stShowStats')||event.target.closest('#stShowStatsFromDetail')){toggleStats($('stStatsPanel').hidden);return}
+    if(event.target.closest('#stCloseStats')){toggleStats(false);return}
+    if(event.target.closest('#stAddPoints')){toggleStats(true);$('stGrantPoints')?.focus?.();return}
+    if(event.target.closest('#stConfirmGrant')){addSkillPoints();return}
     if(event.target.closest('#stOpenCatalog')){toggleCatalog(true);return}
     if(event.target.closest('#stClose')){closeScene();return}
     if(event.target.closest('#stBackToPath')){state.selectedId=null;showPath();renderMap();return}
-    if(event.target.closest('#stOpenLearned')){toggleCatalog(true);const button=root.querySelector('[data-sk-state="learned"]');if(button)button.click();return}
-    if(event.target.closest('#stLearnAll')){state.simulation=true;renderSidebar();state.selectedId=null;showPath();renderMap();return}
-    if(event.target.closest('#stResetSkills')){state.simulation=false;renderSidebar();resetView();return}
+    if(event.target.closest('#stResetSkills')){resetSkills();return}
   });
   document.addEventListener('keydown',event=>{
     if(!document.getElementById('page-skill')?.classList.contains('active'))return;
@@ -573,6 +586,7 @@
     if(event.key==='/'){event.preventDefault();$('stSkillSearch')?.focus?.();return}
     if(event.key==='Escape'){event.preventDefault();closeScene()}
     if(event.key.toLowerCase()==='v'){event.preventDefault();toggleWebView(!state.webView)}
+    if(event.key.toLowerCase()==='s'){event.preventDefault();toggleStats($('stStatsPanel').hidden)}
     if(event.key.toLowerCase()==='c'){event.preventDefault();focusPath()}
     if(event.key.toLowerCase()==='g'){event.preventDefault();resetView()}
     if(event.key.toLowerCase()==='a'){event.preventDefault();if(state.webView)focusPath();else{state.cx=500;state.cy=405;setZoom(.38)}}
