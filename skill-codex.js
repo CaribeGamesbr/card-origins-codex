@@ -3,16 +3,17 @@
   const data=window.CARDO_SKILLS;
   if(!data||!Array.isArray(data.nodes))return;
   const safe=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','"':'&#39;'}[c]));
+  const normalize=s=>String(s??'').toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
   const statusLabels={learned:'Aprendido',ready:'Pronto para aprender',locked:'Bloqueado'};
   const statusOrders={learned:0,ready:1,locked:2};
   let category='General',state='all',search='',sort='branch';
   function card(node){
     const shown=node.effect.includes('não')&&node.effect.includes('captura')?' sk-unverified':'';
-    return '<details class="sk-talent '+node.status+shown+'"><summary><span class="sk-status-icon" aria-hidden="true">'+(node.status==='learned'?'✓':node.status==='ready'?'✦':'◇')+'</span><span class="sk-talent-core"><strong>'+safe(node.name)+'</strong><small>'+safe((node.tier||'node').toUpperCase())+' · '+(node.cost==null?'Custo desconhecido':node.cost+' '+(node.cost===1?'ponto':'pontos'))+'</small></span><span class="sk-talent-status">'+statusLabels[node.status]+'</span><span class="sk-expand-symbol" aria-hidden="true">⌄</span></summary><div class="sk-talent-body"><p>'+safe(node.effect)+'</p>'+(node.notes?'<p class="sk-footnote">'+safe(node.notes)+'</p>':'')+'</div></details>';
+    return '<details class="sk-talent '+node.status+shown+'"><summary><span class="sk-status-icon" aria-hidden="true">'+(node.status==='learned'?'✓':node.status==='ready'?'✦':'◇')+'</span><span class="sk-talent-core"><strong>'+safe(node.name)+'</strong><span class="sk-pt-name">'+safe(node.ptName||node.name)+'</span><small>'+safe((node.tier||'node').toUpperCase())+' · '+(node.cost==null?'Custo desconhecido':node.cost+' '+(node.cost===1?'ponto':'pontos'))+'</small></span><span class="sk-talent-status">'+statusLabels[node.status]+'</span><span class="sk-expand-symbol" aria-hidden="true">⌄</span></summary><div class="sk-talent-body"><p>'+safe(node.effect)+'</p>'+(node.notes?'<p class="sk-footnote">'+safe(node.notes)+'</p>':'')+'</div></details>';
   }
   function update(){
     const view=document.getElementById('skillCatalogRows');if(!view)return;
-    let list=data.nodes.filter(x=>(category==='all'||x.path===category)&&(state==='all'||x.status===state)&&(!search||(x.name+' '+x.effect+' '+x.path).toLowerCase().includes(search)));
+    let list=data.nodes.filter(x=>(category==='all'||x.path===category)&&(state==='all'||x.status===state)&&(!search||normalize(x.name+' '+(x.ptName||'')+' '+x.effect+' '+x.path).includes(search)));
     if(sort==='name')list.sort((a,b)=>a.name.localeCompare(b.name,'pt-BR'));
     if(sort==='state')list.sort((a,b)=>statusOrders[a.status]-statusOrders[b.status]||a.name.localeCompare(b.name,'pt-BR'));
     if(sort==='branch')list.sort((a,b)=>data.categories.findIndex(c=>c.name===a.path)-data.categories.findIndex(c=>c.name===b.path));
@@ -31,14 +32,14 @@
     const badges=[['all','Todos',146],...data.categories.map(c=>[c.name,c.name,c.total])];
     root.innerHTML='<div class="sk-browser-head"><div><span class="overline">TALENT CODEX / 146</span><h2>Todos os talentos, <em>com efeitos e custos.</em></h2><p>Escolha uma árvore, consulte as descrições e separe o que já está ativo do que falta desbloquear.</p></div><span id="skillFoundCount" class="sk-results-count">146 talentos</span></div>'
       +'<div class="sk-branch-tabs" role="group" aria-label="Selecionar árvore">'+badges.map(([key,label,n])=>'<button type="button" data-sk-category="'+safe(key)+'" aria-pressed="false">'+safe(label)+' <small>'+n+'</small></button>').join('')+'</div>'
-      +'<div class="sk-controls"><label class="sk-search"><span>⌕</span><input id="skillQuery" type="search" autocomplete="off" placeholder="Buscar talento, bônus, porcentagem..." aria-label="Buscar talentos"></label><div class="sk-state-buttons" role="group" aria-label="Estado dos talentos">'+[['all','Todos'],['learned','Aprendidos'],['ready','Disponíveis'],['locked','Bloqueados']].map(([k,l])=>'<button type="button" data-sk-state="'+k+'" aria-pressed="false">'+l+'</button>').join('')+'</div><select id="skillSort" aria-label="Ordenação"><option value="branch">Ordem dos prints</option><option value="name">Nome A-Z</option><option value="state">Estado de desbloqueio</option></select></div>'
+      +'<div class="sk-controls"><label class="sk-search"><span>⌕</span><input id="skillQuery" type="search" autocomplete="off" placeholder="Buscar skill em inglês ou português, bônus ou efeito..." aria-label="Buscar talentos"></label><div class="sk-state-buttons" role="group" aria-label="Estado dos talentos">'+[['all','Todos'],['learned','Aprendidos'],['ready','Disponíveis'],['locked','Bloqueados']].map(([k,l])=>'<button type="button" data-sk-state="'+k+'" aria-pressed="false">'+l+'</button>').join('')+'</div><select id="skillSort" aria-label="Ordenação"><option value="branch">Ordem dos prints</option><option value="name">Nome A-Z</option><option value="state">Estado de desbloqueio</option></select></div>'
       +'<div class="sk-status-guide"><span>✓ Aprendido: efeito ativo</span><span>✦ Pronto: ainda não ativo</span><span>◇ Bloqueado: ainda não ativo</span></div><div id="skillCatalogRows"></div>';
     root.addEventListener('click',event=>{
       const c=event.target.closest('[data-sk-category]'),st=event.target.closest('[data-sk-state]');
       if(c){category=c.dataset.skCategory;update()}
       if(st){state=st.dataset.skState;update()}
     });
-    root.querySelector('#skillQuery').addEventListener('input',e=>{search=e.target.value.toLowerCase().trim();update()});
+    root.querySelector('#skillQuery').addEventListener('input',e=>{search=normalize(e.target.value);update()});
     root.querySelector('#skillSort').addEventListener('change',e=>{sort=e.target.value;update()});
     update();
   }
