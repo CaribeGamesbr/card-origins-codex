@@ -7,7 +7,7 @@
   <meta name="description" content="Card Origins Codex: catálogo da coleção com cartas, suportes, mecânicas, filtros e construtor de equipes."/>
   <title>Card Origins — Codex</title>
   <link rel="stylesheet" href="styles.css"/>
-  <link rel="stylesheet" href="chaos.css?v=20261109-three-star-3"/>
+  <link rel="stylesheet" href="chaos.css?v=20261109-effects-rotation-1"/>
   <script defer src="data.js"></script>
   <script defer src="skill-data.js"></script>
   <script defer src="app.js"></script>
@@ -17,8 +17,8 @@
   <script defer src="mode-codex.js"></script>
   <script defer src="deck.js"></script>
   <script defer src="team-status.js"></script>
-  <script defer src="chaos-engine.js?v=20261109-three-star-3"></script>
-  <script defer src="chaos-ui.js?v=20261109-three-star-3"></script>
+  <script defer src="chaos-engine.js?v=20261109-effects-rotation-1"></script>
+  <script defer src="chaos-ui.js?v=20261109-effects-rotation-1"></script>
 </head>
 <body>
   <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg">
@@ -235,6 +235,12 @@
               </div>
             </div>
             <div id="cxTeams" class="cx-teams" aria-label="Equipes de 4 cartas para 2 fases"></div>
+            <section class="cx-support-section">
+              <div class="cx-support-title"><h3>Suportes por posição</h3><span>6 efeitos conferidos nos seus prints</span></div>
+              <p>A busca pode testar os seis suportes de efeito conferido em diferentes slots, junto com as cartas. Você também pode equipar manualmente. Os outros 31 suportes ainda precisam ter o efeito confirmado.</p>
+              <div id="cxSupportSlots" class="cx-support-slots"></div>
+              <button id="cxAutoSupports" type="button" class="cx-button cx-outline">✦ Equipar suportes sugeridos</button>
+            </section>
             <div class="cx-controls">
               <div class="cx-controls-label">
                 <h3>Laboratório de estratégia</h3>
@@ -258,7 +264,18 @@
               <strong id="cxSearchStatusText">Preparando busca de 3 estrelas…</strong>
               <progress id="cxSearchProgress" max="100000" value="0" aria-label="Formações testadas na busca de 3 estrelas"></progress>
             </div>
-            <p id="cxOptimizationNote" class="cx-note" aria-live="polite">“Buscar vitória” procura equipes para concluir as duas fases. “Buscar 3 estrelas” testa até 100.000 formações diferentes e exige vencer as duas fases, não perder cartas e ficar em até 22 turnos por fase, tudo na mesma batalha. Se não encontrar, mostra a melhor tentativa.</p>
+            <p id="cxOptimizationNote" class="cx-note" aria-live="polite">“Buscar vitória” compara equipes e posições dos suportes. “Buscar 3 estrelas” testa até 100.000 combinações de cartas, posições e suportes e exige vencer ambas as fases, não perder cartas e ficar em até 22 turnos por fase na mesma batalha simulada. Sem garantia de vitória no jogo.</p>
+            <details class="cx-rotation-config" id="cxRotationConfig">
+              <summary>↻ Atualizar rotação: inimigos, HP, dano e elementos</summary>
+              <p>O jogo pode trocar os inimigos e os elementos a cada 3 dias. Não existe uma lista futura confirmada no Codex: preencha os valores da nova rotação quando aparecer no jogo. Eles serão usados em todas as buscas seguintes e ficarão salvos neste navegador.</p>
+              <label>Nome ou data da rotação <input id="cxRotationLabel" type="text" value="Rotation 3 · prints de 09/11/2026" maxlength="80"/></label>
+              <div id="cxRotationFields" class="cx-rotation-fields"></div>
+              <div class="cx-rotation-actions">
+                <button id="cxSaveRotation" type="button" class="cx-button cx-gold">✓ Salvar esta rotação</button>
+                <button id="cxResetRotation" type="button" class="cx-button cx-outline">↺ Restaurar os 8 prints</button>
+              </div>
+              <p id="cxRotationNote" class="cx-note" role="status" aria-live="polite">Estatísticas dos 8 prints atuais carregadas.</p>
+            </details>
             <div class="cx-analysis">
               <div class="cx-output"><h2>Resultado dos testes</h2><div id="cxResultPanel" aria-live="polite"></div></div>
               <div class="cx-opponents"><h2>Inimigos e habilidades da Stage 03</h2><div id="cxEnemyInfo"></div></div>
