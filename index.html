@@ -144,6 +144,12 @@
               <div class="st-map-caption"><span id="stMapMode">VISÃO GERAL</span><span>◉ <b id="stMapLearned">75</b>/146 APRENDIDOS</span></div>
               <button type="button" id="stOverview" class="st-overview" aria-label="Mostrar os sete caminhos separados">◎ VISÃO GERAL [G]</button>
               <button type="button" id="stFitAll" class="st-fitall" aria-label="Enquadrar todos os talentos no mapa">⊞ VER TUDO [A]</button>
+              <div class="st-skill-search" role="search">
+                <label for="stSkillSearch" class="st-search-icon" aria-label="Buscar">⌕</label>
+                <input id="stSkillSearch" type="search" role="combobox" aria-autocomplete="list" aria-controls="stSkillSearchResults" aria-expanded="false" autocomplete="off" spellcheck="false" placeholder="Pesquisar skill em inglês ou português..." />
+                <button type="button" id="stSearchClear" aria-label="Limpar pesquisa" hidden>✕</button>
+                <div id="stSkillSearchResults" class="st-skill-search-results" role="listbox" aria-label="Talentos encontrados" hidden></div>
+              </div>
               <div class="st-map-controls">
                 <span>ESC</span> CLOSE <span>V</span> WEB VIEW <span>C</span> CENTER
                 <button type="button" id="stZoomOut" aria-label="Reduzir zoom">−</button>
