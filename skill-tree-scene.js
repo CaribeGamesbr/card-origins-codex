@@ -18,13 +18,13 @@
    'Border Stats':'The framework behind every border. Stats adicionais por categoria de borda.'
  };
  const positionsCfg={
-  General:{angle:-90,spread:40,rows:[3,3,3,4]},
-  Elements:{angle:-35,spread:47,rows:[4,5,5,5,5,5]},
-  Debuffs:{angle:29,spread:49,rows:[5,6,6,6,7,7]},
-  Traits:{angle:91,spread:37,rows:[3,4,4,4]},
-  Colosseum:{angle:151,spread:39,rows:[3,3,3,2]},
-  Infinite:{angle:201,spread:42,rows:[4,4,5,5]},
-  'Border Stats':{angle:244,spread:43,rows:[4,4,4,4]}
+  General:{angle:-90,spread:34,rows:[3,3,3,4]},
+  Elements:{angle:-25,spread:42,rows:[4,5,5,5,5,5]},
+  Debuffs:{angle:40,spread:42,rows:[5,6,6,6,7,7]},
+  Traits:{angle:102,spread:34,rows:[3,4,4,4]},
+  Colosseum:{angle:153,spread:28,rows:[3,3,3,2]},
+  Infinite:{angle:192,spread:26,rows:[4,4,5,5]},
+  'Border Stats':{angle:229,spread:26,rows:[4,4,4,4]}
  };
  const state={category:'General',selectedId:null,scale:1,cx:500,cy:405,simulation:false,webView:false,readyIndex:-1};
  const allById=new Map(data.nodes.map(x=>[x.id,x]));
