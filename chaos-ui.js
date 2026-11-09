@@ -191,11 +191,23 @@ function updateSearchProgress(snapshot){
 function finishThreeStarSearch(snapshot,stopped=false){
  setSearchControls(false);
  if(!snapshot)return;
- const selected=snapshot.found?.teams||snapshot.bestTeams;
+ let selected=snapshot.found?.teams||snapshot.bestTeams;
+ // The single luckiest sampled fight is not necessarily a reliable roster.
+ // When no 3-star proof exists, compare the search winner, current team and
+ // standard optimizer on the SAME 120 seeds before selecting a fallback.
+ let verified=null;
+ if(!snapshot.found){
+   const recommended=E.recommend(catalog,{attempts:360,hardness:state.difficulty});
+   const shortlist=[snapshot.bestTeams,actual(),recommended.teams].filter(t=>E.rosterValid(t).ok);
+   const rated=shortlist.map(teams=>({teams,results:E.trials(teams,{samples:120,seed:53791,hardness:state.difficulty})}));
+   const metric=s=>s.threeStarRate*300+s.clearRate*100-(s.avgLosses[0]+s.avgLosses[1])*.5-(s.avgTurns[0]+s.avgTurns[1])*.02;
+   rated.sort((a,b)=>metric(b.results)-metric(a.results));
+   if(rated.length){selected=rated[0].teams;verified=rated[0].results;}
+ }
  if(!E.rosterValid(selected).ok)return;
  setTeams(selected);
  state.searchMeta={found:Boolean(snapshot.found),stopped,tested:snapshot.tested,clearCount:snapshot.clearCount,perfectPhaseCount:snapshot.perfectPhaseCount};
- state.result=E.trials(selected,{samples:120,seed:53791,hardness:state.difficulty});
+ state.result=verified||E.trials(selected,{samples:120,seed:53791,hardness:state.difficulty});
  // Keep the actual successful battle as replay evidence. Independent trials
  // may show 0% if this was a rare outcome; the banner separates these claims.
  if(snapshot.found)state.result.example=snapshot.found.result;
