@@ -5,10 +5,20 @@
 'use strict';
 const E=window.CARDO_CHAOS_ENGINE;
 const catalog=Array.isArray(window.CARDO_DATA)?window.CARDO_DATA:[];
-const cards=catalog.filter(c=>c.type==='card'&&E.hasStats(c));
+const cards=catalog.filter(c=>c.type==='card');
+const statsStorageKey='card-origins-chaos-card-stats-v1';
+let manualStats={};
+try{manualStats=JSON.parse(localStorage.getItem(statsStorageKey)||'{}')||{}}catch(_){manualStats={}}
+for(const c of cards){
+ const override=manualStats[c.id];
+ if(override&&Number(override.hp)>0&&Number(override.dmg)>0){
+   c.hp=Number(override.hp);c.dmg=Number(override.dmg);
+   c.ability=String(override.ability||c.ability||'');
+   c.effect=String(override.effect||c.effect||'');
+   c.manualStats=true;
+ }
+}
 const byId=new Map(cards.map(c=>[c.id,c]));
-const supportCards=catalog.filter(c=>c.type==='support'&&E.supportedSupportIds?.has(c.id));
-const supportById=new Map(supportCards.map(c=>[c.id,c]));
 const esc=x=>String(x??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const storageKey='card-origins-chaos-stage03-v1';
 const rotationStorageKey='card-origins-chaos-rotation-v1';
@@ -25,8 +35,7 @@ const previousPreset=[
  ['c-3','c-350','new-black-flame-heir-calamity','new-the-grinning-spectator-normal'],
  ['c-1','c-353','new-silver-star-user-calamity','c-5']
 ];
-const supportPreset=[['s-372','s-365','s-371',null],['s-366','s-360','s-374',null]];
-const state={teams:preset.map(t=>t.slice()),supports:supportPreset.map(x=>x.slice()),difficulty:1,samples:100,selection:null,filter:'',result:null,fit:null,
+const state={teams:preset.map(t=>t.slice()),difficulty:1,samples:100,selection:null,filter:'',result:null,fit:null,
  searching:false,searchToken:0,searchSnapshot:null,searchMeta:null,
  rotationLabel:'Rotation 3 · prints de 09/11/2026',rotationSavedAt:'2026-11-09T00:00:00Z'};
 try{
@@ -35,31 +44,85 @@ try{
    const value=old.teams.map(t=>t.map(id=>byId.has(id)?id:null));
    if(E.rosterValid(value.map(t=>t.map(id=>byId.get(id)))).ok&&JSON.stringify(value)!==JSON.stringify(previousPreset))state.teams=value;
  }
- if(old&&Array.isArray(old.supports)&&old.supports.length===2&&old.supports.every(t=>Array.isArray(t)&&t.length===4)){
-   const flat=old.supports.flat().filter(Boolean);
-   if(flat.every(id=>supportById.has(id))&&new Set(flat).size===flat.length)state.supports=old.supports.map(t=>t.slice());
- }
  // v1 saved pressure 1.70 as a relative guess before enemy stats arrived.
  // Keep saved teams but recalibrate pressure to 1.00 for screenshot-based HP/DMG.
  if(old?.calibrationVersion===2&&Number.isFinite(old.difficulty))state.difficulty=Math.min(2,Math.max(.7,old.difficulty));
 }catch(_){}
 const el=id=>document.getElementById(id);
 const actual=()=>state.teams.map(t=>t.map(id=>byId.get(id)||null));
-function save(){try{localStorage.setItem(storageKey,JSON.stringify({teams:state.teams,supports:state.supports,difficulty:state.difficulty,calibrationVersion:2}))}catch(_){}}
-function renderSupports(){
- const root=el('cxSupportSlots');if(!root)return;
- root.innerHTML=state.supports.map((team,i)=>'<section class="cx-support-group"><h4>Time '+(i+1)+'</h4>'+
- team.map((id,j)=>'<label>Slot '+(j+1)+' — '+esc(actual()[i][j]?.name||'Vazio')+'<select data-cx-support="'+i+'-'+j+'">'+
- '<option value="">Sem suporte</option>'+supportCards.map(s=>'<option value="'+esc(s.id)+'"'+(id===s.id?' selected':'')+'>'+esc(s.name)+'</option>').join('')+
- '</select></label>').join('')+'</section>').join('');
+function save(){try{localStorage.setItem(storageKey,JSON.stringify({teams:state.teams,difficulty:state.difficulty,calibrationVersion:2}))}catch(_){}}
+function renderCoverage(){
+ const known=cards.filter(E.hasStats).length;
+ const manual=cards.filter(c=>c.manualStats).length;
+ const count=el('cxDataCoverage');
+ if(count)count.textContent=cards.length+' cartas cadastradas · '+known+' com HP/DMG ('+manual+' informadas por você) · '+(cards.length-known)+' aguardando atributos e habilidades.';
+ renderAbilityAudit();
 }
-function chooseSupport(index,slot,id){
- if(id&&!supportById.has(id))return;
- if(id&&state.supports.flat().some((used,j)=>j!==index*4+slot&&used===id)){
-   el('cxOptimizationNote').textContent='Este suporte já está em outro slot. Use cópias distintas se você tiver mais de uma.';
-   renderSupports();return;
+const abilityRoles={
+ 'BLUE WOLF':'Tanque, roubo de HP e Blood Wound',
+ 'VECTOR STORM':'Defesa, reflexão, Shock e Blind',
+ 'FULLMETAL ALCHEMIST':'Dano, cura via Matter e resistência fatal',
+ 'ASHEY':'Crítico, Burn, B.O.B. e Stun',
+ 'KING OF GAMES':'Dano +20% sem KOs; cópia após KO',
+ 'PSYCHIC PEAK':'Redirecionamento e pressão acumulada',
+ 'SCARLET DUELIST':'Controle: Blind, Silence e Fatigue',
+ 'THE GRINNING SPECTATOR':'Buff crítico, custo de HP e cura condicional',
+ 'SILVERFOX VANGUARD':'Clone defensivo, dano e Disorientation',
+ 'MAGICIAN':'Proteção contra um golpe fatal',
+ 'SORCERER KILLER':'Ignora passivas e proteções; Predator',
+ 'SILVER STAR USER':'Múltiplos golpes e tempo congelado',
+ 'DEMONIC SWORDSAINT':'Dano em área, concentração e esquiva',
+ 'BLACK EYEPATCH':'Contramedida contra defesa e Dodge ganhos',
+ 'BLACK FLAME HEIR':'Dano periódico e recuperação condicional',
+ 'KAIRO':'Reversão de habilidades inimigas',
+ 'THE CRIMSON COMMANDER':'Anticura; baixa utilidade se inimigos não curam',
+ 'VIRTUAL CHIMERA':'Dano diferido e Burn transferido',
+ 'GHOST COMMUNICATOR':'Cópia de habilidade após KO (desfavorável para 3★)'
+};
+function renderAbilityAudit(){
+ const node=el('cxAbilityList');if(!node)return;
+ const known=cards.filter(c=>E.hasStats(c)&&c.effect);
+ node.innerHTML=known.map(c=>'<details class="cx-ability-card"><summary><strong>'+esc(c.name)+'</strong><span>'+esc(c.border)+' · '+esc(c.element)+' · HP '+Number(c.hp).toLocaleString('pt-BR')+' · DMG '+Number(c.dmg).toLocaleString('pt-BR')+'</span></summary>'+
+ '<p><b>Função:</b> '+esc(abilityRoles[c.name]||'Habilidade informada pelo usuário; efeito ainda não classificado')+'</p>'+
+ '<p><b>'+esc(c.ability||'Habilidade')+':</b> '+esc(c.effect)+'</p>'+
+ '<small>Modelagem parcial: gatilhos reais, passivas e interação com inimigos precisam de testes no jogo.</small></details>').join('');
+}
+function renderStatsEditor(){
+ const select=el('cxStatsTarget');if(!select)return;
+ const previous=select.value;
+ const choices=actual().flatMap((team,i)=>team.map((c,j)=>c?{key:i+'-'+j,c,i,j}:null)).filter(Boolean);
+ select.innerHTML='<option value="">Escolha uma carta do time</option>'+choices.map(x=>'<option value="'+x.key+'">Time '+(x.i+1)+' · Slot '+(x.j+1)+' — '+esc(x.c.name)+' ('+esc(x.c.border)+')'+(E.hasStats(x.c)?'':' · DADOS PENDENTES')+'</option>').join('');
+ const firstMissing=choices.find(x=>!E.hasStats(x.c));
+ select.value=choices.some(x=>x.key===previous)?previous:(firstMissing?.key||choices[0]?.key||'');
+ updateStatsFields();renderCoverage();
+}
+function updateStatsFields(){
+ const key=el('cxStatsTarget')?.value;
+ const fields=el('cxStatsFields');if(!fields)return;
+ const [i,j]=String(key||'').split('-').map(Number);
+ const c=actual()[i]?.[j];fields.hidden=!c;
+ if(!c)return;
+ el('cxStatsHp').value=E.hasStats(c)?String(c.hp):'';
+ el('cxStatsDmg').value=E.hasStats(c)?String(c.dmg):'';
+ el('cxStatsAbility').value=c.ability||'';
+ el('cxStatsEffect').value=c.effect||'';
+ el('cxStatsNote').textContent=c.verified?'Dados originais do print. Você pode corrigir os números se a carta mudou.':
+  'Esta carta ainda não tinha dados conferidos. Informe os números vistos no jogo. A habilidade escrita ficará registrada, mas só será simulada quando seus gatilhos forem implementados.';
+}
+function saveCardStats(){
+ const key=el('cxStatsTarget').value,[i,j]=key.split('-').map(Number),c=actual()[i]?.[j];
+ if(!c)return;
+ const hp=Number(el('cxStatsHp').value),dmg=Number(el('cxStatsDmg').value);
+ if(!Number.isFinite(hp)||hp<=0||!Number.isFinite(dmg)||dmg<=0){
+   el('cxStatsNote').textContent='Digite o HP máximo e o DMG da carta como números positivos.';return;
  }
- state.supports[index][slot]=id||null;state.result=null;state.searchMeta=null;save();renderSupports();renderResults();
+ c.hp=hp;c.dmg=dmg;c.ability=el('cxStatsAbility').value.trim();c.effect=el('cxStatsEffect').value.trim();c.manualStats=true;
+ manualStats[c.id]={hp,dmg,ability:c.ability,effect:c.effect};
+ try{localStorage.setItem(statsStorageKey,JSON.stringify(manualStats))}catch(_){}
+ state.result=null;state.searchMeta=null;renderTeams();renderResults();
+ el('cxStatsTarget').value=key;updateStatsFields();
+ el('cxStatsNote').textContent='HP e DMG salvos neste navegador. A carta agora participa das buscas. A habilidade só contará no combate depois de modelada.';
+ el('cxOptimizationNote').textContent='Carta '+c.name+' adicionada às opções calculáveis. A busca usa todas as cartas com HP e DMG disponíveis.';
 }
 function loadRotation(){
  try{
@@ -108,7 +171,7 @@ function resetRotation(){
  state.result=null;state.searchMeta=null;renderTeams();renderEnemies();renderResults();renderRotationEditor();
  el('cxOptimizationNote').textContent='Restaurados os oito inimigos dos prints da Rotation 3.';
 }
-function cardType(c){return E.screenshotKnown.has(c.id)?'VISTA NOS SEUS PRINTS':'COLEÇÃO — CONFIRA POSSE'}
+function cardType(c){return c.manualStats?'ATRIBUTOS INFORMADOS POR VOCÊ':c.verified?'HABILIDADE + ATRIBUTOS REGISTRADOS':'SEM HP/DMG · PRECISA DE DADOS'}
 function cardArt(c){
  const fallback='<span class="cx-placeholder" aria-hidden="true">✧</span>';
  if(!c?.image)return fallback;
@@ -119,7 +182,7 @@ function cardArt(c){
 function box(c,index,slot){
  return '<button type="button" class="cx-slot'+(!c?' is-empty':'')+'" data-cx-slot="'+index+'-'+slot+'" aria-label="'+(c?'Trocar '+esc(c.name):'Selecionar carta')+'">'
  +'<span class="cx-slot-index">'+(slot+1)+'</span>'
- +(c?'<span class="cx-card-cover">'+cardArt(c)+'</span><span class="cx-slot-info"><strong>'+esc(c.name)+'</strong><small>'+esc(c.border)+' · '+esc(c.element)+'</small><small>HP '+Number(c.hp).toLocaleString('pt-BR')+' · DMG '+Number(c.dmg).toLocaleString('pt-BR')+'</small></span>'
+ +(c?'<span class="cx-card-cover">'+cardArt(c)+'</span><span class="cx-slot-info"><strong>'+esc(c.name)+'</strong><small>'+esc(c.border)+' · '+esc(c.element)+'</small><small>'+(E.hasStats(c)?'HP '+Number(c.hp).toLocaleString('pt-BR')+' · DMG '+Number(c.dmg).toLocaleString('pt-BR'):'⚠ HP / DMG pendentes — informe abaixo')+'</small></span>'
  :'<span class="cx-slot-plus">+</span><span>Escolher carta</span>')
  +'</button>';
 }
@@ -137,7 +200,7 @@ function renderTeams(){
  }).join('');
  const warning=el('cxRosterWarning');
  if(warning){warning.textContent=valid.ok?'Equipes completas. Prontas para testar no modelo.':valid.reason;warning.className='cx-warning'+(valid.ok?' valid':'')}
- renderSupports();
+ renderStatsEditor();
 }
 function renderEnemies(){
  const root=el('cxEnemyInfo');if(!root)return;
@@ -148,7 +211,7 @@ function renderEnemies(){
  '<p>'+esc(x.threat)+'</p></details>').join('')+'</article>').join('');
 }
 function options(){
- const ready=cards.slice().sort((a,b)=>(E.screenshotKnown.has(b.id)?1:0)-(E.screenshotKnown.has(a.id)?1:0)||
+ const ready=cards.slice().sort((a,b)=>(E.hasStats(b)?1:0)-(E.hasStats(a)?1:0)||
   (Number(b.dmg)||0)-(Number(a.dmg)||0));
  const query=state.filter.trim().toLowerCase();
  return ready.filter(c=>!query||(c.name+' '+c.border+' '+c.element+' '+c.ability).toLowerCase().includes(query));
@@ -159,15 +222,14 @@ function renderPicker(){
  const [which,slot]=state.selection,team=actual();
  const used=team.flat().filter(Boolean);
  const list=options();
- root.innerHTML=list.slice(0,180).map(c=>{
+ root.innerHTML=list.map(c=>{
   const dup=used.some(x=>(x.id===c.id||x.name===c.name&&x.border===c.border)&&!(team[which][slot]?.id===c.id));
   const chosen=team[which][slot]?.id===c.id;
   return '<button class="cx-pick-card" type="button" data-cx-pick="'+esc(c.id)+'"'+(dup?' disabled':'')+'>'+
    '<span class="cx-pick-img">'+cardArt(c)+'</span>'+
-   '<span><strong>'+esc(c.name)+(chosen?' ✓':'')+'</strong><small>'+esc(c.border)+' · '+esc(c.element)+' · DMG '+c.dmg.toLocaleString('pt-BR')+'</small><small class="cx-pick-origin">'+cardType(c)+'</small></span>'
+   '<span><strong>'+esc(c.name)+(chosen?' ✓':'')+'</strong><small>'+esc(c.border)+' · '+esc(c.element)+' · '+(E.hasStats(c)?'HP '+c.hp.toLocaleString('pt-BR')+' · DMG '+c.dmg.toLocaleString('pt-BR'):'ATRIBUTOS PENDENTES')+'</small><small class="cx-pick-origin">'+cardType(c)+'</small></span>'
    +(dup?'<b>EM USO</b>':'<i>+</i>')+'</button>';
- }).join('')+(list.length>180?'<p class="cx-note">Mostrando 180 resultados. Refine a pesquisa.</p>':'')+
- (!list.length?'<p class="cx-note">Nenhuma carta com HP e DMG verificados corresponde à pesquisa.</p>':'');
+ }).join('')+(!list.length?'<p class="cx-note">Nenhuma carta do catálogo corresponde à pesquisa.</p>':'');
 }
 function showPicker(index,slot){
  state.selection=[index,slot];state.filter='';
@@ -182,10 +244,14 @@ function pick(id){
  const dup=actual().flat().some(x=>x&&(x.id===c.id||x.name===c.name&&x.border===c.border));
  if(dup&&state.teams[t][j]!==id)return;
  state.teams[t][j]=id;save();closePicker();state.result=null;state.searchMeta=null;renderTeams();renderResults();
+ if(!E.hasStats(c)){
+  el('cxStatsPanel').open=true;el('cxStatsTarget').value=t+'-'+j;updateStatsFields();
+  el('cxOptimizationNote').textContent=c.name+' foi selecionada, mas faltam HP e DMG. Complete os dados para habilitar a simulação.';
+  el('cxStatsPanel').scrollIntoView({behavior:'smooth',block:'center'});
+ }
 }
-function setTeams(teams,supports){
+function setTeams(teams){
  state.teams=teams.map(t=>t.map(c=>c?.id||null));
- if(supports)state.supports=supports.map(t=>t.slice());
  state.result=null;state.searchMeta=null;save();renderTeams();renderResults();
 }
 function estimateResult(){
@@ -193,7 +259,7 @@ function estimateResult(){
  const validity=E.rosterValid(rosters);if(!validity.ok){
   el('cxRosterWarning').textContent=validity.reason;el('cxRosterWarning').className='cx-warning';return
  }
- state.result=E.trials(rosters,{samples:state.samples,seed:53791,hardness:state.difficulty,supports:state.supports});
+ state.result=E.trials(rosters,{samples:state.samples,seed:53791,hardness:state.difficulty});
  renderResults();
 }
 function resultsBar(label,part,kind){
@@ -218,7 +284,6 @@ function battlePlan(result){
    const hazards=phase.enemies.filter(foe=>effectTips[foe.effectKey]).map(foe=>foe.name+' ('+effectTips[foe.effectKey]+')').join('; ');
    return 'Fase '+(i+1)+' — vantagens contra cada inimigo: '+matching+'. '+(hazards?'Atenção: '+hazards+'.':'As habilidades desta rotação ainda precisam ser confirmadas por prints.');
  });
- const supports=state.supports.map((slots,i)=>'Time '+(i+1)+': '+slots.map((id,j)=>id?('slot '+(j+1)+' '+supportById.get(id)?.name):null).filter(Boolean).join(', ')).join(' | ');
  const example=result.example;
  const replay=example?'<details class="cx-replay"><summary>Ver batalha ilustrativa ('+example.stars+' estrela'+(example.stars===1?'':'s')+')</summary>'+
   example.phases.map((phase,i)=>'<section><h5>'+esc(E.phases[i].name)+' · '+phase.defeated+'/4 inimigos · '+phase.turns+' turnos · '+phase.losses+' KOs</h5>'+
@@ -226,8 +291,7 @@ function battlePlan(result){
    '<details class="cx-replay-turns"><summary>Ver ações dos turnos</summary><ol>'+phase.timeline.map(item=>'<li>'+esc(item)+'</li>').join('')+'</ol></details></section>').join('')+'</details>':'';
  return '<div class="cx-battle-plan"><h4>Como tentar vencer no Roblox</h4><ol>'+
   objectives.concat(phaseNotes).map(item=>'<li>'+esc(item)+'</li>').join('')+'</ol>'+
-  '<p><b>Suportes usados no cálculo:</b> '+esc(supports)+'.</p>'+
-  '<p>Compare KOs e turnos com o jogo. HP/DMG da rotação inicial vieram dos prints; valores manuais são informados por você. Simulamos 6 suportes e gatilhos selecionados, mas traits, relíquias, parte dos debuffs e a ordem real de ações permanecem desconhecidos. A proteção de reviver também pode contar como KO nas regras do jogo.</p></div>'+replay;
+  '<p><b>Memory of Chaos não usa cartas de suporte.</b> Compare KOs e turnos com o jogo. HP/DMG dos oito inimigos iniciais vieram dos prints. Valores de cartas adicionados manualmente são informados por você. Traits, relíquias, parte das habilidades e a ordem real de ações permanecem desconhecidos.</p></div>'+replay;
 }
 function renderResults(){
  const mount=el('cxResultPanel');
@@ -236,10 +300,10 @@ function renderResults(){
  if(!r){mount.innerHTML='<div class="cx-result-empty"><span>✦</span><h3>Prepare dois times e inicie a simulação</h3><p>Os resultados são comparações baseadas em suposições, não previsão de vitória no Roblox.</p></div>';return}
  const searchNote=state.searchMeta?'<div class="cx-search-verdict '+(state.searchMeta.found?'is-found':'')+'"><strong>'+
   (state.searchMeta.found?'★ As 3 condições foram cumpridas em uma batalha simulada.':'★ Nenhuma batalha de 3 estrelas encontrada nesta busca.')+'</strong><p>'+
-  state.searchMeta.tested.toLocaleString('pt-BR')+' combinações de cartas, posições e suportes analisadas; '+state.searchMeta.clearCount.toLocaleString('pt-BR')+' passaram pelas duas fases em suas tentativas. '+
+  state.searchMeta.tested.toLocaleString('pt-BR')+' equipes diferentes analisadas (sem suportes); '+state.searchMeta.clearCount.toLocaleString('pt-BR')+' passaram pelas duas fases em suas tentativas. '+
   'Fases sem perda de cartas: Time 1 '+state.searchMeta.perfectPhaseCount[0].toLocaleString('pt-BR')+', Time 2 '+state.searchMeta.perfectPhaseCount[1].toLocaleString('pt-BR')+'. '+
   (state.searchMeta.found?'Em 120 novas batalhas independentes, a formação repetiu as 3 estrelas em '+Math.round(state.searchMeta.verifiedRate*100)+'% das tentativas do modelo. '+(state.searchMeta.robust?'Passou no filtro mínimo de repetição do laboratório. ':'A vitória foi rara; o time não passou no filtro mínimo de repetição. '):'')+
-  (state.searchMeta.found?'O exemplo de 3 estrelas aparece no registro abaixo. Ele ainda precisa ser testado no jogo.':state.searchMeta.stopped?'Busca interrompida. A melhor formação parcial está selecionada.':'A melhor formação parcial está selecionada. Você pode buscar novamente ou adicionar dados de cartas e suportes.')+
+  (state.searchMeta.found?'O exemplo de 3 estrelas aparece no registro abaixo. Ele ainda precisa ser testado no jogo.':state.searchMeta.stopped?'Busca interrompida. A melhor formação parcial está selecionada.':'A melhor formação parcial está selecionada. Inclua HP/DMG das outras cartas para ampliar a busca.')+
   '</p></div>':'';
  mount.innerHTML=searchNote+'<div class="cx-result-head"><div><span class="cx-caption">TESTE ESTATÍSTICO · '+r.samples+' TENTATIVAS</span><h3>'+(r.clearRate>.5?'Boa composição no modelo':'Composição com riscos no modelo')+'</h3></div><span class="cx-pill">PRESSÃO '+state.difficulty.toFixed(2)+'×</span></div>'+
  resultsBar('Concluiu as 2 fases',r.clearRate,'cx-teal')+
@@ -252,21 +316,21 @@ function renderResults(){
 function optimize(){
  const button=el('cxOptimize');button.disabled=true;
  try{
-  const candidate=E.recommend(catalog,{attempts:360,hardness:state.difficulty,supports:state.supports});
+  const candidate=E.recommend(catalog,{attempts:360,hardness:state.difficulty});
   if(!candidate?.teams||!E.rosterValid(candidate.teams).ok)return;
-  setTeams(candidate.teams,candidate.supports);
+  setTeams(candidate.teams);
   state.result=candidate.results;
   renderResults();
   const info=el('cxOptimizationNote');
-  info.textContent='Testadas '+candidate.attempts+' variações de equipes e suportes entre '+candidate.candidates+' cartas com HP/DMG conferidos nos prints. '+
+  info.textContent='Testadas '+candidate.attempts+' variações entre as '+candidate.candidates+' cartas com HP/DMG cadastrados. '+
    (candidate.results.clearRate>0?'Foi encontrada uma formação que venceu no modelo. ':'Não foi encontrada uma vitória no modelo. ')+
    'Veja o plano e o exemplo de batalha abaixo. O resultado não garante vitória no Roblox.';
  }finally{button.disabled=false}
 }
 function setSearchControls(running){
  state.searching=running;
- ['cxSearchThreeStars','cxOptimize','cxSimulate','cxReset','cxPressure','cxSamples','cxAutoSupports','cxSaveRotation','cxResetRotation'].forEach(id=>{const node=el(id);if(node)node.disabled=running;});
- el('cxSupportSlots').querySelectorAll('select').forEach(node=>node.disabled=running);
+ ['cxSearchThreeStars','cxOptimize','cxSimulate','cxReset','cxPressure','cxSamples','cxSaveStats','cxSaveRotation','cxResetRotation'].forEach(id=>{const node=el(id);if(node)node.disabled=running;});
+ el('cxStatsPanel').querySelectorAll('input,select,textarea').forEach(node=>node.disabled=running);
  el('cxRotationFields').querySelectorAll('input,select').forEach(node=>node.disabled=running);
  el('cxRotationLabel').disabled=running;
  el('cxStopSearch').hidden=!running;
@@ -276,54 +340,51 @@ function updateSearchProgress(snapshot){
  el('cxSearchProgress').max=snapshot.maxTests;
  el('cxSearchProgress').value=snapshot.tested;
  el('cxSearchStatusText').textContent='Testando '+snapshot.tested.toLocaleString('pt-BR')+' / '+snapshot.maxTests.toLocaleString('pt-BR')+
-  ' combinações de cartas e suportes ('+snapshot.candidates+' cartas) · '+snapshot.clearCount.toLocaleString('pt-BR')+' vitórias completas · '+snapshot.threeStarExamples+' exemplos de 3 estrelas reavaliados · fase 1 perfeita: '+snapshot.perfectPhaseCount[0]+' · fase 2 perfeita: '+snapshot.perfectPhaseCount[1]+'.';
+  ' equipes diferentes ('+snapshot.candidates+' cartas com atributos) · '+snapshot.clearCount.toLocaleString('pt-BR')+' vitórias completas · '+snapshot.threeStarExamples+' exemplos de 3 estrelas reavaliados · fase 1 perfeita: '+snapshot.perfectPhaseCount[0]+' · fase 2 perfeita: '+snapshot.perfectPhaseCount[1]+'.';
 }
 function finishThreeStarSearch(snapshot,stopped=false){
  setSearchControls(false);
  if(!snapshot)return;
  let selected=snapshot.found?.teams||snapshot.bestTeams;
- let selectedSupports=snapshot.found?.supports||snapshot.bestSupports;
  // The single luckiest sampled fight is not necessarily a reliable roster.
  // When no 3-star proof exists, compare the search winner, current team and
  // standard optimizer on the SAME 120 seeds before selecting a fallback.
  let verified=null;
  if(!snapshot.found){
-   const recommended=E.recommend(catalog,{attempts:360,hardness:state.difficulty,supports:state.supports});
-   const shortlist=[{teams:snapshot.bestTeams,supports:snapshot.bestSupports},
-     {teams:actual(),supports:state.supports},{teams:recommended.teams,supports:recommended.supports}]
-     .filter(x=>E.rosterValid(x.teams).ok);
-   const rated=shortlist.map(x=>({...x,results:E.trials(x.teams,{samples:120,seed:53791,hardness:state.difficulty,supports:x.supports})}));
+   const recommended=E.recommend(catalog,{attempts:360,hardness:state.difficulty});
+   const shortlist=[snapshot.bestTeams,actual(),recommended.teams].filter(x=>E.rosterValid(x).ok);
+   const rated=shortlist.map(teams=>({teams,results:E.trials(teams,{samples:120,seed:53791,hardness:state.difficulty})}));
    const metric=s=>s.threeStarRate*300+s.clearRate*100-(s.avgLosses[0]+s.avgLosses[1])*.5-(s.avgTurns[0]+s.avgTurns[1])*.02;
    rated.sort((a,b)=>metric(b.results)-metric(a.results));
-   if(rated.length){selected=rated[0].teams;selectedSupports=rated[0].supports;verified=rated[0].results;}
+   if(rated.length){selected=rated[0].teams;verified=rated[0].results;}
  }
  if(!E.rosterValid(selected).ok)return;
- setTeams(selected,selectedSupports);
+ setTeams(selected);
  state.searchMeta={found:Boolean(snapshot.found),robust:Boolean(snapshot.robustFound),verifiedRate:snapshot.found?.verified.threeStarRate||0,
    stopped,tested:snapshot.tested,clearCount:snapshot.clearCount,perfectPhaseCount:snapshot.perfectPhaseCount};
- state.result=snapshot.found?.verified||verified||E.trials(selected,{samples:120,seed:53791,hardness:state.difficulty,supports:selectedSupports});
+ state.result=snapshot.found?.verified||verified||E.trials(selected,{samples:120,seed:53791,hardness:state.difficulty});
  // Keep the actual successful battle as replay evidence. Independent trials
  // may show 0% if this was a rare outcome; the banner separates these claims.
  if(snapshot.found)state.result.example=snapshot.found.result;
  else if(snapshot.bestRun&&snapshot.bestRun.stars>state.result.example?.stars)state.result.example=snapshot.bestRun;
  renderResults();
- const message=snapshot.found?'Encontrou 3 estrelas no modelo após '+snapshot.tested.toLocaleString('pt-BR')+' combinações. Nas 120 repetições, obteve '+Math.round(snapshot.found.verified.threeStarRate*100)+'% no modelo. '+(snapshot.robustFound?'Atingiu o filtro mínimo de consistência. ':'Foi uma vitória rara, sem atingir o filtro de consistência. ')+'Não é garantia no Roblox.':
-   'Testou '+snapshot.tested.toLocaleString('pt-BR')+' combinações de cartas e suportes sem cumprir as 3 condições juntas. '+
+ const message=snapshot.found?'Encontrou 3 estrelas no modelo após '+snapshot.tested.toLocaleString('pt-BR')+' equipes. Nas 120 repetições, obteve '+Math.round(snapshot.found.verified.threeStarRate*100)+'% no modelo. '+(snapshot.robustFound?'Atingiu o filtro mínimo de consistência. ':'Foi uma vitória rara, sem atingir o filtro de consistência. ')+'Não é garantia no Roblox.':
+   'Testou '+snapshot.tested.toLocaleString('pt-BR')+' equipes sem suportes e não encontrou as 3 condições juntas. '+
    (stopped?'Busca interrompida. ':'')+'A melhor tentativa foi carregada. Tente novamente para explorar outras combinações.';
  el('cxOptimizationNote').textContent=message;
  el('cxSearchStatusText').textContent=message;
 }
 function searchThreeStars(){
  if(state.searching)return;
- const run=E.createThreeStarSearch(catalog,{teams:actual(),supports:state.supports,hardness:state.difficulty,seed:Date.now(),maxTests:100000});
+ const run=E.createThreeStarSearch(catalog,{teams:actual(),hardness:state.difficulty,seed:Date.now(),maxTests:100000});
  if(run.error){el('cxOptimizationNote').textContent=run.error;return;}
  setSearchControls(true);
  state.searchSnapshot=null;
  const token=++state.searchToken;
- el('cxOptimizationNote').textContent='Buscando 3 estrelas entre cartas com HP/DMG confirmados, trocando também os seis suportes entre slots. Você pode parar a qualquer momento.';
+ el('cxOptimizationNote').textContent='Buscando 3 estrelas SEM suportes entre todas as cartas com HP/DMG informados. Você pode parar a qualquer momento.';
  el('cxSearchStatus').hidden=false;
  el('cxSearchProgress').value=0;
- el('cxSearchStatusText').textContent='Preparando teste de até 100.000 combinações de cartas e suportes…';
+ el('cxSearchStatusText').textContent='Preparando até 100.000 equipes diferentes, sem cartas de suporte…';
  function tick(){
    if(token!==state.searchToken||!state.searching)return;
    const progress=run.step(1000);
@@ -341,7 +402,7 @@ function stopThreeStarSearch(){
 }
 function copyTeams(){
  const data=actual();
- const text=data.map((team,i)=>'TIME '+(i+1)+' — '+E.phases[i].name+'\n'+team.map((c,k)=>(k+1)+'. '+(c?c.name+' ('+c.border+'/'+c.element+')':'[vazio]')+' | Suporte: '+(supportById.get(state.supports[i][k])?.name||'nenhum')).join('\n')).join('\n\n');
+ const text=data.map((team,i)=>'TIME '+(i+1)+' — '+E.phases[i].name+'\n'+team.map((c,k)=>(k+1)+'. '+(c?c.name+' ('+c.border+'/'+c.element+')':'[vazio]')).join('\n')).join('\n\n');
  if(navigator.clipboard?.writeText){navigator.clipboard.writeText(text).then(()=>{el('cxOptimizationNote').textContent='Equipes copiadas.'}).catch(()=>window.prompt('Copie as equipes:',text));}
  else window.prompt('Copie as equipes:',text);
 }
@@ -363,18 +424,14 @@ function init(){
   if(target.id==='cxSimulate'){estimateResult();return}
   if(target.id==='cxOptimize'){optimize();return}
   if(target.id==='cxSearchThreeStars'){searchThreeStars();return}
-  if(target.id==='cxAutoSupports'){state.supports=supportPreset.map(t=>t.slice());state.result=null;state.searchMeta=null;save();renderSupports();renderResults();el('cxOptimizationNote').textContent='Seis suportes com efeito conferido foram distribuídos nos dois times. Rode a busca para comparar as composições.';return}
+  if(target.id==='cxSaveStats'){saveCardStats();return}
   if(target.id==='cxSaveRotation'){saveRotation();return}
   if(target.id==='cxResetRotation'){resetRotation();return}
   if(target.id==='cxReset'){setTeams(preset.map(ids=>ids.map(id=>byId.get(id)||null)));el('cxOptimizationNote').textContent='Exemplo inicial restaurado.';return}
   if(target.id==='cxCopy'){copyTeams();return}
  });
  el('cxPickerSearch').addEventListener('input',event=>{state.filter=event.target.value;renderPicker()});
- el('cxSupportSlots').addEventListener('change',event=>{
-  if(state.searching)return;
-  const key=event.target.dataset.cxSupport;
-  if(key){const [t,j]=key.split('-').map(Number);chooseSupport(t,j,event.target.value);}
- });
+ el('cxStatsTarget').addEventListener('change',updateStatsFields);
  el('cxRotationFields').addEventListener('input',event=>{
   if(event.target.matches('[data-cx-foe-name]'))event.target.closest('[data-cx-foe]').querySelector('[data-cx-foe-effect]').value='unknown';
  });

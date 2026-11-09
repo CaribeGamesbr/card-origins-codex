@@ -59,6 +59,7 @@ function resetRotation(){initialPhases.forEach((p,i)=>Object.assign(phases[i],JS
 function currentRotation(){return JSON.parse(JSON.stringify(phases));}
 const screenshotKnown=new Set([
 'c-1','c-2','c-3','c-4','c-5','c-7','c-8','c-353','c-352','c-350',
+'c-357','c-356','c-355','c-354','c-351',
 'new-silver-star-user-calamity','new-sorcerer-killer-normal',
 'new-black-eyepatch-calamity','new-the-grinning-spectator-normal',
 'new-demonic-swordsaint-normal',
@@ -111,32 +112,10 @@ function estimateCard(c,phase){
  const advantage=phase.enemies.reduce((s,foe)=>s+getAdvantage(c.element,foe.element||phase.element),0)/phase.enemies.length;
  return {hp:+c.hp,damage:+c.dmg*advantage*m.outgoing,mitigation:m.incoming};
 }
-const supportedSupportIds=new Set(['s-360','s-365','s-366','s-371','s-372','s-374']);
-function normalizeSupports(input){
- const slots=Array.isArray(input)&&input.length===2?input.flat():[];
- const seen=new Set();
- const flat=Array.from({length:8},(_,i)=>{
-   const id=slots[i];
-   if(!supportedSupportIds.has(id)||seen.has(id))return null;
-   seen.add(id);return id;
- });
- return [flat.slice(0,4),flat.slice(4,8)];
-}
-function shuffleSupports(input,random,edits=1){
- const flat=normalizeSupports(input).flat();
- for(let i=0;i<edits;i++){
-   const a=Math.floor(random()*8),b=Math.floor(random()*8);
-   [flat[a],flat[b]]=[flat[b],flat[a]];
- }
- return [flat.slice(0,4),flat.slice(4,8)];
-}
-function simulatePhase(team,phase,random,hardness=1,supportIds=[]){
+function simulatePhase(team,phase,random,hardness=1){
  const mods=team.map((c)=>modifiers(c,phase===phases[1]?1:0));
- const equipped=team.map((c,i)=>supportedSupportIds.has(supportIds[i])?supportIds[i]:null);
- const max=team.map((c,i)=>+c.hp*(equipped[i]==='s-371'?1.075:1));
+ const max=team.map(c=>+c.hp);
  const health=max.slice(),healableMax=max.slice();
- mods.forEach((m,i)=>{if(equipped[i]==='s-371')m.outgoing*=1.075;});
- let bindingUsed=false,serenityUsed=false,divineUsed=false;
  const skillGuard=mods.map(m=>m.extraLife),clone=mods.map(m=>m.shield);
  const matter=team.map(()=>0),bloodWounds=team.map(()=>0),predatorMark=team.map(()=>false);
  const timeFreeze=team.map(()=>false),concentration=team.map(()=>50);
@@ -161,10 +140,21 @@ function simulatePhase(team,phase,random,hardness=1,supportIds=[]){
    const readerLearnedAbilities=new Set();
    const enemyStatus={blind:0,shock:0,stun:0,fatigue:0,burn:0,burnPower:0,exposed:0,bleed:0};
    let reflected=false,duelActions=0,duelBonusTurn=false,bobCounterUsed=false,crossedOutApplied=false;
+   let chimeraStored=0,chimeraCaster=-1,kairoAfterimage=0,kairoTriggered=false,sorcererPredator=false,crimsonThreshold=4;
    while(enemyHP>0&&rounds<55&&active<4){
      rounds++;
      const c=team[active],m=mods[active];
      const adv=getAdvantage(c.element,foe.element||phase.element);
+     if(c.name==='GHOST COMMUNICATOR'&&!m.ghostEntered){
+       m.ghostEntered=true;
+       if(losses>0){health[active]=Math.min(healableMax[active],health[active]+max[active]*.20);
+         log.push('Turno '+rounds+': Ghost Communicator recuperou 20% HP ao herdar habilidade do aliado derrotado (cópia não modelada).');}
+     }
+     if(kairoAfterimage>0){enemyHP-=kairoAfterimage;
+       log.push('Turno '+rounds+': Static Afterimage de Kairo devolveu '+Math.round(kairoAfterimage)+' DMG ao inimigo (ativação aproximada).');
+       kairoAfterimage=0;
+       if(enemyHP<=0){defeated++;break;}
+     }
      if(c.name==='KING OF GAMES'&&m.kingEntered!==true){
        m.kingEntered=true;
        if(losses===0){m.outgoing*=1.2;log.push('Turno '+rounds+': King of Games entrou sem aliados derrotados: +20% DMG.');}
@@ -189,10 +179,6 @@ function simulatePhase(team,phase,random,hardness=1,supportIds=[]){
        if(enemyHP<=0){defeated++;log.push(foe.name+' derrotado por Burn no turno '+rounds);break;}
      }
      if(health[active]<=0){losses++;log.push('Turno '+rounds+': '+c.name+' caiu pelo dano periódico.');active++;burn=false;immolation=0;fatigue=0;bleed=0;confusion=0;continue;}
-     if(equipped[active]==='s-365'){
-       health[active]=Math.min(healableMax[active],health[active]+max[active]*.05);
-       log.push('Turno '+rounds+': Unbeatable Flavor curou 5% do HP máximo de '+c.name+'.');
-     }
      if(c.name==='PSYCHIC PEAK'&&pendingPsychicPressure[active]>0){
        const burst=pendingPsychicPressure[active]*.25;
        enemyHP-=burst;for(let j=k+1;j<4;j++)pendingSplash[j]+=burst;
@@ -203,10 +189,12 @@ function simulatePhase(team,phase,random,hardness=1,supportIds=[]){
      }
      // Black Eyepatch triggers when an enemy GAINS dodge or defense, not
      // merely because it starts the battle with a passive dodge stat.
-     const foeDodge=enemyStatus.exposed>0?0:(foe.dodge==null?0:foe.dodge);
+     const foeDodge=enemyStatus.exposed>0||c.name==='SORCERER KILLER'?0:(foe.dodge==null?0:foe.dodge);
      let hitChance=Math.min(.99,(foeDodge?1-foeDodge:.94)+m.hitBonus);
      if(enemyStatus.exposed>0)hitChance=1;
      let amount=c.dmg*adv*m.outgoing*linkBoost[active]*(.86+.28*random());
+     if(c.name==='SORCERER KILLER'&&sorcererPredator){amount*=1.25;sorcererPredator=false;
+       log.push('Turno '+rounds+': Sorcerer Killer consumiu Predator (+25% DMG).');}
      if(active===eyeDealTarget)amount*=1.06; // Approximate expected critical benefit of Eye Deal.
      if(effect==='dodge_counter'&&dodges>=5)amount*=.9;
      if(fatigue>0)amount*=.9;
@@ -229,7 +217,7 @@ function simulatePhase(team,phase,random,hardness=1,supportIds=[]){
        log.push('Turno '+rounds+': Judgment Cut End atingiu os próximos inimigos com dano em área.');
      }
      let hit=random()<=hitChance;
-     if(hit&&effect==='read_ability'){
+     if(hit&&effect==='read_ability'&&c.name!=='SORCERER KILLER'){
        const abilityKey=c.name+'|'+(c.ability||'base');
        if(!readerLearnedAbilities.has(abilityKey)){
          readerLearnedAbilities.add(abilityKey);hit=false;
@@ -241,19 +229,18 @@ function simulatePhase(team,phase,random,hardness=1,supportIds=[]){
        log.push('Turno '+rounds+': Eye Deal garantiu um crítico, consumindo 5% do HP de '+c.name+'.');
      }
      if(hit){
+       if(c.name==='SORCERER KILLER'&&['dodge_counter','read_ability'].includes(effect)){
+         sorcererPredator=true;
+         log.push('Turno '+rounds+': Sorcerer Killer ignorou a proteção passiva e marcou Predator para o próximo ataque.');
+       }
+       if(c.name==='VIRTUAL CHIMERA'&&chimeraCaster!==active&&chimeraStored===0){
+         chimeraStored=Math.min(amount*.35,c.dmg*.50);chimeraCaster=active;
+         log.push('Turno '+rounds+': Virtual Chimera armazenou 35% do primeiro dano para Virtual Cascade.');
+       }
        if(c.name==='ASHEY'&&random()<.50){
          amount*=1.5;enemyStatus.burn=3;enemyStatus.burnPower=c.dmg*.075;
          amount+=c.dmg*.40;
          log.push('Turno '+rounds+': Ashey acertou crítico, aplicou Burn e B.O.B. atacou (+40% DMG).');
-       }
-       if(equipped[active]==='s-360'){
-         if(c.name==='ASHEY'){
-           enemyStatus.burn=2;enemyStatus.burnPower=foeMaxHP*.075*1.1;
-           log.push('Turno '+rounds+': Ashen Arcanum intensificou Burn em Immolation (valor aproximado).');
-         }else{
-           enemyStatus.burn=2;enemyStatus.burnPower=c.dmg*.075*1.1;
-           log.push('Turno '+rounds+': Ashen Arcanum aplicou Burn no inimigo.');
-         }
        }
        if(c.name==='BLUE WOLF')predatorMark[active]=true;
        if(c.name==='DEMONIC SWORDSAINT'&&concentration[active]===50)concentration[active]=100;
@@ -285,12 +272,32 @@ function simulatePhase(team,phase,random,hardness=1,supportIds=[]){
        if(flameActions%2===0){flameTicks=2;flameCaster=active;
          log.push('Turno '+rounds+': Black Flame Heir aplicou chamas negras por 2 turnos.');}
      }
-     if(enemyHP<=0){defeated++;log.push(foe.name+' derrotado no turno '+rounds+' por '+c.name);break}
+     if(enemyHP<=0){
+       if(chimeraStored>0){for(let j=k+1;j<4;j++)pendingSplash[j]+=chimeraStored*.60;
+         log.push('Virtual Cascade liberou 60% dos dados armazenados após a derrota do alvo.');chimeraStored=0;}
+       defeated++;log.push(foe.name+' derrotado no turno '+rounds+' por '+c.name);break;
+     }
+     if(c.name==='THE CRIMSON COMMANDER'&&enemyHP/foeMaxHP<=.75&&crimsonThreshold>Math.ceil(enemyHP/foeMaxHP*4)){
+       crimsonThreshold=Math.ceil(enemyHP/foeMaxHP*4);
+       log.push('Turno '+rounds+': Crimson Commander selou limiar de HP com Black Flame; sem cura inimiga conhecida para converter em Burn.');
+     }
      if(duelBonusTurn){duelBonusTurn=false;log.push('Turno '+rounds+': Scarlet Duelist ganhou ação extra sem resposta inimiga.');continue;}
      if(enemyStatus.stun>0){enemyStatus.stun--;log.push('Turno '+rounds+': '+foe.name+' perdeu a resposta por Stun.');continue;}
      // Enemy action and stage effect; status strengths not explicitly shown on the Memory of Chaos screenshots remain model assumptions.
      enemyTurns++;
      foeTurns++;
+     if(chimeraStored>0){
+       for(let j=k+1;j<4;j++)pendingSplash[j]+=chimeraStored;
+       enemyStatus.burn=2;enemyStatus.burnPower=team[chimeraCaster].dmg*.075;
+       log.push('Turno '+rounds+': Virtual Cascade enviou '+Math.round(chimeraStored)+' DMG ao próximo inimigo e aplicou Burn.');
+       chimeraStored=0;
+     }
+     if(c.name==='KAIRO'&&!kairoTriggered&&['double_hit','fatigue_confusion','bleed_execution'].includes(effect)){
+       kairoTriggered=true;
+       if(effect==='fatigue_confusion')enemyStatus.fatigue=2;
+       else kairoAfterimage=foe.dmg*hardness*.30;
+       log.push('Turno '+rounds+': Kairo refletiu a habilidade inimiga em Static Afterimage (força aproximada).');
+     }
      if(flameTicks>0&&flameCaster>=0){
        const dot=team[flameCaster].dmg*.10; // 20% DMG distributed over two ticks.
        enemyHP-=dot;flameTicks--;
@@ -344,12 +351,6 @@ function simulatePhase(team,phase,random,hardness=1,supportIds=[]){
        skillGuard[active]--;
        enemyHP-=c.dmg;m.outgoing*=1.10;
        log.push('Turno '+rounds+': Magician evitou o golpe fatal, contra-atacou com 100% DMG e ganhou +10% DMG.');
-     }else if(amountIn>=health[active]&&equipped[active]==='s-374'&&!serenityUsed&&!skillGuard[active]&&c.name!=='FULLMETAL ALCHEMIST'){
-       serenityUsed=true;health[active]=1;
-       log.push('Turno '+rounds+': Serenity evitou o golpe fatal; '+c.name+' permaneceu com 1 HP.');
-     }else if(amountIn>=health[active]&&equipped[active]==='s-366'&&!bindingUsed){
-       bindingUsed=true;health[active]=Math.min(healableMax[active],max[active]*.65);m.outgoing*=.50;
-       log.push('Turno '+rounds+': Binding Vow reviveu '+c.name+' com 65% HP e reduziu seu dano em 50%.');
      }else{
        const applied=Math.min(health[active],amountIn);
        health[active]-=amountIn;
@@ -375,13 +376,6 @@ function simulatePhase(team,phase,random,hardness=1,supportIds=[]){
          log.push('Turno '+rounds+': Silver Star User congelou o tempo inimigo por 1 turno (efeito não aplicável a bosses).');
        }
        if(c.name==='DEMONIC SWORDSAINT'&&applied>0)concentration[active]=0;
-     }
-     if(equipped[active]==='s-372'&&!divineUsed&&health[active]>0&&health[active]<max[active]*.50){
-       divineUsed=true;
-       max[active]*=1.10;healableMax[active]*=1.10;health[active]*=1.10;
-       health[active]=Math.min(healableMax[active],Math.max(health[active],max[active]*.70));
-       m.outgoing*=1.10;
-       log.push('Turno '+rounds+': Divine Spirit Waters curou até 70% HP e concedeu +10% Stats.');
      }
      if(prevented>0){
        enemyHP-=prevented;
@@ -410,7 +404,7 @@ function simulate(teams,opts={}){
  const seed=opts.seed==null?Date.now():Number(opts.seed);
  const random=rng(seed);
  const hardness=Math.max(.6,Math.min(2.4,Number(opts.hardness)||1));
- const results=teams.map((team,i)=>simulatePhase(team,phases[i],random,hardness,opts.supports?.[i]||[]));
+ const results=teams.map((team,i)=>simulatePhase(team,phases[i],random,hardness));
  const clear=results.every(x=>x.clear);
  const noLoss=clear&&results.every(x=>x.losses===0);
  const time=clear&&results.every(x=>x.withinLimit);
@@ -422,7 +416,7 @@ function trials(teams,opts={}){
  const samples=Math.min(500,Math.max(1,Math.trunc(opts.samples||100)));
  let clears=0,threeStars=0,noLoss=0,turns=[0,0],deaths=[0,0],last=null,bestExample=null,bestExampleScore=-1,stars=[0,0,0,0];
  for(let i=0;i<samples;i++){
-   const r=simulate(teams,{seed:(Number(opts.seed)||39170)+(i*9973),hardness:opts.hardness||1,supports:opts.supports});
+   const r=simulate(teams,{seed:(Number(opts.seed)||39170)+(i*9973),hardness:opts.hardness||1});
    last=r;clears+=r.clear?1:0;threeStars+=r.stars===3?1:0;noLoss+=r.limits.loseNoCards?1:0;stars[r.stars]++;
    const exampleScore=r.stars*100-r.phases.reduce((sum,phase)=>sum+phase.turns,0)*.01;
    if(exampleScore>bestExampleScore){bestExample=r;bestExampleScore=exampleScore;}
@@ -441,12 +435,12 @@ function rankCard(c,phase,slot){
 }
 function recommend(allData,opts={}){
  const data=cardsOnly(allData);
- const owned=data.filter(c=>screenshotKnown.has(c.id)&&hasStats(c));
+ const owned=data.filter(hasStats);
  const baseline=[['c-3','c-2','c-350','new-the-grinning-spectator-normal'],['c-1','c-5','c-353','new-silverfox-vanguard-astral']]
   .map(ids=>ids.map(id=>data.find(c=>c.id===id)));
  const chosen=baseline.flat().some(x=>!x)?[...owned.sort((a,b)=>b.dmg-a.dmg).slice(0,8)].reduce((p,x,i)=>(p[Math.floor(i/4)].push(x),p),[[],[]]):baseline;
- let best=chosen,bestSupports=normalizeSupports(opts.supports);
- let bestStat=trials(best,{samples:36,hardness:opts.hardness||1,seed:91011,supports:bestSupports});
+ let best=chosen;
+ let bestStat=trials(best,{samples:36,hardness:opts.hardness||1,seed:91011});
  const metric=s=>s.clearRate*.68+s.threeStarRate*.22+(s.noLoss/s.samples)*.04-((s.avgTurns[0]+s.avgTurns[1])/65)*.06;
  let bestScore=metric(bestStat);
  // Hill-climb with reproducible independent candidates; do not claim the top
@@ -455,11 +449,8 @@ function recommend(allData,opts={}){
  const maxAttempts=Math.min(360,Math.max(20,Number(opts.attempts)||180));
  for(let i=0;i<maxAttempts;i++){
    const test=best.map(team=>team.slice());
-   let testSupports=bestSupports.map(team=>team.slice());
    const type=random();
-   if(type<.25){
-     testSupports=shuffleSupports(testSupports,random,1+Math.floor(random()*3));
-   }else if(type<.62){
+   if(type<.53){
      const a=Math.floor(random()*8),b=Math.floor(random()*8);
      if(a===b)continue;
      const x=test[Math.floor(a/4)][a%4];test[Math.floor(a/4)][a%4]=test[Math.floor(b/4)][b%4];test[Math.floor(b/4)][b%4]=x;
@@ -469,28 +460,27 @@ function recommend(allData,opts={}){
      test[Math.floor(a/4)][a%4]=c;
    }
    if(!rosterValid(test).ok)continue;
-   const val=trials(test,{samples:36,hardness:opts.hardness||1,seed:91011,supports:testSupports});
+   const val=trials(test,{samples:36,hardness:opts.hardness||1,seed:91011});
    const m=metric(val);
-   if(m>bestScore+0.0001){best=test;bestSupports=testSupports;bestScore=m;bestStat=val}
+   if(m>bestScore+0.0001){best=test;bestScore=m;bestStat=val}
  }
- return {teams:best,supports:bestSupports,results:trials(best,{samples:120,hardness:opts.hardness||1,seed:44455,supports:bestSupports}),
+ return {teams:best,results:trials(best,{samples:120,hardness:opts.hardness||1,seed:44455}),
   candidates:owned.length,attempts:maxAttempts,modelOnly:true};
 }
 // Incremental, cancellable search. Each distinct ordered pair of four-card
 // rosters is simulated at least once; success requires all three star rules
 // in the SAME simulated battle, not an average of separate attempts.
 function createThreeStarSearch(allData,opts={}){
- const owned=cardsOnly(allData).filter(c=>screenshotKnown.has(c.id)&&hasStats(c));
- if(owned.length<8)return {error:'São necessárias pelo menos 8 cartas com HP/DMG confirmados.'};
+ const owned=cardsOnly(allData).filter(hasStats);
+ if(owned.length<8)return {error:'São necessárias pelo menos 8 cartas com HP/DMG informados.'};
  const random=rng(Number(opts.seed)||Date.now());
  const hardness=Number(opts.hardness)||1;
  const maxTests=Math.max(100,Math.min(1000000,Math.trunc(opts.maxTests||100000)));
  const initial=rosterValid(opts.teams||{}).ok?opts.teams.map(t=>t.slice()):null;
- const suggested=initial?null:recommend(allData,{attempts:40,hardness,supports:opts.supports});
+ const suggested=initial?null:recommend(allData,{attempts:40,hardness});
  const base=initial||suggested.teams;
- const baseSupports=initial?normalizeSupports(opts.supports):suggested.supports;
  const seen=new Set();
- let tested=0,bestTeams=base.map(t=>t.slice()),bestSupports=baseSupports.map(t=>t.slice()),bestRun=null,bestScore=-Infinity,found=null,bestFound=null,clearCount=0,threeStarExamples=0;
+ let tested=0,bestTeams=base.map(t=>t.slice()),bestRun=null,bestScore=-Infinity,found=null,bestFound=null,clearCount=0,threeStarExamples=0;
  const perfectPhaseCount=[0,0];
  function shuffleRoster(){
    const pool=owned.slice();
@@ -498,13 +488,11 @@ function createThreeStarSearch(allData,opts={}){
    return [pool.slice(0,4),pool.slice(4,8)];
  }
  function proposed(){
-   if(random()<.35)return {teams:shuffleRoster(),supports:shuffleSupports(baseSupports,random,3+Math.floor(random()*8))};
+   if(random()<.35)return shuffleRoster();
    const useBest=random()<.75;
    const parent=(useBest?bestTeams:base).flat().slice();
-   let supports=(useBest?bestSupports:baseSupports).map(x=>x.slice());
    const edits=1+Math.floor(random()*6);
    for(let i=0;i<edits;i++){
-     if(random()<.30){supports=shuffleSupports(supports,random);continue;}
      const a=Math.floor(random()*8),b=Math.floor(random()*8);
      if(random()<.75){[parent[a],parent[b]]=[parent[b],parent[a]];}
      else{
@@ -512,7 +500,7 @@ function createThreeStarSearch(allData,opts={}){
        if(candidate&&!parent.some((c,j)=>j!==a&&c.id===candidate.id))parent[a]=candidate;
      }
    }
-   return {teams:[parent.slice(0,4),parent.slice(4,8)],supports};
+   return [parent.slice(0,4),parent.slice(4,8)];
  }
  function score(r){
    return r.phases.reduce((sum,p)=>sum+p.defeated*24-p.losses*11-p.turns*.25,0)
@@ -523,24 +511,23 @@ function createThreeStarSearch(allData,opts={}){
    let attempts=0;
    while(tested<limit&&!found&&attempts<(size*30)){
      attempts++;
-     const candidate=tested===0?{teams:base.map(t=>t.slice()),supports:baseSupports.map(t=>t.slice())}:proposed();
-     const {teams,supports}=candidate;
+     const teams=tested===0?base.map(t=>t.slice()):proposed();
      if(!rosterValid(teams).ok)continue;
-     const fingerprint=teams.flat().map(c=>c.id).concat(supports.flat().map(id=>id||'-')).join('|');
+     const fingerprint=teams.flat().map(c=>c.id).join('|');
      if(seen.has(fingerprint))continue;
      seen.add(fingerprint);tested++;
      const seed=(Number(opts.seed)||81371)+tested*7919;
-     const result=simulate(teams,{seed,hardness,supports});
+     const result=simulate(teams,{seed,hardness});
      if(result.clear)clearCount++;
      result.phases.forEach((p,i)=>{if(p.clear&&p.losses===0&&p.withinLimit)perfectPhaseCount[i]++;});
      const value=score(result);
-     if(value>bestScore){bestScore=value;bestTeams=teams.map(t=>t.slice());bestSupports=supports.map(t=>t.slice());bestRun=result;}
+     if(value>bestScore){bestScore=value;bestTeams=teams.map(t=>t.slice());bestRun=result;}
      if(result.stars===3){
        threeStarExamples++;
        // An isolated lucky run must never be reported as a reliable roster.
        // Re-run every three-star candidate on independent, fixed seeds.
-       const verified=trials(teams,{samples:120,seed:174103,hardness,supports});
-       const candidate={teams:teams.map(t=>t.slice()),supports:supports.map(t=>t.slice()),result,verified};
+       const verified=trials(teams,{samples:120,seed:174103,hardness});
+       const candidate={teams:teams.map(t=>t.slice()),result,verified};
        if(!bestFound||verified.threeStarRate>bestFound.verified.threeStarRate||
          (verified.threeStarRate===bestFound.verified.threeStarRate&&verified.clearRate>bestFound.verified.clearRate))bestFound=candidate;
        // At least four successful fights among 120 repeat trials.
@@ -549,12 +536,12 @@ function createThreeStarSearch(allData,opts={}){
    }
    const completed=Boolean(found)||tested>=maxTests;
    return {tested,maxTests,candidates:owned.length,clearCount,threeStarExamples,perfectPhaseCount:perfectPhaseCount.slice(),
-     bestTeams:bestTeams.map(t=>t.slice()),bestSupports:bestSupports.map(t=>t.slice()),bestRun,bestScore,
+     bestTeams:bestTeams.map(t=>t.slice()),bestRun,bestScore,
      found:completed?(found||bestFound):null,robustFound:Boolean(found),
      done:completed};
  }
  return {step,get status(){return {tested,maxTests,candidates:owned.length,clearCount,found}}};
 }
-return {phases,initialPhases,elements,supportedSupportIds,screenshotKnown,rank,link,getAdvantage,bonuses,modifiers,hasStats,
+return {phases,initialPhases,elements,screenshotKnown,rank,link,getAdvantage,bonuses,modifiers,hasStats,
  rosterValid,simulate,trials,recommend,createThreeStarSearch,estimateCard,applyRotation,resetRotation,currentRotation};
 });

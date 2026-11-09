@@ -59,17 +59,32 @@
 #page-chaos .cx-slot-plus{width:40px;height:40px;display:grid;place-items:center;transform:rotate(45deg);background:#30294e;border:1px solid #765db0;border-radius:9px;font-size:30px}
 #page-chaos .cx-links{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:14px;color:#a89dbc;font-size:10px}
 #page-chaos .cx-links b{color:#85e9c6}
-#page-chaos .cx-support-section{border:1px solid #5c4f85;background:#1a1b33;border-radius:13px;padding:16px;display:grid;gap:10px}
-#page-chaos .cx-support-title{display:flex;justify-content:space-between;align-items:center;gap:10px}
-#page-chaos .cx-support-title h3{font-size:16px;margin:0;color:#fff}
-#page-chaos .cx-support-title span,#page-chaos .cx-support-section p{font-size:11px;color:#bdb1d4;margin:0;line-height:1.5}
-#page-chaos .cx-support-slots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-#page-chaos .cx-support-group{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;border:1px solid #46385e;border-radius:9px;padding:12px}
-#page-chaos .cx-support-group h4{grid-column:1/-1;color:#f3ddb9;font-size:12px;margin:0}
-#page-chaos .cx-support-group label{display:grid;gap:5px;font-size:10px;color:#c9b9e2}
-#page-chaos .cx-support-group select{width:100%;min-width:0;background:#161428;color:#eee3ff;border:1px solid #766494;border-radius:8px;padding:8px;font-size:10px}
-#page-chaos .cx-support-section>.cx-button{justify-self:start}
-@media(max-width:720px){#page-chaos .cx-support-slots{grid-template-columns:1fr}}
+#page-chaos .cx-card-data-section{border:1px solid #5c4f85;background:#1a1b33;border-radius:13px;padding:16px;display:grid;gap:10px}
+#page-chaos .cx-card-data-title{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+#page-chaos .cx-card-data-title h3{font-size:16px;margin:0;color:#fff}
+#page-chaos .cx-card-data-title span{font-size:11px;color:#85e9c6;font-weight:800}
+#page-chaos .cx-card-data-section>p{font-size:11px;color:#bdb1d4;margin:0;line-height:1.5}
+#page-chaos .cx-card-stats-editor{border:1px solid #564370;background:#20203d;border-radius:10px;padding:12px}
+#page-chaos .cx-card-stats-editor>summary{cursor:pointer;color:#f1d9aa;font-size:12px;font-weight:900}
+#page-chaos .cx-stats-fields{display:grid;gap:10px;margin-top:12px}
+#page-chaos .cx-stats-fields-body{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:end}
+#page-chaos .cx-stats-fields-body[hidden]{display:none}
+#page-chaos .cx-stats-fields label{font-size:11px;color:#d8c9ee;font-weight:800;display:grid;gap:6px}
+#page-chaos .cx-stats-fields input,#page-chaos .cx-stats-fields select,#page-chaos .cx-stats-fields textarea{background:#161428;color:#eee3ff;border:1px solid #766494;border-radius:8px;padding:10px;font-size:12px;width:100%;min-width:0}
+#page-chaos .cx-stats-wide{grid-column:1/-1}
+#page-chaos .cx-stats-fields-body>button{justify-self:start}
+#page-chaos .cx-ability-audit{border:1px solid #54466d;border-radius:10px;background:#202039;padding:12px}
+#page-chaos .cx-ability-audit>summary{cursor:pointer;font-size:12px;color:#f3dcab;font-weight:900}
+#page-chaos .cx-ability-audit>p{color:#bfb1d3;font-size:11px;line-height:1.5}
+#page-chaos .cx-ability-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+#page-chaos .cx-ability-card{background:#15172c;border:1px solid #4d3e68;border-radius:9px;padding:10px;min-width:0}
+#page-chaos .cx-ability-card>summary{cursor:pointer;display:grid;gap:4px;color:#eee}
+#page-chaos .cx-ability-card>summary strong{font-size:11px}
+#page-chaos .cx-ability-card>summary span{font-size:10px;color:#a0d8ef}
+#page-chaos .cx-ability-card p{font-size:11px;line-height:1.5;color:#cfc3df}
+#page-chaos .cx-ability-card small{font-size:10px;color:#a693bb}
+@media(max-width:720px){#page-chaos .cx-stats-fields-body{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){#page-chaos .cx-ability-list{grid-template-columns:1fr}}
 #page-chaos .cx-team-hint{font-size:11px;line-height:1.5;margin-top:14px;padding-top:10px;border-top:1px solid #3c3356;color:#b9accd}
 #page-chaos .cx-controls{display:grid;grid-template-columns:minmax(200px,1.6fr) minmax(150px,.8fr) minmax(90px,.3fr) auto;align-items:center;gap:16px;padding:18px;background:linear-gradient(115deg,#242444,#29203c);border-radius:15px;border:1px solid #6d6097}
 #page-chaos .cx-controls h3{font-size:19px;margin:0 0 5px;color:#fff}

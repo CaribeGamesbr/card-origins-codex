@@ -7,7 +7,7 @@
   <meta name="description" content="Card Origins Codex: catálogo da coleção com cartas, suportes, mecânicas, filtros e construtor de equipes."/>
   <title>Card Origins — Codex</title>
   <link rel="stylesheet" href="styles.css"/>
-  <link rel="stylesheet" href="chaos.css?v=20261109-effects-rotation-2"/>
+  <link rel="stylesheet" href="chaos.css?v=20261109-no-supports-all-cards-1"/>
   <script defer src="data.js"></script>
   <script defer src="skill-data.js"></script>
   <script defer src="app.js"></script>
@@ -17,8 +17,8 @@
   <script defer src="mode-codex.js"></script>
   <script defer src="deck.js"></script>
   <script defer src="team-status.js"></script>
-  <script defer src="chaos-engine.js?v=20261109-effects-rotation-2"></script>
-  <script defer src="chaos-ui.js?v=20261109-effects-rotation-2"></script>
+  <script defer src="chaos-engine.js?v=20261109-no-supports-all-cards-1"></script>
+  <script defer src="chaos-ui.js?v=20261109-no-supports-all-cards-1"></script>
 </head>
 <body>
   <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg">
@@ -215,7 +215,7 @@
               </div>
               <div class="cx-banner-stats"><div><span>FASES</span><strong>02</strong></div><div><span>CARTAS</span><strong>08</strong></div><div><span>TURNOS / FASE</span><strong>22</strong></div></div>
             </div>
-            <div class="cx-notice"><strong>MODELO EXPERIMENTAL</strong> Os oito inimigos têm HP máximo e DMG conferidos nos prints de batalha, mas este simulador não executa o combate real do Roblox. As descrições de habilidades estão incompletas; efeitos, dano final e turnos ainda são aproximações. <b>Nenhum percentual é chance real de vitória.</b></div>
+            <div class="cx-notice"><strong>MODELO EXPERIMENTAL</strong> Memory of Chaos usa apenas as cartas principais: <b>não há suportes neste modo.</b> Os oito inimigos têm HP máximo e DMG conferidos nos prints, mas o simulador não executa o jogo real. Há 365 cartas catalogadas, porém só 20 possuem HP, DMG e habilidade registrados. Efeitos e turnos são aproximações. <b>Nenhum percentual é chance real de vitória.</b></div>
             <div class="cx-stage-rules">
               <article><span class="cx-caption">DEBUFF DO STAGE 03</span><h3>Broken Mind</h3>
                 <p>A cada <strong>2 turnos inimigos</strong>, a carta ativa recebe <b>Burn</b>. Se já estiver em Burn, recebe 1 <b>Immolation</b>. Ao alcançar 2 Immolation, também recebe <b>Fatigue</b> por 3 turnos.</p>
@@ -235,11 +235,28 @@
               </div>
             </div>
             <div id="cxTeams" class="cx-teams" aria-label="Equipes de 4 cartas para 2 fases"></div>
-            <section class="cx-support-section">
-              <div class="cx-support-title"><h3>Suportes por posição</h3><span>6 efeitos conferidos nos seus prints</span></div>
-              <p>A busca pode testar os seis suportes de efeito conferido em diferentes slots, junto com as cartas. Você também pode equipar manualmente. Os outros 31 suportes ainda precisam ter o efeito confirmado.</p>
-              <div id="cxSupportSlots" class="cx-support-slots"></div>
-              <button id="cxAutoSupports" type="button" class="cx-button cx-outline">✦ Equipar suportes sugeridos</button>
+            <section class="cx-card-data-section" aria-label="Atributos das cartas">
+              <div class="cx-card-data-title"><h3>Catálogo completo — 365 cartas</h3><span id="cxDataCoverage">Conferindo atributos…</span></div>
+              <p>O seletor mostra todas as 365 cartas. As cartas sem HP/DMG podem ser escolhidas, mas não entram no cálculo até você preencher os valores reais vistos no jogo. Habilidades desconhecidas não são inventadas.</p>
+              <details id="cxStatsPanel" class="cx-card-stats-editor">
+                <summary>✎ Completar HP, DMG e habilidade de uma carta</summary>
+                <div class="cx-stats-fields">
+                  <label>Slot do time<select id="cxStatsTarget"><option value="">Escolha uma carta</option></select></label>
+                  <div id="cxStatsFields" class="cx-stats-fields-body" hidden>
+                    <label>HP máximo<input id="cxStatsHp" type="number" min="1" step="1" placeholder="Ex.: 9507"/></label>
+                    <label>DMG<input id="cxStatsDmg" type="number" min="1" step="1" placeholder="Ex.: 2650"/></label>
+                    <label>Nome da habilidade<input id="cxStatsAbility" type="text" maxlength="180" placeholder="Nome visto no jogo"/></label>
+                    <label class="cx-stats-wide">Descrição da habilidade<textarea id="cxStatsEffect" rows="3" placeholder="Copie o efeito da carta; podemos programar esses gatilhos depois"></textarea></label>
+                    <button id="cxSaveStats" type="button" class="cx-button cx-gold">✓ Salvar atributos desta carta</button>
+                  </div>
+                </div>
+                <p id="cxStatsNote" class="cx-note" role="status">Preencha o HP e o DMG de uma carta selecionada.</p>
+              </details>
+              <details class="cx-ability-audit">
+                <summary>◎ Analisar as habilidades e funções das cartas com dados completos</summary>
+                <p>Essas são as cartas cujo texto foi registrado. A análise indica utilidade estratégica, mas não garante que todos os gatilhos estejam reproduzidos no simulador.</p>
+                <div id="cxAbilityList" class="cx-ability-list"></div>
+              </details>
             </section>
             <div class="cx-controls">
               <div class="cx-controls-label">
@@ -264,7 +281,7 @@
               <strong id="cxSearchStatusText">Preparando busca de 3 estrelas…</strong>
               <progress id="cxSearchProgress" max="100000" value="0" aria-label="Formações testadas na busca de 3 estrelas"></progress>
             </div>
-            <p id="cxOptimizationNote" class="cx-note" aria-live="polite">“Buscar vitória” compara equipes e posições dos suportes. “Buscar 3 estrelas” testa até 100.000 combinações e exige as 3 condições na mesma batalha. Cada vitória candidata é repetida em 120 testes antes de ser recomendada, pois uma vitória isolada pode ser sorte. Sem garantia de vitória no jogo.</p>
+            <p id="cxOptimizationNote" class="cx-note" aria-live="polite">“Buscar vitória” compara oito cartas SEM suportes. “Buscar 3 estrelas” testa até 100.000 equipes entre as cartas com HP/DMG conhecidos e exige as três condições na mesma batalha. Vitórias candidatas passam por 120 repetições. As demais cartas poderão participar quando seus dados forem informados.</p>
             <details class="cx-rotation-config" id="cxRotationConfig">
               <summary>↻ Atualizar rotação: inimigos, HP, dano e elementos</summary>
               <p>O jogo pode trocar os inimigos e os elementos a cada 3 dias. Não existe uma lista futura confirmada no Codex: preencha os valores da nova rotação quando aparecer no jogo. Eles serão usados em todas as buscas seguintes e ficarão salvos neste navegador.</p>
@@ -290,9 +307,9 @@
           </div>
           <div id="cxPicker" class="cx-picker-overlay" hidden>
             <div class="cx-picker-dialog" role="dialog" aria-label="Escolher carta" aria-modal="true">
-              <div class="cx-picker-header"><div><span class="cx-caption">MEMORY OF CHAOS · SUA COLEÇÃO</span><h3 id="cxPickerHeading">Trocar carta</h3></div><button type="button" id="cxClosePicker" aria-label="Fechar seletor">✕</button></div>
+              <div class="cx-picker-header"><div><span class="cx-caption">MEMORY OF CHAOS · CATÁLOGO DE 365 CARTAS</span><h3 id="cxPickerHeading">Trocar carta</h3></div><button type="button" id="cxClosePicker" aria-label="Fechar seletor">✕</button></div>
               <label class="cx-picker-search">⌕ <input type="search" id="cxPickerSearch" placeholder="Pesquisar nome, borda, elemento ou habilidade"/></label>
-              <p class="cx-note">Somente cartas com HP e DMG transcritos são simuláveis. Outras cartas do catálogo precisam de prints das estatísticas.</p>
+              <p class="cx-note">Todas as 365 cartas estão disponíveis para seleção, mas apenas as que têm HP e DMG conhecidos podem participar dos cálculos. Se faltar um atributo, preencha no formulário abaixo dos times.</p>
               <div class="cx-picker-results" id="cxPickerResults"></div>
               <button id="cxClearSlot" type="button" class="cx-button cx-outline">Esvaziar este slot</button>
             </div>
