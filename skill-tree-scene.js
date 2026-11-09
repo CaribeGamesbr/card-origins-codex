@@ -26,7 +26,7 @@
   Infinite:{angle:192,spread:26,rows:[4,4,5,5]},
   'Border Stats':{angle:229,spread:26,rows:[4,4,4,4]}
  };
- const state={category:'General',selectedId:null,scale:1,cx:500,cy:405,simulation:false,webView:false,readyIndex:-1};
+ const state={category:'General',selectedId:null,layout:'expanded',scale:1,cx:500,cy:405,simulation:false,webView:false,readyIndex:-1};
  const allById=new Map(data.nodes.map(x=>[x.id,x]));
  const readyNodes=data.nodes.filter(x=>x.status==='ready');
  const positions=new Map();
@@ -37,31 +37,40 @@
  const totalLearned=()=>state.simulation?data.nodes.length:data.nodes.filter(x=>effective(x)==='learned').length;
  function locate(){
    positions.clear();segments.length=0;
-   cats.forEach(cat=>{
-     const set=positionsCfg[cat.name],members=data.nodes.filter(x=>x.path===cat.name);
-     if(!set||!members.length)return;
-     const origin=polar(set.angle,86);
-     positions.set(members[0].id,{...origin,layer:0,cat:cat.name});
-     segments.push({from:{x:500,y:405},to:origin,cat:cat.name,fromNode:null,toNode:members[0]});
-     let offset=1,prev=[members[0]];
-     set.rows.forEach((count,level)=>{
-       const current=members.slice(offset,offset+count);
-       if(!current.length)return;
-       const radius=(set.rows.length>=6?129+43*level:151+56*level);
-       current.forEach((node,i)=>{
-         const angle=set.angle+(count===1?0:(i/(count-1)-.5)*set.spread)+((level%2)?1.8:-1.8);
-         const p=polar(angle,radius);
-         positions.set(node.id,{...p,layer:level+1,cat:cat.name});
-         const closer=prev.reduce((best,c)=>{
-           const a=positions.get(c.id);
-           const distance=(a.x-p.x)**2+(a.y-p.y)**2;
-           return distance<best.distance?{distance,node:c}:best;
-         },{distance:Infinity,node:prev[0]});
-         const from=positions.get(closer.node.id);
-         segments.push({from,to:p,cat:cat.name,fromNode:closer.node,toNode:node});
-       });
-       offset+=count;prev=current;
+   if(state.layout==='overview'){
+     cats.forEach((cat,i)=>{
+       const root=data.nodes.find(n=>n.path===cat.name);
+       const p=polar(-90+i*360/cats.length,275);
+       positions.set(root.id,{...p,layer:0,cat:cat.name});
+       segments.push({from:{x:500,y:405},to:p,cat:cat.name,fromNode:null,toNode:root});
      });
+     return;
+   }
+   const members=data.nodes.filter(x=>x.path===state.category);
+   if(!members.length)return;
+   const root=members[0],origin={x:500,y:405};
+   positions.set(root.id,{...origin,layer:0,cat:state.category});
+   const rest=members.slice(1);
+   const first=Math.min(9,Math.max(4,Math.ceil(rest.length*.24)));
+   const second=Math.min(13,Math.max(4,Math.ceil(rest.length*.35)));
+   const layers=[rest.slice(0,first),rest.slice(first,first+second),rest.slice(first+second)];
+   const radii=[150,250,345];
+   let previous=[root];
+   layers.forEach((layer,layerIndex)=>{
+     if(!layer.length)return;
+     const offset=layerIndex%2===0?-90:-80;
+     layer.forEach((node,i)=>{
+       const p=polar(offset+i*360/layer.length,radii[layerIndex]);
+       positions.set(node.id,{...p,layer:layerIndex+1,cat:state.category});
+       const closest=previous.reduce((acc,prev)=>{
+         const q=positions.get(prev.id);
+         const dist=Math.hypot(p.x-q.x,p.y-q.y);
+         return dist<acc.dist?{dist,node:prev}:acc;
+       },{dist:Infinity,node:previous[0]});
+       const from=positions.get(closest.node.id);
+       segments.push({from,to:p,cat:state.category,fromNode:closest.node,toNode:node});
+     });
+     previous=layer;
    });
  }
  function color(cat){return cats.find(c=>c.name===cat)?.color||'#baa4e4'}
