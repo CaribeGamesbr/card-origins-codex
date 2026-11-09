@@ -91,7 +91,7 @@
    return '<g class="st-node-layer">'+data.nodes.map(node=>{
      const p=positions.get(node.id);if(!p)return '';
      const status=effective(node),isSelected=state.selectedId===node.id,hasFocus=state.category===node.path,highlight=hasFocus?'st-focus':'st-unfocus';
-     const r=node.tier==='capstone'?17.5:node.tier==='core'?16.3:12.4;
+     const r=node.tier==='capstone'?15.5:node.tier==='core'?14.5:10.5;
      const fill=status==='learned'?color(node.path):status==='ready'?'#b7a0f0':'#48405b';
      const cost=Number(node.cost||0);
      const icon=node.tier==='capstone'?'♛':node.tier==='core'?glyphs[node.path]:'◇';
@@ -111,7 +111,7 @@
  function renderPathLabels(){
    if(state.scale>1.37)return '';
    return '<g class="st-path-labels" pointer-events="none">'+cats.map(cat=>{
-     const p=polar(positionsCfg[cat.name].angle,387),c=color(cat.name);
+     const p=polar(positionsCfg[cat.name].angle,(cat.name==='Elements'||cat.name==='Debuffs')?386:358),c=color(cat.name);
      return '<g transform="translate('+p.x.toFixed(1)+' '+p.y.toFixed(1)+')"><text x="0" y="0" text-anchor="middle" fill="'+c+'" font-size="17" font-style="italic" font-weight="900" letter-spacing="2">'+esc(cat.name.toUpperCase())+'</text><text x="0" y="16" text-anchor="middle" fill="#d9cde9" font-size="9" letter-spacing="2">'+(state.simulation?cat.total:cat.learned)+' / '+cat.total+'</text></g>';
    }).join('')+'</g>';
  }
@@ -196,7 +196,7 @@
      +'<p class="st-description">'+esc(n.path)+' • '+esc(cat?cat.learned+'/'+cat.total:'')+'</p>'
      +'<div class="st-talent-effect"><strong>O QUE FAZ</strong><p>'+esc(n.effect)+'</p></div>'
      +(n.notes?'<p class="st-detail-note st-notverified">'+esc(n.notes)+'</p>':'')
-     +'<div class="st-talent-state '+s+'">'+(s==='learned'?'✓ APRENDIDO NO PRINT':s==='ready'?'✦ DISPONÍVEL — AINDA NÃO ATIVO':'◇ BLOQUEADO — AINDA NÃO ATIVO')+'</div>'
+     +'<div class="st-talent-state '+s+'">'+(s==='learned'?(n.notes&&n.notes.includes('mais compatível')?'✓ PROVÁVEL APRENDIDO — CONFIRMAR':'✓ APRENDIDO NO PRINT'):s==='ready'?'✦ DISPONÍVEL — AINDA NÃO ATIVO':'◇ BLOQUEADO — AINDA NÃO ATIVO')+'</div>'
      +'<p class="st-detail-note">Reconstituição visual da árvore. As conexões dos nós são ilustrativas; consulte o jogo para requisitos exatos.</p>'
      +'<div class="st-detail-footer"><button type="button" class="st-detail-btn st-detail-btn-purple" id="stBackToPath">VOLTAR AO PATH</button></div>';
  }
