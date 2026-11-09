@@ -3,6 +3,7 @@
  const data=window.CARDO_SKILLS;
  if(!data||!Array.isArray(data.nodes))return;
  const cats=data.categories;
+ const topology=window.CARDO_SKILL_TOPOLOGY||{};
  const root=document.getElementById('skillScene');
  if(!root)return;
  const $=id=>document.getElementById(id);
@@ -37,32 +38,56 @@
  const effective=x=>state.simulation?'learned':x.status;
  const totalLearned=()=>state.simulation?data.nodes.length:data.nodes.filter(x=>effective(x)==='learned').length;
  function locate(){
-   // Preserve the original seven-branch radial composition.
-   // Only increase the distance between nodes within each branch.
    positions.clear();segments.length=0;
    cats.forEach(cat=>{
-     const set=positionsCfg[cat.name],members=data.nodes.filter(x=>x.path===cat.name);
-     if(!set||!members.length)return;
-     const origin=polar(set.angle,140);
-     positions.set(members[0].id,{...origin,layer:0,cat:cat.name});
-     segments.push({from:{x:500,y:405},to:origin,cat:cat.name,fromNode:null,toNode:members[0]});
-     let offset=1,previous=[members[0]];
-     set.rows.forEach((count,level)=>{
-       const current=members.slice(offset,offset+count);
-       if(!current.length)return;
-       const radius=set.radii[level];
-       current.forEach((node,i)=>{
-         const angle=set.angle+(count===1?0:(i/(count-1)-.5)*set.spread)+((level%2)?1.8:-1.8);
-         const p=polar(angle,radius);
-         positions.set(node.id,{...p,layer:level+1,cat:cat.name});
-         const closest=previous.reduce((best,c)=>{
-           const q=positions.get(c.id),distance=(q.x-p.x)**2+(q.y-p.y)**2;
-           return distance<best.distance?{node:c,distance}:best;
-         },{node:previous[0],distance:Infinity});
-         segments.push({from:positions.get(closest.node.id),to:p,cat:cat.name,fromNode:closest.node,toNode:node});
+     if(state.webView&&cat.name!==state.category)return;
+     const spec=topology[cat.name];
+     const members=data.nodes.filter(node=>node.path===cat.name);
+     const layout=positionsCfg[cat.name];
+     if(!spec||spec.points.length!==members.length||!layout)return;
+     if(state.webView){
+       // Apply only gentle collision separation to coordinates read from the
+       // original screenshots. Never derive a relationship from proximity.
+       const pts=spec.points.map(([x,y])=>({x,y}));
+       const minDist=78;
+       for(let pass=0;pass<26;pass++){
+         let changes=0;
+         for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+           const p=pts[i],q=pts[j];
+           const dx=q.x-p.x,dy=q.y-p.y,d=Math.max(.01,Math.hypot(dx,dy));
+           if(d>=minDist)continue;
+           const push=(minDist-d)/2+.04;
+           const ux=dx/d,uy=dy/d;
+           p.x-=push*ux;p.y-=push*uy;q.x+=push*ux;q.y+=push*uy;
+           changes++;
+         }
+         if(!changes)break;
+       }
+       members.forEach((node,i)=>{
+         const p=pts[i];
+         positions.set(node.id,{...p,layer:0,cat:cat.name});
        });
-       offset+=count;previous=current;
-     });
+     }else{
+       // The overview preserves the seven familiar radial sectors.
+       const base=polar(layout.angle,140);
+       positions.set(members[0].id,{...base,layer:0,cat:cat.name});
+       let offset=1;
+       layout.rows.forEach((count,level)=>{
+         const radius=layout.radii[level];
+         members.slice(offset,offset+count).forEach((node,i)=>{
+           const angle=layout.angle+(count===1?0:(i/(count-1)-.5)*layout.spread)+((level%2)?1.8:-1.8);
+           positions.set(node.id,{...polar(angle,radius),layer:level+1,cat:cat.name});
+         });
+         offset+=count;
+       });
+     }
+     // Only explicit source-grounded edges: never link by nearest neighbor.
+     for(const [a,b] of spec.edges){
+       const from=positions.get(members[a]?.id);
+       const to=positions.get(members[b]?.id);
+       if(!from||!to)continue;
+       segments.push({from,to,cat:cat.name,fromNode:members[a],toNode:members[b]});
+     }
    });
  }
  function color(cat){return cats.find(c=>c.name===cat)?.color||'#baa4e4'}
@@ -92,7 +117,7 @@
    return '<g class="st-node-layer">'+data.nodes.filter(node=>!state.webView||node.path===state.category).map(node=>{
      const p=positions.get(node.id);if(!p)return '';
      const status=effective(node),isSelected=state.selectedId===node.id,hasFocus=state.category===node.path,highlight=hasFocus?'st-focus':'st-unfocus';
-     const r=node.tier==='capstone'?23:node.tier==='core'?25:19;
+     const r=state.webView?(node.tier==='core'?31:node.tier==='capstone'?28:24):(node.tier==='capstone'?23:node.tier==='core'?25:19);
      const fill=status==='learned'?color(node.path):status==='ready'?'#b7a0f0':'#48405b';
      const cost=Number(node.cost||0);
      const icon=node.tier==='capstone'?'♛':node.tier==='core'?glyphs[node.path]:'◇';
@@ -110,12 +135,14 @@
    }).join('')+'</g>';
  }
  function renderPathLabels(){
-   return '<g class="st-path-labels" pointer-events="none">'+cats.filter(cat=>!state.webView||cat.name===state.category).map(cat=>{
+   if(state.webView)return '';
+   return '<g class="st-path-labels" pointer-events="none">'+cats.map(cat=>{
      const set=positionsCfg[cat.name],p=polar(set.angle,set.radii[set.radii.length-1]+66),c=color(cat.name);
      return '<g transform="translate('+p.x.toFixed(1)+' '+p.y.toFixed(1)+')"><text x="0" y="0" text-anchor="middle" fill="'+c+'" font-size="26" font-style="italic" font-weight="900" letter-spacing="2">'+esc(cat.name.toUpperCase())+'</text><text x="0" y="21" text-anchor="middle" fill="#d9cde9" font-size="14" letter-spacing="2">'+(state.simulation?cat.total:cat.learned)+' / '+cat.total+'</text></g>';
    }).join('')+'</g>';
  }
  function renderCore(){
+   if(state.webView)return '';
    return '<g class="st-core-group"><circle cx="500" cy="405" r="55" fill="#9a76c8" opacity=".26" filter="url(#stNodeGlow)"/>'
      +'<circle cx="500" cy="405" r="49" stroke="url(#stCoreEdge)" stroke-width="4" fill="#1d1738"/>'
      +'<circle cx="500" cy="405" r="40" stroke="#f3d8a2" stroke-width="1.7" fill="#14192e"/>'
@@ -146,9 +173,9 @@
    if(!current.length)return;
    // Include the central hub; reserve space for the search field at the top
    // and zoom controls at the bottom without changing the skill positions.
-   const xs=[500,...current.map(p=>p.x)],ys=[405,...current.map(p=>p.y)];
+   const xs=current.map(p=>p.x),ys=current.map(p=>p.y);
    const minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
-   const padX=170,topPad=250,bottomPad=150;
+   const padX=140,topPad=180,bottomPad=110;
    const left=minX-padX,right=maxX+padX,top=minY-topPad,bottom=maxY+bottomPad;
    state.cx=(left+right)/2;state.cy=(top+bottom)/2;
    state.scale=Math.min(1.45,Math.max(.33,Math.min(1000/(right-left),800/(bottom-top))));
@@ -156,7 +183,7 @@
  }
  function resetView(){
    state.scale=.38;state.cx=500;state.cy=405;
-   state.webView=false;state.selectedId=null;updateWebViewButton();renderMap();showPath();
+   state.webView=false;state.selectedId=null;locate();updateWebViewButton();renderMap();showPath();
  }
  function renderSidebar(){
    const pathHolder=$('skillPaths');if(!pathHolder)return;
@@ -197,8 +224,9 @@
  function inspect(nodeId){
    const n=allById.get(nodeId);
    if(!n)return;
+   const changed=state.category!==n.path;
    state.category=n.path;state.selectedId=n.id;
-   if(!positions.has(n.id))locate();
+   if(changed||!positions.has(n.id))locate();
    updateWebViewButton();
    renderSidebar();
    renderMap();
@@ -218,7 +246,7 @@
  function selectPath(name,focus=true){
   if(!cats.some(c=>c.name===name))return;
   state.category=name;state.selectedId=null;
-  renderSidebar();showPath();updateWebViewButton();
+  locate();renderSidebar();showPath();updateWebViewButton();
   if(focus)focusPath();else renderMap();
  }
  function updateWebViewButton(){
@@ -232,7 +260,7 @@
  }
  function toggleWebView(on){
    state.webView=!!on;state.selectedId=null;
-   updateWebViewButton();
+   locate();updateWebViewButton();
    if(state.webView)focusPath();
    else{state.cx=500;state.cy=405;state.scale=.38;renderMap()}
    showPath();
