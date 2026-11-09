@@ -8,7 +8,9 @@
   <title>Card Origins — Codex</title>
   <link rel="stylesheet" href="styles.css"/>
   <script defer src="data.js"></script>
+  <script defer src="skill-data.js"></script>
   <script defer src="app.js"></script>
+  <script defer src="skill-codex.js"></script>
   <script defer src="deck.js"></script>
   <script defer src="team-status.js"></script>
 </head>
@@ -62,7 +64,7 @@
             <div class="hero-copy"><div class="eyebrow"><span class="eyebrow-line"></span> A SUA ENCICLOPÉDIA DE CARTAS</div><h1>Todo o universo de<br/><em>Card Origins.</em><span class="starburst">✦</span></h1><p>Explore sua coleção, descubra sinergias e monte a equipe ideal. Um codex construído a partir dos seus próprios registros.</p><div class="hero-buttons"><button class="primary-btn" data-nav="cards">Explorar cartas <svg><use href="#ic-arrow"/></svg></button><button class="outline-btn" data-nav="builder">Montar minha equipe <svg><use href="#ic-sword"/></svg></button></div><div class="hero-proof"><span class="three-dots"><i></i><i></i><i></i></span><span>Catálogo organizado a partir de registros de cartas</span></div></div>
             <div class="hero-art" aria-hidden="true"><div class="hero-glow"></div><img class="hero-img hero-img-back" src="assets/cards/350.webp" alt=""/><img class="hero-img hero-img-front" src="assets/cards/353.webp" alt=""/><img class="hero-img hero-img-side" src="assets/cards/357.webp" alt=""/><div class="hero-sigil">✧</div></div>
           </div>
-          <div class="stats-row"><div class="stat-box"><div class="stat-icon violet"><svg><use href="#ic-cards"/></svg></div><div><span>CARTAS REGISTRADAS</span><strong id="statCards">357</strong><small>Todos os elementos</small></div></div><div class="stat-box"><div class="stat-icon teal"><svg><use href="#ic-shield"/></svg></div><div><span>SUPORTES</span><strong id="statSupports">37</strong><small>Buff • Heal • Debuff • Shield</small></div></div><div class="stat-box"><div class="stat-icon amber"><svg><use href="#ic-spark"/></svg></div><div><span>ELEMENTOS</span><strong>07</strong><small>Dois ciclos elementais</small></div></div><div class="stat-box"><div class="stat-icon rose"><svg><use href="#ic-branches"/></svg></div><div><span>SKILL TREE</span><strong>70<span class="stat-denominator">/146</span></strong><small>Progresso registrado</small></div></div></div>
+          <div class="stats-row"><div class="stat-box"><div class="stat-icon violet"><svg><use href="#ic-cards"/></svg></div><div><span>CARTAS REGISTRADAS</span><strong id="statCards">357</strong><small>Todos os elementos</small></div></div><div class="stat-box"><div class="stat-icon teal"><svg><use href="#ic-shield"/></svg></div><div><span>SUPORTES</span><strong id="statSupports">37</strong><small>Buff • Heal • Debuff • Shield</small></div></div><div class="stat-box"><div class="stat-icon amber"><svg><use href="#ic-spark"/></svg></div><div><span>ELEMENTOS</span><strong>07</strong><small>Dois ciclos elementais</small></div></div><div class="stat-box"><div class="stat-icon rose"><svg><use href="#ic-branches"/></svg></div><div><span>SKILL TREE</span><strong>74<span class="stat-denominator">/146</span></strong><small>Progresso registrado</small></div></div></div>
           <div class="section-heading"><div><span class="overline">COLEÇÃO EM DESTAQUE</span><h2>Capturas verificadas <span class="tiny-flare">✦</span></h2></div><button class="text-link" data-nav="cards">Ver todas as cartas <svg><use href="#ic-arrow"/></svg></button></div>
           <div class="featured-grid" id="featuredGrid"></div>
           <div class="home-bottom"><div class="game-panel quick-team"><div class="panel-eyebrow">TIME BUILD HELPER</div><h2>Quatro cartas. <em>Infinitas possibilidades.</em></h2><p>Organize seus quatro slots, descubra circuitos adjacentes e visualize pares de reações possíveis na Tower of God.</p><button class="secondary-btn" data-nav="builder">Criar formação <svg><use href="#ic-arrow"/></svg></button><div class="orbital-rings"></div></div><div class="game-panel distribution"><div class="panel-eyebrow">SEU INVENTÁRIO</div><h2>Distribuição elemental</h2><div id="elementDistribution"></div></div></div>
@@ -107,9 +109,17 @@
           <div class="builder-footer"><span>Seu time fica salvo somente neste navegador. Nenhuma alteração é enviada ao Roblox ou ao Google Drive.</span><button id="copyTeam" class="secondary-btn">Copiar composição <svg><use href="#ic-arrow"/></svg></button></div>
         </section>
         <section class="page" id="page-skill">
-          <div class="page-intro"><div><span class="overline">PROGRESSION / 04</span><h1>Skill <em>Tree</em></h1><p>Mapa de talentos e progresso registrado no print de 08/11/2026.</p></div><div class="intro-counter"><span>SKILL POINTS</span><strong>03</strong></div></div>
-          <div class="skill-overview"><div class="skill-screenshot"><img src="assets/ui/skill-tree.svg" alt="Diagrama ilustrativo do progresso da Skill Tree do Card Origins com caminhos General, Elements, Debuffs, Traits, Colosseum, Infinite e Border Stats."/><button id="zoomSkill" class="image-zoom">Ampliar imagem ↗</button></div><div class="skill-summary"><div class="panel-eyebrow">VISÃO GERAL</div><h2>70 <span>/ 146</span></h2><p>Talentos aprendidos</p><div class="skill-rail"><span style="width:47.95%"></span></div><div class="skill-numbers"><div><b>03</b><small>Pontos disponíveis</small></div><div><b>22</b><small>Prontos para aprender</small></div></div><div class="note-quiet">Os efeitos dos talentos individuais ainda dependem de capturas ampliadas da janela de cada talento.</div></div></div>
-          <div class="section-heading"><div><span class="overline">CAMINHOS</span><h2>Progresso por categoria</h2></div></div><div class="skill-path-grid" id="skillPaths"></div>
+          <div class="page-intro"><div><span class="overline">PROGRESSION / 04</span><h1>Skill <em>Tree</em></h1><p>Catálogo consultável dos 146 talentos das sete árvores, transcrito dos prints do jogo. Aprendidos, disponíveis e bloqueados ficam separados.</p></div><div class="intro-counter"><span>APRENDIDOS NO PRINT</span><strong>74 / 146</strong></div></div>
+          <div class="skill-summary-v2">
+            <div class="sk-mini"><span>APRENDIDOS</span><strong>74 / 146</strong><small>50,7% da Skill Tree</small></div>
+            <div class="sk-mini"><span>INFINITE</span><strong>19 / 19</strong><small>Caminho completo</small></div>
+            <div class="sk-mini"><span>GENERAL</span><strong>14 / 14</strong><small>Caminho completo</small></div>
+            <div class="sk-mini"><span>ÚLTIMO PRINT</span><strong>7 pontos</strong><small>Border Stats, referência temporal</small></div>
+          </div>
+          <div class="section-heading"><div><span class="overline">SETE CAMINHOS</span><h2>Progresso por categoria</h2></div></div>
+          <div class="skill-path-grid" id="skillPaths"></div>
+          <div id="skillCodex" class="skill-codex" aria-label="Pesquisar e consultar todos os talentos"></div>
+          <div class="guide-caveat"><p>Fonte: prints da Skill Tree enviados em novembro de 2026. Bônus de talentos bloqueados e prontos para aprender não contam como ativos. Alguns efeitos não foram exibidos individualmente e permanecem sinalizados.</p></div>
         </section>
         <section class="page" id="page-guide">
           <div class="page-intro"><div><span class="overline">FIELD MANUAL / 05</span><h1>Guia <em>de mecânicas</em></h1><p>Regras essenciais consolidadas a partir das capturas do guia e da sua wiki anterior.</p></div><span class="overline">GUIA DO JOGO</span></div>
