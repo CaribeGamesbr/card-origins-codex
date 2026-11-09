@@ -26,7 +26,7 @@
   Infinite:{angle:192,spread:30,radii:[450,610,770,930],rows:[4,4,5,5]},
   'Border Stats':{angle:233,spread:30,radii:[450,610,770,930],rows:[4,4,4,4]}
  };
- const state={category:'General',selectedId:null,layout:'overview',scale:.38,cx:500,cy:405,simulation:false,webView:false,readyIndex:-1};
+ const state={category:'General',selectedId:null,layout:'overview',scale:.38,cx:500,cy:405,simulation:false,webView:true,catalogOpen:false,readyIndex:-1};
  const normalize=s=>String(s??'').toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
  const allById=new Map(data.nodes.map(x=>[x.id,x]));
  const readyNodes=data.nodes.filter(x=>x.status==='ready');
@@ -79,17 +79,17 @@
    +rings+'<g class="st-stars">'+stars+'</g>';
  }
  function renderLinks(){
-   return '<g class="st-link-layer">'+segments.map(s=>{
+   return '<g class="st-link-layer">'+segments.filter(s=>!state.webView||s.cat===state.category).map(s=>{
       const on=state.category===s.cat,learned=s.toNode&&effective(s.toNode)==='learned'&&(!s.fromNode||effective(s.fromNode)==='learned');
       const faint=!on&&state.scale>1.08;
-      const c=color(s.cat),alpha=faint?.11:(learned?.55:.18);
+      const c=color(s.cat),alpha=state.webView?(learned?.85:.42):(faint?.11:(learned?.55:.18));
       const mx=(s.from.x+s.to.x)/2,my=(s.from.y+s.to.y)/2;
       const curve='M'+s.from.x.toFixed(2)+' '+s.from.y.toFixed(2)+' Q'+(mx+((s.to.y-s.from.y)*.045)).toFixed(2)+' '+(my-((s.to.x-s.from.x)*.045)).toFixed(2)+' '+s.to.x.toFixed(2)+' '+s.to.y.toFixed(2);
-      return '<path d="'+curve+'" stroke="'+c+'" stroke-width="'+(learned?2:1.1)+'" opacity="'+alpha+'" fill="none" stroke-linecap="round"/>';
+      return (state.webView&&learned?'<path d="'+curve+'" stroke="'+c+'" stroke-width="7" opacity=".11" filter="url(#stNodeGlow)" fill="none"/>':'')+'<path d="'+curve+'" stroke="'+c+'" stroke-width="'+(state.webView?(learned?3.2:2):(learned?2:1.1))+'" opacity="'+alpha+'" fill="none" stroke-linecap="round"/>'; 
    }).join('')+'</g>';
  }
  function renderNodes(){
-   return '<g class="st-node-layer">'+data.nodes.map(node=>{
+   return '<g class="st-node-layer">'+data.nodes.filter(node=>!state.webView||node.path===state.category).map(node=>{
      const p=positions.get(node.id);if(!p)return '';
      const status=effective(node),isSelected=state.selectedId===node.id,hasFocus=state.category===node.path,highlight=hasFocus?'st-focus':'st-unfocus';
      const r=node.tier==='capstone'?23:node.tier==='core'?25:19;
@@ -110,7 +110,7 @@
    }).join('')+'</g>';
  }
  function renderPathLabels(){
-   return '<g class="st-path-labels" pointer-events="none">'+cats.map(cat=>{
+   return '<g class="st-path-labels" pointer-events="none">'+cats.filter(cat=>!state.webView||cat.name===state.category).map(cat=>{
      const set=positionsCfg[cat.name],p=polar(set.angle,set.radii[set.radii.length-1]+66),c=color(cat.name);
      return '<g transform="translate('+p.x.toFixed(1)+' '+p.y.toFixed(1)+')"><text x="0" y="0" text-anchor="middle" fill="'+c+'" font-size="26" font-style="italic" font-weight="900" letter-spacing="2">'+esc(cat.name.toUpperCase())+'</text><text x="0" y="21" text-anchor="middle" fill="#d9cde9" font-size="14" letter-spacing="2">'+(state.simulation?cat.total:cat.learned)+' / '+cat.total+'</text></g>';
    }).join('')+'</g>';
@@ -126,8 +126,10 @@
  function renderMap(){
   const svg=$('stTreeSvg');if(!svg)return;
   svg.innerHTML=svgDefs()+renderCore()+renderLinks()+renderNodes()+renderPathLabels();
+  const map=svg.closest?.('.st-map');
+  if(map){map.dataset.single=state.webView?'true':'false';map.style.setProperty('--st-branch-color',color(state.category))}
   applyViewBox();
-  const lab=$('stMapMode');if(lab)lab.textContent='VISÃO RADIAL ORIGINAL / 7 CAMINHOS';
+  const lab=$('stMapMode');if(lab)lab.textContent=state.webView?'WEB VIEW • '+state.category.toUpperCase()+' • '+data.nodes.filter(n=>n.path===state.category).length+' TALENTOS':'VISÃO GERAL • 7 CAMINHOS';
   const learned=$('stMapLearned');if(learned)learned.textContent=totalLearned();
  }
  function applyViewBox(){
@@ -139,18 +141,18 @@
  }
  function setZoom(next){state.scale=Math.min(3.5,Math.max(.33,next));applyViewBox();renderMap();}
  function focusPath(){
-   // Zoom/pan only; positions and connections remain unchanged.
+   // Zoom/pan only; preserve each branch's original shape and connections.
    const current=data.nodes.filter(n=>n.path===state.category).map(n=>positions.get(n.id)).filter(Boolean);
    if(!current.length)return;
    const xs=current.map(p=>p.x),ys=current.map(p=>p.y);
    const minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
    state.cx=(minX+maxX)/2;state.cy=(minY+maxY)/2;
-   state.scale=Math.min(1.4,Math.max(.63,Math.min(1000/(maxX-minX+270),800/(maxY-minY+220))));
+   state.scale=Math.min(1.45,Math.max(.51,Math.min(1000/(maxX-minX+210),800/(maxY-minY+190))));
    renderMap();
  }
  function resetView(){
    state.scale=.38;state.cx=500;state.cy=405;
-   state.selectedId=null;renderMap();showPath();
+   state.webView=false;state.selectedId=null;updateWebViewButton();renderMap();showPath();
  }
  function renderSidebar(){
    const pathHolder=$('skillPaths');if(!pathHolder)return;
@@ -193,6 +195,7 @@
    if(!n)return;
    state.category=n.path;state.selectedId=n.id;
    if(!positions.has(n.id))locate();
+   updateWebViewButton();
    renderSidebar();
    renderMap();
    const s=effective(n),cat=cats.find(c=>c.name===n.path),col=color(n.path);
@@ -211,13 +214,28 @@
  function selectPath(name,focus=true){
   if(!cats.some(c=>c.name===name))return;
   state.category=name;state.selectedId=null;
-  renderSidebar();showPath();
+  renderSidebar();showPath();updateWebViewButton();
   if(focus)focusPath();else renderMap();
  }
+ function updateWebViewButton(){
+   const button=$('stWebView');if(button){
+     button.textContent=state.webView?'WEB VIEW: ON [V]':'WEB VIEW: OFF [V]';
+     button.setAttribute('aria-pressed',String(state.webView));
+     button.title=state.webView?'Exibindo apenas '+state.category+' — clique para mostrar todos':'Clique para mostrar somente a árvore selecionada';
+   }
+   const map=$('stTreeSvg')?.closest?.('.st-map');
+   if(map)map.dataset.single=String(state.webView);
+ }
+ function toggleWebView(on){
+   state.webView=!!on;state.selectedId=null;
+   updateWebViewButton();
+   if(state.webView)focusPath();
+   else{state.cx=500;state.cy=405;state.scale=.38;renderMap()}
+   showPath();
+ }
  function toggleCatalog(show){
-  state.webView=show;
-  const panel=$('stCatalogPanel');if(panel)panel.hidden=!show;
-  const button=$('stWebView');if(button)button.textContent=show?'WEB VIEW: OFF [V]':'WEB VIEW: ON [V]';
+   state.catalogOpen=!!show;
+   const panel=$('stCatalogPanel');if(panel)panel.hidden=!state.catalogOpen;
  }
  function nextReady(){
   if(state.simulation||!readyNodes.length)return;
@@ -226,7 +244,7 @@
   const p=positions.get(node.id);if(p){state.cx=p.x;state.cy=p.y;state.scale=1.15;renderMap()}
  }
  function closeScene(){
-  if(state.webView){toggleCatalog(false);return}
+  if(state.catalogOpen){toggleCatalog(false);return}
   const home=document.querySelector('.side-nav [data-nav="home"]');if(home)home.click();
   else window.location.hash='home';
  }
@@ -289,7 +307,8 @@
  }
  function init(){
   locate();
-  renderSidebar();showPath();renderMap();
+  renderSidebar();showPath();updateWebViewButton();
+  if(state.webView)focusPath();else renderMap();
   const field=$('stSkillSearch');
   if(field){
    field.addEventListener('input',refreshSearch);
@@ -342,11 +361,12 @@
     if(event.target.closest('#stZoomIn')){setZoom(state.scale*1.2);return}
     if(event.target.closest('#stZoomOut')){setZoom(state.scale/1.2);return}
     if(event.target.closest('#stCenterPath')){focusPath();return}
-    if(event.target.closest('#stFitAll')){state.cx=500;state.cy=405;setZoom(.38);return}
+    if(event.target.closest('#stFitAll')){if(state.webView)focusPath();else{state.cx=500;state.cy=405;setZoom(.38)}return}
     if(event.target.closest('#stOverview')){resetView();return}
     if(event.target.closest('#stNextReady')){nextReady();return}
-    if(event.target.closest('#stWebView')){toggleCatalog(!state.webView);return}
+    if(event.target.closest('#stWebView')){toggleWebView(!state.webView);return}
     if(event.target.closest('#stBackToMap')){toggleCatalog(false);return}
+    if(event.target.closest('#stOpenCatalog')){toggleCatalog(true);return}
     if(event.target.closest('#stClose')){closeScene();return}
     if(event.target.closest('#stBackToPath')){state.selectedId=null;showPath();renderMap();return}
     if(event.target.closest('#stOpenLearned')){toggleCatalog(true);const button=root.querySelector('[data-sk-state="learned"]');if(button)button.click();return}
@@ -362,10 +382,10 @@
     if(['INPUT','SELECT','TEXTAREA'].includes(document.activeElement?.tagName))return;
     if(event.key==='/'){event.preventDefault();$('stSkillSearch')?.focus?.();return}
     if(event.key==='Escape'){event.preventDefault();closeScene()}
-    if(event.key.toLowerCase()==='v'){event.preventDefault();toggleCatalog(!state.webView)}
+    if(event.key.toLowerCase()==='v'){event.preventDefault();toggleWebView(!state.webView)}
     if(event.key.toLowerCase()==='c'){event.preventDefault();focusPath()}
     if(event.key.toLowerCase()==='g'){event.preventDefault();resetView()}
-    if(event.key.toLowerCase()==='a'){event.preventDefault();state.cx=500;state.cy=405;setZoom(.38)}
+    if(event.key.toLowerCase()==='a'){event.preventDefault();if(state.webView)focusPath();else{state.cx=500;state.cy=405;setZoom(.38)}}
     if(event.key.toLowerCase()==='f'){event.preventDefault();nextReady()}
     if(event.key==='+'||event.key==='='){event.preventDefault();setZoom(state.scale*1.2)}
     if(event.key==='-'){event.preventDefault();setZoom(state.scale/1.2)}
