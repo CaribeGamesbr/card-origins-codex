@@ -6,13 +6,13 @@ Site estático feito para publicar no GitHub Pages. Não é uma wiki oficial de 
 
 - `index.html` — página inicial, catálogo, time builder, skill tree, guia
 - `styles.css` e `app.js` — interface e filtros
-- `data.js` — catálogo local, 357 cartas e 37 suportes
+- `data.js` — catálogo local, 362 cartas e 37 suportes
 - `catalog.json` e `catalogo.csv` — exportações do catálogo para manutenção
 - `assets/` — artes verificadas e diagrama ilustrativo da skill tree
 
 ## Dados e direitos
 
-Esta edição remove links e identificadores dos arquivos pessoais do Google Drive, URLs privadas e captura da Skill Tree com nome da conta. Os registros de nome, elemento e borda são derivados dos nomes dos arquivos de origem. Somente 12 artes com efeitos foram verificadas e incluídas nesta primeira edição. Esta é uma wiki de fã, independente do Roblox e dos criadores do jogo.
+Esta edição remove links e identificadores dos arquivos pessoais do Google Drive, URLs privadas e captura da Skill Tree com nome da conta. Os registros de nome, elemento e borda são derivados dos nomes dos arquivos de origem. As 5 cartas recebidas em 09/11/2026 tiveram seus atributos e efeitos conferidos por prints. As imagens PNG precisam ser enviadas à pasta assets/cards no GitHub para aparecerem no site. Esta é uma wiki de fã, independente do Roblox e dos criadores do jogo.
 
 ## Publicar com GitHub Pages
 
@@ -26,3 +26,9 @@ Nenhum backend nem senha é necessário; esta edição não faz login no Drive e
 ## Atualizações
 
 As novas cartas exigem atualizar `catalog.json`, `data.js`, e enviar as novas artes quando disponíveis. Não existem uploads automáticos neste site.
+
+## Cartas novas de 09/11/2026
+
+Foram cadastrados Sorcerer Killer (Normal/Physical), Silver Star User (Calamity/Imaginary), The Grinning Spectator (Normal/Imaginary), Demonic Swordsaint (Normal/Ice) e Black Eyepatch (Calamity/Physical). As versões anteriores de Silver Star User e Black Eyepatch continuam separadas.
+
+O número das novas cartas não estava visível nas capturas e não foi inventado. Os arquivos PNG das 5 artes precisam ser enviados para assets/cards/ com exatamente os nomes definidos em data.js. O site encontrará os arquivos após a publicação.
