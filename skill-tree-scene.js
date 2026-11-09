@@ -250,9 +250,77 @@
   const home=document.querySelector('.side-nav [data-nav="home"]');if(home)home.click();
   else window.location.hash='home';
  }
+
+ let matches=[],cursor=-1;
+ const index=data.nodes.map(node=>({
+  node,english:normalize(node.name),portuguese:normalize(node.ptName||''),
+  path:normalize(node.path),effect:normalize(node.effect)
+ }));
+ function closeSearch(){
+  const box=$('stSkillSearchResults'),field=$('stSkillSearch');if(!box||!field)return;
+  box.hidden=true;box.innerHTML='';cursor=-1;
+  field.setAttribute('aria-expanded','false');field.removeAttribute('aria-activedescendant');
+ }
+ function refreshSearch(){
+  const field=$('stSkillSearch'),box=$('stSkillSearchResults'),clear=$('stSearchClear');
+  if(!field||!box)return;
+  const raw=field.value,q=normalize(raw);
+  if(clear)clear.hidden=!raw;
+  if(!q){matches=[];closeSearch();return}
+  const scored=index.map(item=>{
+   const {english:a,portuguese:b,path,effect}=item;
+   const words=(a+' '+b).split(' ');
+   let score=0;
+   if(a===q||b===q)score=200;
+   else if(a.startsWith(q)||b.startsWith(q))score=160;
+   else if(words.some(w=>w.startsWith(q)))score=140;
+   else if(a.includes(q)||b.includes(q))score=110;
+   else if(path.includes(q))score=45;
+   else if(effect.includes(q))score=20;
+   return {...item,score};
+  }).filter(x=>x.score>0).sort((a,b)=>b.score-a.score||a.node.name.localeCompare(b.node.name,'pt-BR'));
+  matches=scored.slice(0,14).map(x=>x.node);cursor=-1;
+  box.hidden=false;field.setAttribute('aria-expanded','true');
+  box.innerHTML='<div class="st-search-results-count">'+scored.length+' talento'+(scored.length===1?'':'s')+' encontrado'+(scored.length===1?'':'s')+'</div>'
+   +(matches.length?matches.map((n,i)=>'<button type="button" role="option" aria-selected="false" id="stSearchOption'+i+'" data-st-search-node="'+esc(n.id)+'"><span><strong>'+esc(n.name)+'</strong><small>'+esc(n.ptName||n.name)+'</small></span><em>'+esc(n.path)+'</em></button>').join(''):'<p class="st-search-none">Nenhum talento encontrado.</p>')
+   +(scored.length>14?'<div class="st-search-results-count">Mostrando 14 de '+scored.length+'. Continue digitando.</div>':'')
+   +'<div class="st-search-translation">Traduções livres dos nomes originais do jogo.</div>';
+ }
+ function moveSearch(delta){
+  if(!matches.length)return;
+  cursor=(cursor+delta+matches.length)%matches.length;
+  const field=$('stSkillSearch'),results=$('stSkillSearchResults');
+  results.querySelectorAll('[data-st-search-node]').forEach((button,i)=>{
+   const selected=i===cursor;
+   button.classList.toggle('active',selected);
+   button.setAttribute('aria-selected',String(selected));
+   if(selected){field.setAttribute('aria-activedescendant',button.id);button.scrollIntoView?.({block:'nearest'})}
+  });
+ }
+ function chooseSearch(id){
+  const talent=allById.get(id);if(!talent)return;
+  inspect(id);
+  const p=positions.get(id);
+  if(p){state.cx=p.x;state.cy=p.y;state.scale=1.15;renderMap()}
+  const field=$('stSkillSearch'),clear=$('stSearchClear');
+  if(field){field.value=talent.name;field.blur?.()}
+  if(clear)clear.hidden=false;
+  closeSearch();
+ }
  function init(){
   locate();
   renderSidebar();showPath();renderMap();
+  const field=$('stSkillSearch');
+  if(field){
+   field.addEventListener('input',refreshSearch);
+   field.addEventListener('focus',()=>{if(field.value.trim())refreshSearch()});
+   field.addEventListener('keydown',event=>{
+    if(event.key==='ArrowDown'){event.preventDefault();moveSearch(1)}
+    if(event.key==='ArrowUp'){event.preventDefault();moveSearch(-1)}
+    if(event.key==='Enter'&&matches.length){event.preventDefault();chooseSearch(matches[cursor<0?0:cursor].id)}
+    if(event.key==='Escape'){event.preventDefault();closeSearch();field.blur?.()}
+   });
+  }
   const svg=$('stTreeSvg');
   svg.addEventListener('click',event=>{
    const g=event.target.closest('[data-st-node]');
@@ -280,6 +348,13 @@
   svg.addEventListener('pointerup',stop);svg.addEventListener('pointercancel',stop);svg.addEventListener('lostpointercapture',stop);
   svg.addEventListener('wheel',event=>{event.preventDefault();setZoom(state.scale*(event.deltaY<0?1.13:1/1.13))},{passive:false});
   root.addEventListener('click',event=>{
+    const result=event.target.closest('[data-st-search-node]');
+    if(result){chooseSearch(result.dataset.stSearchNode);return}
+    if(event.target.closest('#stSearchClear')){
+      const input=$('stSkillSearch');if(input){input.value='';input.focus?.()}
+      refreshSearch();return;
+    }
+    if(!event.target.closest('.st-skill-search'))closeSearch();
     const path=event.target.closest('[data-st-path]'),
           inspectBtn=event.target.closest('[data-st-inspect]');
     if(path){selectPath(path.dataset.stPath);return}
@@ -300,7 +375,12 @@
   });
   document.addEventListener('keydown',event=>{
     if(!document.getElementById('page-skill')?.classList.contains('active'))return;
+    if(event.ctrlKey||event.metaKey||event.altKey){
+      if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='k'){event.preventDefault();$('stSkillSearch')?.focus?.()}
+      return;
+    }
     if(['INPUT','SELECT','TEXTAREA'].includes(document.activeElement?.tagName))return;
+    if(event.key==='/'){event.preventDefault();$('stSkillSearch')?.focus?.();return}
     if(event.key==='Escape'){event.preventDefault();closeScene()}
     if(event.key.toLowerCase()==='v'){event.preventDefault();toggleCatalog(!state.webView)}
     if(event.key.toLowerCase()==='c'){event.preventDefault();focusPath()}
