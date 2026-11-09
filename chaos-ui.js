@@ -13,14 +13,14 @@ const preset=[
  ['c-3','c-2','new-magician-astral','new-silverfox-vanguard-astral'],
  ['c-1','c-353','new-silver-star-user-calamity','c-5']
 ];
-const state={teams:preset.map(t=>t.slice()),difficulty:1,samples:100,selection:null,filter:'',result:null,fit:null};
+const state={teams:preset.map(t=>t.slice()),difficulty:1.7,samples:100,selection:null,filter:'',result:null,fit:null};
 try{
  const old=JSON.parse(localStorage.getItem(storageKey)||'null');
  if(old&&Array.isArray(old.teams)&&old.teams.length===2&&old.teams.every(t=>Array.isArray(t)&&t.length===4)){
    const value=old.teams.map(t=>t.map(id=>byId.has(id)?id:null));
    if(E.rosterValid(value.map(t=>t.map(id=>byId.get(id)))).ok)state.teams=value;
  }
- if(Number.isFinite(old?.difficulty))state.difficulty=Math.min(1.7,Math.max(.7,old.difficulty));
+ if(Number.isFinite(old?.difficulty))state.difficulty=Math.min(2.4,Math.max(.7,old.difficulty));
 }catch(_){}
 const el=id=>document.getElementById(id);
 const actual=()=>state.teams.map(t=>t.map(id=>byId.get(id)||null));
