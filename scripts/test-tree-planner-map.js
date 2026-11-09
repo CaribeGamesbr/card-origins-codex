@@ -20,4 +20,14 @@ for(const single of [true,false])for(const category of data.categories){
  for(const p of result.positions.values())assert.ok(Number.isFinite(p.x)&&Number.isFinite(p.y));
 }
 assert.equal(JSON.stringify({data,topology}),original,'Layout must not mutate personal data or source topology');
+// Deferred scripts run while readyState is interactive. Mount only after the
+// topology and the remaining deferred dependencies have finished loading.
+let reads=0,readyHandler=null;
+vm.runInNewContext(fs.readFileSync(require.resolve('../tree-planner-ui.js'),'utf8'),{
+ window:{CARDO_SKILLS:data,CARDO_TREE_PLANNER:{},CARDO_DATA:[1,2,3,5].map(i=>({id:'c-'+i,type:'card'}))},
+ localStorage:{getItem:()=>null},
+ document:{readyState:'interactive',getElementById:()=>{reads++;return null},addEventListener:(name,fn)=>{if(name==='DOMContentLoaded')readyHandler=fn}}
+});
+assert.equal(reads,0,'Do not initialize a partial map before deferred scripts finish');
+assert.equal(typeof readyHandler,'function');readyHandler();assert.equal(reads,1);
 console.log('Planner map: all seven branches, overview, hidden nodes, source-only links and data preservation passed.');
