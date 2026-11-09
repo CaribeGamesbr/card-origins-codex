@@ -10,7 +10,7 @@ const byId=new Map(cards.map(c=>[c.id,c]));
 const esc=x=>String(x??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const storageKey='card-origins-chaos-stage03-v1';
 const preset=[
- ['c-2','c-3','new-black-eyepatch-calamity','new-silverfox-vanguard-astral'],
+ ['c-3','c-350','new-black-flame-heir-calamity','new-the-grinning-spectator-normal'],
  ['c-1','c-353','new-silver-star-user-calamity','c-5']
 ];
 const state={teams:preset.map(t=>t.slice()),difficulty:1.7,samples:100,selection:null,filter:'',result:null,fit:null};
