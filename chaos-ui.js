@@ -49,7 +49,7 @@ function box(c,index,slot){
 }
 function renderTeams(){
  const data=actual();
- const valid=E.rosterValid(data),stats=data.map(team=>({links:E.bonuses(team).filter(v=>v>1).length,rawDamage:team.reduce((s,c)=>s+(c?.dmg||0),0)}));
+ const valid=E.rosterValid(data),stats=data.map(team=>({links:team.slice(0,3).reduce((s,c,j)=>s+(E.link(c,team[j+1])?1:0),0),rawDamage:team.reduce((s,c)=>s+(c?.dmg||0),0)}));
  const teamBox=el('cxTeams');if(!teamBox)return;
  teamBox.innerHTML=data.map((team,i)=>{
    const phase=E.phases[i],all=team.every(Boolean);
