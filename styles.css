@@ -738,3 +738,29 @@
  #page-skill .st-skill-search input{font-size:11px}
  #page-skill .st-skill-search-results button[data-st-search-node] em{max-width:70px;font-size:8px}
 }
+
+
+/* Web View: one branch at a time while keeping the original radial layout. */
+#page-skill .st-map[data-single="true"] .st-node.learned{
+ filter:drop-shadow(0 0 5px rgba(250,240,255,.38)) drop-shadow(0 5px 3px rgba(0,0,0,.6));
+}
+#page-skill .st-map[data-single="true"] .st-node.ready{
+ filter:drop-shadow(0 0 4px rgba(214,175,255,.3));
+}
+#page-skill .st-map[data-single="true"] .st-node:hover,
+#page-skill .st-map[data-single="true"] .st-node:focus{
+ filter:brightness(1.35) drop-shadow(0 0 7px var(--st-branch-color));
+}
+#page-skill .st-map[data-single="true"] .st-map-background{
+ background:radial-gradient(ellipse 52% 55% at 50% 47%,color-mix(in srgb,var(--st-branch-color) 15%,transparent),transparent 95%);
+}
+#page-skill .st-catalog-shortcut{
+ border:1px solid #7a679f;background:linear-gradient(130deg,#392b62,#282344);
+ border-radius:6px;color:#f3e8ff;font-size:10px;font-weight:900;
+ cursor:pointer;padding:5px 9px;white-space:nowrap;
+}
+#page-skill .st-catalog-shortcut:hover{background:#574180;border-color:#b491d9}
+#page-skill .st-catalog-shortcut:focus-visible{outline:2px solid #fff0b3;outline-offset:2px}
+@media(max-width:780px){
+ #page-skill .st-catalog-shortcut{font-size:9px;padding:4px 6px}
+}
