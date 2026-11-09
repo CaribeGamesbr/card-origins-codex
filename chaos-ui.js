@@ -10,6 +10,10 @@ const byId=new Map(cards.map(c=>[c.id,c]));
 const esc=x=>String(x??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const storageKey='card-origins-chaos-stage03-v1';
 const preset=[
+ ['c-3','c-2','c-350','new-the-grinning-spectator-normal'],
+ ['c-1','c-5','c-353','new-silverfox-vanguard-astral']
+];
+const previousPreset=[
  ['c-3','c-350','new-black-flame-heir-calamity','new-the-grinning-spectator-normal'],
  ['c-1','c-353','new-silver-star-user-calamity','c-5']
 ];
@@ -18,7 +22,7 @@ try{
  const old=JSON.parse(localStorage.getItem(storageKey)||'null');
  if(old&&Array.isArray(old.teams)&&old.teams.length===2&&old.teams.every(t=>Array.isArray(t)&&t.length===4)){
    const value=old.teams.map(t=>t.map(id=>byId.has(id)?id:null));
-   if(E.rosterValid(value.map(t=>t.map(id=>byId.get(id)))).ok)state.teams=value;
+   if(E.rosterValid(value.map(t=>t.map(id=>byId.get(id)))).ok&&JSON.stringify(value)!==JSON.stringify(previousPreset))state.teams=value;
  }
  // v1 saved pressure 1.70 as a relative guess before enemy stats arrived.
  // Keep saved teams but recalibrate pressure to 1.00 for screenshot-based HP/DMG.
@@ -127,7 +131,7 @@ function battlePlan(result){
   'Fase 1: '+(p1.length?'aproveite a vantagem Wind de '+p1.join(' e ')+'. ':'faltam cartas Wind nessa formação. ')+
   'Fire Soldier dá golpes de 100%+50%; Ancient Flame impede recuperar parte do HP; o último inimigo tem 55% de esquiva. Evite prolongar Burn, Immolation e Fatigue.',
   'Fase 2: '+(p2.length?'aproveite o dano Quantum de '+p2.join(' e ')+'. ':'considere incluir dano Quantum. ')+
-  'Omniscient Reader copia habilidades e Scythe Tactician aplica Bleed. Leve proteção contra debuffs e golpes fatais.'
+  'Omniscient Reader pode esquivar da primeira habilidade de cada tipo; Horned Maid aplica Fatigue e Confusion; Scythe Tactician aplica Bleed e acumula Execution. Leve proteção contra debuffs e golpes fatais.'
  ];
  const example=result.example;
  const replay=example?'<details class="cx-replay"><summary>Ver batalha ilustrativa ('+example.stars+' estrela'+(example.stars===1?'':'s')+')</summary>'+
@@ -136,7 +140,7 @@ function battlePlan(result){
    '<details class="cx-replay-turns"><summary>Ver ações dos turnos</summary><ol>'+phase.timeline.map(item=>'<li>'+esc(item)+'</li>').join('')+'</ol></details></section>').join('')+'</details>':'';
  return '<div class="cx-battle-plan"><h4>Como tentar vencer no Roblox</h4><ol>'+
   objectives.concat(phaseNotes).map(item=>'<li>'+esc(item)+'</li>').join('')+'</ol>'+
-  '<p>Depois de testar os dois times no jogo, compare os KOs e turnos reais. O HP máximo e DMG dos quatro inimigos da fase 1 vieram dos prints; a fase 2 ainda é estimada. Suportes, traits, relíquias e vários gatilhos não são simulados.</p></div>'+replay;
+  '<p>Depois de testar os dois times no jogo, compare os KOs e turnos reais. O HP máximo e DMG dos oito inimigos vieram dos prints de batalha. Suportes, traits, relíquias e vários gatilhos de habilidades não são simulados.</p></div>'+replay;
 }
 function renderResults(){
  const mount=el('cxResultPanel');
@@ -148,13 +152,13 @@ function renderResults(){
  resultsBar('Cumpriu as 3 condições',r.threeStarRate,'cx-gold')+
  '<div class="cx-result-stats"><div><span>FASE 1</span><strong>'+r.avgTurns[0].toFixed(1)+' turnos</strong><small>'+r.avgLosses[0].toFixed(2)+' KOs médios</small></div>'+
  '<div><span>FASE 2</span><strong>'+r.avgTurns[1].toFixed(1)+' turnos</strong><small>'+r.avgLosses[1].toFixed(2)+' KOs médios</small></div></div>'+
- '<div class="cx-insight"><strong>O que precisa para as 3 estrelas:</strong><p>Vencer ambas as fases, não perder nenhuma carta e finalizar cada fase em até 22 rodadas. O HP máximo e o DMG dos inimigos da fase 1 são os números dos prints; os da fase 2 são estimados. A porcentagem é do modelo, não do jogo.</p></div>'+
+ '<div class="cx-insight"><strong>O que precisa para as 3 estrelas:</strong><p>Vencer ambas as fases, não perder nenhuma carta e finalizar cada fase em até 22 rodadas. O HP máximo e o DMG dos oito inimigos são os números dos prints, mas os efeitos de habilidades ainda são aproximados. A porcentagem é do modelo, não do jogo.</p></div>'+
  battlePlan(r);
 }
 function optimize(){
  const button=el('cxOptimize');button.disabled=true;
  try{
-  const candidate=E.recommend(catalog,{attempts:220,hardness:state.difficulty});
+  const candidate=E.recommend(catalog,{attempts:360,hardness:state.difficulty});
   if(!candidate?.teams||!E.rosterValid(candidate.teams).ok)return;
   setTeams(candidate.teams);
   state.result=candidate.results;

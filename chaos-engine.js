@@ -1,10 +1,10 @@
 /* Memory of Chaos — comparative model, NOT a recreation of Roblox combat.
    Screenshot-confirmed: two separate teams of 4, ordered phases Fire/Imaginary,
    Stage 03 Burn/Immolation/Fatigue, star conditions and the abilities below.
-   VERIFIED for phase 1 (user's card screenshots): enemy MAX HP and DMG,
+   VERIFIED for both phases (user's battle screenshots): enemy MAX HP and DMG,
    Fire Soldier double hit, Ancient Flame Charred HP, Star Warrior 55% dodge.
-   UNKNOWN: phase 2 HP/DMG, full skill text, cooldowns, exact battle timing.
-   Phase 2 and special-effect timing remain intentionally hypothetical.
+   UNKNOWN: full skill text, skill timing, cooldowns, exact battle mechanics.
+   Some special-effect timing remains intentionally hypothetical.
 */
 (function(root,factory){
   const engine=factory();
@@ -17,15 +17,15 @@ const phases=[
   enemies:[
     {name:'Apothecary Cat',element:'Wind',hp:6160,dmg:1540,seenHp:2575,threat:'Ao receber um debuff pela primeira vez, aprende o efeito. O restante da habilidade não aparece no print.',bulk:1.05,hazard:1.02},
     {name:'Fire Soldier',element:'Fire',hp:9240,dmg:2310,seenHp:9240,threat:'Cada ataque acerta duas vezes: 100% do DMG e depois 50% do DMG. O restante da habilidade não aparece no print.',bulk:1.0,hazard:1.20},
-    {name:'The Ancient Flame…',element:'Fire',hp:12320,dmg:2763,seenHp:11582,threat:'20% do HP removido pelo dano vira Charred HP e não pode ser curado. O restante da habilidade não aparece no print.',bulk:1.28,hazard:1.24},
+    {name:'The Ancient Flame',element:'Fire',hp:12320,dmg:2763,seenHp:11582,threat:'20% do HP removido pelo dano vira Charred HP e não pode ser curado. O restante da habilidade não aparece no print.',bulk:1.28,hazard:1.24},
     {name:'Star Warrior Raised…',element:'Imaginary',hp:15400,dmg:3454,seenHp:14572,threat:'55% de chance de esquivar. Cada esquiva bem-sucedida causa contra-ataque, mas o valor está cortado no print.',bulk:1.07,hazard:0.97,dodge:.55}
   ]},
  {name:'Fase 2 — Imaginary',element:'Imaginary',weak:'Quantum',color:'#e9c77b',
   enemies:[
-    {name:'Omniscient Reader',element:'Quantum',threat:'Copia primeira habilidade do inimigo e pune efeitos usados repetidamente.',bulk:1.25,hazard:1.17},
-    {name:'The Sky-Reaching…',element:'Fire',threat:'Crossed-Out reduz proteção externa e afeta a forma das habilidades.',bulk:1.08,hazard:1.11},
-    {name:'Horned Maid',element:'Fire',threat:'Aplica Fatigue e Confusion; debuffs fortalecem seu dano.',bulk:1.04,hazard:1.18},
-    {name:'Scythe Tactician',element:'Wind',threat:'Bleed e Execution; aumenta dano ao consumir efeitos.',bulk:1.13,hazard:1.20}
+    {name:'Omniscient Reader',element:'Quantum',hp:7084,dmg:1771,seenHp:2758,threat:'A primeira vez que cada habilidade inimiga causa dano, a carta se esquiva e a aprende. Os detalhes seguintes estão cortados no print.',bulk:1.25,hazard:1.17},
+    {name:'The Sky-Reaching Student',element:'Fire',hp:10624,dmg:2656,seenHp:7458,threat:'Ao entrar, o inimigo atual recebe Crossed Out; o efeito altera habilidades. O texto completo está cortado no print.',bulk:1.08,hazard:1.11},
+    {name:'Horned Maid',element:'Fire',hp:14168,dmg:3542,seenHp:10426,threat:'Ao entrar e a cada 3 turnos aplica Fatigue e Confusion por 2 turnos. O restante da habilidade não aparece no print.',bulk:1.04,hazard:1.18},
+    {name:'Scythe Tactician',element:'Wind',hp:17708,dmg:4427,seenHp:7220,threat:'Ataques aplicam Bleed por 2 turnos; atingir alvo já sangrando adiciona 1 stack de Execution. O texto completo não aparece no print.',bulk:1.13,hazard:1.20}
   ]}
 ];
 const screenshotKnown=new Set([
@@ -102,8 +102,8 @@ function simulatePhase(team,phase,random,hardness=1){
  const spectator=team.findIndex(c=>c.name==='THE GRINNING SPECTATOR');
  const eyeDealTarget=spectator<0?-1:team.reduce((best,c,i)=>i!==spectator&&(best<0||c.dmg>team[best].dmg)?i:best,-1);
  const meanHP=team.reduce((s,c)=>s+c.hp,0)/4;
- // Phase 1 values are the full HP/DMG displayed on enemy card screenshots.
- // Phase 2 has no confirmed stats yet and uses a clearly labeled fallback.
+ // Both phases use enemy MAX HP/DMG from screenshots taken mid-battle.
+ // The fallback exists only for incomplete future stages or rotations.
  const estimatedEnemyHP=4650*hardness, estimatedHit=(meanHP*.074)*hardness;
  let rounds=0,active=0,defeated=0,losses=0,burn=false,immolation=0,fatigue=0,enemyTurns=0;
  const log=[],timeline=[];
@@ -180,7 +180,7 @@ function simulatePhase(team,phase,random,hardness=1){
      }else{
        const applied=Math.min(health[active],amountIn);
        health[active]-=amountIn;
-       if(foe.name==='The Ancient Flame…'){
+       if(foe.name==='The Ancient Flame'){
          healableMax[active]=Math.max(0,healableMax[active]-applied*.20);
          log.push('Turno '+rounds+': Ancient Flame tornou '+Math.round(applied*.20)+' HP incurável (Charred HP).');
        }
@@ -234,7 +234,7 @@ function rankCard(c,phase,slot){
 function recommend(allData,opts={}){
  const data=cardsOnly(allData);
  const owned=data.filter(c=>screenshotKnown.has(c.id)&&hasStats(c));
- const baseline=[['c-3','c-350','new-black-flame-heir-calamity','new-the-grinning-spectator-normal'],['c-1','c-353','new-silver-star-user-calamity','c-5']]
+ const baseline=[['c-3','c-2','c-350','new-the-grinning-spectator-normal'],['c-1','c-5','c-353','new-silverfox-vanguard-astral']]
   .map(ids=>ids.map(id=>data.find(c=>c.id===id)));
  const chosen=baseline.flat().some(x=>!x)?[...owned.sort((a,b)=>b.dmg-a.dmg).slice(0,8)].reduce((p,x,i)=>(p[Math.floor(i/4)].push(x),p),[[],[]]):baseline;
  let best=chosen,bestStat=trials(best,{samples:36,hardness:opts.hardness||1,seed:91011});
