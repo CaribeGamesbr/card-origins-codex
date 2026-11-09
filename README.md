@@ -12,7 +12,7 @@ Site estático feito para publicar no GitHub Pages. Não é uma wiki oficial de 
 
 ## Dados e direitos
 
-Esta edição remove links e identificadores dos arquivos pessoais do Google Drive, URLs privadas e captura da Skill Tree com nome da conta. Os registros de nome, elemento e borda são derivados dos nomes dos arquivos de origem. As 5 cartas recebidas em 09/11/2026 tiveram seus atributos e efeitos conferidos por prints. As imagens PNG precisam ser enviadas à pasta assets/cards no GitHub para aparecerem no site. Esta é uma wiki de fã, independente do Roblox e dos criadores do jogo.
+Esta edição remove links e identificadores dos arquivos pessoais do Google Drive, URLs privadas e captura da Skill Tree com nome da conta. Os registros de nome, elemento e borda são derivados dos nomes dos arquivos de origem. As 8 cartas recebidas em 09/11/2026 tiveram seus atributos e efeitos conferidos por prints, e suas imagens originais foram adicionadas a `assets/cards/`. Esta é uma wiki de fã, independente do Roblox e dos criadores do jogo.
 
 ## Publicar com GitHub Pages
 
@@ -31,13 +31,13 @@ As novas cartas exigem atualizar `catalog.json`, `data.js`, e enviar as novas ar
 
 Foram cadastrados Sorcerer Killer (Normal/Physical), Silver Star User (Calamity/Imaginary), The Grinning Spectator (Normal/Imaginary), Demonic Swordsaint (Normal/Ice) e Black Eyepatch (Calamity/Physical). As versões anteriores de Silver Star User e Black Eyepatch continuam separadas.
 
-O número das novas cartas não estava visível nas capturas e não foi inventado. Os arquivos PNG das 5 artes precisam ser enviados para assets/cards/ com exatamente os nomes definidos em data.js. O site encontrará os arquivos após a publicação.
+O número das novas cartas não estava visível nas capturas e não foi inventado. Os PNGs originais estão no repositório com os nomes definidos em `data.js`.
 
 ## Memory of Chaos — Stage 03 (Broken Mind)
 
-A seção `#chaos` é um laboratório de estratégias para o Stage 03 conforme os prints recebidos em 09/11/2026. Inclui duas equipes de 4 cartas, seletor de cartas, debuff do stage, descrição dos oito inimigos, condições das 3 estrelas e simulação ilustrativa com busca de composições.
+A seção `#chaos` é um laboratório de estratégias para o Stage 03 conforme os prints recebidos em 09/11/2026. Inclui duas equipes de 4 cartas, seletor de cartas, debuff do stage, descrição dos oito inimigos, condições das 3 estrelas, busca de composições, plano por fase e um registro ilustrativo da batalha.
 
-**Atenção:** o jogo não forneceu HP/DMG dos inimigos nem um simulador oficial. A função compara cenários assumidos e não deve ser interpretada como probabilidade real de vitória. São usadas apenas cartas do catálogo com HP/DMG identificados. O resultado fica salvo localmente e não é sincronizado com Roblox.
+**Atenção:** o jogo não forneceu HP/DMG dos inimigos nem um simulador oficial. A função compara cenários assumidos e não deve ser interpretada como probabilidade real de vitória. São usadas apenas cartas do catálogo com HP/DMG identificados. As habilidades das cartas recentes foram parcialmente aproximadas (por exemplo, a frequência das habilidades inimigas é desconhecida). Suportes, traits e relíquias não são aplicados ao cálculo. O resultado fica salvo localmente e não é sincronizado com Roblox.
 
 ### Novas cartas
 
@@ -45,4 +45,4 @@ A seção `#chaos` é um laboratório de estratégias para o Stage 03 conforme o
 - Black Flame Heir — Calamity / Lightning, HP 3105, DMG 1035
 - Magician — Astral / Lightning, HP 4383, DMG 1462
 
-As três imagens foram salvas na pasta Drive `Card Origins — Minhas Cartas`. Para aparecerem na wiki hospedada no GitHub Pages, envie os três PNGs à pasta `assets/cards/`, mantendo os nomes definidos em `data.js`.
+As três imagens foram salvas primeiro na pasta Drive `Card Origins — Minhas Cartas` e depois adicionadas a `assets/cards/` no GitHub, junto com as cinco cartas anteriores.

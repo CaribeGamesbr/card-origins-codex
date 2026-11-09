@@ -111,6 +111,29 @@ function resultsBar(label,part,kind){
  return '<div class="cx-result-row"><span>'+label+'</span><strong>'+percent+'% <small>no modelo</small></strong>'+
  '<div class="cx-progress '+kind+'"><i style="width:'+percent+'%"></i></div></div>';
 }
+function battlePlan(result){
+ const teams=actual();
+ const p1=teams[0].filter(c=>c.element==='Wind').map(c=>c.name);
+ const p2=teams[1].filter(c=>c.element==='Quantum').map(c=>c.name);
+ const objectives=[
+  result.clearRate>0?'O modelo encontrou vitórias nas duas fases.':'O modelo ainda não encontrou uma vitória nas duas fases. Experimente mais mitigação, cura e dano.',
+  result.threeStarRate>0?'Há exemplos com 3 estrelas no modelo; teste a ordem indicada no jogo.':'Ainda não houve 3 estrelas nos testes. Priorize sobreviver sem KOs e terminar cada fase em 22 rodadas.'
+ ];
+ const phaseNotes=[
+  'Fase 1: '+(p1.length?'aproveite a vantagem Wind de '+p1.join(' e ')+'. ':'faltam cartas Wind nessa formação. ')+
+  'Fire Soldier ataca duas vezes e o último inimigo tem 55% de esquiva. Evite prolongar Burn, Immolation e Fatigue.',
+  'Fase 2: '+(p2.length?'aproveite o dano Quantum de '+p2.join(' e ')+'. ':'considere incluir dano Quantum. ')+
+  'Omniscient Reader copia habilidades e Scythe Tactician aplica Bleed. Leve proteção contra debuffs e golpes fatais.'
+ ];
+ const example=result.example;
+ const replay=example?'<details class="cx-replay"><summary>Ver batalha ilustrativa ('+example.stars+' estrela'+(example.stars===1?'':'s')+')</summary>'+
+  example.phases.map((phase,i)=>'<section><h5>'+esc(E.phases[i].name)+' · '+phase.defeated+'/4 inimigos · '+phase.turns+' turnos · '+phase.losses+' KOs</h5>'+
+   '<ol>'+phase.log.map(item=>'<li>'+esc(item)+'</li>').join('')+'</ol>'+
+   '<details class="cx-replay-turns"><summary>Ver ações dos turnos</summary><ol>'+phase.timeline.map(item=>'<li>'+esc(item)+'</li>').join('')+'</ol></details></section>').join('')+'</details>':'';
+ return '<div class="cx-battle-plan"><h4>Como tentar vencer no Roblox</h4><ol>'+
+  objectives.concat(phaseNotes).map(item=>'<li>'+esc(item)+'</li>').join('')+'</ol>'+
+  '<p>Depois de testar os dois times no jogo, compare os KOs e turnos reais. Os suportes, traits, relíquias, HP/DMG exatos dos inimigos e muitos gatilhos de habilidade ainda não são simulados.</p></div>'+replay;
+}
 function renderResults(){
  const mount=el('cxResultPanel');
  if(!mount)return;
@@ -121,7 +144,8 @@ function renderResults(){
  resultsBar('Cumpriu as 3 condições',r.threeStarRate,'cx-gold')+
  '<div class="cx-result-stats"><div><span>FASE 1</span><strong>'+r.avgTurns[0].toFixed(1)+' turnos</strong><small>'+r.avgLosses[0].toFixed(2)+' KOs médios</small></div>'+
  '<div><span>FASE 2</span><strong>'+r.avgTurns[1].toFixed(1)+' turnos</strong><small>'+r.avgLosses[1].toFixed(2)+' KOs médios</small></div></div>'+
- '<div class="cx-insight"><strong>O que precisa para as 3 estrelas:</strong><p>Vencer ambas as fases, não perder nenhuma carta e finalizar cada fase em até 22 rodadas. Estes números são de uma simulação ilustrativa; o HP e o DMG dos oponentes não estão disponíveis nos prints.</p></div>';
+ '<div class="cx-insight"><strong>O que precisa para as 3 estrelas:</strong><p>Vencer ambas as fases, não perder nenhuma carta e finalizar cada fase em até 22 rodadas. Estes números são de uma simulação ilustrativa; o HP e o DMG dos oponentes não estão disponíveis nos prints.</p></div>'+
+ battlePlan(r);
 }
 function optimize(){
  const button=el('cxOptimize');button.disabled=true;
@@ -132,7 +156,9 @@ function optimize(){
   state.result=candidate.results;
   renderResults();
   const info=el('cxOptimizationNote');
-  info.textContent='Testadas '+candidate.attempts+' variações entre '+candidate.candidates+' cartas com HP/DMG conferidos nos prints. Melhor resultado aproximado dentro dessas tentativas — não ótimo garantido.';
+  info.textContent='Testadas '+candidate.attempts+' variações entre '+candidate.candidates+' cartas com HP/DMG conferidos nos prints. '+
+   (candidate.results.clearRate>0?'Foi encontrada uma formação que venceu no modelo. ':'Não foi encontrada uma vitória no modelo. ')+
+   'Veja o plano e o exemplo de batalha abaixo. O resultado não garante vitória no Roblox.';
  }finally{button.disabled=false}
 }
 function copyTeams(){

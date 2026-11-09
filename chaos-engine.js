@@ -47,7 +47,13 @@ const pairs=new Set(['Fire+Fire','Ice+Ice','Lightning+Lightning','Wind+Wind','Qu
 'Fire+Ice','Fire+Wind','Fire+Lightning','Ice+Lightning','Ice+Wind','Lightning+Wind','Quantum+Imaginary','Quantum+Physical',
 'Imaginary+Physical','Fire+Physical','Ice+Quantum','Wind+Imaginary']);
 function link(a,b){if(!a||!b)return false;return pairs.has([a.element,b.element].sort().join('+'))}
-function bonuses(team){return team.map((card,i)=>{let edges=0;if(i>0&&link(team[i-1],card))edges++;if(i<team.length-1&&link(card,team[i+1]))edges++;return 1+edges*.06})}
+function bonuses(team){return team.map((card,i)=>{
+ let bonus=0;
+ for(const j of [i-1,i+1]){
+   if(j>=0&&j<team.length&&link(card,team[j]))bonus+=card.element===team[j].element?.06:.04;
+ }
+ return 1+bonus;
+})}
 function rosterValid(teams){
  if(!Array.isArray(teams)||teams.length!==2||teams.some(a=>!Array.isArray(a)||a.length!==4))return {ok:false,reason:'São necessários dois times de quatro cartas.'};
  const flat=teams.flat();
@@ -65,15 +71,15 @@ function modifiers(c,mode){
  if(n==='FULLMETAL ALCHEMIST'){incoming*=.84;outgoing*=1.04}
  if(n==='ASHEY'){outgoing*=1.3;hitBonus=.03}
  if(n==='KING OF GAMES'){outgoing*=1.20}
- if(n==='SILVER STAR USER'){outgoing*=1.23}
+ if(n==='SILVER STAR USER'){outgoing*=1.25}
  if(n==='SCARLET DUELIST'){incoming*=.92}
  if(n==='PSYCHIC PEAK'){incoming*=.93}
- if(n==='SILVERFOX VANGUARD'){shield=1;outgoing*=1.09}
- if(n==='MAGICIAN'){extraLife=1;outgoing*=1.05}
+ if(n==='SILVERFOX VANGUARD'){shield=1}
+ if(n==='MAGICIAN'){extraLife=1}
  if(n==='BLACK EYEPATCH'){hitBonus=.20;incoming*=.95}
- if(n==='THE GRINNING SPECTATOR'){outgoing*=1.05;hitBonus=.08}
+ // Eye Deal belongs to the highest-DMG ally, not to the Spectator itself.
  if(n==='DEMONIC SWORDSAINT'){outgoing*=1.13;incoming*=.90}
- if(n==='BLACK FLAME HEIR'){heal=.035}
+ // Black Flame Heir heals only if the burning target activates its ability.
  if(n==='KAIRO'){incoming*=.97;outgoing*=1.04}
  if(n==='SCARLET KNIGHT'){outgoing*=1.05}
  if(n==='GHOST COMMUNICATOR'){heal=.04}
@@ -89,33 +95,63 @@ function simulatePhase(team,phase,random,hardness=1){
  const mods=team.map((c)=>modifiers(c,phase===phases[1]?1:0));
  const health=team.map(c=>+c.hp), max=team.map(c=>+c.hp);
  const skillGuard=mods.map(m=>m.extraLife),clone=mods.map(m=>m.shield);
+ const cloneStrikeReady=team.map(()=>false);
  const linkBoost=bonuses(team);
+ const spectator=team.findIndex(c=>c.name==='THE GRINNING SPECTATOR');
+ const eyeDealTarget=spectator<0?-1:team.reduce((best,c,i)=>i!==spectator&&(best<0||c.dmg>team[best].dmg)?i:best,-1);
  const meanHP=team.reduce((s,c)=>s+c.hp,0)/4;
  // Assumed numbers, not in screenshots: enemy relative HP and damage.
  const baseEnemyHP=4650*hardness, baseHit=(meanHP*.074)*hardness;
  let rounds=0,active=0,defeated=0,losses=0,burn=false,immolation=0,fatigue=0,enemyTurns=0;
- const log=[];
+ const log=[],timeline=[];
  for(let k=0;k<4;k++){
    const foe=phase.enemies[k];let enemyHP=baseEnemyHP*foe.bulk*(.85+random()*.30);
-   let dodges=0;
+   let dodges=0,flameTicks=0,flameCaster=-1,flameActions=0,disoriented=0;
    while(enemyHP>0&&rounds<55&&active<4){
      rounds++;
      const c=team[active],m=mods[active];
      const adv=getAdvantage(c.element,phase.element);
      let hitChance=Math.min(.99,(foe.dodge==null?.94:1-foe.dodge)+m.hitBonus);
      let amount=c.dmg*adv*m.outgoing*linkBoost[active]*(.86+.28*random());
+     if(active===eyeDealTarget)amount*=1.06; // Approximate expected critical benefit of Eye Deal.
      if(k===3&&dodges>=5)amount*=.9;
      if(fatigue>0)amount*=.9;
-     if(random()<=hitChance){
+     let hit=random()<=hitChance;
+     if(!hit&&active===eyeDealTarget&&health[active]>max[active]*.05){
+       health[active]-=max[active]*.05;hit=true;amount*=1.25;
+       log.push('Turno '+rounds+': Eye Deal garantiu um crítico, consumindo 5% do HP de '+c.name+'.');
+     }
+     if(hit){
        if(c.name==='ASHEY'&&random()<.25)amount*=1.2;
        if(c.name==='BLACK EYEPATCH'&&foe.dodge)amount*=1.09;
-       if(c.name==='SILVERFOX VANGUARD'&&!clone[active])amount*=1.12;
+       if(c.name==='SILVERFOX VANGUARD'&&cloneStrikeReady[active]){
+         amount*=1.30;cloneStrikeReady[active]=false;disoriented=1;
+         log.push('Turno '+rounds+': Silverfox Vanguard usou Rasengan (+30%) e aplicou Disorientation.');
+       }
        enemyHP-=amount;
        if(m.heal)health[active]=Math.min(max[active],health[active]+amount*m.heal);
      }else dodges++;
-     if(enemyHP<=0){defeated++;log.push(foe.name+' derrotado no turno '+rounds);break}
+     timeline.push('T'+rounds+' · '+c.name+(hit?' acertou '+Math.round(amount)+' DMG':' errou')+' em '+foe.name);
+     if(c.name==='BLACK FLAME HEIR'&&hit){
+       flameActions++;
+       if(flameActions%2===0){flameTicks=2;flameCaster=active;
+         log.push('Turno '+rounds+': Black Flame Heir aplicou chamas negras por 2 turnos.');}
+     }
+     if(enemyHP<=0){defeated++;log.push(foe.name+' derrotado no turno '+rounds+' por '+c.name);break}
      // Approximate each enemy turn and stage debuff; status is treated as persisting on the active card until KO.
      enemyTurns++;
+     if(flameTicks>0&&flameCaster>=0){
+       const dot=team[flameCaster].dmg*.10; // 20% DMG distributed over two ticks.
+       enemyHP-=dot;flameTicks--;
+       timeline.push('T'+rounds+' · chamas negras causaram '+Math.round(dot)+' DMG periódico');
+       // Enemy ability timing is unknown; 30% is explicitly a model assumption.
+       if(random()<.30){
+         const trigger=team[flameCaster].dmg*.05;enemyHP-=trigger;
+         if(health[flameCaster]>0)health[flameCaster]=Math.min(max[flameCaster],health[flameCaster]+trigger);
+         log.push('Turno '+rounds+': ativação inimiga hipotética disparou Black Flame Drain.');
+       }
+       if(enemyHP<=0){defeated++;log.push(foe.name+' derrotado no turno '+rounds+' pelas chamas negras');break}
+     }
      let amountIn=baseHit*foe.hazard*(.75+.5*random());
      if(foe.name==='Fire Soldier')amountIn*=1.1;
      if(foe.name==='The Ancient Flame…')amountIn*=1.16;
@@ -128,21 +164,28 @@ function simulatePhase(team,phase,random,hardness=1){
      if(burn)amountIn+=max[active]*.013;
      if(immolation)amountIn+=Math.min(3,immolation)*max[active]*.02;
      if(fatigue>0){amountIn*=1.07;fatigue--}
-     if(clone[active]>0){amountIn*=.50;clone[active]--}
+     if(disoriented>0){amountIn*=.85;disoriented--;}
+     if(clone[active]>0){
+       amountIn*=.50;clone[active]--;cloneStrikeReady[active]=true;
+       log.push('Turno '+rounds+': Shadow Clone absorveu parte do golpe contra Silverfox Vanguard.');
+     }
      amountIn*=m.incoming;
      if(amountIn>=health[active]&&skillGuard[active]>0){
        skillGuard[active]--;
-       health[active]=Math.max(1,health[active]*.18);
-       enemyHP-=c.dmg*.65;
+       enemyHP-=c.dmg;m.outgoing*=1.10;
+       log.push('Turno '+rounds+': Magician evitou o golpe fatal, contra-atacou com 100% DMG e ganhou +10% DMG.');
      }else health[active]-=amountIn;
+     timeline.push('T'+rounds+' · '+foe.name+' respondeu com '+Math.round(amountIn)+' DMG estimado');
+     if(enemyHP<=0){defeated++;log.push(foe.name+' derrotado no turno '+rounds+' pelo contra-ataque');break}
      if(health[active]<=0){
-       losses++;active++;burn=false;immolation=0;fatigue=0;
+       losses++;log.push('Turno '+rounds+': '+c.name+' foi derrotado.');
+       active++;burn=false;immolation=0;fatigue=0;
        if(active>=4)break;
      }
    }
  }
  return {clear:defeated===4,turns:rounds,losses,defeated,remaining:health.reduce((v,h)=>v+Math.max(0,h),0),
-  log,withinLimit:rounds<=22};
+  log,timeline,withinLimit:rounds<=22};
 }
 function simulate(teams,opts={}){
  const valid=rosterValid(teams);if(!valid.ok)return {error:valid.reason};
@@ -159,15 +202,17 @@ function simulate(teams,opts={}){
 function trials(teams,opts={}){
  const valid=rosterValid(teams);if(!valid.ok)return {error:valid.reason};
  const samples=Math.min(500,Math.max(1,Math.trunc(opts.samples||100)));
- let clears=0,threeStars=0,noLoss=0,turns=[0,0],deaths=[0,0],last=null,stars=[0,0,0,0];
+ let clears=0,threeStars=0,noLoss=0,turns=[0,0],deaths=[0,0],last=null,bestExample=null,bestExampleScore=-1,stars=[0,0,0,0];
  for(let i=0;i<samples;i++){
    const r=simulate(teams,{seed:(Number(opts.seed)||39170)+(i*9973),hardness:opts.hardness||1});
    last=r;clears+=r.clear?1:0;threeStars+=r.stars===3?1:0;noLoss+=r.limits.loseNoCards?1:0;stars[r.stars]++;
+   const exampleScore=r.stars*100-r.phases.reduce((sum,phase)=>sum+phase.turns,0)*.01;
+   if(exampleScore>bestExampleScore){bestExample=r;bestExampleScore=exampleScore;}
    r.phases.forEach((x,k)=>{turns[k]+=x.turns;deaths[k]+=x.losses});
  }
  return {samples,clears,threeStars,noLoss,avgTurns:turns.map(v=>v/samples),
   avgLosses:deaths.map(v=>v/samples),clearRate:clears/samples,threeStarRate:threeStars/samples,
-  starCounts:stars,example:last,modelOnly:true};
+  starCounts:stars,example:bestExample||last,modelOnly:true};
 }
 function rankCard(c,phase,slot){
  if(!hasStats(c))return -999;
