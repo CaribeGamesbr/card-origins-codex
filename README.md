@@ -6,7 +6,7 @@ Site estático feito para publicar no GitHub Pages. Não é uma wiki oficial de 
 
 - `index.html` — página inicial, catálogo, time builder, skill tree, guia
 - `styles.css` e `app.js` — interface e filtros
-- `data.js` — catálogo local, 362 cartas e 37 suportes
+- `data.js` — catálogo local, 365 cartas e 37 suportes
 - `catalog.json` e `catalogo.csv` — exportações do catálogo para manutenção
 - `assets/` — artes verificadas e diagrama ilustrativo da skill tree
 
@@ -32,3 +32,17 @@ As novas cartas exigem atualizar `catalog.json`, `data.js`, e enviar as novas ar
 Foram cadastrados Sorcerer Killer (Normal/Physical), Silver Star User (Calamity/Imaginary), The Grinning Spectator (Normal/Imaginary), Demonic Swordsaint (Normal/Ice) e Black Eyepatch (Calamity/Physical). As versões anteriores de Silver Star User e Black Eyepatch continuam separadas.
 
 O número das novas cartas não estava visível nas capturas e não foi inventado. Os arquivos PNG das 5 artes precisam ser enviados para assets/cards/ com exatamente os nomes definidos em data.js. O site encontrará os arquivos após a publicação.
+
+## Memory of Chaos — Stage 03 (Broken Mind)
+
+A seção `#chaos` é um laboratório de estratégias para o Stage 03 conforme os prints recebidos em 09/11/2026. Inclui duas equipes de 4 cartas, seletor de cartas, debuff do stage, descrição dos oito inimigos, condições das 3 estrelas e simulação ilustrativa com busca de composições.
+
+**Atenção:** o jogo não forneceu HP/DMG dos inimigos nem um simulador oficial. A função compara cenários assumidos e não deve ser interpretada como probabilidade real de vitória. São usadas apenas cartas do catálogo com HP/DMG identificados. O resultado fica salvo localmente e não é sincronizado com Roblox.
+
+### Novas cartas
+
+- Silverfox Vanguard — Astral / Imaginary, HP 4258, DMG 1420
+- Black Flame Heir — Calamity / Lightning, HP 3105, DMG 1035
+- Magician — Astral / Lightning, HP 4383, DMG 1462
+
+As três imagens foram salvas na pasta Drive `Card Origins — Minhas Cartas`. Para aparecerem na wiki hospedada no GitHub Pages, envie os três PNGs à pasta `assets/cards/`, mantendo os nomes definidos em `data.js`.
