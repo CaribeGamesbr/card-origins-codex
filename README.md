@@ -8,7 +8,7 @@ Site estático feito para publicar no GitHub Pages. Não é uma wiki oficial de 
 - `styles.css` e `app.js` — interface e filtros
 - `data.js` — catálogo local, 371 cartas principais e 37 suportes
 - `catalog.json` e `catalogo.csv` — exportações do catálogo para manutenção
-- `infinite-engine.js`, `infinite-ui.js`, `infinite.css` — simulador interativo de Infinite Tower
+- `infinite-engine.js`, `infinite-panel.js`, `infinite.css` — simulador interativo de Infinite Tower
 - `docs/` — fontes, transcricoes, historico, pendencias e documentacao dos modelos
 - `assets/` — artes verificadas e diagrama ilustrativo da skill tree
 
@@ -70,3 +70,7 @@ Adicionadas quatro variantes novas: King of Curses (Calamity/Fire; 3871 HP, 1290
 Sherlock (Normal/Fire; HP 1.460, DMG 486; Perfect Deduction) e Two Timing Pro (Astral/Physical; HP 6.913, DMG 2.305; Double Cross) foram adicionadas com os prints originais. As outras bordas de Two Timing Pro foram preservadas. As novas habilidades estão transcritas no catálogo, mas seus gatilhos ainda não foram implementados nos simuladores. Total: **408 registros = 371 principais + 37 suportes**, sendo **26 principais transcritas e 345 pendentes**.
 
 Registro: [Atualização das duas cartas](docs/ATUALIZACAO_2026-11-09_SHERLOCK_TWO_TIMING_PRO.md).
+
+### Painel visual do Infinite
+
+A equipe agora usa um painel inspirado no Deck Builder, com prints ampliáveis, troca por busca, ordenação com suportes, circuitos, totais base e sete Paths visuais. A formação do Infinite fica salva separadamente do Deck. As ações de simular, comparar Paths e buscar até 21.000 tentativas foram preservadas. Ver [documentação do painel](docs/INFINITE_TOWER_SIMULADOR.md).

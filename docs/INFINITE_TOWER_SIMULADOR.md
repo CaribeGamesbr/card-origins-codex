@@ -56,3 +56,18 @@ Abra a aba **Infinite Tower** na pagina do Card Origins Codex. O laboratorio tem
 4. Testar uma formacao promissora no Roblox, registrar ate onde chegou e comparar com a previsao; corrigir as regras do motor se surgirem divergencias.
 
 **Regra de confianca:** sempre diferenciar print confirmado, valor editavel hipotetico, resultado do modelo e vitoria observada no jogo.
+
+## Painel visual de equipe — 09/11/2026
+
+A interface foi reorganizada a partir do Deck Builder: quatro prints ampliáveis, HP/DMG por carta, circuitos entre vizinhos, totais base e quatro suportes ilustrados por slot. O arquivo `infinite-panel.js` passa a ser a interface ativa; `infinite-ui.js` permanece como referência anterior e não é carregado pela página.
+
+- Troca de cartas e suportes por busca com imagens; cartas repetidas e suportes declarados únicos são bloqueados nos outros slots.
+- Setas mudam a ordem da equipe levando o suporte junto. A formação é salva em `codex-infinite-draft-v2`, separada do Deck geral. Importar Deck é uma ação explícita.
+- Sete Paths em botões visuais, Tier editável, detalhes dos efeitos registrados e aviso de que a troca vale para a próxima run no Roblox.
+- Cenário conserva os atributos confirmados do andar 261 e permite informar o andar-base dos atributos, sem fixá-lo silenciosamente em 261.
+- Simulação de 120 batalhas, comparação dos sete Paths e busca guiada de até 21.000 tentativas continuam disponíveis. A busca usa Destruction Tier 5 e demais Tier 0, como antes, com esse escopo explícito na interface.
+- Resultados podem ser carregados apenas no painel Infinite, copiados, ou salvos no Deck por ação específica. O resultado mostra a formação e os andares testados, mesmo se o usuário editar o painel depois.
+- Totais são somas dos atributos registrados. Ressonância é exibida por slot; circuitos condicionais são identificados sem afirmar que todos os seus efeitos estão implementados.
+- Layout responsivo: quatro cartas em telas grandes e duas colunas no celular; seletores e ampliação usam janela com navegação por teclado.
+
+Não foram alterados o catálogo, as habilidades transcritas ou o motor de combate. No Continue, crescimento real e interações não confirmadas continuam pendentes. O novo painel facilita a preparação de testes; não torna as estimativas uma garantia de vitória.

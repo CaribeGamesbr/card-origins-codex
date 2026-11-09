@@ -18,7 +18,7 @@ Atualizado em **09/11/2026**. Base comunitaria de trabalho, nao oficial. Este di
 - `../chaos-engine.js`: **modelo aproximado** de combate, regras elementais e inimigos da rotacao registrada.
 - `../chaos-ui.js`: interface e algoritmo de busca; dados de cartas completados no navegador nao se sincronizam automaticamente.
 - `../infinite-engine.js`: modelo comparativo de combate sequencial do Infinite Tower, com sete Paths e busca de time.
-- `../infinite-ui.js`: painel interativo de simulacao, parametros editaveis e recomendacao.
+- `../infinite-panel.js`: painel interativo de simulacao, parametros editaveis e recomendacao.
 
 ## Regra de atualizacao
 
