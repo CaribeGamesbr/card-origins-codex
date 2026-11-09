@@ -45,6 +45,7 @@
      const members=data.nodes.filter(node=>node.path===cat.name);
      const layout=positionsCfg[cat.name];
      if(!spec||spec.points.length!==members.length||!layout)return;
+     const hidden=new Set(spec.hidden||[]);
      if(state.webView){
        // Apply only gentle collision separation to coordinates read from the
        // original screenshots. Never derive a relationship from proximity.
@@ -53,6 +54,7 @@
        for(let pass=0;pass<26;pass++){
          let changes=0;
          for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+           if(hidden.has(i)||hidden.has(j))continue;
            const p=pts[i],q=pts[j];
            const dx=q.x-p.x,dy=q.y-p.y,d=Math.max(.01,Math.hypot(dx,dy));
            if(d>=minDist)continue;
@@ -64,6 +66,7 @@
          if(!changes)break;
        }
        members.forEach((node,i)=>{
+         if(hidden.has(i))return;
          const p=pts[i];
          positions.set(node.id,{...p,layer:0,cat:cat.name});
        });
@@ -76,7 +79,7 @@
          const radius=layout.radii[level];
          members.slice(offset,offset+count).forEach((node,i)=>{
            const angle=layout.angle+(count===1?0:(i/(count-1)-.5)*layout.spread)+((level%2)?1.8:-1.8);
-           positions.set(node.id,{...polar(angle,radius),layer:level+1,cat:cat.name});
+           if(!hidden.has(offset+i))positions.set(node.id,{...polar(angle,radius),layer:level+1,cat:cat.name});
          });
          offset+=count;
        });
@@ -156,7 +159,8 @@
   const map=svg.closest?.('.st-map');
   if(map){map.dataset.single=state.webView?'true':'false';map.style.setProperty('--st-branch-color',color(state.category))}
   applyViewBox();
-  const lab=$('stMapMode');if(lab)lab.textContent=state.webView?'WEB VIEW • '+state.category.toUpperCase()+' • '+data.nodes.filter(n=>n.path===state.category).length+' TALENTOS':'VISÃO GERAL • 7 CAMINHOS';
+  const lab=$('stMapMode');if(lab){const visible=data.nodes.filter(n=>n.path===state.category&&positions.has(n.id)).length;const total=data.nodes.filter(n=>n.path===state.category).length;
+    lab.textContent=state.webView?'WEB VIEW • '+state.category.toUpperCase()+' • '+visible+(visible<total?'/'+total+' IDENTIFICADOS':' TALENTOS'):'VISÃO GERAL • 7 CAMINHOS';}
   const learned=$('stMapLearned');if(learned)learned.textContent=totalLearned();
  }
  function applyViewBox(){
@@ -218,7 +222,8 @@
    +(locked?'<p>◆ '+locked+' locked</p>':'')
    +'<p>◆ '+p+'% of this path complete</p></div>'
    +(ready.length?'<div class="st-detail-section"><strong>READY NOW (click to inspect)</strong>'+ready.slice(0,7).map(n=>'<button type="button" class="st-ready-btn" data-st-inspect="'+esc(n.id)+'"><span>'+esc(n.name)+'</span><b>'+esc(String(n.cost||'?'))+' POINT'+(n.cost===1?'':'S')+'</b></button>').join('')+'</div>':'')
-   +'<p class="st-detail-note">Start from the Core. Each talent unlocks those connected to it in the game. You earn 1 Skill Point every 8,500 rolls.</p>'
+   +'<p class="st-detail-note">Linhas reconstruídas das capturas do jogo. Algumas habilidades não mostram ligações e permanecem isoladas; o site não as conecta automaticamente.</p>'
+   +((topology[cat.name]?.hidden||[]).length?'<p class="st-detail-note st-notverified">'+topology[cat.name].hidden.length+' talento(s) sem nome/posição legível foram omitidos do mapa, mas permanecem no catálogo.</p>':'')
    +'<div class="st-detail-footer"><button type="button" class="st-detail-btn st-detail-btn-purple" id="stOpenLearned">LEARNED ('+totalLearned()+')</button></div>';
  }
  function inspect(nodeId){
