@@ -144,10 +144,14 @@
    // Zoom/pan only; preserve each branch's original shape and connections.
    const current=data.nodes.filter(n=>n.path===state.category).map(n=>positions.get(n.id)).filter(Boolean);
    if(!current.length)return;
-   const xs=current.map(p=>p.x),ys=current.map(p=>p.y);
+   // Include the central hub; reserve space for the search field at the top
+   // and zoom controls at the bottom without changing the skill positions.
+   const xs=[500,...current.map(p=>p.x)],ys=[405,...current.map(p=>p.y)];
    const minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
-   state.cx=(minX+maxX)/2;state.cy=(minY+maxY)/2;
-   state.scale=Math.min(1.45,Math.max(.51,Math.min(1000/(maxX-minX+210),800/(maxY-minY+190))));
+   const padX=170,topPad=250,bottomPad=150;
+   const left=minX-padX,right=maxX+padX,top=minY-topPad,bottom=maxY+bottomPad;
+   state.cx=(left+right)/2;state.cy=(top+bottom)/2;
+   state.scale=Math.min(1.45,Math.max(.33,Math.min(1000/(right-left),800/(bottom-top))));
    renderMap();
  }
  function resetView(){
