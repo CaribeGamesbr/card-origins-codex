@@ -1,5 +1,110 @@
 [
   {
+    "id": "new-sorcerer-killer-normal",
+    "type": "card",
+    "name": "SORCERER KILLER",
+    "fullName": "SORCERER KILLER",
+    "border": "Normal",
+    "element": "Physical",
+    "number": null,
+    "variant": [],
+    "image": "assets/cards/SORCERER_KILLER_NORMAL_PHYSICAL.png",
+    "imagePending": true,
+    "verified": true,
+    "hp": 1308,
+    "dmg": 436,
+    "ability": "HEAVENLY RESTRICTION",
+    "effect": "O dano ignora Escudos, Redução de Dano e proteções de habilidades passivas. Quando um inimigo ativa um efeito passivo, recebe Predator até o fim do próximo turno: o próximo dano contra esse inimigo causa +25% e desativa sua passiva por 1 turno.",
+    "effectEnglish": "Damage ignores Shields, Damage Reduction, and passive-based protection. When an enemy activates a passive effect, gain Predator until the end of the next turn: the next damage to that enemy deals 25% more and disables their passive for 1 turn.",
+    "pack": "Default Pack",
+    "addedAt": "2026-11-09",
+    "source": "print enviado pelo usuário"
+  },
+  {
+    "id": "new-silver-star-user-calamity",
+    "type": "card",
+    "name": "SILVER STAR USER",
+    "fullName": "SILVER STAR USER",
+    "border": "Calamity",
+    "element": "Imaginary",
+    "number": null,
+    "variant": [],
+    "image": "assets/cards/SILVER_STAR_USER_CALAMITY_IMAGINARY.png",
+    "imagePending": true,
+    "verified": true,
+    "hp": 5866,
+    "dmg": 1955,
+    "ability": "SILVER STAR: THE WORLD",
+    "effect": "Cada ataque acerta uma sequência de 5 golpes rápidos, cada um causando 25% do DMG. Uma vez por batalha, ao cair abaixo de 50% do HP, congela o tempo do inimigo atual por 1 turno. Esse efeito não funciona contra bosses.",
+    "effectEnglish": "Every attack lands a barrage of 5 rapid hits, each dealing 25% DMG. Once per battle, when this card drops below 50% HP, it freezes time for 1 turn on the current enemy. Has no effect against bosses.",
+    "pack": "Chaos Theory Pack",
+    "addedAt": "2026-11-09",
+    "source": "print enviado pelo usuário"
+  },
+  {
+    "id": "new-the-grinning-spectator-normal",
+    "type": "card",
+    "name": "THE GRINNING SPECTATOR",
+    "fullName": "THE GRINNING SPECTATOR",
+    "border": "Normal",
+    "element": "Imaginary",
+    "number": null,
+    "variant": [],
+    "image": "assets/cards/THE_GRINNING_SPECTATOR_NORMAL_IMAGINARY.png",
+    "imagePending": true,
+    "verified": true,
+    "hp": 1672,
+    "dmg": 559,
+    "ability": "THE PRICE OF SIGHT",
+    "effect": "Vincula o aliado com maior DMG a um Eye Deal: +20% de Chance Crítica e +25% de Dano Crítico. Uma vez entre turnos desse aliado, quando um ataque normal erraria, consome 5% de seu HP máximo para garantir um crítico (exceto se o custo fosse fatal). Cada inimigo derrotado por esse aliado concede a esta carta 1 Apple (máximo 1); depois de sobreviver a dano, a Apple restaura 15% do HP máximo e remove 1 debuff.",
+    "effectEnglish": "Bind the highest-DMG ally to an Eye Deal: +20% Crit Chance and +25% Crit Damage. Once between their turns, when their normal hit would miss, spend 5% of their Max HP to land it as a guaranteed Crit (not if the cost would be fatal). Each enemy they defeat gives this card an Apple (holds 1), used after surviving damage to restore 15% Max HP and cleanse one debuff.",
+    "pack": "Default Pack",
+    "addedAt": "2026-11-09",
+    "source": "print enviado pelo usuário"
+  },
+  {
+    "id": "new-demonic-swordsaint-normal",
+    "type": "card",
+    "name": "DEMONIC SWORDSAINT",
+    "fullName": "DEMONIC SWORDSAINT",
+    "border": "Normal",
+    "element": "Ice",
+    "number": null,
+    "variant": [],
+    "image": "assets/cards/DEMONIC_SWORDSAINT_NORMAL_ICE.png",
+    "imagePending": true,
+    "verified": true,
+    "hp": 2579,
+    "dmg": 859,
+    "ability": "MOTIVATION: PERFECT CONCENTRATION",
+    "effect": "Cada inimigo começa com 50 de Concentration. Causar dano sem perder HP aumenta a concentração até 100; sofrer dano direto reduz a concentração a 0. Em 100, a próxima ação de dano vira Judgment Cut End: causa 40% do DMG ao inimigo atual e a todos os inimigos restantes (20% contra bosses), depois volta a 50. Em 0, Trick Dodge evita completamente o próximo golpe direto e restaura a concentração para 50.",
+    "effectEnglish": "Each enemy starts at 50 Concentration. Dealing DMG without losing HP raises it to 100; taking direct DMG drops it to 0. At 100, the next damaging action is Judgment Cut End: 40% DMG to the current and all remaining enemies (20% vs Bosses), then Concentration returns to 50. At 0, Trick Dodge fully avoids the next direct hit and returns Concentration to 50.",
+    "pack": "Video Games Weather",
+    "addedAt": "2026-11-09",
+    "source": "print enviado pelo usuário"
+  },
+  {
+    "id": "new-black-eyepatch-calamity",
+    "type": "card",
+    "name": "BLACK EYEPATCH",
+    "fullName": "BLACK EYEPATCH",
+    "border": "Calamity",
+    "element": "Physical",
+    "number": null,
+    "variant": [],
+    "image": "assets/cards/BLACK_EYEPATCH_CALAMITY_PHYSICAL.png",
+    "imagePending": true,
+    "verified": true,
+    "hp": 3131,
+    "dmg": 1044,
+    "ability": "VEIL BREAKER EYE",
+    "effect": "Na primeira vez que um inimigo ganha efeito defensivo, esquiva ou Redução de Dano, remove esse efeito e o marca como Exposed por 2 turnos. Ataques contra inimigos Exposed não podem errar e ignoram Redução de Dano. Ativa uma vez a cada 3 turnos.",
+    "effectEnglish": "The first time an enemy gains a defensive effect, dodge, or DMG reduction, removes it and marks them Exposed for 2 turns. Attacks against Exposed enemies cannot miss and ignore Damage Reduction. Activates once every 3 turns.",
+    "pack": "Default Pack",
+    "addedAt": "2026-11-09",
+    "source": "print enviado pelo usuário"
+  },
+  {
     "id": "c-357",
     "type": "card",
     "name": "KAIRO",
@@ -144,8 +249,9 @@
     "element": "Quantum",
     "number": 272,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/FALLEN%20ANGEL%20-%20NORMAL%20-%20QUANTUM%20%5B272%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-349",
@@ -158,8 +264,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/ANGEL%20(MUTATED)%20-%20NORMAL%20-%20IMAGINARY%20%5B349%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-344",
@@ -172,8 +279,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SPINNING%20BALL%20TRAVELER%20(MUTATED)%20-%20NORMAL%20-%20WIND%20%5B344%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-342",
@@ -186,8 +294,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/STARRY%20BETRAYER%20(MUTATED)%20-%20NORMAL%20-%20LIGHTNING%20%5B342%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-348",
@@ -200,8 +309,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/RED%20HEAD%20KNIGHT%20(MUTATED)%20-%20NORMAL%20-%20FIRE%20%5B348%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-347",
@@ -214,8 +324,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/OBERON%20(MUTATED)%20-%20NORMAL%20-%20QUANTUM%20%5B347%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-339",
@@ -228,8 +339,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/ANGEL%20(MUTATED)%20-%20CALAMITY%20-%20IMAGINARY%20%5B339%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-340",
@@ -242,8 +354,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/KNIGHT%20KING%20(MUTATED)%20-%20NORMAL%20-%20FIRE%20%5B340%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-341",
@@ -256,8 +369,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/NOIR%20(MUTATED)%20-%20NORMAL%20-%20QUANTUM%20%5B341%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-346",
@@ -270,8 +384,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/STONE%20AGE%20SCIENTIST%20(MUTATED)%20-%20NORMAL%20-%20WIND%20%5B346%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-337",
@@ -282,8 +397,9 @@
     "element": "Quantum",
     "number": 337,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/OBERON%20-%20CALAMITY%20-%20QUANTUM%20%5B337%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-343",
@@ -296,8 +412,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/USELESS%20GODDESS%20(MUTATED)%20-%20NORMAL%20-%20ICE%20%5B343%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-345",
@@ -310,8 +427,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/MASKED%20ADVENTURER%20(MUTATED)%20-%20NORMAL%20-%20QUANTUM%20%5B345%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-338",
@@ -324,8 +442,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CODE%20BEARER%20(MUTATED)%20-%20NORMAL%20-%20WIND%20%5B338%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-336",
@@ -338,8 +457,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/MAGICIAN%20(MUTATED)%20-%20NORMAL%20-%20LIGHTNING%20%5B336%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-330",
@@ -352,8 +472,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/APOTHECARY%20CAT%20(MUTATED)%20-%20NORMAL%20-%20WIND%20%5B330%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-335",
@@ -366,8 +487,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SILVERFOX%20VANGUARD%20(MUTATED)%20-%20NORMAL%20-%20IMAGINARY%20%5B335%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-334",
@@ -380,8 +502,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20TRICKSTER%20(MUTATED)%20-%20NORMAL%20-%20QUANTUM%20%5B334%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-333",
@@ -394,8 +517,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/BLADE%20OF%20SUNLIGHT%20(MUTATED)%20-%20NORMAL%20-%20IMAGINARY%20%5B333%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-329",
@@ -408,8 +532,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/COSMIC%20SONGSTRESS%20(MUTATED)%20-%20NORMAL%20-%20WIND%20%5B329%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-327",
@@ -422,8 +547,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/AUTO%20MEMOIR%20(MUTATED)%20-%20NORMAL%20-%20WIND%20%5B327%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-331",
@@ -436,8 +562,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/KING%20OF%20THE%20SEVEN%20SEAS%20(MUTATED)%20-%20NORMAL%20-%20ICE%20%5B331%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-326",
@@ -450,8 +577,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/TWO%20TIMING%20PRO%20(MUTATED)%20-%20NORMAL%20-%20PHYSICAL%20%5B326%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-332",
@@ -462,8 +590,9 @@
     "element": "Fire",
     "number": 332,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/RED%20HEAD%20KNIGHT%20-%20CALAMITY%20-%20FIRE%20%5B332%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-328",
@@ -476,8 +605,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SCARLET%20KNIGHT%20(MUTATED)%20-%20NORMAL%20-%20FIRE%20%5B328%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-325",
@@ -490,8 +620,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/STONE%20AGE%20SCIENTIST%20(MUTATED)%20-%20CALAMITY%20-%20WIND%20%5B325%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-322",
@@ -504,8 +635,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/FEVER%20GAMBLER%20(MUTATED)%20-%20NORMAL%20-%20PHYSICAL%20%5B322%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-321",
@@ -518,8 +650,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SPINNING%20BALL%20TRAVELER%20(MUTATED)%20-%20CALAMITY%20-%20WIND%20%5B321%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-320",
@@ -532,8 +665,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/UNEMPLOYED%20ADVENTURER%20(MUTATED)%20-%20NORMAL%20-%20WIND%20%5B320%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-323",
@@ -547,8 +681,9 @@
       "Mutated",
       "Cursed"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/MASKED%20ADVENTURER%20(MUTATED%2C%20CURSED)%20-%20CALAMITY%20-%20QUANTUM%20%5B323%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-317",
@@ -561,8 +696,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/STARRY%20BETRAYER%20(MUTATED)%20-%20CALAMITY%20-%20LIGHTNING%20%5B317%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-318",
@@ -575,8 +711,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CINDER%20DRIFTER%20(MUTATED)%20-%20NORMAL%20-%20FIRE%20%5B318%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-319",
@@ -589,8 +726,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/USELESS%20GODDESS%20(MUTATED)%20-%20CALAMITY%20-%20ICE%20%5B319%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-314",
@@ -603,8 +741,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/NOIR%20(MUTATED)%20-%20CALAMITY%20-%20QUANTUM%20%5B314%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-324",
@@ -617,8 +756,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/WALKER%20(MUTATED)%20-%20NORMAL%20-%20IMAGINARY%20%5B324%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-316",
@@ -631,8 +771,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/BLUE%20WOLF%20(MUTATED)%20-%20NORMAL%20-%20ICE%20%5B316%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-315",
@@ -645,8 +786,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SHOPKEEPER%20PAST%20(MUTATED)%20-%20NORMAL%20-%20IMAGINARY%20%5B315%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-313",
@@ -659,8 +801,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/GHOST%20COMMUNICATOR%20(MUTATED)%20-%20NORMAL%20-%20IMAGINARY%20%5B313%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-308",
@@ -673,8 +816,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/REBEL%20ACE%20(MUTATED)%20-%20NORMAL%20-%20ICE%20%5B308%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-310",
@@ -687,8 +831,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/ARTHURIAN%20BLADE%20(MUTATED)%20-%20NORMAL%20-%20PHYSICAL%20%5B310%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-305",
@@ -701,8 +846,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/TEN%20SHADOWS%20VESSEL%20(MUTATED)%20-%20NORMAL%20-%20QUANTUM%20%5B305%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-312",
@@ -715,8 +861,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/RADIANT%20SYNTHESIS%20(MUTATED)%20-%20NORMAL%20-%20IMAGINARY%20%5B312%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-306",
@@ -729,8 +876,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/KNIGHT%20KING%20(MUTATED)%20-%20CALAMITY%20-%20FIRE%20%5B306%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-303",
@@ -743,8 +891,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/REALITY_S%20WORST%20DUET%20(MUTATED)%20-%20NORMAL%20-%20WIND%20%5B303%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-311",
@@ -755,8 +904,9 @@
     "element": "Imaginary",
     "number": 311,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/ANGEL%20-%20UMBRAL%20-%20IMAGINARY%20%5B311%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-301",
@@ -769,8 +919,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/GEMSTONE%20PRODIGY%20(MUTATED)%20-%20NORMAL%20-%20QUANTUM%20%5B301%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-309",
@@ -783,8 +934,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/UMBRA%20WITCH%20(MUTATED)%20-%20NORMAL%20-%20LIGHTNING%20%5B309%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-304",
@@ -797,8 +949,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/FIRE%20DRAGON%20SLAYER%20(MUTATED)%20-%20NORMAL%20-%20FIRE%20%5B304%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-307",
@@ -809,8 +962,9 @@
     "element": "Quantum",
     "number": 307,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20TRICKSTER%20-%20CALAMITY%20-%20QUANTUM%20%5B307%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-302",
@@ -823,8 +977,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/RIME%20ARISTOCRAT%20(MUTATED)%20-%20NORMAL%20-%20ICE%20%5B302%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-289",
@@ -837,8 +992,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/FACELESS%20GENTLEMAN%20(MUTATED)%20-%20NORMAL%20-%20QUANTUM%20%5B289%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-299",
@@ -851,8 +1007,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CODE%20BEARER%20(MUTATED)%20-%20CALAMITY%20-%20WIND%20%5B299%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-294",
@@ -865,8 +1022,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/RABBIT%20GHOUL%20(MUTATED)%20-%20NORMAL%20-%20FIRE%20%5B294%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-291",
@@ -879,8 +1037,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/BLADE%20OF%20SUNLIGHT%20(MUTATED)%20-%20CALAMITY%20-%20IMAGINARY%20%5B291%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-295",
@@ -891,8 +1050,9 @@
     "element": "Fire",
     "number": 295,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/RED%20HEAD%20KNIGHT%20-%20UMBRAL%20-%20FIRE%20%5B295%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-296",
@@ -905,8 +1065,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/MAGICIAN%20(MUTATED)%20-%20CALAMITY%20-%20LIGHTNING%20%5B296%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-297",
@@ -919,8 +1080,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/UNYIELDING%20WANDSWORD%20(MUTATED)%20-%20NORMAL%20-%20ICE%20%5B297%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-300",
@@ -931,8 +1093,9 @@
     "element": "Quantum",
     "number": 300,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/OBERON%20-%20UMBRAL%20-%20QUANTUM%20%5B300%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-298",
@@ -945,8 +1108,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SILVERFOX%20VANGUARD%20(MUTATED)%20-%20CALAMITY%20-%20IMAGINARY%20%5B298%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-293",
@@ -959,8 +1123,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/TOWER%20KING%20(MUTATED)%20-%20NORMAL%20-%20FIRE%20%5B293%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-292",
@@ -971,8 +1136,9 @@
     "element": "Wind",
     "number": 292,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/COSMIC%20SONGSTRESS%20-%20CALAMITY%20-%20WIND%20%5B292%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-290",
@@ -985,8 +1151,9 @@
     "variant": [
       "Cursed"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CURSED%20KING%20VESSEL%20-%20NORMAL%20-%20PHYSICAL%20%5B290%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-288",
@@ -999,8 +1166,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SLAYER%20OF%20THE%20PAST%20(MUTATED)%20-%20NORMAL%20-%20IMAGINARY%20%5B288%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-279",
@@ -1011,8 +1179,9 @@
     "element": "Wind",
     "number": 279,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/AUTO%20MEMOIR%20-%20CALAMITY%20-%20WIND%20%5B279%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-285",
@@ -1023,8 +1192,9 @@
     "element": "Fire",
     "number": 285,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/HORNED%20MAID%20-%20NORMAL%20-%20FIRE%20%5B285%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-286",
@@ -1037,8 +1207,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/APOTHECARY%20CAT%20(MUTATED)%20-%20CALAMITY%20-%20WIND%20%5B286%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-282",
@@ -1051,8 +1222,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CELLO%20WITCH%20(MUTATED)%20-%20NORMAL%20-%20QUANTUM%20%5B282%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-281",
@@ -1065,8 +1237,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SILENT%20MARKSWOMAN%20(MUTATED)%20-%20NORMAL%20-%20ICE%20%5B281%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-287",
@@ -1077,8 +1250,9 @@
     "element": "Imaginary",
     "number": 287,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/WIDOW%20-%20NORMAL%20-%20IMAGINARY%20%5B287%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-284",
@@ -1091,8 +1265,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/KING%20OF%20THE%20SEVEN%20SEAS%20(MUTATED)%20-%20CALAMITY%20-%20ICE%20%5B284%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-283",
@@ -1105,8 +1280,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/FIRE%20SOLDIER%20(MUTATED)%20-%20NORMAL%20-%20FIRE%20%5B283%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-278",
@@ -1119,8 +1295,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/EMY%20(MUTATED)%20-%20NORMAL%20-%20ICE%20%5B278%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-280",
@@ -1131,8 +1308,9 @@
     "element": "Fire",
     "number": 280,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/RIDER%20OF%20BLACK%20-%20NORMAL%20-%20FIRE%20%5B280%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-277",
@@ -1145,8 +1323,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SCARLET%20KNIGHT%20(MUTATED)%20-%20CALAMITY%20-%20FIRE%20%5B277%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-271",
@@ -1157,8 +1336,9 @@
     "element": "Physical",
     "number": 271,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/DRAGON%20PROTECTOR%20-%20NORMAL%20-%20PHYSICAL%20%5B271%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-274",
@@ -1171,8 +1351,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/LEGENDARY%20RAGE%20(MUTATED)%20-%20NORMAL%20-%20PHYSICAL%20%5B274%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-266",
@@ -1183,8 +1364,9 @@
     "element": "Fire",
     "number": 266,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CHAINSAW%20DEVIL%20HUNTER%20-%20NORMAL%20-%20FIRE%20%5B266%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-270",
@@ -1195,8 +1377,9 @@
     "element": "Imaginary",
     "number": 270,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/EARLY%20ACCESS%20TEMPEST%20-%20NORMAL%20-%20IMAGINARY%20%5B270%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-276",
@@ -1207,8 +1390,9 @@
     "element": "Physical",
     "number": 276,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/TWO%20TIMING%20PRO%20-%20CALAMITY%20-%20PHYSICAL%20%5B276%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-275",
@@ -1219,8 +1403,9 @@
     "element": "Wind",
     "number": 275,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/STONE%20AGE%20SCIENTIST%20-%20UMBRAL%20-%20WIND%20%5B275%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-268",
@@ -1231,8 +1416,9 @@
     "element": "Lightning",
     "number": 268,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/YELLOW%20FLASH%20-%20NORMAL%20-%20LIGHTNING%20%5B268%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-273",
@@ -1243,8 +1429,9 @@
     "element": "Ice",
     "number": 273,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/BLUE%20ROSE%20WILDER%20-%20NORMAL%20-%20ICE%20%5B273%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-269",
@@ -1255,8 +1442,9 @@
     "element": "Imaginary",
     "number": 269,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/COOL%20MAD%20SCIENTIST%20-%20NORMAL%20-%20IMAGINARY%20%5B269%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-265",
@@ -1267,8 +1455,9 @@
     "element": "Fire",
     "number": 265,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/FULLMETAL%20ALCHEMIST%20-%20NORMAL%20-%20FIRE%20%5B265%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-267",
@@ -1279,8 +1468,9 @@
     "element": "Quantum",
     "number": 267,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/MASKED%20ADVENTURER%20-%20UMBRAL%20-%20QUANTUM%20%5B267%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-261",
@@ -1291,8 +1481,9 @@
     "element": "Imaginary",
     "number": 261,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/NO%20LONGER%20HUMAN%20-%20NORMAL%20-%20IMAGINARY%20%5B261%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-257",
@@ -1303,8 +1494,9 @@
     "element": "Ice",
     "number": 257,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/DR.%20HEART%20-%20NORMAL%20-%20ICE%20%5B257%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-263",
@@ -1315,8 +1507,9 @@
     "element": "Wind",
     "number": 263,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SYLPH%20BLADE%20-%20NORMAL%20-%20WIND%20%5B263%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-262",
@@ -1327,8 +1520,9 @@
     "element": "Fire",
     "number": 262,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/PUMPKIN%20GIRL%20-%20NORMAL%20-%20FIRE%20%5B262%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-259",
@@ -1341,8 +1535,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/WALKER%20(MUTATED)%20-%20CALAMITY%20-%20IMAGINARY%20%5B259%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-264",
@@ -1355,8 +1550,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SIMPLE%20DOMAIN%20SORCERER%20(MUTATED)%20-%20NORMAL%20-%20ICE%20%5B264%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-255",
@@ -1369,8 +1565,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/TECH%20LEAD%20(MUTATED)%20-%20NORMAL%20-%20LIGHTNING%20%5B255%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-254",
@@ -1381,8 +1578,9 @@
     "element": "Physical",
     "number": 254,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/FEVER%20GAMBLER%20-%20CALAMITY%20-%20PHYSICAL%20%5B254%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-258",
@@ -1393,8 +1591,9 @@
     "element": "Ice",
     "number": 258,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/VOID%20HUNTER%20OF%20ICE%20-%20NORMAL%20-%20ICE%20%5B258%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-260",
@@ -1405,8 +1604,9 @@
     "element": "Quantum",
     "number": 260,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/PSYCHIC%20PEAK%20-%20NORMAL%20-%20QUANTUM%20%5B260%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-256",
@@ -1417,8 +1617,9 @@
     "element": "Fire",
     "number": 256,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20SPIDER_S%20SHARPSHOOTER%20-%20NORMAL%20-%20FIRE%20%5B256%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-253",
@@ -1429,8 +1630,9 @@
     "element": "Wind",
     "number": 253,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SPINNING%20BALL%20TRAVELER%20-%20UMBRAL%20-%20WIND%20%5B253%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-248",
@@ -1441,8 +1643,9 @@
     "element": "Wind",
     "number": 248,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SCYTHE%20TACTICIAN%20-%20NORMAL%20-%20WIND%20%5B248%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-251",
@@ -1453,8 +1656,9 @@
     "element": "Ice",
     "number": 251,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/BLUE%20COMMUNICATOR%20-%20NORMAL%20-%20ICE%20%5B251%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-249",
@@ -1465,8 +1669,9 @@
     "element": "Ice",
     "number": 249,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/WATER%20SILVA%20-%20NORMAL%20-%20ICE%20%5B249%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-252",
@@ -1479,8 +1684,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/MINUS%20(MUTATED)%20-%20NORMAL%20-%20IMAGINARY%20%5B252%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-250",
@@ -1493,8 +1699,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SCARLET%20DUELIST%20(MUTATED)%20-%20NORMAL%20-%20WIND%20%5B250%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-247",
@@ -1505,8 +1712,9 @@
     "element": "Physical",
     "number": 247,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/GLACIAL%20MONARCH%20-%20NORMAL%20-%20PHYSICAL%20%5B247%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-246",
@@ -1517,8 +1725,9 @@
     "element": "Fire",
     "number": 246,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/FOX%20CONTRACT%20HUNTER%20-%20NORMAL%20-%20FIRE%20%5B246%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-243",
@@ -1529,8 +1738,9 @@
     "element": "Physical",
     "number": 243,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SINNER%20%239%20-%20NORMAL%20-%20PHYSICAL%20%5B243%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-245",
@@ -1541,8 +1751,9 @@
     "element": "Ice",
     "number": 245,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SERGEYEVNA%20-%20NORMAL%20-%20ICE%20%5B245%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-241",
@@ -1553,8 +1764,9 @@
     "element": "Lightning",
     "number": 241,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/BLACK%20FLAME%20HEIR%20-%20NORMAL%20-%20LIGHTNING%20%5B241%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-244",
@@ -1565,8 +1777,9 @@
     "element": "Quantum",
     "number": 244,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SECOND%20KILLER%20-%20NORMAL%20-%20QUANTUM%20%5B244%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-242",
@@ -1577,8 +1790,9 @@
     "element": "Ice",
     "number": 242,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SHARK%20AGENT%20-%20NORMAL%20-%20ICE%20%5B242%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-239",
@@ -1591,8 +1805,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/HUMANITY_S%20STRONGEST%20(MUTATED)%20-%20NORMAL%20-%20PHYSICAL%20%5B239%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-238",
@@ -1603,8 +1818,9 @@
     "element": "Quantum",
     "number": 238,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/ISHTAR%20-%20NORMAL%20-%20QUANTUM%20%5B238%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-237",
@@ -1615,8 +1831,9 @@
     "element": "Quantum",
     "number": 237,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20SUN%20GOD_S%20JAILER%20-%20NORMAL%20-%20QUANTUM%20%5B237%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-240",
@@ -1627,8 +1844,9 @@
     "element": "Wind",
     "number": 240,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CLAYBORN%20GUARDIAN%20-%20NORMAL%20-%20WIND%20%5B240%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-236",
@@ -1639,8 +1857,9 @@
     "element": "Fire",
     "number": 236,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20SKY-REACHING%20STUDENT%20-%20NORMAL%20-%20FIRE%20%5B236%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-230",
@@ -1651,8 +1870,9 @@
     "element": "Wind",
     "number": 230,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/LITTLE%20OWL%20MAN%20-%20NORMAL%20-%20WIND%20%5B230%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-231",
@@ -1663,8 +1883,9 @@
     "element": "Fire",
     "number": 231,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CINDER%20DRIFTER%20-%20CALAMITY%20-%20FIRE%20%5B231%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-234",
@@ -1675,8 +1896,9 @@
     "element": "Fire",
     "number": 234,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/BLOOD%20FIEND%20-%20NORMAL%20-%20FIRE%20%5B234%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-235",
@@ -1687,8 +1909,9 @@
     "element": "Wind",
     "number": 235,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/WIND%20SPIRIT%20-%20NORMAL%20-%20WIND%20%5B235%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-233",
@@ -1699,8 +1922,9 @@
     "element": "Imaginary",
     "number": 233,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CRIMSON%20PRAYER%20-%20NORMAL%20-%20IMAGINARY%20%5B233%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-229",
@@ -1711,8 +1935,9 @@
     "element": "Ice",
     "number": 229,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/PEARLESS%20GEM%20-%20NORMAL%20-%20ICE%20%5B229%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-232",
@@ -1723,8 +1948,9 @@
     "element": "Ice",
     "number": 232,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/USELESS%20GODDESS%20-%20UMBRAL%20-%20ICE%20%5B232%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-227",
@@ -1735,8 +1961,9 @@
     "element": "Ice",
     "number": 227,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/EMY%20(EVOLVED)%20-%20NORMAL%20-%20ICE%20%5B227%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-226",
@@ -1749,8 +1976,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/FROZEN%20PRODIGY%20(MUTATED)%20-%20NORMAL%20-%20ICE%20%5B226%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-221",
@@ -1761,8 +1989,9 @@
     "element": "Physical",
     "number": 221,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/BLACK%20EYEPATCH%20-%20NORMAL%20-%20PHYSICAL%20%5B221%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-224",
@@ -1773,8 +2002,9 @@
     "element": "Fire",
     "number": 224,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/BOMB%20GIRL%20-%20NORMAL%20-%20FIRE%20%5B224%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-228",
@@ -1785,8 +2015,9 @@
     "element": "Lightning",
     "number": 228,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/KAIRO%20-%20NORMAL%20-%20LIGHTNING%20%5B228%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-225",
@@ -1799,8 +2030,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/DARK%20WITCH%20(MUTATED)%20-%20NORMAL%20-%20PHYSICAL%20%5B225%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-223",
@@ -1811,8 +2043,9 @@
     "element": "Lightning",
     "number": 223,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/DEMONIC%20EMPEROR%20-%20NORMAL%20-%20LIGHTNING%20%5B223%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-222",
@@ -1823,8 +2056,9 @@
     "element": "Physical",
     "number": 222,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/INTROVERT%20GUITARIST%20-%20NORMAL%20-%20PHYSICAL%20%5B222%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-218",
@@ -1835,8 +2069,9 @@
     "element": "Ice",
     "number": 218,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20PALE%20SHAPE%20-%20NORMAL%20-%20ICE%20%5B218%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-220",
@@ -1847,8 +2082,9 @@
     "element": "Wind",
     "number": 220,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/ABYSSAL%20PIANIST%20-%20NORMAL%20-%20WIND%20%5B220%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-219",
@@ -1859,8 +2095,9 @@
     "element": "Imaginary",
     "number": 219,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/GHOST%20COMMUNICATOR%20-%20CALAMITY%20-%20IMAGINARY%20%5B219%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-217",
@@ -1873,8 +2110,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CLASSROOM%20MASTERMIND%20(MUTATED)%20-%20NORMAL%20-%20WIND%20%5B217%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-213",
@@ -1885,8 +2123,9 @@
     "element": "Fire",
     "number": 213,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/KING%20OF%20CURSES%20-%20NORMAL%20-%20FIRE%20%5B213%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-210",
@@ -1899,8 +2138,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/LOW%20CORTISOL%20(MUTATED)%20-%20NORMAL%20-%20LIGHTNING%20%5B210%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-214",
@@ -1911,8 +2151,9 @@
     "element": "Ice",
     "number": 214,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/BLUE%20WOLF%20-%20CALAMITY%20-%20ICE%20%5B214%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-215",
@@ -1923,8 +2164,9 @@
     "element": "Physical",
     "number": 215,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/ANCIENT%20VAMPIRE%20QUEEN%20-%20NORMAL%20-%20PHYSICAL%20%5B215%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-211",
@@ -1937,8 +2179,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/UNEMPLOYED%20ADVENTURER%20(MUTATED)%20-%20CALAMITY%20-%20WIND%20%5B211%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-212",
@@ -1949,8 +2192,9 @@
     "element": "Lightning",
     "number": 212,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/HOLLOW%20HARVESTER%20-%20NORMAL%20-%20LIGHTNING%20%5B212%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-216",
@@ -1963,8 +2207,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/IDOL%20(MUTATED)%20-%20NORMAL%20-%20WIND%20%5B216%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-207",
@@ -1975,8 +2220,9 @@
     "element": "Imaginary",
     "number": 207,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/RADIANT%20SYNTHESIS%20-%20CALAMITY%20-%20IMAGINARY%20%5B207%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-208",
@@ -1987,8 +2233,9 @@
     "element": "Physical",
     "number": 208,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/UNBROKEN%20HEIR%20-%20NORMAL%20-%20PHYSICAL%20%5B208%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-209",
@@ -1999,8 +2246,9 @@
     "element": "Fire",
     "number": 209,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/ONE%20EYED%20OWL%20-%20NORMAL%20-%20FIRE%20%5B209%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-205",
@@ -2011,8 +2259,9 @@
     "element": "Quantum",
     "number": 205,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/DEATHLESS%20OUTLAW%20-%20NORMAL%20-%20QUANTUM%20%5B205%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-206",
@@ -2023,8 +2272,9 @@
     "element": "Imaginary",
     "number": 206,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SHOPKEEPER%20PAST%20-%20CALAMITY%20-%20IMAGINARY%20%5B206%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-200",
@@ -2037,8 +2287,9 @@
     "variant": [
       "Mutated"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/STARRY%20BETRAYER%20(MUTATED)%20-%20UMBRAL%20-%20LIGHTNING%20%5B200%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-201",
@@ -2049,8 +2300,9 @@
     "element": "Ice",
     "number": 201,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/BLUE-HAIRED%20ONI%20SISTER%20-%20NORMAL%20-%20ICE%20%5B201%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-193",
@@ -2061,8 +2313,9 @@
     "element": "Physical",
     "number": 193,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/BLINDFOLD%20ANDROID%20-%20NORMAL%20-%20PHYSICAL%20%5B193%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-203",
@@ -2073,8 +2326,9 @@
     "element": "Quantum",
     "number": 203,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/NOIR%20-%20UMBRAL%20-%20QUANTUM%20%5B203%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-198",
@@ -2085,8 +2339,9 @@
     "element": "Quantum",
     "number": 198,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/ALIEN%20WATCH%20PRODIGY%20-%20NORMAL%20-%20QUANTUM%20%5B198%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-195",
@@ -2097,8 +2352,9 @@
     "element": "Quantum",
     "number": 195,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CLOCKWORK%20TRINITY%20-%20NORMAL%20-%20QUANTUM%20%5B195%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-204",
@@ -2109,8 +2365,9 @@
     "element": "Wind",
     "number": 204,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/BLACKWING%20DEVIL%20-%20NORMAL%20-%20WIND%20%5B204%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-202",
@@ -2121,8 +2378,9 @@
     "element": "Fire",
     "number": 202,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/EXPLOSION%20ARCHWIZARD%20-%20NORMAL%20-%20FIRE%20%5B202%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-197",
@@ -2133,8 +2391,9 @@
     "element": "Quantum",
     "number": 197,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/TEN%20SHADOWS%20VESSEL%20-%20CALAMITY%20-%20QUANTUM%20%5B197%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-199",
@@ -2145,8 +2404,9 @@
     "element": "Physical",
     "number": 199,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/STRONGEST%20MAID%20OF%20FREEDOM%20-%20NORMAL%20-%20PHYSICAL%20%5B199%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-196",
@@ -2157,8 +2417,9 @@
     "element": "Fire",
     "number": 196,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/KNIGHT%20KING%20-%20UMBRAL%20-%20FIRE%20%5B196%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-194",
@@ -2169,8 +2430,9 @@
     "element": "Fire",
     "number": 194,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/METHANOSIAN%20REGENERATOR%20-%20NORMAL%20-%20FIRE%20%5B194%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-191",
@@ -2181,8 +2443,9 @@
     "element": "Wind",
     "number": 191,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/REALITY_S%20WORST%20DUET%20-%20CALAMITY%20-%20WIND%20%5B191%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-188",
@@ -2193,8 +2456,9 @@
     "element": "Fire",
     "number": 188,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20GENTLE%20DARK%20PRINCE%20-%20NORMAL%20-%20FIRE%20%5B188%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-189",
@@ -2205,8 +2469,9 @@
     "element": "Fire",
     "number": 189,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/BLACKBLOOD%20WAILER%20-%20NORMAL%20-%20FIRE%20%5B189%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-185",
@@ -2217,8 +2482,9 @@
     "element": "Imaginary",
     "number": 185,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SILVERFOX%20VANGUARD%20-%20UMBRAL%20-%20IMAGINARY%20%5B185%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-187",
@@ -2229,8 +2495,9 @@
     "element": "Lightning",
     "number": 187,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/UMBRA%20WITCH%20-%20CALAMITY%20-%20LIGHTNING%20%5B187%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-184",
@@ -2241,8 +2508,9 @@
     "element": "Physical",
     "number": 184,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/ARTHURIAN%20BLADE%20-%20CALAMITY%20-%20PHYSICAL%20%5B184%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-192",
@@ -2253,8 +2521,9 @@
     "element": "Fire",
     "number": 192,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/FIRE%20DRAGON%20SLAYER%20-%20CALAMITY%20-%20FIRE%20%5B192%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-190",
@@ -2265,8 +2534,9 @@
     "element": "Quantum",
     "number": 190,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/MOON%20WALKER%20-%20NORMAL%20-%20QUANTUM%20%5B190%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-186",
@@ -2277,8 +2547,9 @@
     "element": "Fire",
     "number": 186,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/VIRTUAL%20CHIMERA%20-%20NORMAL%20-%20FIRE%20%5B186%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-181",
@@ -2289,8 +2560,9 @@
     "element": "Wind",
     "number": 181,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CODE%20BEARER%20-%20UMBRAL%20-%20WIND%20%5B181%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-182",
@@ -2301,8 +2573,9 @@
     "element": "Physical",
     "number": 182,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20HOLY%20MAIDEN%20KNIGHT%20-%20NORMAL%20-%20PHYSICAL%20%5B182%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-183",
@@ -2313,8 +2586,9 @@
     "element": "Lightning",
     "number": 183,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CONDUCTOID%20AMPLIFIER%20-%20NORMAL%20-%20LIGHTNING%20%5B183%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-178",
@@ -2325,8 +2599,9 @@
     "element": "Physical",
     "number": 178,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CYBORG%20GUNSLINGER%20-%20NORMAL%20-%20PHYSICAL%20%5B178%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-179",
@@ -2337,8 +2612,9 @@
     "element": "Ice",
     "number": 179,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/RIME%20ARISTOCRAT%20-%20CALAMITY%20-%20ICE%20%5B179%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-180",
@@ -2349,8 +2625,9 @@
     "element": "Ice",
     "number": 180,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/HERMIT%20-%20NORMAL%20-%20ICE%20%5B180%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-177",
@@ -2361,8 +2638,9 @@
     "element": "Lightning",
     "number": 177,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/MAGICIAN%20-%20UMBRAL%20-%20LIGHTNING%20%5B177%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-175",
@@ -2373,8 +2651,9 @@
     "element": "Quantum",
     "number": 175,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/GEMSTONE%20PRODIGY%20-%20CALAMITY%20-%20QUANTUM%20%5B175%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-174",
@@ -2385,8 +2664,9 @@
     "element": "Ice",
     "number": 174,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SWIFT%20-%20NORMAL%20-%20ICE%20%5B174%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-176",
@@ -2397,8 +2677,9 @@
     "element": "Ice",
     "number": 176,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/UNYIELDING%20WANDSWORD%20-%20CALAMITY%20-%20ICE%20%5B176%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-173",
@@ -2409,8 +2690,9 @@
     "element": "Quantum",
     "number": 173,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/LV%20999%20GAMER%20-%20NORMAL%20-%20QUANTUM%20%5B173%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-170",
@@ -2421,8 +2703,9 @@
     "element": "Quantum",
     "number": 170,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CELESTIAL%20VERDICT%20-%20NORMAL%20-%20QUANTUM%20%5B170%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-172",
@@ -2433,8 +2716,9 @@
     "element": "Imaginary",
     "number": 172,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SPIDER_S%20HEAD%20-%20NORMAL%20-%20IMAGINARY%20%5B172%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-169",
@@ -2445,8 +2729,9 @@
     "element": "Lightning",
     "number": 169,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/ULTIMATE%20DECOY%20-%20NORMAL%20-%20LIGHTNING%20%5B169%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-171",
@@ -2457,8 +2742,9 @@
     "element": "Lightning",
     "number": 171,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20HERO_S%20DESCENDANT%20-%20NORMAL%20-%20LIGHTNING%20%5B171%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-163",
@@ -2469,8 +2755,9 @@
     "element": "Imaginary",
     "number": 163,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/RULER%20-%20NORMAL%20-%20IMAGINARY%20%5B163%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-162",
@@ -2481,8 +2768,9 @@
     "element": "Fire",
     "number": 162,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20SCARLET%20CATALYST%20-%20NORMAL%20-%20FIRE%20%5B162%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-167",
@@ -2493,8 +2781,9 @@
     "element": "Imaginary",
     "number": 167,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20ANTLERED%20HOLLOW%20-%20NORMAL%20-%20IMAGINARY%20%5B167%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-165",
@@ -2505,8 +2794,9 @@
     "element": "Ice",
     "number": 165,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/REBEL%20ACE%20-%20CALAMITY%20-%20ICE%20%5B165%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-168",
@@ -2517,8 +2807,9 @@
     "element": "Imaginary",
     "number": 168,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/ULTIMATE%20GAMBLER%20-%20NORMAL%20-%20IMAGINARY%20%5B168%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-161",
@@ -2529,8 +2820,9 @@
     "element": "Ice",
     "number": 161,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/NECROFRIGGIAN%20WRATH%20-%20NORMAL%20-%20ICE%20%5B161%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-164",
@@ -2541,8 +2833,9 @@
     "element": "Quantum",
     "number": 164,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20FORGOTTEN%20FIFTH%20-%20NORMAL%20-%20QUANTUM%20%5B164%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-160",
@@ -2553,8 +2846,9 @@
     "element": "Ice",
     "number": 160,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SWORD%20CHAMPION%20OF%20THE%20CLOUD%20CITY%20-%20NORMAL%20-%20ICE%20%5B160%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-158",
@@ -2565,8 +2859,9 @@
     "element": "Fire",
     "number": 158,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20BURNING%20IDEALIST%20-%20NORMAL%20-%20FIRE%20%5B158%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-166",
@@ -2577,8 +2872,9 @@
     "element": "Fire",
     "number": 166,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20BLOODTHIRSTY%20MAGICIAN%20-%20NORMAL%20-%20FIRE%20%5B166%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-159",
@@ -2589,8 +2885,9 @@
     "element": "Fire",
     "number": 159,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/GAME%20PRINCESS%20-%20NORMAL%20-%20FIRE%20%5B159%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-157",
@@ -2601,8 +2898,9 @@
     "element": "Ice",
     "number": 157,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/FALSE%20ARCHON%20-%20NORMAL%20-%20ICE%20%5B157%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-153",
@@ -2613,8 +2911,9 @@
     "element": "Lightning",
     "number": 153,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20LONGSHOT%20DUELIST%20-%20NORMAL%20-%20LIGHTNING%20%5B153%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-151",
@@ -2625,8 +2924,9 @@
     "element": "Quantum",
     "number": 151,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20EYEPATCHED%20COMMANDER%20-%20NORMAL%20-%20QUANTUM%20%5B151%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-149",
@@ -2637,8 +2937,9 @@
     "element": "Fire",
     "number": 149,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/TOWER%20KING%20-%20CALAMITY%20-%20FIRE%20%5B149%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-156",
@@ -2649,8 +2950,9 @@
     "element": "Fire",
     "number": 156,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/RABBIT%20GHOUL%20-%20CALAMITY%20-%20FIRE%20%5B156%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-150",
@@ -2661,8 +2963,9 @@
     "element": "Imaginary",
     "number": 150,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/BLADE%20OF%20SUNLIGHT%20-%20UMBRAL%20-%20IMAGINARY%20%5B150%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-152",
@@ -2673,8 +2976,9 @@
     "element": "Imaginary",
     "number": 152,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20PACIFIST%20VIKING%20-%20NORMAL%20-%20IMAGINARY%20%5B152%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-154",
@@ -2685,8 +2989,9 @@
     "element": "Physical",
     "number": 154,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/GENIUS%20NEUROSCIENTIST%20-%20NORMAL%20-%20PHYSICAL%20%5B154%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-155",
@@ -2697,8 +3002,9 @@
     "element": "Fire",
     "number": 155,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CONSTANCE%20-%20NORMAL%20-%20FIRE%20%5B155%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-148",
@@ -2709,8 +3015,9 @@
     "element": "Imaginary",
     "number": 148,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/HEAVENLY%20EMPRESS%20-%20NORMAL%20-%20IMAGINARY%20%5B148%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-146",
@@ -2721,8 +3028,9 @@
     "element": "Imaginary",
     "number": 146,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/GRAVEBORN%20COLOSSUS%20-%20NORMAL%20-%20IMAGINARY%20%5B146%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-147",
@@ -2733,8 +3041,9 @@
     "element": "Fire",
     "number": 147,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/ADDO%20-%20NORMAL%20-%20FIRE%20%5B147%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-145",
@@ -2745,8 +3054,9 @@
     "element": "Fire",
     "number": 145,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/GHOUL%20HUNGER%20-%20NORMAL%20-%20FIRE%20%5B145%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-140",
@@ -2759,8 +3069,9 @@
     "variant": [
       "Cursed"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SOVEREIGN%20OF%20HUMANITY%20(CURSED)%20-%20NORMAL%20-%20IMAGINARY%20%5B140%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-143",
@@ -2771,8 +3082,9 @@
     "element": "Physical",
     "number": 143,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/JUZO%20-%20NORMAL%20-%20PHYSICAL%20%5B143%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-144",
@@ -2783,8 +3095,9 @@
     "element": "Physical",
     "number": 144,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/BALD%20HERO%20-%20NORMAL%20-%20PHYSICAL%20%5B144%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-142",
@@ -2795,8 +3108,9 @@
     "element": "Fire",
     "number": 142,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20CRIMSON%20LION%20MAGE%20-%20NORMAL%20-%20FIRE%20%5B142%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-141",
@@ -2807,8 +3121,9 @@
     "element": "Wind",
     "number": 141,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/APOTHECARY%20CAT%20-%20UMBRAL%20-%20WIND%20%5B141%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-139",
@@ -2819,8 +3134,9 @@
     "element": "Imaginary",
     "number": 139,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/TIMEBOUND%20SURVIVOR%20-%20NORMAL%20-%20IMAGINARY%20%5B139%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-136",
@@ -2831,8 +3147,9 @@
     "element": "Ice",
     "number": 136,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/KING%20OF%20THE%20SEVEN%20SEAS%20-%20UMBRAL%20-%20ICE%20%5B136%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-134",
@@ -2843,8 +3160,9 @@
     "element": "Quantum",
     "number": 134,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20TRICKSTER%20-%20UMBRAL%20-%20QUANTUM%20%5B134%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-137",
@@ -2855,8 +3173,9 @@
     "element": "Imaginary",
     "number": 137,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SLAYER%20OF%20THE%20PAST%20-%20CALAMITY%20-%20IMAGINARY%20%5B137%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-138",
@@ -2867,8 +3186,9 @@
     "element": "Quantum",
     "number": 138,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/FACELESS%20GENTLEMAN%20-%20CALAMITY%20-%20QUANTUM%20%5B138%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-135",
@@ -2879,8 +3199,9 @@
     "element": "Quantum",
     "number": 135,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/DEMON%20KING%20-%20NORMAL%20-%20QUANTUM%20%5B135%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-133",
@@ -2891,8 +3212,9 @@
     "element": "Fire",
     "number": 133,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/EXPLOSIVE%20QUINCY%20-%20NORMAL%20-%20FIRE%20%5B133%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-123",
@@ -2903,8 +3225,9 @@
     "element": "Fire",
     "number": 123,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/HELL_S%20TATTOOED%20CONVICT%20-%20NORMAL%20-%20FIRE%20%5B123%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-128",
@@ -2915,8 +3238,9 @@
     "element": "Fire",
     "number": 128,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/NAVIGATOR%20-%20NORMAL%20-%20FIRE%20%5B128%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-132",
@@ -2927,8 +3251,9 @@
     "element": "Quantum",
     "number": 132,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CRIMSON%20ANATOMIST%20-%20NORMAL%20-%20QUANTUM%20%5B132%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-131",
@@ -2939,8 +3264,9 @@
     "element": "Imaginary",
     "number": 131,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/LEGENDARY%20RANKER%20-%20NORMAL%20-%20IMAGINARY%20%5B131%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-121",
@@ -2951,8 +3277,9 @@
     "element": "Lightning",
     "number": 121,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THUNDER%20BREATHING%20PRODIGY%20-%20NORMAL%20-%20LIGHTNING%20%5B121%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-126",
@@ -2963,8 +3290,9 @@
     "element": "Lightning",
     "number": 126,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SWORD%20EMPRESS%20-%20NORMAL%20-%20LIGHTNING%20%5B126%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-127",
@@ -2975,8 +3303,9 @@
     "element": "Quantum",
     "number": 127,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20SHY%20MATCHA%20STRATEGIST%20-%20NORMAL%20-%20QUANTUM%20%5B127%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-124",
@@ -2987,8 +3316,9 @@
     "element": "Quantum",
     "number": 124,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/WITCH%20OF%20ENVY%20-%20NORMAL%20-%20QUANTUM%20%5B124%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-129",
@@ -2999,8 +3329,9 @@
     "element": "Imaginary",
     "number": 129,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/FALLEN%20GUARDIAN%20-%20NORMAL%20-%20IMAGINARY%20%5B129%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-130",
@@ -3011,8 +3342,9 @@
     "element": "Quantum",
     "number": 130,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20WIELDER%20OF%20DURANDAL%20-%20NORMAL%20-%20QUANTUM%20%5B130%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-125",
@@ -3023,8 +3355,9 @@
     "element": "Fire",
     "number": 125,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20TEMPTRESS%20OF%20FLAMES%20-%20NORMAL%20-%20FIRE%20%5B125%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-122",
@@ -3035,8 +3368,9 @@
     "element": "Fire",
     "number": 122,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/FIRE%20SOLDIER%20-%20CALAMITY%20-%20FIRE%20%5B122%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-116",
@@ -3047,8 +3381,9 @@
     "element": "Quantum",
     "number": 116,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CELLO%20WITCH%20-%20CALAMITY%20-%20QUANTUM%20%5B116%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-120",
@@ -3059,8 +3394,9 @@
     "element": "Imaginary",
     "number": 120,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SILVER%20STAR%20USER%20-%20NORMAL%20-%20IMAGINARY%20%5B120%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-118",
@@ -3071,8 +3407,9 @@
     "element": "Quantum",
     "number": 118,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/HALLOWEEN%20WITCH%20-%20NORMAL%20-%20QUANTUM%20%5B118%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-119",
@@ -3083,8 +3420,9 @@
     "element": "Fire",
     "number": 119,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/TRUE%20SUN%20BREATHER%20-%20NORMAL%20-%20FIRE%20%5B119%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-111",
@@ -3095,8 +3433,9 @@
     "element": "Fire",
     "number": 111,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SCARLET%20KNIGHT%20-%20UMBRAL%20-%20FIRE%20%5B111%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-113",
@@ -3107,8 +3446,9 @@
     "element": "Quantum",
     "number": 113,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/KING%20OF%20GAMES%20-%20NORMAL%20-%20QUANTUM%20%5B113%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-117",
@@ -3119,8 +3459,9 @@
     "element": "Wind",
     "number": 117,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20MEMOKEEPER%20-%20NORMAL%20-%20WIND%20%5B117%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-112",
@@ -3131,8 +3472,9 @@
     "element": "Ice",
     "number": 112,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/ASHEY%20-%20NORMAL%20-%20ICE%20%5B112%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-115",
@@ -3143,8 +3485,9 @@
     "element": "Ice",
     "number": 115,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SILENT%20MARKSWOMAN%20-%20CALAMITY%20-%20ICE%20%5B115%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-114",
@@ -3155,8 +3498,9 @@
     "element": "Physical",
     "number": 114,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20THORN%20PRINCESS%20-%20NORMAL%20-%20PHYSICAL%20%5B114%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-110",
@@ -3169,8 +3513,9 @@
     "variant": [
       "Cursed"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CURSED%20VESSEL%20-%20NORMAL%20-%20IMAGINARY%20%5B110%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-109",
@@ -3181,8 +3526,9 @@
     "element": "Fire",
     "number": 109,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20ASPIRING%20GREAT%20GENERAL%20-%20NORMAL%20-%20FIRE%20%5B109%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-105",
@@ -3193,8 +3539,9 @@
     "element": "Imaginary",
     "number": 105,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/STAR%20WARRIOR%20RAISED%20ON%20EARTH%20-%20NORMAL%20-%20IMAGINARY%20%5B105%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-106",
@@ -3205,8 +3552,9 @@
     "element": "Fire",
     "number": 106,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CHAOTIC%20DEVIL%20HUNTER%20-%20NORMAL%20-%20FIRE%20%5B106%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-107",
@@ -3217,8 +3565,9 @@
     "element": "Ice",
     "number": 107,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/EMY%20-%20CALAMITY%20-%20ICE%20%5B107%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-104",
@@ -3229,8 +3578,9 @@
     "element": "Imaginary",
     "number": 104,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/WIDOW%20-%20CALAMITY%20-%20IMAGINARY%20%5B104%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-103",
@@ -3241,8 +3591,9 @@
     "element": "Ice",
     "number": 103,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20MASKED%20SYNDICATE%20BOSS%20-%20NORMAL%20-%20ICE%20%5B103%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-108",
@@ -3255,8 +3606,9 @@
     "variant": [
       "Cursed"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CURSED%20KING%20VESSEL%20-%20CALAMITY%20-%20PHYSICAL%20%5B108%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-102",
@@ -3267,8 +3619,9 @@
     "element": "Fire",
     "number": 102,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/HORNED%20MAID%20-%20CALAMITY%20-%20FIRE%20%5B102%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-100",
@@ -3279,8 +3632,9 @@
     "element": "Lightning",
     "number": 100,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SPIRIT%20WHISPERER%20-%20NORMAL%20-%20LIGHTNING%20%5B100%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-101",
@@ -3291,8 +3645,9 @@
     "element": "Physical",
     "number": 101,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20FABLED%20HERO%20-%20NORMAL%20-%20PHYSICAL%20%5B101%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-98",
@@ -3303,8 +3658,9 @@
     "element": "Lightning",
     "number": 98,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/MASKED%20REBEL%20-%20NORMAL%20-%20LIGHTNING%20%5B098%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-99",
@@ -3315,8 +3671,9 @@
     "element": "Lightning",
     "number": 99,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/YELLOW%20FLASH%20(EVOLVED)%20-%20NORMAL%20-%20LIGHTNING%20%5B099%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-97",
@@ -3327,8 +3684,9 @@
     "element": "Imaginary",
     "number": 97,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CHRONO%20SOVEREIGN%20-%20NORMAL%20-%20IMAGINARY%20%5B097%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-96",
@@ -3339,8 +3697,9 @@
     "element": "Fire",
     "number": 96,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/WEIRD%20GIRL%20-%20NORMAL%20-%20FIRE%20%5B096%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-90",
@@ -3351,8 +3710,9 @@
     "element": "Wind",
     "number": 90,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/COSMIC%20SONGSTRESS%20-%20UMBRAL%20-%20WIND%20%5B090%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-95",
@@ -3363,8 +3723,9 @@
     "element": "Wind",
     "number": 95,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/AUTO%20MEMOIR%20-%20UMBRAL%20-%20WIND%20%5B095%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-87",
@@ -3375,8 +3736,9 @@
     "element": "Fire",
     "number": 87,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/OLDEST%20EMPEROR%20-%20NORMAL%20-%20FIRE%20%5B087%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-94",
@@ -3387,8 +3749,9 @@
     "element": "Physical",
     "number": 94,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/LEGENDARY%20RAGE%20-%20CALAMITY%20-%20PHYSICAL%20%5B094%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-93",
@@ -3401,8 +3764,9 @@
     "variant": [
       "Cursed"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20ONI%20PRINCESS%20(CURSED)%20-%20NORMAL%20-%20ICE%20%5B093%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-88",
@@ -3413,8 +3777,9 @@
     "element": "Wind",
     "number": 88,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/STONE%20AGE%20SCIENTIST%20-%20ASTRAL%20-%20WIND%20%5B088%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-92",
@@ -3425,8 +3790,9 @@
     "element": "Imaginary",
     "number": 92,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/LAW%20OF%20CAUSALITY%20-%20NORMAL%20-%20IMAGINARY%20%5B092%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-86",
@@ -3437,8 +3803,9 @@
     "element": "Fire",
     "number": 86,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/RIDER%20OF%20BLACK%20-%20CALAMITY%20-%20FIRE%20%5B086%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-91",
@@ -3449,8 +3816,9 @@
     "element": "Imaginary",
     "number": 91,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SUBSTITUTE%20SOUL%20-%20NORMAL%20-%20IMAGINARY%20%5B091%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-85",
@@ -3461,8 +3829,9 @@
     "element": "Physical",
     "number": 85,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/TWO%20TIMING%20PRO%20-%20UMBRAL%20-%20PHYSICAL%20%5B085%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-89",
@@ -3473,8 +3842,9 @@
     "element": "Imaginary",
     "number": 89,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/DUAL%20COMMUNICATOR%20-%20NORMAL%20-%20IMAGINARY%20%5B089%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-79",
@@ -3485,8 +3855,9 @@
     "element": "Imaginary",
     "number": 79,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/GOLDEN%20WITCH%20-%20NORMAL%20-%20IMAGINARY%20%5B079%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-81",
@@ -3497,8 +3868,9 @@
     "element": "Quantum",
     "number": 81,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/FALLEN%20ANGEL%20-%20CALAMITY%20-%20QUANTUM%20%5B081%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-82",
@@ -3509,8 +3881,9 @@
     "element": "Ice",
     "number": 82,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SIMPLE%20DOMAIN%20SORCERER%20-%20CALAMITY%20-%20ICE%20%5B082%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-83",
@@ -3521,8 +3894,9 @@
     "element": "Lightning",
     "number": 83,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/ASURA%20REBORN%20-%20NORMAL%20-%20LIGHTNING%20%5B083%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-84",
@@ -3533,8 +3907,9 @@
     "element": "Ice",
     "number": 84,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/BLUE%20ROSE%20WILDER%20-%20CALAMITY%20-%20ICE%20%5B084%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-80",
@@ -3545,8 +3920,9 @@
     "element": "Quantum",
     "number": 80,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/DELUSIONAL%20OVERLORD%20-%20NORMAL%20-%20QUANTUM%20%5B080%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-75",
@@ -3559,8 +3935,9 @@
     "variant": [
       "Cursed"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/TECH%20LEAD%20(CURSED)%20-%20CALAMITY%20-%20LIGHTNING%20%5B075%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-78",
@@ -3571,8 +3948,9 @@
     "element": "Imaginary",
     "number": 78,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/WALKER%20-%20UMBRAL%20-%20IMAGINARY%20%5B078%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-74",
@@ -3583,8 +3961,9 @@
     "element": "Imaginary",
     "number": 74,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/MINUS%20-%20CALAMITY%20-%20IMAGINARY%20%5B074%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-77",
@@ -3595,8 +3974,9 @@
     "element": "Quantum",
     "number": 77,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/MASKED%20ADVENTURER%20-%20ASTRAL%20-%20QUANTUM%20%5B077%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-76",
@@ -3607,8 +3987,9 @@
     "element": "Lightning",
     "number": 76,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/UNDYING%20FLAMEKNIGHT%20-%20NORMAL%20-%20LIGHTNING%20%5B076%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-73",
@@ -3619,8 +4000,9 @@
     "element": "Imaginary",
     "number": 73,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/COOL%20MAD%20SCIENTIST%20-%20CALAMITY%20-%20IMAGINARY%20%5B073%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-70",
@@ -3631,8 +4013,9 @@
     "element": "Quantum",
     "number": 70,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/AURA%20MONSTER%20-%20NORMAL%20-%20QUANTUM%20%5B070%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-72",
@@ -3643,8 +4026,9 @@
     "element": "Lightning",
     "number": 72,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/VOID%20SLASHER%20-%20NORMAL%20-%20LIGHTNING%20%5B072%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-71",
@@ -3655,8 +4039,9 @@
     "element": "Fire",
     "number": 71,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CHAINSAW%20DEVIL%20HUNTER%20-%20CALAMITY%20-%20FIRE%20%5B071%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-66",
@@ -3667,8 +4052,9 @@
     "element": "Physical",
     "number": 66,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/GLUTTONY%20MONSTER%20-%20NORMAL%20-%20PHYSICAL%20%5B066%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-63",
@@ -3679,8 +4065,9 @@
     "element": "Fire",
     "number": 63,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/FULLMETAL%20ALCHEMIST%20-%20CALAMITY%20-%20FIRE%20%5B063%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-64",
@@ -3691,8 +4078,9 @@
     "element": "Fire",
     "number": 64,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/PRIDE%20MONSTER%20-%20NORMAL%20-%20FIRE%20%5B064%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-69",
@@ -3703,8 +4091,9 @@
     "element": "Physical",
     "number": 69,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/HUMANITY_S%20STRONGEST%20-%20CALAMITY%20-%20PHYSICAL%20%5B069%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-68",
@@ -3715,8 +4104,9 @@
     "element": "Fire",
     "number": 68,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/WRATH%20MONSTER%20-%20NORMAL%20-%20FIRE%20%5B068%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-61",
@@ -3727,8 +4117,9 @@
     "element": "Fire",
     "number": 61,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/PUMPKIN%20GIRL%20-%20CALAMITY%20-%20FIRE%20%5B061%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-65",
@@ -3739,8 +4130,9 @@
     "element": "Wind",
     "number": 65,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SPINNING%20BALL%20TRAVELER%20-%20ASTRAL%20-%20WIND%20%5B065%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-67",
@@ -3751,8 +4143,9 @@
     "element": "Quantum",
     "number": 67,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/GREED%20MONSTER%20-%20NORMAL%20-%20QUANTUM%20%5B067%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-62",
@@ -3763,8 +4156,9 @@
     "element": "Wind",
     "number": 62,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SYLPH%20BLADE%20-%20CALAMITY%20-%20WIND%20%5B062%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-56",
@@ -3775,8 +4169,9 @@
     "element": "Physical",
     "number": 56,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/GLACIAL%20MONARCH%20-%20CALAMITY%20-%20PHYSICAL%20%5B056%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-55",
@@ -3787,8 +4182,9 @@
     "element": "Wind",
     "number": 55,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SCYTHE%20TACTICIAN%20-%20CALAMITY%20-%20WIND%20%5B055%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-57",
@@ -3799,8 +4195,9 @@
     "element": "Fire",
     "number": 57,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20SPIDER_S%20SHARPSHOOTER%20-%20CALAMITY%20-%20FIRE%20%5B057%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-60",
@@ -3811,8 +4208,9 @@
     "element": "Physical",
     "number": 60,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/FEVER%20GAMBLER%20-%20UMBRAL%20-%20PHYSICAL%20%5B060%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-49",
@@ -3823,8 +4221,9 @@
     "element": "Ice",
     "number": 49,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/FROZEN%20PRODIGY%20-%20CALAMITY%20-%20ICE%20%5B049%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-58",
@@ -3835,8 +4234,9 @@
     "element": "Imaginary",
     "number": 58,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/NO%20LONGER%20HUMAN%20-%20CALAMITY%20-%20IMAGINARY%20%5B058%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-54",
@@ -3847,8 +4247,9 @@
     "element": "Fire",
     "number": 54,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/FOX%20CONTRACT%20HUNTER%20-%20CALAMITY%20-%20FIRE%20%5B054%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-59",
@@ -3859,8 +4260,9 @@
     "element": "Imaginary",
     "number": 59,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20HOLLOW%20SOVEREIGN%20-%20NORMAL%20-%20IMAGINARY%20%5B059%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-53",
@@ -3871,8 +4273,9 @@
     "element": "Physical",
     "number": 53,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SINNER%20%239%20-%20CALAMITY%20-%20PHYSICAL%20%5B053%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-52",
@@ -3883,8 +4286,9 @@
     "element": "Ice",
     "number": 52,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/USELESS%20GODDESS%20-%20ASTRAL%20-%20ICE%20%5B052%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-51",
@@ -3895,8 +4299,9 @@
     "element": "Quantum",
     "number": 51,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20SUN%20GOD_S%20JAILER%20-%20CALAMITY%20-%20QUANTUM%20%5B051%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-50",
@@ -3907,8 +4312,9 @@
     "element": "Lightning",
     "number": 50,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/YELLOW%20FLASH%20-%20CALAMITY%20-%20LIGHTNING%20%5B050%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-43",
@@ -3921,8 +4327,9 @@
     "variant": [
       "Cursed"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/IDOL%20(CURSED)%20-%20CALAMITY%20-%20WIND%20%5B043%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-48",
@@ -3933,8 +4340,9 @@
     "element": "Ice",
     "number": 48,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/DR.%20HEART%20-%20CALAMITY%20-%20ICE%20%5B048%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-42",
@@ -3945,8 +4353,9 @@
     "element": "Imaginary",
     "number": 42,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CRIMSON%20PRAYER%20-%20CALAMITY%20-%20IMAGINARY%20%5B042%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-47",
@@ -3957,8 +4366,9 @@
     "element": "Wind",
     "number": 47,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/UNEMPLOYED%20ADVENTURER%20-%20UMBRAL%20-%20WIND%20%5B047%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-41",
@@ -3969,8 +4379,9 @@
     "element": "Fire",
     "number": 41,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/BLOOD%20FIEND%20-%20CALAMITY%20-%20FIRE%20%5B041%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-44",
@@ -3981,8 +4392,9 @@
     "element": "Quantum",
     "number": 44,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SUSTAINER%20OF%20HEAVENLY%20PRINCIPLES%20-%20NORMAL%20-%20QUANTUM%20%5B044%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-45",
@@ -3993,8 +4405,9 @@
     "element": "Wind",
     "number": 45,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CLASSROOM%20MASTERMIND%20-%20CALAMITY%20-%20WIND%20%5B045%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-40",
@@ -4005,8 +4418,9 @@
     "element": "Lightning",
     "number": 40,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/STARRY%20BETRAYER%20-%20ASTRAL%20-%20LIGHTNING%20%5B040%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-46",
@@ -4017,8 +4431,9 @@
     "element": "Wind",
     "number": 46,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CLAYBORN%20GUARDIAN%20-%20CALAMITY%20-%20WIND%20%5B046%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-38",
@@ -4029,8 +4444,9 @@
     "element": "Physical",
     "number": 38,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/DARK%20WITCH%20-%20CALAMITY%20-%20PHYSICAL%20%5B038%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-39",
@@ -4041,8 +4457,9 @@
     "element": "Fire",
     "number": 39,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20SKY-REACHING%20STUDENT%20-%20CALAMITY%20-%20FIRE%20%5B039%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-37",
@@ -4053,8 +4470,9 @@
     "element": "Ice",
     "number": 37,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/BLUE%20COMMUNICATOR%20-%20CALAMITY%20-%20ICE%20%5B037%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-35",
@@ -4065,8 +4483,9 @@
     "element": "Ice",
     "number": 35,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/WATER%20SILVA%20-%20CALAMITY%20-%20ICE%20%5B035%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-36",
@@ -4077,8 +4496,9 @@
     "element": "Fire",
     "number": 36,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CINDER%20DRIFTER%20-%20UMBRAL%20-%20FIRE%20%5B036%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-32",
@@ -4089,8 +4509,9 @@
     "element": "Quantum",
     "number": 32,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SECOND%20KILLER%20-%20CALAMITY%20-%20QUANTUM%20%5B032%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-29",
@@ -4101,8 +4522,9 @@
     "element": "Ice",
     "number": 29,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/BLUE%20WOLF%20-%20UMBRAL%20-%20ICE%20%5B029%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-33",
@@ -4113,8 +4535,9 @@
     "element": "Imaginary",
     "number": 33,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SAILOR%20GUARDIAN%20-%20NORMAL%20-%20IMAGINARY%20%5B033%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-31",
@@ -4125,8 +4548,9 @@
     "element": "Ice",
     "number": 31,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SHARK%20AGENT%20-%20CALAMITY%20-%20ICE%20%5B031%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-30",
@@ -4137,8 +4561,9 @@
     "element": "Wind",
     "number": 30,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/WIND%20SPIRIT%20-%20CALAMITY%20-%20WIND%20%5B030%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-34",
@@ -4149,8 +4574,9 @@
     "element": "Ice",
     "number": 34,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SERGEYEVNA%20-%20CALAMITY%20-%20ICE%20%5B034%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-27",
@@ -4161,8 +4587,9 @@
     "element": "Quantum",
     "number": 27,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/NOIR%20-%20ASTRAL%20-%20QUANTUM%20%5B027%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-28",
@@ -4173,8 +4600,9 @@
     "element": "Imaginary",
     "number": 28,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/GOLDEN%20KING%20-%20NORMAL%20-%20IMAGINARY%20%5B028%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-25",
@@ -4185,8 +4613,9 @@
     "element": "Imaginary",
     "number": 25,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SHOPKEEPER%20PAST%20-%20UMBRAL%20-%20IMAGINARY%20%5B025%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-26",
@@ -4197,8 +4626,9 @@
     "element": "Lightning",
     "number": 26,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/LOW%20CORTISOL%20-%20CALAMITY%20-%20LIGHTNING%20%5B026%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-22",
@@ -4209,8 +4639,9 @@
     "element": "Imaginary",
     "number": 22,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/RADIANT%20SYNTHESIS%20-%20UMBRAL%20-%20IMAGINARY%20%5B022%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-21",
@@ -4221,8 +4652,9 @@
     "element": "Physical",
     "number": 21,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/ARTHURIAN%20BLADE%20-%20UMBRAL%20-%20PHYSICAL%20%5B021%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-20",
@@ -4233,8 +4665,9 @@
     "element": "Fire",
     "number": 20,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/KNIGHT%20KING%20-%20ASTRAL%20-%20FIRE%20%5B020%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-24",
@@ -4245,8 +4678,9 @@
     "element": "Wind",
     "number": 24,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/BLACKWING%20DEVIL%20-%20CALAMITY%20-%20WIND%20%5B024%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-23",
@@ -4257,8 +4691,9 @@
     "element": "Physical",
     "number": 23,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/ANCIENT%20VAMPIRE%20QUEEN%20-%20CALAMITY%20-%20PHYSICAL%20%5B023%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-18",
@@ -4269,8 +4704,9 @@
     "element": "Lightning",
     "number": 18,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/HOLLOW%20HARVESTER%20-%20CALAMITY%20-%20LIGHTNING%20%5B018%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-14",
@@ -4281,8 +4717,9 @@
     "element": "Fire",
     "number": 14,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20GENTLE%20DARK%20PRINCE%20-%20CALAMITY%20-%20FIRE%20%5B014%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-16",
@@ -4293,8 +4730,9 @@
     "element": "Wind",
     "number": 16,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/CODE%20BEARER%20-%20ASTRAL%20-%20WIND%20%5B016%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-17",
@@ -4305,8 +4743,9 @@
     "element": "Ice",
     "number": 17,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/REBEL%20ACE%20-%20UMBRAL%20-%20ICE%20%5B017%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-19",
@@ -4317,8 +4756,9 @@
     "element": "Lightning",
     "number": 19,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/UMBRA%20WITCH%20-%20UMBRAL%20-%20LIGHTNING%20%5B019%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-15",
@@ -4329,8 +4769,9 @@
     "element": "Quantum",
     "number": 15,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/TEN%20SHADOWS%20VESSEL%20-%20UMBRAL%20-%20QUANTUM%20%5B015%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-13",
@@ -4341,8 +4782,9 @@
     "element": "Ice",
     "number": 13,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/RIME%20ARISTOCRAT%20-%20UMBRAL%20-%20ICE%20%5B013%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-11",
@@ -4353,8 +4795,9 @@
     "element": "Quantum",
     "number": 11,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/MOON%20WALKER%20-%20CALAMITY%20-%20QUANTUM%20%5B011%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-7",
@@ -4365,8 +4808,9 @@
     "element": "Fire",
     "number": 7,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SCARLET%20KNIGHT%20-%20ASTRAL%20-%20FIRE%20%5B007%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-10",
@@ -4377,8 +4821,9 @@
     "element": "Lightning",
     "number": 10,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/ULTIMATE%20DECOY%20-%20CALAMITY%20-%20LIGHTNING%20%5B010%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-9",
@@ -4389,8 +4834,9 @@
     "element": "Quantum",
     "number": 9,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/THE%20FORGOTTEN%20FIFTH%20-%20CALAMITY%20-%20QUANTUM%20%5B009%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-8",
@@ -4401,8 +4847,9 @@
     "element": "Ice",
     "number": 8,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/NECROFRIGGIAN%20WRATH%20-%20CALAMITY%20-%20ICE%20%5B008%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-12",
@@ -4413,8 +4860,9 @@
     "element": "Quantum",
     "number": 12,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/GEMSTONE%20PRODIGY%20-%20UMBRAL%20-%20QUANTUM%20%5B012%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-6",
@@ -4425,8 +4873,9 @@
     "element": "Ice",
     "number": 6,
     "variant": [],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/SILENT%20MARKSWOMAN%20-%20UMBRAL%20-%20ICE%20%5B006%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-2",
@@ -4439,8 +4888,13 @@
     "variant": [
       "Cursed"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/FULLMETAL%20ALCHEMIST%20(CURSED)%20-%20UMBRAL%20-%20FIRE%20%5B002%5D.png",
+    "verified": true,
+    "imagePending": true,
+    "hp": 14373,
+    "dmg": 4386,
+    "ability": "EQUIVALENT EXCHANGE",
+    "effect": "Na primeira vez por turno em que perde HP de dano direto, armazena 20% desse dano como Matter (máximo de 25% do HP máximo). Na próxima ação de dano, consome Matter para causar dano bônus baseado em 60% do valor armazenado e recuperar HP equivalente a 40% dele. Se sofreria derrota segurando Matter, permanece com 1 HP e descarrega Matter no inimigo (limite de liberação: 12% do HP máximo contra chefes)."
   },
   {
     "id": "c-5",
@@ -4453,8 +4907,13 @@
     "variant": [
       "Cursed"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/ASHEY%20(CURSED)%20-%20CALAMITY%20-%20ICE%20%5B005%5D.png",
+    "verified": true,
+    "imagePending": true,
+    "hp": 7525,
+    "dmg": 2618,
+    "ability": "DEADLOCK CROSSFIRE",
+    "effect": "Ganha +50% de chance crítica. Seus críticos causam 1,5x de dano e aplicam Burn por 3 turnos. Após o crítico, B.O.B. atira no mesmo inimigo por 40% do DMG de Ashey uma vez por turno. Se o alvo errar ou seu ataque for esquivado, B.O.B. atira com 60% do DMG e aplica Stun por 1 turno, uma vez por inimigo por batalha. Os tiros de B.O.B. não causam crítico nem ativam a habilidade."
   },
   {
     "id": "c-3",
@@ -4467,8 +4926,13 @@
     "variant": [
       "Cursed"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/VECTOR%20STORM%20(CURSED)%20-%20CALAMITY%20-%20WIND%20%5B003%5D.png",
+    "verified": true,
+    "imagePending": true,
+    "hp": 9507,
+    "dmg": 2650,
+    "ability": "EVERY DIRECTION LEADS BACK TO YOU",
+    "effect": "Recebe 35% menos dano de ataques inimigos e devolve o dano prevenido ao atacante, limitado a 60% do DMG da carta por golpe. A primeira reflexão contra cada inimigo aplica Shock e Blind por 1 turno. Reflexões não ativam mais reflexões."
   },
   {
     "id": "c-4",
@@ -4481,8 +4945,9 @@
     "variant": [
       "Cursed"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/WEIRD%20GIRL%20(CURSED)%20-%20CALAMITY%20-%20FIRE%20%5B004%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "c-1",
@@ -4495,32 +4960,40 @@
     "variant": [
       "Cursed"
     ],
-    "image": null,
-    "verified": false
+    "image": "assets/cards/BLUE%20WOLF%20(CURSED)%20-%20ASTRAL%20-%20ICE%20%5B001%5D.png",
+    "verified": true,
+    "imagePending": true,
+    "hp": 17775,
+    "dmg": 5196,
+    "ability": "PREDATOR'S BLOOD MOON",
+    "effect": "Ataques marcam o alvo com Prey. Quando o inimigo marcado ataca, consome a marca para roubar 10% do dano causado como HP e aplicar Blood Wound. Com 3 Blood Wounds, ataca por 1,4x DMG, remove as marcas e recupera 15% do HP máximo."
   },
   {
     "id": "s-357",
     "type": "support",
     "name": "LOG",
     "kind": "Buff",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/LOG%20-%20BUFF%20%5BScreenshot_35%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-358",
     "type": "support",
     "name": "CHAKRA MASTERY",
     "kind": "Buff",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/CHAKRA%20MASTERY%20-%20BUFF%20%5BScreenshot_34%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-359",
     "type": "support",
     "name": "CHEMICAL MASK",
     "kind": "Debuff",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/CHEMICAL%20MASK%20-%20DEBUFF%20%5BScreenshot_30%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-360",
@@ -4537,32 +5010,36 @@
     "type": "support",
     "name": "MAGIC BOOK",
     "kind": "Buff",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/MAGIC%20BOOK%20-%20BUFF%20%5BScreenshot_31%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-362",
     "type": "support",
     "name": "OWRIN",
     "kind": "Buff",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/OWRIN%20-%20BUFF%20%5BScreenshot_27%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-363",
     "type": "support",
     "name": "GUIDING STAR",
     "kind": "Shield",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/GUIDING%20STAR%20-%20SHIELD%20%5BScreenshot_32%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-364",
     "type": "support",
     "name": "CHAKRA MASTERY",
     "kind": "Calamity",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/CHAKRA%20MASTERY%20-%20CALAMITY%20%5BScreenshot_24%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-365",
@@ -4589,32 +5066,36 @@
     "type": "support",
     "name": "LOOK UP!",
     "kind": "Debuff",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/LOOK%20UP!%20-%20DEBUFF%20%5BScreenshot_29%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-368",
     "type": "support",
     "name": "MAGICAL COMPASS",
     "kind": "Buff",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/MAGICAL%20COMPASS%20-%20BUFF%20%5BScreenshot_22%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-369",
     "type": "support",
     "name": "WATCHFUL BLOOM",
     "kind": "Heal",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/WATCHFUL%20BLOOM%20-%20HEAL%20%5BScreenshot_26%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-370",
     "type": "support",
     "name": "LOG",
     "kind": "Calamity",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/LOG%20-%20CALAMITY%20%5BScreenshot_25%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-371",
@@ -4631,175 +5112,201 @@
     "type": "support",
     "name": "DIVINE SPIRIT WATERS",
     "kind": "Heal",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/DIVINE%20SPIRIT%20WATERS%20-%20HEAL%20%5BScreenshot_17%5D.png",
+    "verified": true,
+    "imagePending": true,
+    "ability": "DIVINE SPIRIT WATERS",
+    "effect": "Uma vez por batalha, quando a carta equipada fica abaixo de 50% do HP, cura até 70% do HP e recebe +10% de Stats. Apenas um deste suporte por equipe."
   },
   {
     "id": "s-373",
     "type": "support",
     "name": "GUIDING STAR",
     "kind": "Calamity",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/GUIDING%20STAR%20-%20CALAMITY%20%5BScreenshot_12%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-374",
     "type": "support",
     "name": "SERENITY",
     "kind": "Buff",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/SERENITY%20-%20BUFF%20%5BScreenshot_19%5D.png",
+    "verified": true,
+    "imagePending": true,
+    "ability": "SERENITY",
+    "effect": "Uma vez por batalha, a carta equipada sobrevive a um golpe fatal com 1 HP. Apenas um deste suporte por equipe. Não faz efeito em cartas que já podem reviver ou resistir a um golpe fatal por conta própria."
   },
   {
     "id": "s-375",
     "type": "support",
     "name": "MAELSTROM ELEMENTALIST",
     "kind": "Buff",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/MAELSTROM%20ELEMENTALIST%20-%20BUFF%20%5BScreenshot_21%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-376",
     "type": "support",
     "name": "CRIMSON NOVA",
     "kind": "Buff",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/CRIMSON%20NOVA%20-%20BUFF%20%5BScreenshot_20%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-377",
     "type": "support",
     "name": "ATHENA",
     "kind": "Buff",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/ATHENA%20-%20BUFF%20%5BScreenshot_14%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-378",
     "type": "support",
     "name": "TRUCK KUN",
     "kind": "Buff",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/TRUCK%20KUN%20-%20BUFF%20%5BScreenshot_15%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-379",
     "type": "support",
     "name": "ECHO OF THE FALLEN",
     "kind": "Buff",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/ECHO%20OF%20THE%20FALLEN%20-%20BUFF%20%5BScreenshot_18%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-380",
     "type": "support",
     "name": "UNBEATABLE FLAVOR",
     "kind": "Calamity",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/UNBEATABLE%20FLAVOR%20-%20CALAMITY%20%5BScreenshot_13%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-381",
     "type": "support",
     "name": "BLADES OF VENGEANCE",
     "kind": "Buff",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/BLADES%20OF%20VENGEANCE%20-%20BUFF%20%5BScreenshot_11%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-382",
     "type": "support",
     "name": "LOOK UP!",
     "kind": "Calamity",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/LOOK%20UP!%20-%20CALAMITY%20%5BScreenshot_10%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-383",
     "type": "support",
     "name": "ASCENSION",
     "kind": "Buff",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/ASCENSION%20-%20BUFF%20%5BScreenshot_8%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-384",
     "type": "support",
     "name": "CHEMICAL MASK",
     "kind": "Calamity",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/CHEMICAL%20MASK%20-%20CALAMITY%20%5BScreenshot_7%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-385",
     "type": "support",
     "name": "CHEMICAL MASK",
     "kind": "Calamity",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/CHEMICAL%20MASK%20-%20CALAMITY%20%5BScreenshot_6%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-386",
     "type": "support",
     "name": "ADRENALINE",
     "kind": "Heal",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/ADRENALINE%20-%20HEAL%20%5BScreenshot_9%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-387",
     "type": "support",
     "name": "LOG",
     "kind": "Umbral",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/LOG%20-%20UMBRAL%20%5BScreenshot_1%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-388",
     "type": "support",
     "name": "ASHEN ARCANUM",
     "kind": "Calamity",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/ASHEN%20ARCANUM%20-%20CALAMITY%20%5BScreenshot_5%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-389",
     "type": "support",
     "name": "SHATTERED VEIL",
     "kind": "Calamity",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/SHATTERED%20VEIL%20-%20CALAMITY%20%5Bsup1%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-390",
     "type": "support",
     "name": "SCISSOR",
     "kind": "Buff",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/SCISSOR%20-%20BUFF%20%5BScreenshot_4%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-391",
     "type": "support",
     "name": "WATCHFUL BLOOM",
     "kind": "Calamity",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/WATCHFUL%20BLOOM%20-%20CALAMITY%20%5BScreenshot_2%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-392",
     "type": "support",
     "name": "OWRIN",
     "kind": "Calamity",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/OWRIN%20-%20CALAMITY%20%5BScreenshot_3%5D.png",
+    "verified": false,
+    "imagePending": true
   },
   {
     "id": "s-393",
     "type": "support",
     "name": "DORO",
     "kind": "Shield",
-    "image": null,
-    "verified": false
+    "image": "assets/supports/DORO%20-%20SHIELD%20%5Bsup2%5D.png",
+    "verified": false,
+    "imagePending": true
   }
 ]
