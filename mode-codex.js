@@ -221,6 +221,18 @@ function tabbed(rootId,sections,defaultTab){
  mount.addEventListener('click',event=>{const btn=event.target.closest('[data-mode-tab]');if(btn&&sections[btn.dataset.modeTab]){current=btn.dataset.modeTab;paint()}});
  paint();
 }
-function init(){tabbed('colosseumCodex',colosseumSections,'Visão geral');tabbed('infiniteCodex',infiniteSections,'Elements Mode');const c=document.getElementById('circuitCodex');if(c)c.innerHTML=circuitsContent();}
+function init(){
+ tabbed('colosseumCodex',colosseumSections,'Visão geral');
+ tabbed('infiniteCodex',infiniteSections,'Elements Mode');
+ const c=document.getElementById('circuitCodex');if(c)c.innerHTML=circuitsContent();
+ const colo=document.getElementById('colosseumCodex');
+ colo?.addEventListener('input',event=>{
+   if(event.target.id!=='coloReactionSearch')return;
+   const query=event.target.value.toLowerCase().trim();
+   colo.querySelectorAll('#coloReactionTable tbody tr').forEach(row=>{
+     row.hidden=!!query&&!row.textContent.toLowerCase().includes(query);
+   });
+ });
+}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
