@@ -233,7 +233,7 @@
    if(state.webView)return '';
    return '<g class="st-path-labels" pointer-events="none">'+cats.map(cat=>{
      const set=positionsCfg[cat.name],p=polar(set.angle,set.radii[set.radii.length-1]+66),c=color(cat.name);
-     return '<g transform="translate('+p.x.toFixed(1)+' '+p.y.toFixed(1)+')"><text x="0" y="0" text-anchor="middle" fill="'+c+'" font-size="26" font-style="italic" font-weight="900" letter-spacing="2">'+esc(cat.name.toUpperCase())+'</text><text x="0" y="21" text-anchor="middle" fill="#d9cde9" font-size="14" letter-spacing="2">'+(state.simulation?cat.total:cat.learned)+' / '+cat.total+'</text></g>';
+     return '<g transform="translate('+p.x.toFixed(1)+' '+p.y.toFixed(1)+')"><text x="0" y="0" text-anchor="middle" fill="'+c+'" font-size="26" font-style="italic" font-weight="900" letter-spacing="2">'+esc(cat.name.toUpperCase())+'</text><text x="0" y="21" text-anchor="middle" fill="#d9cde9" font-size="14" letter-spacing="2">'+data.nodes.filter(n=>n.path===cat.name&&isLearned(n)).length+' / '+cat.total+'</text></g>';
    }).join('')+'</g>';
  }
  function renderCore(){
@@ -281,11 +281,46 @@
    state.scale=.38;state.cx=500;state.cy=405;
    state.webView=false;state.selectedId=null;locate();updateWebViewButton();renderMap();showPath();
  }
+ function renderStats(){
+   const panel=$('stStatsPanel');if(!panel)return;
+   const number=(id,value)=>{const e=$(id);if(e)e.textContent=String(value)};
+   number('stStatRemaining',pointsLeft());
+   number('stStatSpent',pointsSpent());
+   number('stStatAdded',progress.added);
+   number('stStatLearned',totalLearned()+'/'+data.nodes.length);
+   const paths=$('stStatsPaths');
+   if(paths)paths.innerHTML=cats.map(cat=>{
+     const owned=data.nodes.filter(n=>n.path===cat.name&&isLearned(n)).length;
+     const pct=(owned/cat.total*100).toFixed(0);
+     return '<button type="button" class="st-stats-path-btn" data-st-stats-path="'+esc(cat.name)+'" style="--st-c:'+cat.color+'">'
+      +'<span>'+esc(cat.name)+'</span><strong>'+owned+'/'+cat.total+'</strong>'
+      +'<i class="st-stats-meter"><b style="width:'+pct+'%"></b></i></button>';
+   }).join('');
+   const effects=$('stStatsEffects');
+   if(effects)effects.innerHTML=cats.map(cat=>{
+     const learned=data.nodes.filter(n=>n.path===cat.name&&isLearned(n));
+     if(!learned.length)return '';
+     return '<details class="st-stats-group"'+(cat.name===state.category?' open':'')+'>'
+      +'<summary><strong style="color:'+cat.color+'">'+esc(cat.name)+'</strong><span>'+learned.length+' talentos</span></summary>'
+      +'<div class="st-stats-effects-list">'+learned.map(n=>
+        '<div class="st-stats-effect"><strong>'+esc(n.name)+'</strong>'
+        +(progress.purchased.includes(n.id)?'<small class="st-stats-new">APRENDIDO NO SIMULADOR</small>':'')
+        +'<p>'+esc(n.effect)+'</p></div>'
+      ).join('')+'</div></details>';
+   }).join('')+'<p class="st-stats-disclaimer">Não são somados bônus com condições, limites, substituições ou chances de ativação. Os efeitos acima representam a descrição dos talentos, não o status real da conta no Roblox.</p>';
+ }
+ function toggleStats(show){
+   const panel=$('stStatsPanel'),btn=$('stShowStats');if(!panel)return;
+   panel.hidden=!show;
+   if(btn)btn.setAttribute('aria-pressed',String(!!show));
+   if(show){toggleCatalog(false);renderStats()}
+ }
  function renderSidebar(){
    const pathHolder=$('skillPaths');if(!pathHolder)return;
    pathHolder.innerHTML=cats.map(cat=>{
-    const ready=data.nodes.filter(n=>n.path===cat.name&&effective(n)==='ready').length;
-    const learned=state.simulation?cat.total:cat.learned;
+    const members=data.nodes.filter(n=>n.path===cat.name);
+    const ready=members.filter(isAvailable).length;
+    const learned=members.filter(isLearned).length;
     const selected=state.category===cat.name;
     return '<button type="button" class="st-path-item '+(selected?'selected':'')+'" style="--st-color:'+cat.color+'" data-st-path="'+esc(cat.name)+'" aria-pressed="'+selected+'">'
       +'<span class="st-path-symbol">'+glyphs[cat.name]+'</span>'
@@ -293,31 +328,37 @@
       +(ready?'<span class="st-path-ready" title="'+ready+' talento(s) disponíveis">'+ready+'</span>':'')
       +'<span class="st-path-count">'+learned+'/'+cat.total+'</span></button>';
    }).join('');
-   const num=$('stPathOverall');if(num)num.textContent=totalLearned()+' / 146';
-   const next=$('stNextReady');if(next)next.textContent='NEXT READY ('+(state.simulation?0:readyNodes.length)+') [F]';
-   const available=$('stPointCount');if(available)available.textContent=state.simulation?'–':String(data.skillPointsLatestScreenshot||5);
-   const sim=$('stSimulationTip');if(sim)sim.hidden=!state.simulation;
+   const num=$('stPathOverall');if(num)num.textContent=totalLearned()+' / '+data.nodes.length;
+   const available=readyNodes().length;
+   const next=$('stNextReady');if(next)next.textContent='NEXT READY ('+available+') [F]';
+   const points=$('stPointCount');if(points)points.textContent=String(pointsLeft());
+   const counter=$('stReadyCount');if(counter)counter.textContent=available+' TALENTOS DISPONÍVEIS';
+   const sim=$('stSimulationTip');if(sim)sim.hidden=true;
  }
+
  function showPath(){
   const cat=cats.find(x=>x.name===state.category);if(!cat)return;
-  const learned=state.simulation?cat.total:cat.learned;
-  const ready=data.nodes.filter(n=>n.path===cat.name&&effective(n)==='ready');
-  const locked=data.nodes.filter(n=>n.path===cat.name&&effective(n)==='locked').length;
-  const p=(100*learned/cat.total).toFixed(0);
+  const members=data.nodes.filter(n=>n.path===cat.name);
+  const learned=members.filter(isLearned).length;
+  const ready=members.filter(isAvailable);
+  const locked=members.filter(n=>effective(n)==='locked').length;
+  const pct=(100*learned/cat.total).toFixed(0);
   const detail=$('stDetail');if(!detail)return;
   detail.style.setProperty('--st-current',cat.color);
   detail.innerHTML='<div class="st-detail-emblem"><span>'+glyphs[cat.name]+'</span></div>'
    +'<h2>'+esc(cat.name)+'</h2><div class="st-detail-badges"><span>PATH</span><span>'+cat.total+' TALENTS</span></div>'
    +'<div class="st-detail-separator">◇</div><p class="st-description">'+esc(descriptions[cat.name])+'</p>'
-   +'<div class="st-detail-stats"><p class="st-green">◆ <b>'+learned+' / '+cat.total+'</b> learned</p>'
-   +(ready.length?'<p class="st-gold">◆ '+ready.length+' ready to learn</p>':'')
-   +(locked?'<p>◆ '+locked+' locked</p>':'')
-   +'<p>◆ '+p+'% of this path complete</p></div>'
-   +(ready.length?'<div class="st-detail-section"><strong>READY NOW (click to inspect)</strong>'+ready.slice(0,7).map(n=>'<button type="button" class="st-ready-btn" data-st-inspect="'+esc(n.id)+'"><span>'+esc(n.name)+'</span><b>'+esc(String(n.cost||'?'))+' POINT'+(n.cost===1?'':'S')+'</b></button>').join('')+'</div>':'')
-   +'<p class="st-detail-note">Linhas reconstruídas das capturas do jogo. Algumas habilidades não mostram ligações e permanecem isoladas; o site não as conecta automaticamente.</p>'
-   +((topology[cat.name]?.hidden||[]).length?'<p class="st-detail-note st-notverified">'+topology[cat.name].hidden.length+' talento(s) sem nome/posição legível foram omitidos do mapa, mas permanecem no catálogo.</p>':'')
-   +'<div class="st-detail-footer"><button type="button" class="st-detail-btn st-detail-btn-purple" id="stOpenLearned">LEARNED ('+totalLearned()+')</button></div>';
+   +'<div class="st-detail-stats"><p class="st-green">◆ <b>'+learned+' / '+cat.total+'</b> aprendidos</p>'
+   +(ready.length?'<p class="st-gold">◆ '+ready.length+' disponíveis para aprender</p>':'')
+   +(locked?'<p>◆ '+locked+' bloqueados</p>':'')
+   +'<p>◆ '+pct+'% da árvore concluída</p>'
+   +'<p>◆ <strong>'+pointsLeft()+' pontos disponíveis</strong> no simulador</p></div>'
+   +(ready.length?'<div class="st-detail-section"><strong>DISPONÍVEIS (clique para aprender)</strong>'+ready.slice(0,9).map(n=>'<button type="button" class="st-ready-btn" data-st-inspect="'+esc(n.id)+'"><span>'+esc(n.name)+'</span><b>'+costOf(n)+' PONTO(S)</b></button>').join('')+'</div>':'')
+   +'<p class="st-detail-note">Simulação local. As ligações foram reconstruídas das capturas e podem não reproduzir todos os pré-requisitos do Roblox.</p>'
+   +((topology[cat.name]?.hidden||[]).length?'<p class="st-detail-note st-notverified">'+topology[cat.name].hidden.length+' talento(s) não identificados permanecem fora do desenho.</p>':'')
+   +'<div class="st-detail-footer"><button type="button" class="st-detail-btn st-detail-btn-purple" id="stShowStatsFromDetail">MOSTRAR STATUS E BÔNUS</button></div>';
  }
+
  function inspect(nodeId){
    const n=allById.get(nodeId);
    if(!n)return;
@@ -325,21 +366,41 @@
    state.category=n.path;state.selectedId=n.id;
    if(changed||!positions.has(n.id))locate();
    updateWebViewButton();
-   renderSidebar();
-   renderMap();
-   const s=effective(n),cat=cats.find(c=>c.name===n.path),col=color(n.path);
+   renderSidebar();renderMap();
+   const status=effective(n),cat=cats.find(c=>c.name===n.path);
    const detail=$('stDetail');if(!detail)return;
-   detail.style.setProperty('--st-current',col);
+   const balance=pointsLeft(),cost=costOf(n);
+   const parents=(predecessors.get(n.id)||[]).map(id=>allById.get(id)).filter(Boolean);
+   detail.style.setProperty('--st-current',color(n.path));
+   let action='';
+   if(status==='ready'){
+     const enough=cost>0&&balance>=cost;
+     action='<div class="st-learn-action"><p>Custo: <b>'+cost+' ponto(s)</b> • Disponíveis: <b>'+balance+'</b></p>'
+       +'<button type="button" class="st-learn-btn" id="stLearnTalent" data-st-learn="'+esc(n.id)+'" '+(!enough?'disabled ':'')+'>'
+       +(enough?'✦ APRENDER • '+cost+' PONTO(S)':'PONTOS INSUFICIENTES')+'</button>'
+       +(!enough?'<p class="st-learn-hint">Use + PONTOS para testar no simulador.</p>':'')+'</div>';
+   }else if(status==='locked'){
+     action='<div class="st-learn-action st-learn-locked"><strong>🔒 BLOQUEADO</strong><p>'
+       +(hiddenIds.has(n.id)?'Talento não identificado com segurança nas imagens. Não pode ser comprado.'
+         :parents.length?'Talentos ligados no mapa: '+esc(parents.map(p=>p.name).join(' / '))+'. O simulador libera novas habilidades ao aprender um talento anterior conectado.'
+         :'Sem requisito confirmado no print. Não inventamos uma ligação para liberar este talento.')
+       +'</p></div>';
+   }else if(progress.purchased.includes(n.id)){
+     action='<div class="st-learn-action st-learn-owned"><strong>✓ APRENDIDO NO SIMULADOR</strong><p>Compra registrada localmente no seu navegador.</p></div>';
+   }
    detail.innerHTML='<div class="st-detail-emblem"><span>'+glyphs[n.path]+'</span></div>'
-     +'<h2>'+esc(n.name)+'</h2>'+(n.ptName?'<p class="st-talent-ptname">'+esc(n.ptName)+' <small>(tradução livre)</small></p>':'')+'<div class="st-detail-badges"><span>'+esc((n.tier||'TALENT').toUpperCase())+'</span><span>'+esc(String(n.cost??'?'))+' POINT'+(n.cost===1?'':'S')+'</span></div>'
+     +'<h2>'+esc(n.name)+'</h2>'+(n.ptName?'<p class="st-talent-ptname">'+esc(n.ptName)+' <small>(tradução livre)</small></p>':'')
+     +'<div class="st-detail-badges"><span>'+esc((n.tier||'TALENT').toUpperCase())+'</span><span>'+cost+' POINT'+(cost===1?'':'S')+'</span></div>'
      +'<div class="st-detail-separator">◇</div>'
-     +'<p class="st-description">'+esc(n.path)+' • '+esc(cat?cat.learned+'/'+cat.total:'')+'</p>'
+     +'<p class="st-description">'+esc(n.path)+' • '+esc(cat?data.nodes.filter(x=>x.path===cat.name&&isLearned(x)).length+'/'+cat.total:'')+'</p>'
      +'<div class="st-talent-effect"><strong>O QUE FAZ</strong><p>'+esc(n.effect)+'</p></div>'
      +(n.notes?'<p class="st-detail-note st-notverified">'+esc(n.notes)+'</p>':'')
-     +'<div class="st-talent-state '+s+'">'+(s==='learned'?(n.notes&&n.notes.includes('mais compatível')?'✓ PROVÁVEL APRENDIDO — CONFIRMAR':'✓ APRENDIDO NO PRINT'):s==='ready'?'✦ DISPONÍVEL — AINDA NÃO ATIVO':'◇ BLOQUEADO — AINDA NÃO ATIVO')+'</div>'
-     +'<p class="st-detail-note">Reconstituição visual da árvore. As conexões dos nós são ilustrativas; consulte o jogo para requisitos exatos.</p>'
-     +'<div class="st-detail-footer"><button type="button" class="st-detail-btn st-detail-btn-purple" id="stBackToPath">VOLTAR AO PATH</button></div>';
+     +'<div class="st-talent-state '+status+'">'+(status==='learned'?(progress.purchased.includes(n.id)?'✓ APRENDIDO NO SIMULADOR':'✓ APRENDIDO NO PRINT'):status==='ready'?'✦ DISPONÍVEL — AINDA NÃO APRENDIDO':'◇ BLOQUEADO — AINDA NÃO APRENDIDO')+'</div>'
+     +action
+     +'<p class="st-detail-note">Simulação da wiki: não altera a conta Roblox. Requisitos reconstruídos das capturas, não confirmados como regras oficiais.</p>'
+     +'<div class="st-detail-footer"><button type="button" class="st-detail-btn st-detail-btn-purple" id="stBackToPath">VOLTAR À ÁRVORE</button></div>';
  }
+
  function selectPath(name,focus=true){
   if(!cats.some(c=>c.name===name))return;
   state.category=name;state.selectedId=null;
