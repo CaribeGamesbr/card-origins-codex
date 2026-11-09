@@ -29,10 +29,18 @@ O editor permite marcar aprendidos e disponíveis por perfil. Importar minha ár
 
 ## Resultado e limites
 
+### Interface visual no estilo da Skill Tree
+
+O planejador abre em tela cheia com a mesma organização do menu Skill Tree: sete ramos à esquerda, mapa de talentos no centro e detalhes à direita. O botão **Configurar** reúne time, perfil, pontos, reserva, objetivo, Path e marcações. A comparação completa e a lista de prioridades ficam em **Lista / Paths**, sem ocupar a tela principal.
+
+O mapa diferencia **sugeridos em azul**, **já aprendidos em verde** e os demais em cinza. Clicar em um talento mostra custo, efeito registrado e motivo da sugestão, e permite marcar aprendido/disponível apenas no perfil do planejador. A busca aceita nomes em inglês e português; há visão geral dos sete ramos, enquadramento, arraste, zoom e navegação entre sugestões.
+
+`tree-planner-map.js` reutiliza as posições e conexões visuais de `skill-tree-topology.js`, sem interpretar os traços como pré-requisitos. A interface não lê nem escreve o progresso interativo pessoal da Skill Tree. Marcações existentes do planejador permanecem salvas nos respectivos perfis; o motor de recomendações e o catálogo não foram alterados nesta reorganização.
+
 Exibe Path recomendado pelo índice, talentos, custos individuais/acumulados, gasto direto, sobra, reserva e comparação das distribuições dos sete Paths. É possível copiar o plano. Nenhum talento é comprado no Roblox e o catálogo/Deck/Infinite existentes são preservados.
 
 Os pré-requisitos oficiais precisam ser confirmados para que o projeto possa garantir a validade de uma árvore completa. Bônus já embutidos nos atributos dos prints não são multiplicados novamente. Cartas sem dados continuam sinalizadas como incompletas.
 
 ## Verificação
 
-`node scripts/test-tree-planner.js` verifica orçamento/reserva, zero pontos, aprendidos e disponibilidade, exclusividade de Unbound por Path, exclusão de efeitos desconhecidos, entradas inválidas e a otimização de mochila contra enumeração exaustiva de pequenos exemplos. Verificação de sintaxe: `node --check tree-planner-ui.js`.
+`node scripts/test-tree-planner.js` verifica orçamento/reserva, zero pontos, aprendidos e disponibilidade, exclusividade de Unbound por Path, exclusão de efeitos desconhecidos, entradas inválidas e a otimização de mochila contra enumeração exaustiva de pequenos exemplos. `node scripts/test-tree-planner-map.js` verifica os sete ramos, visão geral, nós ocultos, fidelidade das conexões e preservação dos dados de origem. Verificação de sintaxe: `node --check tree-planner-ui.js` e `node --check tree-planner-map.js`.

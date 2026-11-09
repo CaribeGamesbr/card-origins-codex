@@ -78,3 +78,5 @@ A equipe agora usa um painel inspirado no Deck Builder, com prints ampliáveis, 
 ## Planejar árvore por time e pontos
 
 O menu **Planejar árvore** (`#planner`) compara distribuições de talentos e Paths com orçamento de pontos, reserva, objetivo e marcações de aprendidos/disponíveis. Há perfis separados para o time pessoal e o time externo do amigo. Os critérios são heurísticos; não são simulação de combate nem garantia de melhor árvore. Os pré-requisitos desconhecidos ficam explícitos. Ver [documentação e limites](docs/PLANEJADOR_ARVORE.md).
+
+O painel segue a interface da **Skill Tree**: ramos à esquerda, mapa no centro e detalhes à direita. Use **Configurar** para time/pontos e **Lista / Paths** para comparar resultados. Azul identifica sugestões e verde identifica aprendidos do perfil; a árvore pessoal e seus dados permanecem separados.

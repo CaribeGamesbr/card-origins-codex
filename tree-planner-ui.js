@@ -11,12 +11,13 @@ const external=[{name:'UMBRA WITCH (CURSED)',element:'Lightning',border:'Astral'
  {name:'Curandeira de gelo — nome não confirmado',element:'Ice',border:'Unknown',hp:null,dmg:null,ability:'Não confirmada',effect:'',role:'heal',trait:'Unknown'}];
 function profile(team,budget){return {team,budget,reserve:0,goal:'climb',path:'auto',mode:'projection',budgetKind:'free',owned:[],available:[]}}
 const defaults={active:'friend',profiles:{mine:profile(['c-3','c-5','c-1','c-2'].map(baseCard),S?.skillPointsLatestScreenshot||0),friend:profile(external,80)}};
-let state=clone(defaults),last=null;
+let state=clone(defaults),last=null,mapView=null;
 try{const stored=JSON.parse(localStorage.getItem(key));if(stored&&['mine','friend'].includes(stored.active)&&['mine','friend'].every(k=>stored.profiles?.[k]&&Array.isArray(stored.profiles[k].team)&&stored.profiles[k].team.length===4)){state=stored;for(const k of ['mine','friend']){state.profiles[k].owned=Array.isArray(state.profiles[k].owned)?state.profiles[k].owned:[];state.profiles[k].available=Array.isArray(state.profiles[k].available)?state.profiles[k].available:[]}}}catch{}
 const current=()=>state.profiles[state.active];
 function save(){try{localStorage.setItem(key,JSON.stringify(state))}catch{}}
-function status(message){$('tpStatus').textContent=message}
-function invalidate(){last=null;$('tpResult').innerHTML='<p class="tp-empty">Configuração alterada. Calcule para ver a distribuição atualizada.</p>'}
+function status(message){$('tpStatus').textContent=message;if(mapView)$('tpmNotice').textContent=message}
+function renderTree(error){mapView?.update({profile:current(),profileName:state.active==='friend'?'TIME DO AMIGO / EXTERNO':'MEU TIME',plan:last,error})}
+function invalidate(){last=null;$('tpResult').innerHTML='<p class="tp-empty">Configuração alterada. Calcule para ver a distribuição atualizada.</p>';renderTree()}
 function opts(values,selected){return values.map(v=>`<option value="${esc(v)}" ${v===selected?'selected':''}>${esc(names[v]||v)}</option>`).join('')}
 function mount(){
  $('treePlanner').innerHTML=`<section class="tp-hero"><div><span>BUILD LAB / PONTOS E SINERGIAS</span><h2>Um plano de árvore <em>para o seu time.</em></h2><p>Escolha quatro cartas, informe seus pontos e compare distribuições de talentos e Paths.</p></div><span class="tp-hero-mark">✧</span></section>
@@ -33,7 +34,20 @@ function mount(){
  $('tpImportDeck').addEventListener('click',()=>importTeam('codex-team'));$('tpImportInfinite').addEventListener('click',()=>importTeam('codex-infinite-draft-v2'));
  $('tpSnapshot').addEventListener('click',()=>{current().owned=S.nodes.filter(n=>n.status==='learned'&&!/inferid|deduzid|confirmando qual/i.test(n.notes||'')).map(n=>n.id);save();renderTalents();invalidate();status('Árvore pessoal registrada importada por sua escolha. Os estados inferidos foram excluídos; confira se correspondem ao perfil selecionado.')});
  $('tpClearLearned').addEventListener('click',()=>{current().owned=[];current().available=[];save();renderTalents();invalidate();status('Marcações limpas somente neste perfil.')});$('tpCalculate').addEventListener('click',calculate);
- $('tpResult').addEventListener('click',e=>{const b=e.target.closest('[data-tp-copy],[data-tp-view]');if(!b||!last)return;if(b.hasAttribute('data-tp-copy'))copyPlan();else{current().path=b.dataset.tpView;save();$('tpPath').value=current().path;calculate()}});refresh();
+ $('tpResult').addEventListener('click',e=>{const b=e.target.closest('[data-tp-copy],[data-tp-view]');if(!b||!last)return;if(b.hasAttribute('data-tp-copy'))copyPlan();else{current().path=b.dataset.tpView;save();$('tpPath').value=current().path;calculate();$('tpResultsDialog').close()}});refresh();mountVisual();calculate();
+}
+function mountVisual(){
+ const host=$('treePlanner'),root=document.createElement('div');root.id='tpVisualRoot';host.prepend(root);host.querySelector('.tp-hero').remove();
+ const setup=document.createElement('dialog');setup.id='tpSetupDialog';setup.className='tpm-dialog';setup.setAttribute('aria-labelledby','tpSetupTitle');setup.innerHTML='<header class="tpm-dialog-head"><div><small>TIME · PONTOS · ESTADO NO JOGO</small><h2 id="tpSetupTitle">Configurar planejamento</h2></div><button type="button" data-tpm-dismiss aria-label="Fechar configurações">×</button></header><div class="tpm-dialog-body"></div><footer class="tpm-dialog-footer"><span>Dados salvos somente no perfil selecionado.</span><button type="button" id="tpApplySetup">USAR TIME E CALCULAR</button></footer>';host.append(setup);
+ const body=setup.querySelector('.tpm-dialog-body');for(const el of [...host.children])if(el.matches('.tp-profile-bar,.tp-status,.tp-panel'))body.append(el);
+ const results=document.createElement('dialog');results.id='tpResultsDialog';results.className='tpm-dialog';results.setAttribute('aria-labelledby','tpResultsTitle');results.innerHTML='<header class="tpm-dialog-head"><div><small>PRIORIDADES · CUSTOS · COMPARAÇÃO</small><h2 id="tpResultsTitle">Lista do plano e Paths</h2></div><button type="button" data-tpm-dismiss aria-label="Fechar lista">×</button></header><div class="tpm-dialog-body"></div>';results.querySelector('.tpm-dialog-body').append($('tpResult'));host.append(results);
+ for(const d of [setup,results])d.querySelector('[data-tpm-dismiss]').addEventListener('click',()=>d.close());
+ setup.addEventListener('close',()=>{if(!last)calculate()});$('tpApplySetup').addEventListener('click',()=>{calculate();if(last)setup.close()});
+ mapView=window.CARDO_PLANNER_MAP.create(root,{data:S,topology:window.CARDO_SKILL_TOPOLOGY,
+ configure:()=>setup.showModal(),close:()=>document.querySelector('[data-nav="infinite"]')?.click(),
+ list:()=>{if(!last)calculate();results.showModal()},copy:()=>{if(!last)calculate();if(last)copyPlan()},
+ mark:(id,kind,checked)=>{const set=new Set(current()[kind]);checked?set.add(id):set.delete(id);current()[kind]=[...set];save();renderTalents();calculate()}});
+ const button=$('tpCalculate');button.className='st-action st-action-green';button.textContent='✦ CALCULAR PLANO';mapView.calculateSlot.append(button);host.querySelector('.tp-run').remove();
 }
 function refresh(){const p=current();$('tpProfile').value=state.active;for(const [id,k]of Object.entries({tpBudget:'budget',tpReserve:'reserve',tpGoal:'goal',tpPath:'path',tpMode:'mode',tpBudgetKind:'budgetKind'}))$(id).value=p[k];renderTeam();renderTalents();invalidate()}
 function renderTeam(){
@@ -58,8 +72,8 @@ function calculate(){try{
  <p class="tp-note">O índice compara sinergias e custos, sem simular o combate. Não é uma taxa de vitória. ${p.budgetKind==='reset'?'Reset: aprendidos não foram descontados do custo.':b.active.length+' talentos relevantes já aprendidos não foram cobrados novamente.'} ${!rows.length?'Nenhum talento elegível coube no orçamento. Verifique pontos, reserva e disponibilidade.':''}</p>
  <h4>Prioridades de investimento</h4><div class="tp-plan-list">${rows.map((item,i)=>{cumulative+=item.node.cost;return `<article><span class="tp-order">${i+1}</span><div><strong>${esc(item.node.name)} <small>${esc(item.node.ptName||'')}</small></strong><p>${esc(item.reason)}</p><details><summary>Ver efeito registrado</summary><p>${esc(item.node.effect)}</p></details></div><div class="tp-cost"><b>${item.node.cost} pt</b><small>${cumulative} acumulados</small></div></article>`}).join('')}</div><p class="tp-note">Ordem de prioridade, não ordem oficial de desbloqueio. Talentos com efeitos desconhecidos ficam fora do cálculo.</p>
  <h4>Comparação de Paths</h4><div class="tp-path-comparison">${last.plans.map((v,i)=>`<div><strong>${i+1}. ${esc(v.pathName)}</strong><span>Índice de sinergia: ${v.value+v.baseline+v.affinity} · custo ${v.spent} pt</span><button type="button" data-tp-view="${v.path}">Ver plano</button></div>`).join('')}</div><p class="tp-note">Os pesos são critérios do planejador, não valores oficiais. Tiers de Path e suportes não foram comparados neste cálculo. Nenhum talento é comprado automaticamente no Roblox.</p></section>`;
- $('tpResult').scrollIntoView({behavior:'smooth',block:'start'});
- }catch(e){last=null;$('tpResult').innerHTML='<div class="tp-error" role="alert">'+esc(e.message||e)+'</div>'}}
+ renderTree();return true;
+ }catch(e){last=null;$('tpResult').innerHTML='<div class="tp-error" role="alert">'+esc(e.message||e)+'</div>';renderTree(e.message||String(e));return false}}
 function copyPlan(){const p=current(),b=last.best,ordered=b.items.slice().sort((a,b)=>b.value/b.node.cost-a.value/a.node.cost||a.node.id.localeCompare(b.node.id)),text=`Planejamento de árvore — ${state.active==='friend'?'time externo':'meu time'}\nTime: ${p.team.map(c=>c.name+' ('+c.border+'/'+c.element+')').join(' / ')}\n${b.pathName} · objetivo ${p.goal==='farm'?'farm':'subir andares'}\nPontos: ${last.budget}; custo direto: ${b.spent}; sobra: ${b.unspent}; reserva: ${last.reserve}.\n${ordered.map(i=>i.node.name+' — '+i.node.cost+' pt').join('\n')}\nPrioridades por sinergia, não simulação de combate. Pré-requisitos a conferir no jogo; não garante a melhor árvore nem vitória.`;if(navigator.clipboard?.writeText)navigator.clipboard.writeText(text).then(()=>status('Plano copiado.')).catch(()=>window.prompt('Copie o plano:',text));else window.prompt('Copie o plano:',text)}
 function init(){if($('treePlanner')&&P&&S)mount()}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
