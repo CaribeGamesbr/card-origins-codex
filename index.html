@@ -11,6 +11,7 @@
   <script defer src="skill-data.js"></script>
   <script defer src="app.js"></script>
   <script defer src="skill-codex.js"></script>
+  <script defer src="mode-codex.js"></script>
   <script defer src="deck.js"></script>
   <script defer src="team-status.js"></script>
 </head>
@@ -48,6 +49,9 @@
         <button data-nav="supports" class="nav-link"><svg><use href="#ic-shield"/></svg><span>Suportes</span><span class="nav-counter" id="navSupportCount">37</span></button>
         <button data-nav="builder" class="nav-link"><svg><use href="#ic-sword"/></svg><span>Deck / Time</span><span class="new-dot"></span></button>
         <button data-nav="skill" class="nav-link"><svg><use href="#ic-branches"/></svg><span>Skill Tree</span></button>
+        <button data-nav="circuits" class="nav-link"><svg><use href="#ic-branches"/></svg><span>Origin Circuits</span></button>
+        <button data-nav="colosseum" class="nav-link"><svg><use href="#ic-sword"/></svg><span>Colosseum</span></button>
+        <button data-nav="infinite" class="nav-link"><svg><use href="#ic-spark"/></svg><span>Infinite Tower</span></button>
         <button data-nav="guide" class="nav-link"><svg><use href="#ic-book"/></svg><span>Guia do jogo</span></button>
       </nav>
       <div class="side-label with-margin">SUA COLEÇÃO</div>
@@ -120,6 +124,18 @@
           <div class="skill-path-grid" id="skillPaths"></div>
           <div id="skillCodex" class="skill-codex" aria-label="Pesquisar e consultar todos os talentos"></div>
           <div class="guide-caveat"><p>Fonte: prints da Skill Tree enviados em novembro de 2026. Bônus de talentos bloqueados e prontos para aprender não contam como ativos. Alguns efeitos não foram exibidos individualmente e permanecem sinalizados.</p></div>
+        </section>
+        <section class="page" id="page-circuits">
+          <div class="page-intro"><div><span class="overline">MECHANICS / 05</span><h1>Origin <em>Circuits</em></h1><p>Os 19 circuitos do jogo: combinações de vizinhos, condições, bônus e limites por rodada.</p></div><div class="intro-counter"><span>CIRCUITOS</span><strong>19</strong></div></div>
+          <div id="circuitCodex"></div>
+        </section>
+        <section class="page" id="page-colosseum">
+          <div class="page-intro"><div><span class="overline">GAME MODES / 06</span><h1>Colosseum <em>of Champions</em></h1><p>Guia das 14 waves, equipes, elementos, reações, Blessings, Elite Dice, Champions, moedas e Shop.</p></div><div class="intro-counter"><span>WAVES</span><strong>14</strong></div></div>
+          <div id="colosseumCodex"></div>
+        </section>
+        <section class="page" id="page-infinite">
+          <div class="page-intro"><div><span class="overline">GAME MODES / 07</span><h1>Infinite <em>Tower</em></h1><p>O Endless Ascent: geração de cartas, Elements Mode, equipe, Paths e talentos de progressão.</p></div><div class="intro-counter"><span>MELHOR ANDAR NO PRINT</span><strong>494</strong></div></div>
+          <div id="infiniteCodex"></div>
         </section>
         <section class="page" id="page-guide">
           <div class="page-intro"><div><span class="overline">FIELD MANUAL / 05</span><h1>Guia <em>de mecânicas</em></h1><p>Regras essenciais consolidadas a partir das capturas do guia e da sua wiki anterior.</p></div><span class="overline">GUIA DO JOGO</span></div>
