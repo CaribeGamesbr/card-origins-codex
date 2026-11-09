@@ -179,14 +179,14 @@ function rankCard(c,phase,slot){
 function recommend(allData,opts={}){
  const data=cardsOnly(allData);
  const owned=data.filter(c=>screenshotKnown.has(c.id)&&hasStats(c));
- const baseline=[['c-3','c-2','new-magician-astral','new-silverfox-vanguard-astral'],['c-1','c-353','new-silver-star-user-calamity','c-5']]
+ const baseline=[['c-2','c-3','new-black-eyepatch-calamity','new-silverfox-vanguard-astral'],['c-1','c-353','new-silver-star-user-calamity','c-5']]
   .map(ids=>ids.map(id=>data.find(c=>c.id===id)));
  const chosen=baseline.flat().some(x=>!x)?[...owned.sort((a,b)=>b.dmg-a.dmg).slice(0,8)].reduce((p,x,i)=>(p[Math.floor(i/4)].push(x),p),[[],[]]):baseline;
- let best=chosen,bestStat=trials(best,{samples:14,hardness:opts.hardness||1,seed:91011});
+ let best=chosen,bestStat=trials(best,{samples:36,hardness:opts.hardness||1,seed:91011});
  const metric=s=>s.clearRate*.68+s.threeStarRate*.22+(s.noLoss/s.samples)*.04-((s.avgTurns[0]+s.avgTurns[1])/65)*.06;
  let bestScore=metric(bestStat);
  // Hill-climb with reproducible independent candidates; do not claim the top
- // result is optimal over all 365 catalog cards.
+ // result is optimal over all catalog cards.
  const random=rng(29819);
  const maxAttempts=Math.min(360,Math.max(20,Number(opts.attempts)||180));
  for(let i=0;i<maxAttempts;i++){
@@ -202,7 +202,7 @@ function recommend(allData,opts={}){
      test[Math.floor(a/4)][a%4]=c;
    }
    if(!rosterValid(test).ok)continue;
-   const val=trials(test,{samples:14,hardness:opts.hardness||1,seed:91011});
+   const val=trials(test,{samples:36,hardness:opts.hardness||1,seed:91011});
    const m=metric(val);
    if(m>bestScore+0.0001){best=test;bestScore=m;bestStat=val}
  }
