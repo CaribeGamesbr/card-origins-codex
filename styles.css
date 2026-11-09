@@ -599,3 +599,20 @@
  .st-view-head h2{font-size:13px}
  .st-view-head .st-foot-btn{min-width:130px;font-size:9px}
 }
+
+
+/* Final polish: keep the selected talent/path action visible in the details panel. */
+#page-skill .st-detail-footer{
+  position:sticky;bottom:-15px;left:auto;right:auto;z-index:3;
+  margin:18px -8px -62px;padding:19px 5px 14px;
+  background:linear-gradient(transparent,#1c1432 32%,#1c1432 100%);
+}
+#page-skill .st-detail{padding-bottom:78px}
+#page-skill .st-ready-btn:focus-visible,
+#page-skill .st-foot-btn:focus-visible,
+#page-skill .st-action:focus-visible,
+#page-skill .st-path-item:focus-visible{outline:2px solid #fff1ac;outline-offset:2px}
+@media(max-width:780px){
+ #page-skill .st-detail-footer{position:sticky;bottom:-15px;margin:10px -4px -15px;padding:9px 0 12px}
+ #page-skill .st-detail{padding-bottom:15px}
+}
