@@ -238,6 +238,7 @@ function renderResults(){
   (state.searchMeta.found?'★ As 3 condições foram cumpridas em uma batalha simulada.':'★ Nenhuma batalha de 3 estrelas encontrada nesta busca.')+'</strong><p>'+
   state.searchMeta.tested.toLocaleString('pt-BR')+' combinações de cartas, posições e suportes analisadas; '+state.searchMeta.clearCount.toLocaleString('pt-BR')+' passaram pelas duas fases em suas tentativas. '+
   'Fases sem perda de cartas: Time 1 '+state.searchMeta.perfectPhaseCount[0].toLocaleString('pt-BR')+', Time 2 '+state.searchMeta.perfectPhaseCount[1].toLocaleString('pt-BR')+'. '+
+  (state.searchMeta.found?'Em 120 novas batalhas independentes, a formação repetiu as 3 estrelas em '+Math.round(state.searchMeta.verifiedRate*100)+'% das tentativas do modelo. '+(state.searchMeta.robust?'Passou no filtro mínimo de repetição do laboratório. ':'A vitória foi rara; o time não passou no filtro mínimo de repetição. '):'')+
   (state.searchMeta.found?'O exemplo de 3 estrelas aparece no registro abaixo. Ele ainda precisa ser testado no jogo.':state.searchMeta.stopped?'Busca interrompida. A melhor formação parcial está selecionada.':'A melhor formação parcial está selecionada. Você pode buscar novamente ou adicionar dados de cartas e suportes.')+
   '</p></div>':'';
  mount.innerHTML=searchNote+'<div class="cx-result-head"><div><span class="cx-caption">TESTE ESTATÍSTICO · '+r.samples+' TENTATIVAS</span><h3>'+(r.clearRate>.5?'Boa composição no modelo':'Composição com riscos no modelo')+'</h3></div><span class="cx-pill">PRESSÃO '+state.difficulty.toFixed(2)+'×</span></div>'+
@@ -275,7 +276,7 @@ function updateSearchProgress(snapshot){
  el('cxSearchProgress').max=snapshot.maxTests;
  el('cxSearchProgress').value=snapshot.tested;
  el('cxSearchStatusText').textContent='Testando '+snapshot.tested.toLocaleString('pt-BR')+' / '+snapshot.maxTests.toLocaleString('pt-BR')+
-  ' combinações de cartas e suportes ('+snapshot.candidates+' cartas) · '+snapshot.clearCount.toLocaleString('pt-BR')+' vitórias completas · fase 1 perfeita: '+snapshot.perfectPhaseCount[0]+' · fase 2 perfeita: '+snapshot.perfectPhaseCount[1]+'.';
+  ' combinações de cartas e suportes ('+snapshot.candidates+' cartas) · '+snapshot.clearCount.toLocaleString('pt-BR')+' vitórias completas · '+snapshot.threeStarExamples+' exemplos de 3 estrelas reavaliados · fase 1 perfeita: '+snapshot.perfectPhaseCount[0]+' · fase 2 perfeita: '+snapshot.perfectPhaseCount[1]+'.';
 }
 function finishThreeStarSearch(snapshot,stopped=false){
  setSearchControls(false);
@@ -298,14 +299,15 @@ function finishThreeStarSearch(snapshot,stopped=false){
  }
  if(!E.rosterValid(selected).ok)return;
  setTeams(selected,selectedSupports);
- state.searchMeta={found:Boolean(snapshot.found),stopped,tested:snapshot.tested,clearCount:snapshot.clearCount,perfectPhaseCount:snapshot.perfectPhaseCount};
- state.result=verified||E.trials(selected,{samples:120,seed:53791,hardness:state.difficulty,supports:selectedSupports});
+ state.searchMeta={found:Boolean(snapshot.found),robust:Boolean(snapshot.robustFound),verifiedRate:snapshot.found?.verified.threeStarRate||0,
+   stopped,tested:snapshot.tested,clearCount:snapshot.clearCount,perfectPhaseCount:snapshot.perfectPhaseCount};
+ state.result=snapshot.found?.verified||verified||E.trials(selected,{samples:120,seed:53791,hardness:state.difficulty,supports:selectedSupports});
  // Keep the actual successful battle as replay evidence. Independent trials
  // may show 0% if this was a rare outcome; the banner separates these claims.
  if(snapshot.found)state.result.example=snapshot.found.result;
  else if(snapshot.bestRun&&snapshot.bestRun.stars>state.result.example?.stars)state.result.example=snapshot.bestRun;
  renderResults();
- const message=snapshot.found?'Encontrou um exemplo de 3 estrelas no modelo após '+snapshot.tested.toLocaleString('pt-BR')+' combinações de cartas e suportes! Confira o registro por turno; não é garantia no Roblox.':
+ const message=snapshot.found?'Encontrou 3 estrelas no modelo após '+snapshot.tested.toLocaleString('pt-BR')+' combinações. Nas 120 repetições, obteve '+Math.round(snapshot.found.verified.threeStarRate*100)+'% no modelo. '+(snapshot.robustFound?'Atingiu o filtro mínimo de consistência. ':'Foi uma vitória rara, sem atingir o filtro de consistência. ')+'Não é garantia no Roblox.':
    'Testou '+snapshot.tested.toLocaleString('pt-BR')+' combinações de cartas e suportes sem cumprir as 3 condições juntas. '+
    (stopped?'Busca interrompida. ':'')+'A melhor tentativa foi carregada. Tente novamente para explorar outras combinações.';
  el('cxOptimizationNote').textContent=message;

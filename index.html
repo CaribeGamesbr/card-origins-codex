@@ -7,7 +7,7 @@
   <meta name="description" content="Card Origins Codex: catálogo da coleção com cartas, suportes, mecânicas, filtros e construtor de equipes."/>
   <title>Card Origins — Codex</title>
   <link rel="stylesheet" href="styles.css"/>
-  <link rel="stylesheet" href="chaos.css?v=20261109-effects-rotation-1"/>
+  <link rel="stylesheet" href="chaos.css?v=20261109-effects-rotation-2"/>
   <script defer src="data.js"></script>
   <script defer src="skill-data.js"></script>
   <script defer src="app.js"></script>
@@ -17,8 +17,8 @@
   <script defer src="mode-codex.js"></script>
   <script defer src="deck.js"></script>
   <script defer src="team-status.js"></script>
-  <script defer src="chaos-engine.js?v=20261109-effects-rotation-1"></script>
-  <script defer src="chaos-ui.js?v=20261109-effects-rotation-1"></script>
+  <script defer src="chaos-engine.js?v=20261109-effects-rotation-2"></script>
+  <script defer src="chaos-ui.js?v=20261109-effects-rotation-2"></script>
 </head>
 <body>
   <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg">
@@ -264,7 +264,7 @@
               <strong id="cxSearchStatusText">Preparando busca de 3 estrelas…</strong>
               <progress id="cxSearchProgress" max="100000" value="0" aria-label="Formações testadas na busca de 3 estrelas"></progress>
             </div>
-            <p id="cxOptimizationNote" class="cx-note" aria-live="polite">“Buscar vitória” compara equipes e posições dos suportes. “Buscar 3 estrelas” testa até 100.000 combinações de cartas, posições e suportes e exige vencer ambas as fases, não perder cartas e ficar em até 22 turnos por fase na mesma batalha simulada. Sem garantia de vitória no jogo.</p>
+            <p id="cxOptimizationNote" class="cx-note" aria-live="polite">“Buscar vitória” compara equipes e posições dos suportes. “Buscar 3 estrelas” testa até 100.000 combinações e exige as 3 condições na mesma batalha. Cada vitória candidata é repetida em 120 testes antes de ser recomendada, pois uma vitória isolada pode ser sorte. Sem garantia de vitória no jogo.</p>
             <details class="cx-rotation-config" id="cxRotationConfig">
               <summary>↻ Atualizar rotação: inimigos, HP, dano e elementos</summary>
               <p>O jogo pode trocar os inimigos e os elementos a cada 3 dias. Não existe uma lista futura confirmada no Codex: preencha os valores da nova rotação quando aparecer no jogo. Eles serão usados em todas as buscas seguintes e ficarão salvos neste navegador.</p>

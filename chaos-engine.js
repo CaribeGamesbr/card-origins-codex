@@ -490,7 +490,7 @@ function createThreeStarSearch(allData,opts={}){
  const base=initial||suggested.teams;
  const baseSupports=initial?normalizeSupports(opts.supports):suggested.supports;
  const seen=new Set();
- let tested=0,bestTeams=base.map(t=>t.slice()),bestSupports=baseSupports.map(t=>t.slice()),bestRun=null,bestScore=-Infinity,found=null,clearCount=0;
+ let tested=0,bestTeams=base.map(t=>t.slice()),bestSupports=baseSupports.map(t=>t.slice()),bestRun=null,bestScore=-Infinity,found=null,bestFound=null,clearCount=0,threeStarExamples=0;
  const perfectPhaseCount=[0,0];
  function shuffleRoster(){
    const pool=owned.slice();
@@ -535,11 +535,23 @@ function createThreeStarSearch(allData,opts={}){
      result.phases.forEach((p,i)=>{if(p.clear&&p.losses===0&&p.withinLimit)perfectPhaseCount[i]++;});
      const value=score(result);
      if(value>bestScore){bestScore=value;bestTeams=teams.map(t=>t.slice());bestSupports=supports.map(t=>t.slice());bestRun=result;}
-     if(result.stars===3)found={teams:teams.map(t=>t.slice()),supports:supports.map(t=>t.slice()),result};
+     if(result.stars===3){
+       threeStarExamples++;
+       // An isolated lucky run must never be reported as a reliable roster.
+       // Re-run every three-star candidate on independent, fixed seeds.
+       const verified=trials(teams,{samples:120,seed:174103,hardness,supports});
+       const candidate={teams:teams.map(t=>t.slice()),supports:supports.map(t=>t.slice()),result,verified};
+       if(!bestFound||verified.threeStarRate>bestFound.verified.threeStarRate||
+         (verified.threeStarRate===bestFound.verified.threeStarRate&&verified.clearRate>bestFound.verified.clearRate))bestFound=candidate;
+       // At least four successful fights among 120 repeat trials.
+       if(verified.threeStars>=4)found=candidate;
+     }
    }
-   return {tested,maxTests,candidates:owned.length,clearCount,perfectPhaseCount:perfectPhaseCount.slice(),
-     bestTeams:bestTeams.map(t=>t.slice()),bestSupports:bestSupports.map(t=>t.slice()),bestRun,bestScore,found,
-     done:Boolean(found)||tested>=maxTests};
+   const completed=Boolean(found)||tested>=maxTests;
+   return {tested,maxTests,candidates:owned.length,clearCount,threeStarExamples,perfectPhaseCount:perfectPhaseCount.slice(),
+     bestTeams:bestTeams.map(t=>t.slice()),bestSupports:bestSupports.map(t=>t.slice()),bestRun,bestScore,
+     found:completed?(found||bestFound):null,robustFound:Boolean(found),
+     done:completed};
  }
  return {step,get status(){return {tested,maxTests,candidates:owned.length,clearCount,found}}};
 }
