@@ -14,6 +14,9 @@ const strict=P.recommend(nodes,{team,budget:80,strict:true,available:eligible,ow
 assert.ok(strict.plans.every(p=>p.items.every(x=>eligible.includes(x.node.id)&&x.node.id!=='infinite-endless-vigor')));
 assert.equal(P.recommend(nodes,{team,budget:80,strict:true}).best.spent,0);
 const normal=P.recommend(nodes,{team,budget:80});assert.ok(normal.best.items.some(x=>x.node.id==='border-stats-astral-i'));assert.ok(normal.best.items.every(x=>!x.node.id.startsWith('traits-')));
+assert.ok(normal.plans.every(p=>p.items.every(x=>!['debuffs-pyre','debuffs-unquenchable','debuffs-overcharge','debuffs-electrocution','debuffs-rot'].includes(x.node.id))));
+const mastered=P.recommend(nodes,{team,budget:500,owned:['elements-fire-mastery']});assert.ok(mastered.best.items.some(x=>x.node.id==='debuffs-pyre'));
+const shockTeam=JSON.parse(JSON.stringify(team));shockTeam[0].effect='Attacks apply Shock';assert.ok(P.recommend(nodes,{team:shockTeam,budget:500}).best.items.some(x=>x.node.id==='debuffs-overcharge'));
 assert.ok(!P.knownEffect(nodes.find(n=>n.id==='infinite-infinite-origin')));
 assert.throws(()=>P.recommend(nodes,{team,budget:-1}));assert.throws(()=>P.recommend(nodes,{team,budget:2.5}));assert.throws(()=>P.recommend(nodes,{team,budget:10,reserve:11}));assert.throws(()=>P.recommend(nodes,{team:team.slice(1),budget:10}));assert.throws(()=>P.recommend(nodes,{team,budget:80,path:'fake'}));
 // Check the optimizer against exhaustive subsets, including an attractive costly item.

@@ -14,6 +14,8 @@ Esse exemplo externo não foi incluído em `data.js`, não altera os 408 registr
 
 O motor de combate do Infinite não foi modificado ou conectado ao índice. Tiers, suportes, ordem real dos golpes e interações incompletas não são comparados nesta análise. Os pesos estão no código e favorecem, por exemplo, bônus da borda presente, talentos dos elementos da equipe e especialização do Path correspondente. Talentos de Traits exigem que o trait correspondente tenha sido informado.
 
+Upgrades de debuff exigem uma fonte identificada: Fire/Burn, Ice/Frostbite e Wind/Bleed usam os efeitos elementais registrados; Shock e Immolation exigem descrição correspondente nas cartas. Fire Mastery marcado como já aprendido também habilita a consideração de Immolation para Fire. Não se presume que Chain aplique Shock, que todo Fire já aplique Immolation, ou que Rot modifique o Decay específico do Path Nihility. Um talento apenas projetado não é tratado como já ativo para essas condições.
+
 ## Custos, aprendidos e pré-requisitos
 
 - Pontos livres: talentos marcados como já aprendidos servem de contexto e não são cobrados novamente.

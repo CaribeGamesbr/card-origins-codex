@@ -7,14 +7,20 @@ const PATHS=['harmony','abundance','remembrance','nihility','erudition','hunt','
 const NAMES={harmony:'The Harmony',abundance:'The Abundance',remembrance:'The Remembrance',nihility:'The Nihility',erudition:'The Erudition',hunt:'The Hunt',destruction:'The Destruction'};
 const slug=s=>String(s||'').toLowerCase();
 function context(team,goal){
- const elements={},borders={},traits={};let healing=0,blocking=0,dot=0,burst=0;
+ const elements={},borders={},traits={},appliers={burn:0,frostbite:0,bleed:0,shock:0,immolation:0,decay:0};let healing=0,blocking=0,dot=0,burst=0;
  for(const c of team){elements[c.element]=(elements[c.element]||0)+1;borders[c.border]=(borders[c.border]||0)+1;traits[c.trait]=(traits[c.trait]||0)+1;const effect=slug(c.effect+' '+c.ability);
   healing+=c.role==='heal'||/heal|cura|regenera/.test(effect)?1:0;
   blocking+=c.role==='defense'||/block|bloque|redução de dano|menos dano/.test(effect)?1:0;
   dot+=c.role==='dot'||/burn|bleed|poison|immolation/.test(effect)?1:0;
   burst+=c.role==='damage'||/on entry|ao entrar|dmg for 2|dano por 2/.test(effect)?1:0;
+  if(c.element==='Fire'||/burn|queimadura/.test(effect))appliers.burn++;
+  if(c.element==='Ice'||/frostbite/.test(effect))appliers.frostbite++;
+  if(c.element==='Wind'||/bleed|sangramento/.test(effect))appliers.bleed++;
+  if(/shock|choque/.test(effect))appliers.shock++;
+  if(/immolation|imolação/.test(effect))appliers.immolation++;
+  if(/decay|decaimento/.test(effect))appliers.decay++;
  }
- return {elements,borders,traits,healing,blocking,dot,burst,farm:goal==='farm'};
+ return {elements,borders,traits,appliers,healing,blocking,dot,burst,farm:goal==='farm'};
 }
 function pathAffinity(path,c){const e=c.elements;return ({harmony:12+c.blocking*3,abundance:5+c.healing*6+c.blocking,remembrance:5+(e.Ice||0)*3+(e.Quantum||0)*2,nihility:5+c.dot*4+(e.Fire||0)+(e.Wind||0),erudition:4+(e.Lightning||0)*3+c.burst*2+(c.farm?7:0),hunt:5+c.burst*2+(c.farm?8:0),destruction:5+c.blocking*2})[path]||0}
 function knownEffect(n){return typeof n.effect==='string'&&!/não (?:conferid|exibid|mostrad|identificad)|não apareceu|não confirmado|pendente|efeito específico não|não legível/i.test(n.effect+' '+n.name)&&Number.isInteger(n.cost)&&n.cost>0}
@@ -49,10 +55,11 @@ function rate(n,c,path){
   }
  }
  if(n.path==='Debuffs'){
-  const applicable={overcharge:e.Lightning||0,electrocution:e.Lightning||0,'searing-flames':e.Fire||0,inferno:e.Fire||0,hemorrhage:e.Wind||0,lacerating:e.Wind||0,permafrost:e.Ice||0,hypothermia:e.Ice||0,pyre:e.Fire||0,unquenchable:e.Fire||0};
+  const a=c.appliers;
+  const applicable={overcharge:a.shock,electrocution:a.shock,'searing-flames':a.burn,inferno:a.burn,hemorrhage:a.bleed,lacerating:a.bleed,permafrost:a.frostbite,hypothermia:a.frostbite,pyre:a.immolation,unquenchable:a.immolation};
   const key=id.replace('debuffs-','');
   if(applicable[key])set(13*applicable[key],`Sinergia com os efeitos elementais correspondentes; precisa de aplicação durante a luta.`);
-  else if(key==='rot'&&path==='nihility')set(24,'Sinergia a conferir entre Decay e o Path Nihility.');
+  else if(key==='rot'&&a.decay)set(13*a.decay,'Sinergia com Decay descrito nas cartas; não presume interação com o Decay próprio do Path.');
   else if(['debuff-mastery','potent-afflictions','debuffs-origin'].includes(key))set(8+4*((e.Fire||0)+(e.Ice||0)+(e.Wind||0)+(e.Lightning||0)),'Potência dos debuffs; não presume que todo efeito percentual aumente.');
  }
  if(n.path==='Traits'){
@@ -74,6 +81,7 @@ function recommend(nodes,options){
  const budget=Number(options.budget),reserve=Number(options.reserve||0);
  if(!Number.isInteger(budget)||budget<0||budget>500||!Number.isInteger(reserve)||reserve<0||reserve>budget)throw Error('Use de 0 a 500 pontos inteiros e uma reserva entre zero e o total disponível.');
  const c=context(team,goal),ownedSet=new Set(owned),availableSet=new Set(available),usable=nodes.filter(knownEffect);
+ if(ownedSet.has('elements-fire-mastery'))c.appliers.immolation=Math.max(c.appliers.immolation,c.elements.Fire||0);
  const variants=(options.path&&options.path!=='auto'?[options.path]:PATHS);if(variants.some(p=>!PATHS.includes(p)))throw Error('Path inválido.');
  const plans=variants.map(path=>{
   const scores=usable.map(n=>rate(n,c,path)).filter(Boolean),active=scores.filter(i=>ownedSet.has(i.node.id)),items=scores.filter(i=>!ownedSet.has(i.node.id)&&(!strict||availableSet.has(i.node.id)));
