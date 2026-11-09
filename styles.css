@@ -675,3 +675,66 @@
  #page-skill .st-fitall{font-size:9px;padding:7px 9px;top:3px;right:3px}
  #page-skill .st-svg-node-label{font-size:15px!important}
 }
+
+
+/* Search by original English names or free Brazilian Portuguese translations */
+#page-skill .st-skill-search{
+ position:absolute;left:50%;top:53px;transform:translateX(-50%);
+ z-index:20;width:min(400px,calc(100% - 18px));display:flex;align-items:center;gap:5px;
+ min-height:42px;padding:5px 8px;border-radius:10px;border:1px solid #9668bd;
+ background:linear-gradient(120deg,rgba(25,23,54,.98),rgba(35,27,64,.98));
+ box-shadow:0 8px 25px #050512b8, inset 0 1px 0 #d8bbff33;
+}
+#page-skill .st-skill-search:focus-within{border-color:#e3b7ff;box-shadow:0 0 0 2px #9c73d355,0 8px 25px #050512c9}
+#page-skill .st-search-icon{flex:0 0 25px;color:#f2d5ff;font-weight:1000;font-size:25px;line-height:1;text-align:center}
+#page-skill .st-skill-search input{
+ color:#fff1ff;background:transparent;min-width:0;flex:1;border:0;outline:0;
+ font-family:inherit;font-weight:800;font-size:12px;padding:6px 2px;
+}
+#page-skill .st-skill-search input::placeholder{color:#bca4cf;font-size:11px;font-weight:600}
+#page-skill .st-skill-search input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
+#page-skill #stSearchClear{
+ border:0;flex:0 0 25px;height:25px;cursor:pointer;border-radius:5px;
+ background:#574370;color:#f8eaff;font-size:13px;font-weight:900;
+}
+#page-skill #stSearchClear:hover{background:#8464a5}
+#page-skill .st-skill-search-results{
+ position:absolute;left:-1px;right:-1px;top:calc(100% + 5px);z-index:21;
+ max-height:min(430px,56dvh);overflow-y:auto;
+ border:1px solid #9775bc;border-radius:9px;background:rgba(21,18,44,.99);
+ padding:6px;box-shadow:0 18px 36px #03020dde;
+ scrollbar-color:#765599 transparent;scrollbar-width:thin;
+}
+#page-skill .st-search-results-count{
+ padding:8px 10px;color:#d6b9ee;font-size:10px;font-weight:900;letter-spacing:.04em;
+}
+#page-skill .st-skill-search-results button[data-st-search-node]{
+ width:100%;min-height:49px;display:flex;align-items:center;justify-content:space-between;gap:8px;
+ text-align:left;cursor:pointer;padding:8px 10px;color:#f4e9ff;border-radius:7px;
+ background:#23203f;border:1px solid transparent;margin:3px 0;
+}
+#page-skill .st-skill-search-results button[data-st-search-node]:hover,
+#page-skill .st-skill-search-results button[data-st-search-node].active,
+#page-skill .st-skill-search-results button[data-st-search-node]:focus-visible{
+ background:#4b386e;border-color:#b590e1;outline:none;
+}
+#page-skill .st-skill-search-results button[data-st-search-node] span{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
+#page-skill .st-skill-search-results button[data-st-search-node] strong{font-size:12px;font-weight:900;line-height:1.25}
+#page-skill .st-skill-search-results button[data-st-search-node] small{font-size:11px;color:#c1b8d9;line-height:1.3}
+#page-skill .st-skill-search-results button[data-st-search-node] em{
+ flex:0 0 auto;color:#edce9b;font-style:normal;font-size:9px;font-weight:850;max-width:105px;text-align:right
+}
+#page-skill .st-search-none{color:#d4c6e0;font-size:12px;text-align:center;padding:16px 6px}
+#page-skill .st-search-translation{border-top:1px solid #494064;padding:8px 10px 5px;color:#aa9fbd;font-size:10px;text-align:center}
+#page-skill .st-talent-ptname{margin:0 0 12px;font-size:13px;font-weight:850;color:#ddd0ff}
+#page-skill .st-talent-ptname small{font-size:9px;color:#998bb7;font-style:italic;font-weight:500}
+#page-skill .sk-pt-name{font-size:10px;font-weight:650;color:#b6d5ec;line-height:1.5;display:block;margin-top:3px}
+@media(max-width:780px){
+ #page-skill .st-skill-search{top:43px;width:min(360px,calc(100% - 30px));min-height:38px}
+ #page-skill .st-skill-search-results{max-height:min(370px,48dvh)}
+}
+@media(max-width:460px){
+ #page-skill .st-skill-search{top:40px;width:calc(100% - 20px)}
+ #page-skill .st-skill-search input{font-size:11px}
+ #page-skill .st-skill-search-results button[data-st-search-node] em{max-width:70px;font-size:8px}
+}
