@@ -28,7 +28,7 @@ const circuitNames={
  'Fire+Ice':'Thermal Shock','Fire+Wind':'Wildfire','Fire+Lightning':'Flashover','Ice+Lightning':'Superconductor','Ice+Wind':'Whiteout','Lightning+Wind':'Stormfront','Quantum+Imaginary':'Paradox','Quantum+Physical':'Breakpoint','Imaginary+Physical':'Oppression','Fire+Physical':'Blood and Ash','Ice+Quantum':'Fractured Moment','Wind+Imaginary':'Withering Sky'
 };
 const towerPairs = new Set(['Ice+Wind','Ice+Imaginary','Lightning+Wind','Lightning+Imaginary','Wind+Quantum','Wind+Physical','Quantum+Imaginary','Imaginary+Physical'].map(x=>x.split('+').sort().join('+')));
-const paths=[['General',14,14,'#e7be79'],['Elements',9,30,'#7fd8ed'],['Debuffs',19,38,'#e88bbb'],['Traits',0,16,'#ae8feb'],['Colosseum',0,12,'#e3ba7f'],['Infinite',19,19,'#8dadec'],['Border Stats',13,17,'#e5c66d']];
+const paths=[['General',14,14,'#e7be79'],['Elements',9,30,'#7fd8ed'],['Debuffs',19,38,'#e88bbb'],['Traits',0,16,'#ae8feb'],['Colosseum',0,12,'#e3ba7f'],['Infinite',19,19,'#8dadec'],['Border Stats',14,17,'#e5c66d']];
 const getJson = (key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}};
 const favorites=new Set(getJson('codex-favorites',[]));
 let team = getJson('codex-team',['c-3','c-5','c-1','c-2']);
