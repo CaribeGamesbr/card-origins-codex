@@ -30,13 +30,105 @@
  const state={category:'General',selectedId:null,layout:'overview',scale:.38,cx:500,cy:405,simulation:false,webView:true,catalogOpen:false,readyIndex:-1};
  const normalize=s=>String(s??'').toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
  const allById=new Map(data.nodes.map(x=>[x.id,x]));
- const readyNodes=data.nodes.filter(x=>x.status==='ready');
  const positions=new Map();
  const segments=[];
  const rad=d=>d*Math.PI/180;
  const polar=(angle,radius)=>({x:500+Math.cos(rad(angle))*radius,y:405+Math.sin(rad(angle))*radius});
- const effective=x=>state.simulation?'learned':x.status;
- const totalLearned=()=>state.simulation?data.nodes.length:data.nodes.filter(x=>effective(x)==='learned').length;
+ const initialPoints=Math.max(0,Number(data.skillPointsLatestScreenshot)||0);
+ const progressKey='card-origins-codex-skill-progress-v1';
+ const originalLearned=new Set(data.nodes.filter(n=>n.status==='learned').map(n=>n.id));
+ const hiddenIds=new Set();
+ const predecessors=new Map(data.nodes.map(n=>[n.id,[]]));
+ for(const cat of cats){
+   const nodes=data.nodes.filter(n=>n.path===cat.name);
+   const spec=topology[cat.name];
+   for(const index of spec?.hidden||[])if(nodes[index])hiddenIds.add(nodes[index].id);
+   for(const [source,target] of spec?.edges||[]){
+     const from=nodes[source],to=nodes[target];
+     if(from&&to&&from.id!==to.id)predecessors.get(to.id)?.push(from.id);
+   }
+ }
+ function loadProgress(){
+   const empty={purchased:[],added:0};
+   try{
+     const saved=JSON.parse(window.localStorage.getItem(progressKey)||'null');
+     if(!saved||saved.version!==1||!Array.isArray(saved.purchased))return empty;
+     let balance=initialPoints;
+     const added=Number(saved.added);
+     empty.added=Number.isSafeInteger(added)?Math.min(100000,Math.max(0,added)):0;
+     balance+=empty.added;
+     const seen=new Set();
+     for(const id of saved.purchased.slice(0,146)){
+       const n=allById.get(id),cost=Number(n?.cost);
+       if(!n||originalLearned.has(id)||hiddenIds.has(id)||seen.has(id)||!Number.isSafeInteger(cost)||cost<=0||balance<cost)continue;
+       seen.add(id);balance-=cost;empty.purchased.push(id);
+     }
+   }catch(_){/* localStorage may be blocked in private browsing */ }
+   return empty;
+ }
+ const progress=loadProgress();
+ function saveProgress(){
+   try{window.localStorage.setItem(progressKey,JSON.stringify({version:1,added:progress.added,purchased:progress.purchased}));return true}
+   catch(_){return false}
+ }
+ const purchased=()=>new Set(progress.purchased);
+ const costOf=n=>Math.max(0,Number(n?.cost)||0);
+ const pointsSpent=()=>progress.purchased.reduce((sum,id)=>sum+costOf(allById.get(id)),0);
+ const pointsLeft=()=>Math.max(0,initialPoints+progress.added-pointsSpent());
+ const isLearned=n=>!!n&&(originalLearned.has(n.id)||progress.purchased.includes(n.id));
+ // A screenshot-ready talent is always available. Further talents are unlocked
+ // by simulator purchases of a directly linked prerequisite. The graph itself
+ // was reconstructed from screenshots and is not an official dependency API.
+ function isAvailable(n){
+   if(!n||isLearned(n)||hiddenIds.has(n.id)||String(n.name).includes('não identificado'))return false;
+   if(n.status==='ready')return true;
+   if(n.status!=='locked')return false;
+   const parents=predecessors.get(n.id)||[];
+   return parents.length>0&&parents.some(id=>progress.purchased.includes(id));
+ }
+ const effective=n=>isLearned(n)?'learned':isAvailable(n)?'ready':'locked';
+ const totalLearned=()=>data.nodes.filter(isLearned).length;
+ const readyNodes=()=>data.nodes.filter(isAvailable);
+ function notice(message){
+   const label=$('stSimulationTip');if(!label)return;
+   label.textContent=message;label.hidden=false;
+ }
+ function updateAfterChange(focusId){
+   renderSidebar();
+   if(focusId&&allById.has(focusId))inspect(focusId);
+   else if(state.selectedId)inspect(state.selectedId);
+   else{showPath();renderMap()}
+   renderStats();
+ }
+ function learnTalent(id){
+   const n=allById.get(id);
+   if(!n)return;
+   if(isLearned(n)){notice(n.name+' já está aprendido no simulador.');return}
+   if(!isAvailable(n)){notice('Este talento ainda está bloqueado na simulação.');return}
+   const cost=costOf(n);
+   if(!cost||pointsLeft()<cost){notice('Pontos insuficientes. Precisa de '+cost+' e tem '+pointsLeft()+'.');return}
+   progress.purchased.push(n.id);
+   saveProgress();
+   updateAfterChange(n.id);
+   notice('✓ '+n.name+' aprendido por '+cost+' ponto(s). Saldo: '+pointsLeft()+'. Somente no simulador.');
+ }
+ function addSkillPoints(){
+   const input=$('stGrantPoints'),amount=Number(input?.value);
+   if(!Number.isSafeInteger(amount)||amount<1||amount>1000){
+     notice('Digite uma quantidade inteira entre 1 e 1000 pontos.');return;
+   }
+   if(progress.added+amount>100000){notice('Limite do simulador: 100.000 pontos adicionais.');return}
+   progress.added+=amount;saveProgress();updateAfterChange();
+   notice('+'+amount+' pontos adicionados à simulação. Disponíveis: '+pointsLeft()+'.');
+ }
+ function resetSkills(){
+   if(!progress.purchased.length&&!progress.added){notice('A simulação já está igual ao print.');return}
+   if(typeof window.confirm==='function'&&!window.confirm('Reiniciar a simulação e voltar aos 5 pontos e talentos do último print?'))return;
+   progress.purchased=[];progress.added=0;saveProgress();
+   state.selectedId=null;renderSidebar();showPath();renderMap();renderStats();
+   notice('Simulação reiniciada para o último print. Nenhuma alteração no Roblox.');
+ }
+
  function locate(){
    positions.clear();segments.length=0;
    cats.forEach(cat=>{
