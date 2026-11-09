@@ -97,15 +97,15 @@
    }).join('')+'</g>';
  }
  function renderNodes(){
-   return '<g class="st-node-layer">'+data.nodes.map(node=>{
+   return '<g class="st-node-layer">'+data.nodes.filter(node=>positions.has(node.id)).map(node=>{
      const p=positions.get(node.id);if(!p)return '';
      const status=effective(node),isSelected=state.selectedId===node.id,hasFocus=state.category===node.path,highlight=hasFocus?'st-focus':'st-unfocus';
-     const r=node.tier==='capstone'?15.5:node.tier==='core'?14.5:10.5;
+     const r=state.layout==='overview'?24:node.tier==='capstone'?18:node.tier==='core'?21:14;
      const fill=status==='learned'?color(node.path):status==='ready'?'#b7a0f0':'#48405b';
      const cost=Number(node.cost||0);
      const icon=node.tier==='capstone'?'♛':node.tier==='core'?glyphs[node.path]:'◇';
      const label=esc(node.name.length>24?node.name.slice(0,22)+'…':node.name);
-     const activeLabel=hasFocus&&state.scale>1.29;
+     const activeLabel=state.layout==='expanded';
      return '<g class="st-node '+status+' '+highlight+(isSelected?' st-selected':'')+'" role="button" tabindex="0" aria-label="'+esc(node.name+', '+(node.cost||'?')+' pontos, '+status)+'" data-st-node="'+esc(node.id)+'" transform="translate('+p.x.toFixed(2)+' '+p.y.toFixed(2)+')">'
        +'<title>'+esc(node.name+' • '+(node.cost||'?')+' pontos • '+({learned:'Aprendido',ready:'Pronto',locked:'Bloqueado'}[status]))+'</title>'
        +(status==='learned'?'<circle r="'+(r+8)+'" fill="'+fill+'" opacity=".21" filter="url(#stNodeGlow)"/>':'')
@@ -118,13 +118,25 @@
    }).join('')+'</g>';
  }
  function renderPathLabels(){
-   if(state.scale>1.37)return '';
-   return '<g class="st-path-labels" pointer-events="none">'+cats.map(cat=>{
-     const p=polar(positionsCfg[cat.name].angle,(cat.name==='Elements'||cat.name==='Debuffs')?386:358),c=color(cat.name);
-     return '<g transform="translate('+p.x.toFixed(1)+' '+p.y.toFixed(1)+')"><text x="0" y="0" text-anchor="middle" fill="'+c+'" font-size="17" font-style="italic" font-weight="900" letter-spacing="2">'+esc(cat.name.toUpperCase())+'</text><text x="0" y="16" text-anchor="middle" fill="#d9cde9" font-size="9" letter-spacing="2">'+(state.simulation?cat.total:cat.learned)+' / '+cat.total+'</text></g>';
+   if(state.layout==='expanded'){
+     const c=color(state.category),cat=cats.find(x=>x.name===state.category);
+     return '<g class="st-path-labels" pointer-events="none">'
+      +'<text x="500" y="31" fill="'+c+'" font-size="24" text-anchor="middle" font-weight="900" font-style="italic" letter-spacing="3">'+esc(state.category.toUpperCase())+'</text>'
+      +'<text x="500" y="49" fill="#e3d9ee" font-size="11" text-anchor="middle" font-weight="800">'+(state.simulation?cat.total:cat.learned)+' / '+cat.total+' TALENTOS · SEPARADOS POR NÍVEL</text></g>';
+   }
+   return '<g class="st-path-labels" pointer-events="none">'+cats.map((cat,i)=>{
+     const p=polar(-90+i*360/cats.length,343),c=color(cat.name);
+     return '<g transform="translate('+p.x.toFixed(1)+' '+p.y.toFixed(1)+')"><text x="0" y="0" text-anchor="middle" fill="'+c+'" font-size="17" font-style="italic" font-weight="900" letter-spacing="1">'+esc(cat.name.toUpperCase())+'</text><text x="0" y="16" text-anchor="middle" fill="#d9cde9" font-size="10" letter-spacing="2">'+(state.simulation?cat.total:cat.learned)+' / '+cat.total+'</text></g>';
    }).join('')+'</g>';
  }
  function renderCore(){
+   if(state.layout==='expanded'){
+     const col=color(state.category);
+     return '<g class="st-core-group" pointer-events="none"><circle cx="500" cy="405" r="63" fill="'+col+'" opacity=".16" filter="url(#stNodeGlow)"/>'
+       +'<circle cx="500" cy="405" r="56" fill="none" stroke="'+col+'" stroke-width="2" stroke-dasharray="5 7" opacity=".65"/>'
+       +'<circle cx="500" cy="405" r="40" fill="#17162e" stroke="'+col+'" stroke-width="1.2" opacity=".9"/></g>';
+   }
+
    return '<g class="st-core-group"><circle cx="500" cy="405" r="55" fill="#9a76c8" opacity=".26" filter="url(#stNodeGlow)"/>'
      +'<circle cx="500" cy="405" r="49" stroke="url(#stCoreEdge)" stroke-width="4" fill="#1d1738"/>'
      +'<circle cx="500" cy="405" r="40" stroke="#f3d8a2" stroke-width="1.7" fill="#14192e"/>'
@@ -134,9 +146,9 @@
  }
  function renderMap(){
   const svg=$('stTreeSvg');if(!svg)return;
-  svg.innerHTML=svgDefs()+renderLinks()+renderNodes()+renderPathLabels()+renderCore();
+  svg.innerHTML=svgDefs()+renderCore()+renderLinks()+renderNodes()+renderPathLabels();
   applyViewBox();
-  const lab=$('stMapMode');if(lab)lab.textContent=state.scale>1.12?state.category.toUpperCase()+' / FOCADO':'VISÃO GERAL';
+  const lab=$('stMapMode');if(lab)lab.textContent=state.layout==='expanded'?state.category.toUpperCase()+' / TALENTOS EXPANDIDOS':'VISÃO GERAL / 7 CAMINHOS';
   const learned=$('stMapLearned');if(learned)learned.textContent=totalLearned();
  }
  function applyViewBox(){
