@@ -616,3 +616,26 @@
  #page-skill .st-detail-footer{position:sticky;bottom:-15px;margin:10px -4px -15px;padding:9px 0 12px}
  #page-skill .st-detail{padding-bottom:15px}
 }
+
+
+/* Skill Tree — spacious talent layout and overview switch */
+#page-skill .st-overview{
+ position:absolute;top:9px;left:50%;transform:translateX(-50%);
+ z-index:7;cursor:pointer;border:1px solid #ad85d8;border-radius:9px;
+ color:#f8e6ff;background:linear-gradient(130deg,#38265e,#231f46);
+ font-weight:950;font-size:11px;letter-spacing:.045em;padding:10px 17px;
+ white-space:nowrap;box-shadow:0 5px 15px #0304189c;
+}
+#page-skill .st-overview:hover{background:#674a95;border-color:#f0c8ff}
+#page-skill .st-overview:focus-visible{outline:2px solid #f3dc9b;outline-offset:2px}
+#page-skill .st-svg-node-label{
+ font-size:12px;font-weight:900;paint-order:stroke;stroke:#0b0b1f;
+ stroke-width:4px;stroke-linejoin:round;
+}
+#page-skill .st-node.st-unfocus{opacity:1}
+#page-skill .st-node{transition:filter .2s,opacity .2s}
+#page-skill .st-map-caption{bottom:43px}
+@media(max-width:780px){
+ #page-skill .st-overview{font-size:9px;padding:7px 11px;top:3px}
+ #page-skill .st-svg-node-label{font-size:11px}
+}
