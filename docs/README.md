@@ -6,16 +6,19 @@ Atualizado em **09/11/2026**. Base comunitaria de trabalho, nao oficial. Este di
 
 - [`MEMORY_OF_CHAOS_STAGE03.md`](MEMORY_OF_CHAOS_STAGE03.md): dois times, tres estrelas, oito inimigos, habilidades visiveis, rotacao e resultados das simulacoes.
 - [`CARTAS_CONFIRMADAS.md`](CARTAS_CONFIRMADAS.md): atributos e habilidades de todas as cartas principais atualmente conferidas nos prints (gerado de `data.js`).
-- [`CATALOGO_402_CARTAS.md`](CATALOGO_402_CARTAS.md): indice das **365 cartas principais + 37 suportes**, com sinalizacao explicita de dados ausentes (gerado de `data.js`).
+- [`CATALOGO_ATUAL_CARTAS.md`](CATALOGO_ATUAL_CARTAS.md): indice das **369 cartas principais + 37 suportes**, com sinalizacao explicita de dados ausentes (gerado de `data.js`).
+- [`INFINITE_TOWER_SIMULADOR.md`](INFINITE_TOWER_SIMULADOR.md): capturas do andar 261, sete Paths, modelo de combate, comandos de busca e limitacoes.
 - [`WIKI_PUBLICA_HISTORICO.md`](WIKI_PUBLICA_HISTORICO.md): espelho sanitizado dos 27 capitulos do documento-mestre Google Docs, incluindo combate, elementos, debuffs, traits, reliquias, circuitos, modos, skill tree, Colosseum e Infinite Tower. **O texto historico nao foi inteiramente revalidado no patch atual**.
 - [`FONTES_E_PENDENCIAS.md`](FONTES_E_PENDENCIAS.md): fontes, divergencias, testes e o que precisa ser confirmado.
 - [`prints/`](prints/): capturas originais fornecidas pelo usuario, sem editar os numeros ou efeitos.
 
 ## Fonte canonica de dados do simulador
 
-- `../data.js`: os 402 registros atuais das cartas.
+- `../data.js`: os 406 registros atuais das cartas.
 - `../chaos-engine.js`: **modelo aproximado** de combate, regras elementais e inimigos da rotacao registrada.
 - `../chaos-ui.js`: interface e algoritmo de busca; dados de cartas completados no navegador nao se sincronizam automaticamente.
+- `../infinite-engine.js`: modelo comparativo de combate sequencial do Infinite Tower, com sete Paths e busca de time.
+- `../infinite-ui.js`: painel interativo de simulacao, parametros editaveis e recomendacao.
 
 ## Regra de atualizacao
 

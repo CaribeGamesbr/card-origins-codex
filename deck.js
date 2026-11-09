@@ -168,5 +168,6 @@ document.addEventListener('click',e=>{
 });
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closePicker();document.getElementById('deckImageOverlay')?.remove()}});
 window.addEventListener('codex-team-changed',render);
+window.addEventListener('codex-support-team-changed',()=>{equipped=getStored('codex-support-team',PRESET_SUPPORT);render();});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',render);else render();
 })();

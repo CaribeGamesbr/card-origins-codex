@@ -30,7 +30,7 @@ for (const c of confirmed) {
 fs.writeFileSync(path.join(target, 'CARTAS_CONFIRMADAS.md'), details.join('\n')+'\n');
 
 const index = [
-  '# Catalogo das 402 cartas registradas', '',
+  `# Catalogo das ${records.length} cartas registradas`, '',
   'Gerado de `data.js`; nao e uma lista de cartas existentes em todo o jogo, mas dos **registros desta colecao**. Nomes iguais em bordas diferentes podem ser cartas distintas.', '',
   `**Total:** ${records.length} registros = ${main.length} principais + ${supports.length} suportes. ${confirmed.length} principais tem HP/DMG/habilidade; ${main.length-confirmed.length} estao com campos mecanicos incompletos.`, '',
   '## Cartas principais', '',
@@ -44,5 +44,5 @@ index.push('', '## Cartas de suporte — fora de Memory of Chaos', '',
 for (const c of supports) index.push(`| ${cell(c.id)} | ${cell(c.name)} | ${cell(c.kind)} | ${cell(c.effect || c.ability || 'NAO TRANSCRITO')} | ${link(c)} |`);
 index.push('', '## Campos em falta', '',
   'Registro sem HP/DMG ou habilidade nao foi usado em calculo numerico; imagens e nomes **nao permitem inferir automaticamente** estatisticas ou probabilidades. Quando houver novo print, atualizar `data.js`, depois rodar `node scripts/build-docs-index.js`.','');
-fs.writeFileSync(path.join(target, 'CATALOGO_402_CARTAS.md'), index.join('\n')+'\n');
+fs.writeFileSync(path.join(target, 'CATALOGO_ATUAL_CARTAS.md'), index.join('\n')+'\n');
 console.log(`Generated ${confirmed.length} confirmed cards and ${records.length} catalog rows.`);

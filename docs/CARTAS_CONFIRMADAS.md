@@ -1,6 +1,6 @@
 # Cartas principais com atributos e habilidades registrados
 
-Gerado automaticamente de `data.js` em 09/11/2026. **20 cartas com HP, DMG e habilidade** entre 365 cartas principais. Transcricoes em portugues associadas aos prints; efeitos com partes faltantes/alteracoes de patch exigem nova verificacao.
+Gerado automaticamente de `data.js` em 09/11/2026. **24 cartas com HP, DMG e habilidade** entre 369 cartas principais. Transcricoes em portugues associadas aos prints; efeitos com partes faltantes/alteracoes de patch exigem nova verificacao.
 
 ## SILVERFOX VANGUARD — Astral / Imaginary
 
@@ -161,4 +161,36 @@ Gerado automaticamente de `data.js` em 09/11/2026. **20 cartas com HP, DMG e hab
 - Efeito registrado: Ataques marcam o alvo com Prey. Quando o inimigo marcado ataca, consome a marca para roubar 10% do dano causado como HP e aplicar Blood Wound. Com 3 Blood Wounds, ataca por 1,4x DMG, remove as marcas e recupera 15% do HP máximo.
 - Arte no repositorio: `assets/cards/BLUE%20WOLF%20(CURSED)%20-%20ASTRAL%20-%20ICE%20%5B001%5D.png`.
 - Origem do campo: catalogo local, verificar print.
+
+## KING OF CURSES — Calamity / Fire
+
+- ID do registro: `new-king-of-curses-calamity`; HP maximo: **3871**; DMG: **1290**.
+- Habilidade: **CLEAVE & DISMANTLE**.
+- Efeito registrado: Ataques sempre acertam, ignorando Dodge, reducao de dano e negacao. Quando o inimigo tenta esquivar, o golpe causa +40% de dano e aplica Bleed por 1 turno. Ataques causam +20% de dano em inimigos acima de 50% de HP. Cada eliminacao concede +10% de DMG permanente.
+- Arte no repositorio: `assets/cards/KING_OF_CURSES_CALAMITY_FIRE.png`.
+- Origem do campo: print original enviado ao Google Drive.
+
+## LITTLE OWL MAN — Calamity / Wind
+
+- ID do registro: `new-little-owl-man-calamity`; HP maximo: **3450**; DMG: **1151**.
+- Habilidade: **PREDATOR'S PRESSURE**.
+- Efeito registrado: Ao entrar, aplica Dread. Cada ataque inimigo adiciona Disorientation; se errar ou sua habilidade falhar, aplica Condemnation. Com os tres debuffs presentes, consome todos para aplicar Silence por 1 turno e Rupture, que transforma a proxima cura recebida pelo alvo em dano.
+- Arte no repositorio: `assets/cards/LITTLE_OWL_MAN_CALAMITY_WIND.png`.
+- Origem do campo: print original enviado ao Google Drive.
+
+## RABBIT GHOUL — Umbral / Fire
+
+- ID do registro: `new-rabbit-ghoul-umbral`; HP maximo: **4812**; DMG: **1603**.
+- Habilidade: **WINGS THAT BURY THE LIVING**.
+- Efeito registrado: No inicio de seu turno, recebe +40% Dodge ate o proximo turno. Uma vez por batalha, ao esquivar de um golpe, revida com estilhacos causando 60% de DMG e aplica Bleed por 2 turnos, consumindo o bonus de Dodge ate o proximo turno.
+- Arte no repositorio: `assets/cards/RABBIT_GHOUL_UMBRAL_FIRE.png`.
+- Origem do campo: print original enviado ao Google Drive.
+
+## HALF GHOUL — Normal / Physical
+
+- ID do registro: `new-half-ghoul-normal`; HP maximo: **2937**; DMG: **978**.
+- Habilidade: **HUNGER: CENTIPEDE**.
+- Efeito registrado: 40% do HP que esta carta retira dos inimigos vira Flesh (metade contra bosses). Ao cair abaixo de 35% de HP, consome todo Flesh para curar ate 50% do HP maximo e entra em Hunger por 2 turnos. Durante Hunger, cada hit tambem causa 25% de DMG ao proximo inimigo e aplica Rupture.
+- Arte no repositorio: `assets/cards/HALF_GHOUL_NORMAL_PHYSICAL.png`.
+- Origem do campo: print original enviado ao Google Drive.
 
