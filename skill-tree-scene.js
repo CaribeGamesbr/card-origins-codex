@@ -27,6 +27,7 @@
   'Border Stats':{angle:229,spread:26,rows:[4,4,4,4]}
  };
  const state={category:'General',selectedId:null,layout:'expanded',scale:1,cx:500,cy:405,simulation:false,webView:false,readyIndex:-1};
+ const normalize=s=>String(s??'').toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
  const allById=new Map(data.nodes.map(x=>[x.id,x]));
  const readyNodes=data.nodes.filter(x=>x.status==='ready');
  const positions=new Map();
@@ -110,8 +111,8 @@
      const icon=node.tier==='capstone'?'♛':node.tier==='core'?glyphs[node.path]:'◇';
      const label=esc(node.name.length>25?node.name.slice(0,23)+'…':node.name);
      const activeLabel=state.layout==='expanded'&&state.scale>=0.82;
-     return '<g class="st-node '+status+' '+highlight+(isSelected?' st-selected':'')+'" role="button" tabindex="0" aria-label="'+esc(node.name+', '+(node.cost||'?')+' pontos, '+status)+'" data-st-node="'+esc(node.id)+'" transform="translate('+p.x.toFixed(2)+' '+p.y.toFixed(2)+')">'
-       +'<title>'+esc(node.name+' • '+(node.cost||'?')+' pontos • '+({learned:'Aprendido',ready:'Pronto',locked:'Bloqueado'}[status]))+'</title>'
+     return '<g class="st-node '+status+' '+highlight+(isSelected?' st-selected':'')+'" role="button" tabindex="0" aria-label="'+esc(node.name+' / '+(node.ptName||'')+', '+(node.cost||'?')+' pontos, '+status)+'" data-st-node="'+esc(node.id)+'" transform="translate('+p.x.toFixed(2)+' '+p.y.toFixed(2)+')">'
+       +'<title>'+esc(node.name+' / '+(node.ptName||'')+' • '+(node.cost||'?')+' pontos • '+({learned:'Aprendido',ready:'Pronto',locked:'Bloqueado'}[status]))+'</title>'
        +(status==='learned'?'<circle r="'+(r+8)+'" fill="'+fill+'" opacity=".21" filter="url(#stNodeGlow)"/>':'')
        +'<circle r="'+(r+7)+'" fill="none" stroke="'+fill+'" stroke-width="2.5" stroke-dasharray="'+(status==='locked'?'2 7':'6 3')+'" opacity="'+(status==='locked'?.28:.85)+'"/>'
        +'<circle r="'+(r+2.6)+'" fill="'+(status==='learned'?'#161a32':'#151325')+'" stroke="'+fill+'" stroke-width="'+(isSelected?4:2.2)+'" opacity="'+(status==='locked'?.55:1)+'"/>'
@@ -218,7 +219,7 @@
    const detail=$('stDetail');if(!detail)return;
    detail.style.setProperty('--st-current',col);
    detail.innerHTML='<div class="st-detail-emblem"><span>'+glyphs[n.path]+'</span></div>'
-     +'<h2>'+esc(n.name)+'</h2><div class="st-detail-badges"><span>'+esc((n.tier||'TALENT').toUpperCase())+'</span><span>'+esc(String(n.cost??'?'))+' POINT'+(n.cost===1?'':'S')+'</span></div>'
+     +'<h2>'+esc(n.name)+'</h2>'+(n.ptName?'<p class="st-talent-ptname">'+esc(n.ptName)+' <small>(tradução livre)</small></p>':'')+'<div class="st-detail-badges"><span>'+esc((n.tier||'TALENT').toUpperCase())+'</span><span>'+esc(String(n.cost??'?'))+' POINT'+(n.cost===1?'':'S')+'</span></div>'
      +'<div class="st-detail-separator">◇</div>'
      +'<p class="st-description">'+esc(n.path)+' • '+esc(cat?cat.learned+'/'+cat.total:'')+'</p>'
      +'<div class="st-talent-effect"><strong>O QUE FAZ</strong><p>'+esc(n.effect)+'</p></div>'
