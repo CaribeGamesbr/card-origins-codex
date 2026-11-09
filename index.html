@@ -121,12 +121,13 @@
               <div class="st-top-counter">
                 <div class="st-point-decor"><span id="stPointCount">5</span></div>
                 <strong>SKILL POINTS</strong>
-                <span>NEXT POINT IN <b>3,080</b> ROLLS</span>
-                <small>22 TALENTS READY TO LEARN</small>
+                <span>PONTOS INICIAIS DO PRINT: <b>5</b></span>
+                <small id="stReadyCount">22 TALENTOS DISPONÍVEIS</small>
               </div>
               <div class="st-head-actions">
-                <button type="button" id="stLearnAll" class="st-action st-action-green" title="Simular localmente todos os talentos como aprendidos; não altera Roblox">LEARN ALL <span>ⓘ</span></button>
-                <button type="button" id="stResetSkills" class="st-action st-action-gold" title="Restaurar simulação para os dados originais do print">RESET SKILLS</button>
+                <button type="button" id="stShowStats" class="st-action st-action-purple" aria-pressed="false" title="Mostrar status, pontos e bônus simulados">◈ MOSTRAR STATUS</button>
+                <button type="button" id="stAddPoints" class="st-action st-action-green" title="Adicionar pontos ao simulador local">+ PONTOS</button>
+                <button type="button" id="stResetSkills" class="st-action st-action-gold" title="Reiniciar simulação para os valores do print">REINICIAR</button>
                 <button type="button" id="stClose" class="st-action st-action-close" aria-label="Fechar Skill Tree">✕</button>
               </div>
             </header>
@@ -160,7 +161,27 @@
               </div>
             </div>
             <aside class="st-detail" id="stDetail" aria-live="polite" aria-label="Detalhes do caminho ou talento"></aside>
-            <div class="st-simulation-tip" id="stSimulationTip" role="status" hidden>Simulação visual local — seu jogo Roblox não é alterado.</div>
+            <div class="st-simulation-tip" id="stSimulationTip" role="status" hidden>Simulação local — seu jogo Roblox não é alterado.</div>
+            <div class="st-view-panel st-stats-panel" id="stStatsPanel" hidden aria-label="Status do simulador da Skill Tree">
+              <div class="st-view-head">
+                <div><h2>◈ STATUS DA SKILL TREE</h2><p class="st-stats-subtitle">Simulação da wiki, baseada no seu último print. Não sincroniza nem altera o Roblox.</p></div>
+                <button type="button" class="st-foot-btn st-purple" id="stCloseStats">✕ FECHAR STATUS</button>
+              </div>
+              <div class="st-stats-summary" aria-live="polite">
+                <div><span>PONTOS DISPONÍVEIS</span><strong id="stStatRemaining">5</strong></div>
+                <div><span>PONTOS UTILIZADOS</span><strong id="stStatSpent">0</strong></div>
+                <div><span>PONTOS ADICIONADOS</span><strong id="stStatAdded">0</strong></div>
+                <div><span>TALENTOS APRENDIDOS</span><strong id="stStatLearned">75/146</strong></div>
+              </div>
+              <div class="st-stats-grant">
+                <div><strong>ADICIONAR PONTOS DE SIMULAÇÃO</strong><p>Seu print começa com 5 pontos. Use pontos adicionais para testar outras combinações de talentos.</p></div>
+                <label for="stGrantPoints">Quantidade</label>
+                <input type="number" id="stGrantPoints" min="1" max="1000" step="1" value="1" inputmode="numeric" />
+                <button type="button" id="stConfirmGrant">+ ADICIONAR</button>
+              </div>
+              <div class="st-stats-section"><h3>PROGRESSO POR ÁRVORE</h3><div id="stStatsPaths" class="st-stats-paths"></div></div>
+              <div class="st-stats-section"><h3>BÔNUS DOS TALENTOS APRENDIDOS</h3><p class="st-stats-subtitle">Cada efeito é apresentado como no catálogo. Bônus condicionais ou substitutivos não são somados automaticamente.</p><div id="stStatsEffects"></div></div>
+            </div>
             <div class="st-view-panel" id="stCatalogPanel" hidden>
               <div class="st-view-head"><h2>CATÁLOGO DE TALENTOS</h2><button type="button" class="st-foot-btn st-purple" id="stBackToMap">↩ VOLTAR AO MAPA</button></div>
               <div id="skillCodex" class="skill-codex" aria-label="Lista filtrável dos talentos"></div>
