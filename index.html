@@ -248,11 +248,17 @@
               </label>
               <div class="cx-controls-buttons">
                 <button id="cxSimulate" type="button" class="cx-button cx-main">▶ Simular</button>
-                <button id="cxOptimize" type="button" class="cx-button cx-gold">✦ Buscar time vencedor</button>
+                <button id="cxOptimize" type="button" class="cx-button cx-outline">✦ Buscar vitória</button>
+                <button id="cxSearchThreeStars" type="button" class="cx-button cx-gold">★ Buscar 3 estrelas</button>
+                <button id="cxStopSearch" type="button" class="cx-button cx-outline" hidden>■ Parar busca</button>
               </div>
             </div>
             <p class="cx-warning" id="cxRosterWarning" role="status"></p>
-            <p id="cxOptimizationNote" class="cx-note" aria-live="polite">O botão busca combinações até encontrar vitórias no modelo experimental. Clique nas cartas para trocar a ordem ou montar suas próprias equipes.</p>
+            <div class="cx-search-status" id="cxSearchStatus" hidden role="status" aria-live="polite">
+              <strong id="cxSearchStatusText">Preparando busca de 3 estrelas…</strong>
+              <progress id="cxSearchProgress" max="100000" value="0" aria-label="Formações testadas na busca de 3 estrelas"></progress>
+            </div>
+            <p id="cxOptimizationNote" class="cx-note" aria-live="polite">“Buscar vitória” procura equipes para concluir as duas fases. “Buscar 3 estrelas” testa até 100.000 formações diferentes e exige vencer as duas fases, não perder cartas e ficar em até 22 turnos por fase, tudo na mesma batalha. Se não encontrar, mostra a melhor tentativa.</p>
             <div class="cx-analysis">
               <div class="cx-output"><h2>Resultado dos testes</h2><div id="cxResultPanel" aria-live="polite"></div></div>
               <div class="cx-opponents"><h2>Inimigos e habilidades da Stage 03</h2><div id="cxEnemyInfo"></div></div>

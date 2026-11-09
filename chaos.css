@@ -71,6 +71,13 @@
 #page-chaos .cx-warning{font-size:12px;line-height:1.4;margin:-6px 0 0;padding:10px 13px;border-radius:8px;color:#ffe4b0;background:#452e36;border:1px solid #99735f}
 #page-chaos .cx-warning.valid{color:#b9efd8;background:#193a38;border-color:#4a937d}
 #page-chaos .cx-note{font-size:11px;color:#bfb1d4;line-height:1.6;margin:0}
+#page-chaos .cx-search-status{display:grid;gap:8px;padding:12px 14px;background:#292341;border:1px solid #a77ac9;border-radius:10px;color:#f6e9ff;font-size:12px}
+#page-chaos .cx-search-status[hidden]{display:none}
+#page-chaos .cx-search-status progress{width:100%;height:12px;accent-color:#f1c36f}
+#page-chaos .cx-search-verdict{padding:13px;margin:0 0 17px;background:#432a37;border:1px solid #a3787b;border-radius:10px;color:#ffdfdd;font-size:12px;line-height:1.55}
+#page-chaos .cx-search-verdict.is-found{background:#1c3b32;border-color:#71d0aa;color:#c9ffde}
+#page-chaos .cx-search-verdict strong{display:block;margin-bottom:5px}
+#page-chaos .cx-search-verdict p{margin:0;font-size:11px}
 #page-chaos .cx-analysis{display:grid;grid-template-columns:minmax(0,.93fr) minmax(0,1.07fr);gap:16px}
 #page-chaos .cx-output,#page-chaos .cx-opponents{min-width:0;border:1px solid #5e5083;border-radius:15px;background:#17152b;padding:19px}
 #page-chaos .cx-output h2,#page-chaos .cx-opponents h2{font-size:19px;color:#f4eaff;margin:0 0 17px}

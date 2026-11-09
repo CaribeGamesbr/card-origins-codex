@@ -17,7 +17,8 @@ const previousPreset=[
  ['c-3','c-350','new-black-flame-heir-calamity','new-the-grinning-spectator-normal'],
  ['c-1','c-353','new-silver-star-user-calamity','c-5']
 ];
-const state={teams:preset.map(t=>t.slice()),difficulty:1,samples:100,selection:null,filter:'',result:null,fit:null};
+const state={teams:preset.map(t=>t.slice()),difficulty:1,samples:100,selection:null,filter:'',result:null,fit:null,
+ searching:false,searchToken:0,searchSnapshot:null,searchMeta:null};
 try{
  const old=JSON.parse(localStorage.getItem(storageKey)||'null');
  if(old&&Array.isArray(old.teams)&&old.teams.length===2&&old.teams.every(t=>Array.isArray(t)&&t.length===4)){
@@ -103,9 +104,9 @@ function pick(id){
  const [t,j]=state.selection;
  const dup=actual().flat().some(x=>x&&(x.id===c.id||x.name===c.name&&x.border===c.border));
  if(dup&&state.teams[t][j]!==id)return;
- state.teams[t][j]=id;save();closePicker();state.result=null;renderTeams();renderResults();
+ state.teams[t][j]=id;save();closePicker();state.result=null;state.searchMeta=null;renderTeams();renderResults();
 }
-function setTeams(teams){state.teams=teams.map(t=>t.map(c=>c?.id||null));state.result=null;save();renderTeams();renderResults()}
+function setTeams(teams){state.teams=teams.map(t=>t.map(c=>c?.id||null));state.result=null;state.searchMeta=null;save();renderTeams();renderResults()}
 function estimateResult(){
  const rosters=actual();
  const validity=E.rosterValid(rosters);if(!validity.ok){
@@ -147,7 +148,13 @@ function renderResults(){
  if(!mount)return;
  const r=state.result;
  if(!r){mount.innerHTML='<div class="cx-result-empty"><span>✦</span><h3>Prepare dois times e inicie a simulação</h3><p>Os resultados são comparações baseadas em suposições, não previsão de vitória no Roblox.</p></div>';return}
- mount.innerHTML='<div class="cx-result-head"><div><span class="cx-caption">TESTE ESTATÍSTICO · '+r.samples+' TENTATIVAS</span><h3>'+(r.clearRate>.5?'Boa composição no modelo':'Composição com riscos no modelo')+'</h3></div><span class="cx-pill">PRESSÃO '+state.difficulty.toFixed(2)+'×</span></div>'+
+ const searchNote=state.searchMeta?'<div class="cx-search-verdict '+(state.searchMeta.found?'is-found':'')+'"><strong>'+
+  (state.searchMeta.found?'★ As 3 condições foram cumpridas em uma batalha simulada.':'★ Nenhuma batalha de 3 estrelas encontrada nesta busca.')+'</strong><p>'+
+  state.searchMeta.tested.toLocaleString('pt-BR')+' formações diferentes analisadas; '+state.searchMeta.clearCount.toLocaleString('pt-BR')+' passaram pelas duas fases em suas tentativas. '+
+  'Fases sem perda de cartas: Time 1 '+state.searchMeta.perfectPhaseCount[0].toLocaleString('pt-BR')+', Time 2 '+state.searchMeta.perfectPhaseCount[1].toLocaleString('pt-BR')+'. '+
+  (state.searchMeta.found?'O exemplo de 3 estrelas aparece no registro abaixo. Ele ainda precisa ser testado no jogo.':state.searchMeta.stopped?'Busca interrompida. A melhor formação parcial está selecionada.':'A melhor formação parcial está selecionada. Você pode buscar novamente ou adicionar dados de cartas e suportes.')+
+  '</p></div>':'';
+ mount.innerHTML=searchNote+'<div class="cx-result-head"><div><span class="cx-caption">TESTE ESTATÍSTICO · '+r.samples+' TENTATIVAS</span><h3>'+(r.clearRate>.5?'Boa composição no modelo':'Composição com riscos no modelo')+'</h3></div><span class="cx-pill">PRESSÃO '+state.difficulty.toFixed(2)+'×</span></div>'+
  resultsBar('Concluiu as 2 fases',r.clearRate,'cx-teal')+
  resultsBar('Cumpriu as 3 condições',r.threeStarRate,'cx-gold')+
  '<div class="cx-result-stats"><div><span>FASE 1</span><strong>'+r.avgTurns[0].toFixed(1)+' turnos</strong><small>'+r.avgLosses[0].toFixed(2)+' KOs médios</small></div>'+
@@ -169,6 +176,63 @@ function optimize(){
    'Veja o plano e o exemplo de batalha abaixo. O resultado não garante vitória no Roblox.';
  }finally{button.disabled=false}
 }
+function setSearchControls(running){
+ state.searching=running;
+ ['cxSearchThreeStars','cxOptimize','cxSimulate','cxReset','cxPressure','cxSamples'].forEach(id=>{const node=el(id);if(node)node.disabled=running;});
+ el('cxStopSearch').hidden=!running;
+}
+function updateSearchProgress(snapshot){
+ const status=el('cxSearchStatus');status.hidden=false;
+ el('cxSearchProgress').max=snapshot.maxTests;
+ el('cxSearchProgress').value=snapshot.tested;
+ el('cxSearchStatusText').textContent='Testando '+snapshot.tested.toLocaleString('pt-BR')+' / '+snapshot.maxTests.toLocaleString('pt-BR')+
+  ' formações diferentes com '+snapshot.candidates+' cartas conferidas · '+snapshot.clearCount.toLocaleString('pt-BR')+' vitórias completas · fase 1 perfeita: '+snapshot.perfectPhaseCount[0]+' · fase 2 perfeita: '+snapshot.perfectPhaseCount[1]+'.';
+}
+function finishThreeStarSearch(snapshot,stopped=false){
+ setSearchControls(false);
+ if(!snapshot)return;
+ const selected=snapshot.found?.teams||snapshot.bestTeams;
+ if(!E.rosterValid(selected).ok)return;
+ setTeams(selected);
+ state.searchMeta={found:Boolean(snapshot.found),stopped,tested:snapshot.tested,clearCount:snapshot.clearCount,perfectPhaseCount:snapshot.perfectPhaseCount};
+ state.result=E.trials(selected,{samples:120,seed:53791,hardness:state.difficulty});
+ // Keep the actual successful battle as replay evidence. Independent trials
+ // may show 0% if this was a rare outcome; the banner separates these claims.
+ if(snapshot.found)state.result.example=snapshot.found.result;
+ else if(snapshot.bestRun&&snapshot.bestRun.stars>state.result.example?.stars)state.result.example=snapshot.bestRun;
+ renderResults();
+ const message=snapshot.found?'Encontrou um exemplo de 3 estrelas no modelo após '+snapshot.tested.toLocaleString('pt-BR')+' formações! Confira o registro por turno; não é garantia no Roblox.':
+   'Testou '+snapshot.tested.toLocaleString('pt-BR')+' formações sem cumprir as 3 condições juntas. '+
+   (stopped?'Busca interrompida. ':'')+'A melhor tentativa foi carregada. Tente novamente para explorar outras combinações.';
+ el('cxOptimizationNote').textContent=message;
+ el('cxSearchStatusText').textContent=message;
+}
+function searchThreeStars(){
+ if(state.searching)return;
+ const run=E.createThreeStarSearch(catalog,{teams:actual(),hardness:state.difficulty,seed:Date.now(),maxTests:100000});
+ if(run.error){el('cxOptimizationNote').textContent=run.error;return;}
+ setSearchControls(true);
+ state.searchSnapshot=null;
+ const token=++state.searchToken;
+ el('cxOptimizationNote').textContent='Buscando 3 estrelas entre cartas com HP/DMG confirmados. Você pode parar a qualquer momento.';
+ el('cxSearchStatus').hidden=false;
+ el('cxSearchProgress').value=0;
+ el('cxSearchStatusText').textContent='Preparando teste de até 100.000 formações diferentes…';
+ function tick(){
+   if(token!==state.searchToken||!state.searching)return;
+   const progress=run.step(1000);
+   state.searchSnapshot=progress;
+   updateSearchProgress(progress);
+   if(progress.done)finishThreeStarSearch(progress);
+   else setTimeout(tick,12);
+ }
+ setTimeout(tick,12);
+}
+function stopThreeStarSearch(){
+ if(!state.searching)return;
+ state.searchToken++;
+ finishThreeStarSearch(state.searchSnapshot,true);
+}
 function copyTeams(){
  const data=actual();
  const text=data.map((team,i)=>'TIME '+(i+1)+' — '+E.phases[i].name+'\n'+team.map((c,k)=>(k+1)+'. '+(c?c.name+' ('+c.border+'/'+c.element+')':'[vazio]')).join('\n')).join('\n\n');
@@ -183,12 +247,15 @@ function init(){
  renderEnemies();renderTeams();renderResults();
  document.getElementById('page-chaos').addEventListener('click',event=>{
   const target=event.target.closest('button');if(!target)return;
+  if(target.id==='cxStopSearch'){stopThreeStarSearch();return}
+  if(state.searching)return;
   if(target.dataset.cxSlot){const [t,j]=target.dataset.cxSlot.split('-').map(Number);showPicker(t,j);return}
   if(target.dataset.cxPick){pick(target.dataset.cxPick);return}
-  if(target.id==='cxClearSlot'){if(!state.selection)return;const [t,j]=state.selection;state.teams[t][j]=null;save();closePicker();state.result=null;renderTeams();renderResults();return}
+  if(target.id==='cxClearSlot'){if(!state.selection)return;const [t,j]=state.selection;state.teams[t][j]=null;save();closePicker();state.result=null;state.searchMeta=null;renderTeams();renderResults();return}
   if(target.id==='cxClosePicker'){closePicker();return}
   if(target.id==='cxSimulate'){estimateResult();return}
   if(target.id==='cxOptimize'){optimize();return}
+  if(target.id==='cxSearchThreeStars'){searchThreeStars();return}
   if(target.id==='cxReset'){setTeams(preset.map(ids=>ids.map(id=>byId.get(id)||null)));el('cxOptimizationNote').textContent='Exemplo inicial restaurado.';return}
   if(target.id==='cxCopy'){copyTeams();return}
  });
@@ -197,7 +264,7 @@ function init(){
  el('cxSamples').addEventListener('change',event=>{state.samples=Number(event.target.value);state.result=null;renderResults()});
  el('cxPicker').addEventListener('click',event=>{if(event.target.id==='cxPicker')closePicker()});
  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!el('cxPicker').hidden)closePicker()});
- window.CARDO_CHAOS_UI={simulate:estimateResult,optimize,render:renderTeams};
+ window.CARDO_CHAOS_UI={simulate:estimateResult,optimize,searchThreeStars,stopThreeStarSearch,render:renderTeams};
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);
 else init();

@@ -264,5 +264,66 @@ function recommend(allData,opts={}){
  return {teams:best,results:trials(best,{samples:120,hardness:opts.hardness||1,seed:44455}),
   candidates:owned.length,attempts:maxAttempts,modelOnly:true};
 }
-return {phases,screenshotKnown,rank,link,getAdvantage,bonuses,modifiers,hasStats,rosterValid,simulate,trials,recommend,estimateCard};
+// Incremental, cancellable search. Each distinct ordered pair of four-card
+// rosters is simulated at least once; success requires all three star rules
+// in the SAME simulated battle, not an average of separate attempts.
+function createThreeStarSearch(allData,opts={}){
+ const owned=cardsOnly(allData).filter(c=>screenshotKnown.has(c.id)&&hasStats(c));
+ if(owned.length<8)return {error:'São necessárias pelo menos 8 cartas com HP/DMG confirmados.'};
+ const random=rng(Number(opts.seed)||Date.now());
+ const hardness=Number(opts.hardness)||1;
+ const maxTests=Math.max(100,Math.min(1000000,Math.trunc(opts.maxTests||100000)));
+ const initial=rosterValid(opts.teams||{}).ok?opts.teams.map(t=>t.slice()):null;
+ const base=initial||recommend(allData,{attempts:40,hardness}).teams;
+ const seen=new Set();
+ let tested=0,bestTeams=base.map(t=>t.slice()),bestRun=null,bestScore=-Infinity,found=null,clearCount=0;
+ const perfectPhaseCount=[0,0];
+ function shuffleRoster(){
+   const pool=owned.slice();
+   for(let i=pool.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
+   return [pool.slice(0,4),pool.slice(4,8)];
+ }
+ function proposed(){
+   if(random()<.35)return shuffleRoster();
+   const parent=(random()<.75?bestTeams:base).flat().slice();
+   const edits=1+Math.floor(random()*6);
+   for(let i=0;i<edits;i++){
+     const a=Math.floor(random()*8),b=Math.floor(random()*8);
+     if(random()<.75){[parent[a],parent[b]]=[parent[b],parent[a]];}
+     else{
+       const candidate=owned[Math.floor(random()*owned.length)];
+       if(candidate&&!parent.some((c,j)=>j!==a&&c.id===candidate.id))parent[a]=candidate;
+     }
+   }
+   return [parent.slice(0,4),parent.slice(4,8)];
+ }
+ function score(r){
+   return r.phases.reduce((sum,p)=>sum+p.defeated*24-p.losses*11-p.turns*.25,0)
+     +(r.clear?45:0)+(r.limits.loseNoCards?100:0)+(r.limits.eachPhase22?22:0);
+ }
+ function step(size=500){
+   const limit=Math.min(maxTests,tested+Math.max(1,Math.trunc(size)));
+   let attempts=0;
+   while(tested<limit&&!found&&attempts<(size*30)){
+     attempts++;
+     const teams=tested===0?base.map(t=>t.slice()):proposed();
+     if(!rosterValid(teams).ok)continue;
+     const fingerprint=teams.flat().map(c=>c.id).join('|');
+     if(seen.has(fingerprint))continue;
+     seen.add(fingerprint);tested++;
+     const seed=(Number(opts.seed)||81371)+tested*7919;
+     const result=simulate(teams,{seed,hardness});
+     if(result.clear)clearCount++;
+     result.phases.forEach((p,i)=>{if(p.clear&&p.losses===0&&p.withinLimit)perfectPhaseCount[i]++;});
+     const value=score(result);
+     if(value>bestScore){bestScore=value;bestTeams=teams.map(t=>t.slice());bestRun=result;}
+     if(result.stars===3)found={teams:teams.map(t=>t.slice()),result};
+   }
+   return {tested,maxTests,candidates:owned.length,clearCount,perfectPhaseCount:perfectPhaseCount.slice(),
+     bestTeams:bestTeams.map(t=>t.slice()),bestRun,bestScore,found,
+     done:Boolean(found)||tested>=maxTests};
+ }
+ return {step,get status(){return {tested,maxTests,candidates:owned.length,clearCount,found}}};
+}
+return {phases,screenshotKnown,rank,link,getAdvantage,bonuses,modifiers,hasStats,rosterValid,simulate,trials,recommend,createThreeStarSearch,estimateCard};
 });
