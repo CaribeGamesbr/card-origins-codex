@@ -1,0 +1,36 @@
+# Planejador de árvore por equipe e orçamento
+
+Atualizado em 09/11/2026. Menu público: `#planner`.
+
+## Entrada e perfis
+
+O usuário escolhe quatro cartas, os pontos disponíveis (0–500), uma reserva opcional, objetivo de subir andares ou farm e um Path específico ou comparação dos sete. Há dois perfis locais independentes: Meu time e Time do amigo/externo. O perfil externo inicia com as três cartas dos prints (Umbra Witch Astral/Lightning 16480 HP/6311 DMG, Fox Contract Hunter Umbral/Fire 17765/6055 e Walker Astral/Imaginary 11859/3783), mais uma curandeira de gelo de identidade/borda não confirmadas, com orçamento de 80 pontos.
+
+Esse exemplo externo não foi incluído em `data.js`, não altera os 408 registros da coleção e não recebe números inventados para a curandeira. Cartas podem ser copiadas do catálogo, importadas do Deck/Infinite ou editadas como registros manuais somente do perfil. Trait e função podem ser informados. Os dois perfis são persistidos em `codex-tree-planner-v1` no navegador.
+
+## O que o cálculo faz
+
+`tree-planner-engine.js` combina critérios explícitos de sinergia (bordas, elementos, função, trait informado, objetivo e Path) com custos registrados em `skill-data.js`. Um algoritmo de mochila 0/1 encontra a maior soma desses índices dentro do orçamento direto, em cada Path. O índice é heurístico: não é um atributo oficial, porcentagem de vitória nem resultado de combate. Não constitui prova de melhor árvore do Roblox.
+
+O motor de combate do Infinite não foi modificado ou conectado ao índice. Tiers, suportes, ordem real dos golpes e interações incompletas não são comparados nesta análise. Os pesos estão no código e favorecem, por exemplo, bônus da borda presente, talentos dos elementos da equipe e especialização do Path correspondente. Talentos de Traits exigem que o trait correspondente tenha sido informado.
+
+## Custos, aprendidos e pré-requisitos
+
+- Pontos livres: talentos marcados como já aprendidos servem de contexto e não são cobrados novamente.
+- Total após reset: a lista de aprendidos é ignorada para custo e todos os talentos sugeridos são cobrados.
+- A reserva é subtraída do orçamento utilizável e continua incluída nos pontos não gastos. Nenhum plano ultrapassa `pontos - reserva`.
+- Projeção: considera os talentos pertinentes, mas custos de caminhos intermediários desconhecidos não são inventados. A lista exibe aviso de que não garante uma árvore comprável.
+- Disponíveis confirmados: considera apenas os nós que o usuário marcou como liberados no jogo; não deduz disponibilidade da reconstrução visual do mapa.
+- Efeitos/custos incompletos são excluídos. Um plano compara apenas a especialização Unbound do Path correspondente.
+
+O editor permite marcar aprendidos e disponíveis por perfil. Importar minha árvore registrada é uma ação explícita; estados inferidos, como Origin II, são excluídos dessa importação. A árvore pessoal não é aplicada silenciosamente ao amigo. A ordem da lista é prioridade por sinergia/custo, não uma ordem oficial de desbloqueio.
+
+## Resultado e limites
+
+Exibe Path recomendado pelo índice, talentos, custos individuais/acumulados, gasto direto, sobra, reserva e comparação das distribuições dos sete Paths. É possível copiar o plano. Nenhum talento é comprado no Roblox e o catálogo/Deck/Infinite existentes são preservados.
+
+Os pré-requisitos oficiais precisam ser confirmados para que o projeto possa garantir a validade de uma árvore completa. Bônus já embutidos nos atributos dos prints não são multiplicados novamente. Cartas sem dados continuam sinalizadas como incompletas.
+
+## Verificação
+
+`node scripts/test-tree-planner.js` verifica orçamento/reserva, zero pontos, aprendidos e disponibilidade, exclusividade de Unbound por Path, exclusão de efeitos desconhecidos, entradas inválidas e a otimização de mochila contra enumeração exaustiva de pequenos exemplos. Verificação de sintaxe: `node --check tree-planner-ui.js`.

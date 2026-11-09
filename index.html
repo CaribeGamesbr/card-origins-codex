@@ -11,7 +11,10 @@
   <link rel="stylesheet" href="infinite.css?v=20261109-visual-team-1"/>
   <script defer src="data.js?v=20261109-sherlock-two-timing-408"></script>
   <script defer src="skill-data.js"></script>
-  <script defer src="app.js"></script>
+  <link rel="stylesheet" href="tree-planner.css?v=20261109-1"/>
+  <script defer src="tree-planner-engine.js?v=20261109-1"></script>
+  <script defer src="tree-planner-ui.js?v=20261109-1"></script>
+  <script defer src="app.js?v=20261109-tree-planner-1"></script>
   <script defer src="skill-codex.js"></script>
   <script defer src="skill-tree-topology.js"></script>
   <script defer src="skill-tree-scene.js"></script>
@@ -61,6 +64,7 @@
         <button data-nav="colosseum" class="nav-link"><svg><use href="#ic-sword"/></svg><span>Colosseum</span></button>
         <button data-nav="chaos" class="nav-link"><svg><use href="#ic-stars"/></svg><span>Memory of Chaos</span><span class="new-dot"></span></button>
         <button data-nav="infinite" class="nav-link"><svg><use href="#ic-spark"/></svg><span>Infinite Tower</span></button>
+        <button data-nav="planner" class="nav-link"><svg><use href="#ic-branches"/></svg><span>Planejar árvore</span><span class="new-dot"></span></button>
         <button data-nav="guide" class="nav-link"><svg><use href="#ic-book"/></svg><span>Guia do jogo</span></button>
       </nav>
       <div class="side-label with-margin">SUA COLEÇÃO</div>
@@ -323,6 +327,7 @@
           <div id="infiniteLab" class="if-lab"></div>
           <div id="infiniteCodex"></div>
         </section>
+        <section class="page" id="page-planner"><div class="page-intro"><div><span class="overline">TEAM LAB / SKILL POINTS</span><h1>Planejar <em>árvore</em></h1><p>Monte um plano de talentos e Path conforme o time e os pontos disponíveis.</p></div></div><div id="treePlanner" class="tp-lab"></div></section>
         <section class="page" id="page-guide">
           <div class="page-intro"><div><span class="overline">FIELD MANUAL / 05</span><h1>Guia <em>de mecânicas</em></h1><p>Regras essenciais consolidadas a partir das capturas do guia e da sua wiki anterior.</p></div><span class="overline">GUIA DO JOGO</span></div>
           <div class="guide-grid">

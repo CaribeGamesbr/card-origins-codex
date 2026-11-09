@@ -74,3 +74,7 @@ Registro: [Atualização das duas cartas](docs/ATUALIZACAO_2026-11-09_SHERLOCK_T
 ### Painel visual do Infinite
 
 A equipe agora usa um painel inspirado no Deck Builder, com prints ampliáveis, troca por busca, ordenação com suportes, circuitos, totais base e sete Paths visuais. A formação do Infinite fica salva separadamente do Deck. As ações de simular, comparar Paths e buscar até 21.000 tentativas foram preservadas. Ver [documentação do painel](docs/INFINITE_TOWER_SIMULADOR.md).
+
+## Planejar árvore por time e pontos
+
+O menu **Planejar árvore** (`#planner`) compara distribuições de talentos e Paths com orçamento de pontos, reserva, objetivo e marcações de aprendidos/disponíveis. Há perfis separados para o time pessoal e o time externo do amigo. Os critérios são heurísticos; não são simulação de combate nem garantia de melhor árvore. Os pré-requisitos desconhecidos ficam explícitos. Ver [documentação e limites](docs/PLANEJADOR_ARVORE.md).

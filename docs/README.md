@@ -12,6 +12,8 @@ Atualizado em **09/11/2026**. Base comunitaria de trabalho, nao oficial. Este di
 - [`FONTES_E_PENDENCIAS.md`](FONTES_E_PENDENCIAS.md): fontes, divergencias, testes e o que precisa ser confirmado.
 - [`prints/`](prints/): capturas originais fornecidas pelo usuario, sem editar os numeros ou efeitos.
 
+- [`PLANEJADOR_ARVORE.md`](PLANEJADOR_ARVORE.md): prioridades de talentos por equipe, pontos e Path, com perfis independentes e limites de pré-requisitos.
+
 ## Fonte canonica de dados do simulador
 
 - `../data.js`: os 408 registros atuais das cartas.
