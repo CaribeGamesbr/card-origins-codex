@@ -114,8 +114,8 @@ function simulate(raw){
          if(allowed&&path==='destruction'&&C.has(actor,'infinite-destruction-unbound')&&dice()<Math.floor(missing*4)*.05){if(options.debuffDuration>0)C.apply(target,'Fatigue',options.debuffDuration);}
          foe=target.hp;
        }
-       if(!extraAction)C.end(actor,dice,allowed);if(hp[i]<=0&&!onFatal(i)){hp[i]=0;kos++;active++;continue;}
-       if(foe<=0){defeat(enemy,i);break;}
+       if(!extraAction)C.end(actor,dice,allowed);if(foe<=0)defeat(enemy,i);let allyFell=false;if(hp[i]<=0&&!onFatal(i)){hp[i]=0;kos++;active++;allyFell=true;}
+       if(foe<=0)break;if(allyFell)continue;
        if(allowed&&canAct&&!freeAction&&C.has(actor,'infinite-relentless')&&dice()<.05){freeAction=true;save('Relentless: segundo ataque no slot '+(i+1)+'.');continue;}freeAction=false;
        enemyTurns++;
        target.hp=foe;const enemyCanAct=C.begin(target,dice);C.tick(target,dice);foe=target.hp;
@@ -123,8 +123,8 @@ function simulate(raw){
        if(burn>0){foe-=burnPower*(1+C.num(actor,'dot'));burn--;}
        if(bleed>0){foe-=bleedPower;bleed--;}
        if(foe<=0){defeat(enemy,i);break;}
-       if(frozen>0){frozen--;C.end(target,dice);continue;}
-       if(!enemyCanAct){C.end(target,dice);continue;}
+       if(frozen>0){frozen--;C.end(target,dice);foe=target.hp;if(foe<=0){defeat(enemy,i);break;}continue;}
+       if(!enemyCanAct){C.end(target,dice);foe=target.hp;if(foe<=0){defeat(enemy,i);break;}continue;}
        target.hp=foe;let hit=C.basicDamage(target);
        if(C.live(target,'Whiteout')){hit*=.85;delete target.statuses.Whiteout;}
        if(allowed&&C.has(actor,'elements-'+String(c.element).toLowerCase()+'-guard')&&advantage(target.element,c.element,true)>1)hit*=.95;
