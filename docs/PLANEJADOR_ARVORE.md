@@ -4,6 +4,8 @@ Atualizado em 09/11/2026. Menu público: `#planner`.
 
 ## Entrada e perfis
 
+O botão **+ Nova carta** leva ao cadastro protegido do proprietário. Depois de salvar no GitHub e no Google Docs e aguardar a publicação do catálogo, é possível atualizar um slot do Deck e de **Meu time** no planejador. Os pontos e as marcações existentes são mantidos; o time do amigo não é alterado. A ativação inicial e os estados de gravação estão em [Cadastro de cartas](CADASTRO_CARTAS.md).
+
 O usuário escolhe quatro cartas, os pontos disponíveis (0–500), uma reserva opcional, objetivo de subir andares ou farm e um Path específico ou comparação dos sete. Há dois perfis locais independentes: Meu time e Time do amigo/externo. O perfil externo inicia com as três cartas dos prints (Umbra Witch Astral/Lightning 16480 HP/6311 DMG, Fox Contract Hunter Umbral/Fire 17765/6055 e Walker Astral/Imaginary 11859/3783), mais uma curandeira de gelo de identidade/borda não confirmadas, com orçamento de 80 pontos.
 
 Esse exemplo externo não foi incluído em `data.js`, não altera os 408 registros da coleção e não recebe números inventados para a curandeira. Cartas podem ser copiadas do catálogo, importadas do Deck/Infinite ou editadas como registros manuais somente do perfil. Trait e função podem ser informados. Os dois perfis são persistidos em `codex-tree-planner-v1` no navegador.

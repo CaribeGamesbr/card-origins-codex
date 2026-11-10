@@ -82,3 +82,7 @@ O menu **Planejar árvore** (`#planner`) compara distribuições de talentos e P
 O painel segue a interface da **Skill Tree**: ramos à esquerda, mapa no centro e detalhes à direita. Use **Configurar** para time/pontos e **Lista / Paths** para comparar resultados. Azul identifica sugestões e verde identifica aprendidos do perfil; a árvore pessoal e seus dados permanecem separados.
 
 A configuração usa o painel visual do Infinite, com quatro cartas grandes, busca para trocar, ampliação, ordem, circuitos, totais parciais e suportes por slot. Suportes e circuitos são referências da formação e não entram no índice de recomendação da árvore; dados pendentes permanecem explícitos.
+
+## Adicionar cartas pelo site
+
+O menu **Adicionar carta** (`#register`) prepara o acesso ao formulário privado do proprietário para salvar novas cartas no GitHub e no Google Docs. Os botões **+ Nova carta** também aparecem no Deck e na configuração do planejador. É necessária uma ativação inicial das contas; enquanto a conexão não estiver pronta, a página indica a pendência e não afirma que salvou dados. Ver [ativação e funcionamento](docs/CADASTRO_CARTAS.md).

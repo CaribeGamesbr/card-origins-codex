@@ -1,0 +1,29 @@
+/* Pure catalog operations, shared with the registration tests. */
+var CardRegistrationCore=(function(){
+'use strict';
+var elements=['Unknown','Fire','Ice','Lightning','Wind','Quantum','Imaginary','Physical'];
+var borders=['Unknown','Normal','Calamity','Umbral','Astral','Paradox','Origin'];
+function text(value,max){var s=String(value==null?'':value).trim();if(s.length>max)throw Error('Um campo ultrapassou o limite de '+max+' caracteres. Reduza o texto antes de salvar.');return s}
+function number(value,label){if(value==null||String(value).trim()==='')return null;var n=Number(value);if(!Number.isSafeInteger(n)||n<1||n>100000000000)throw Error(label+': use um número inteiro positivo ou deixe em branco.');return n}
+function normalize(input,requestId,date,image){
+ if(!/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(requestId))throw Error('Identificador de cadastro inválido. Reabra o formulário.');
+ var name=text(input.name,100);if(!name)throw Error('Informe o nome da carta.');
+ var element=input.element||'Unknown',border=input.border||'Unknown';if(elements.indexOf(element)<0||borders.indexOf(border)<0)throw Error('Elemento ou borda inválidos.');
+ if(input.confirmed!=='yes'&&input.confirmed!==true)throw Error('Confirme que preencheu somente dados conferidos na carta.');
+ var hp=number(input.hp,'HP'),dmg=number(input.dmg,'DMG'),ability=text(input.ability,160),effect=text(input.effect,6000),variant=String(input.variant||'').split(',').map(function(v){return text(v,40)}).filter(Boolean);if(variant.length>4)throw Error('Use no máximo quatro variantes.');
+ var verified=hp!==null&&dmg!==null&&!!ability&&!!effect&&element!=='Unknown'&&border!=='Unknown';
+ return {id:'user-'+requestId.toLowerCase(),type:'card',name:name,fullName:name,border:border,element:element,number:number(input.number,'Número da carta'),variant:variant,hp:hp,dmg:dmg,ability:ability,effect:effect,effectEnglish:text(input.effectEnglish,6000),pack:text(input.pack,80),image:image||'',verified:verified,imagePending:!image,addedAt:date,source:'cadastro do proprietário pelo site',registrationId:requestId.toLowerCase()};
+}
+function identity(c){return [c.type,String(c.name||'').trim().toLowerCase(),c.border,c.element,(c.variant||[]).map(function(v){return v.toLowerCase()}).sort().join('|')].join('~')}
+function merge(records,card){if(!Array.isArray(records)||records.some(function(c){return !c||!c.id}))throw Error('O catálogo atual não tem o formato esperado. Nenhum registro foi alterado.');var same=records.find(function(c){return c.id===card.id});if(same)return {records:records,card:same,repeated:true};var duplicate=records.find(function(c){return identity(c)===identity(card)});if(duplicate)return {records:records,card:duplicate,duplicate:true};return {records:records.concat([card]),card:card};}
+function parseData(source){var match=String(source).trim().match(/^window\.CARDO_DATA\s*=\s*([\s\S]*?);?$/);if(!match)throw Error('data.js mudou de formato. Cadastro interrompido para preservar os registros.');var json=match[1].replace(/;\s*$/,'');var result=JSON.parse(json);if(!Array.isArray(result))throw Error('data.js não contém uma lista.');return result}
+function csvCell(value){var v=value==null?'':String(value);if(/^[=+\-@\t\r]/.test(v))v="'"+v;return /[",\r\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+function appendCsv(source,card){var header=String(source).replace(/^\uFEFF/,'').split(/\r?\n/)[0];if(header!=='tipo,numero,nome,elemento,borda_ou_tipo,variante,hp,dmg,habilidade,descricao,verificado_em_print')throw Error('O CSV mudou de formato. Nenhum arquivo foi substituído.');var values=[card.type,card.number,card.name,card.element,card.border,card.variant.join(' / '),card.hp,card.dmg,card.ability,card.effect,card.verified?'Sim':'Não'];return source.replace(/\s*$/,'')+'\n'+values.map(csvCell).join(',')+'\n'}
+function files(snapshot,card){var records=JSON.parse(snapshot.catalog),js=parseData(snapshot.data);if(JSON.stringify(records)!==JSON.stringify(js))throw Error('catalog.json e data.js estão diferentes. Cadastro interrompido para evitar perda de dados.');var merged=merge(records,card);if(merged.duplicate||merged.repeated)return merged;
+ var tag='data.js?v=card-'+card.registrationId;if(!/<script\s+defer\s+src="data\.js[^"\s]*"\s*><\/script>/.test(snapshot.index))throw Error('Não foi possível atualizar o cache do catálogo com segurança.');
+ return {card:card,records:merged.records,files:{'catalog.json':JSON.stringify(merged.records,null,2)+'\n','data.js':'window.CARDO_DATA = '+JSON.stringify(merged.records)+';\n','catalogo.csv':appendCsv(snapshot.csv,card),'index.html':snapshot.index.replace(/(<script\s+defer\s+src=")data\.js[^"\s]*("\s*><\/script>)/,'$1'+tag+'$2')}};
+}
+function documentText(card,commit){return 'Nova carta — '+card.name+'\nBorda: '+card.border+' | Elemento: '+card.element+' | Variante: '+(card.variant.join(' / ')||'Base')+'\nHP: '+(card.hp===null?'pendente':card.hp)+' | DMG: '+(card.dmg===null?'pendente':card.dmg)+'\nHabilidade: '+(card.ability||'pendente')+'\n'+(card.effect||'Descrição ainda não confirmada.')+'\n'+(card.effectEnglish?'Texto em inglês: '+card.effectEnglish+'\n':'')+'Fonte: dados preenchidos e confirmados pelo proprietário em '+card.addedAt+'. '+(card.verified?'Atributos e habilidade transcritos.':'Há dados pendentes; nenhum valor foi inventado.')+'\nGitHub: https://github.com/CaribeGamesbr/card-origins-codex/commit/'+commit+'\n'+(card.image?'Imagem: https://github.com/CaribeGamesbr/card-origins-codex/blob/'+commit+'/'+card.image+'\n':'')+'ID: '+card.id+'\n[CARD-ORIGINS:'+card.registrationId+']'}
+return {normalize:normalize,identity:identity,merge:merge,parseData:parseData,appendCsv:appendCsv,files:files,documentText:documentText};
+})();
+if(typeof module!=='undefined'&&module.exports)module.exports=CardRegistrationCore;
