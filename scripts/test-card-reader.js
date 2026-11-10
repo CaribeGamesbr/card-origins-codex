@@ -1,0 +1,11 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const R=require('../integrations/card-registration/Reader.js');
+const parsed=R.parse({header:{text:'DEATH LEDGER GOD\nNORMAL\nDEFAULT PACK\nIMAGINARY',confidence:95},body:{text:'YOUR ENDING IS ALREADY WRITTEN\nHis first hit on each enemy writes their\nname in the notebook (once per enemy\nper battle).',confidence:92},footer:{text:'HP: 1,730    DMG: 577',confidence:90}});
+assert.equal(parsed.fields.name,'DEATH LEDGER GOD');assert.equal(parsed.fields.border,'Normal');assert.equal(parsed.fields.element,'Imaginary');assert.equal(parsed.fields.hp,'1730');assert.equal(parsed.fields.dmg,'577');assert.equal(parsed.fields.ability,'YOUR ENDING IS ALREADY WRITTEN');assert(parsed.fields.effect.includes('notebook'));assert.equal(parsed.fields.number,'');
+assert.equal(R.stat('HP: 1,730 HP: 1,730','HP'),'1730');assert.equal(R.stat('HP: 1,730 HP: 1,780','HP'),'');assert.equal(R.stat('HP: unreadable','HP'),'');assert.equal(R.stat('HP: 0','HP'),'');assert.equal(R.stat('HP: -5','HP'),'');
+const empty=R.parse({});assert.equal(empty.fields.hp,'');assert.equal(empty.fields.border,'Unknown');assert.equal(empty.fields.ability,'');assert(empty.pending.includes('effect'));
+assert.equal(R.canReplace('typed','typed','old'),false);assert.equal(R.canReplace('typed','initial','typed'),false);assert.equal(R.canReplace('old','old','old'),true);assert.equal(R.canReplace('','',''),true);assert.equal(R.canReplace('Unknown','Unknown',''),true);
+assert(R.validRect(R.defaultRect(2400,1080)));assert.equal(R.defaultRect(470,660).w,1);assert(!R.validRect({x:.8,y:0,w:.5,h:.8}));
+const f=R.parse({header:{text:'EMY (EVOLVED)\nCALAMITY\nEVOLUTIONS\nICE',confidence:95},body:{text:'GARDEN OF STILL WINTER\nOn entry, Freeze the current enemy for 1 turn',confidence:90},footer:{text:'HP: 3,922 DMG: 1,307'}});assert.equal(f.fields.name,'EMY (EVOLVED)');assert.equal(f.fields.hp,'3922');assert.equal(f.fields.element,'Ice');assert.equal(f.fields.pack,'');
+for(const p of ['Reader.js','ReaderUI.js'])new vm.Script(fs.readFileSync(require('node:path').join(__dirname,'../integrations/card-registration',p),'utf8'));
+console.log('Reader: unknown/ambiguous stats stay pending; manual edits preserved; classifications, text extraction and crop bounds passed.');

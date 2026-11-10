@@ -16,7 +16,7 @@ O projeto fornece também [appsscript.json](../integrations/card-registration/ap
 
 ## Cadastrar uma carta
 
-Preencha nome, borda, elemento, atributos, habilidade e descrição conforme o print ou o jogo. O print é opcional, aceita PNG/JPG/GIF/WebP e tem limite de 6 MB. Ele será publicado com o catálogo. Não há leitura automática do texto da imagem. Campos desconhecidos ficam em branco; os atributos e a habilidade só recebem marcação completa de transcrição quando todos os dados necessários foram preenchidos e confirmados pelo proprietário.
+Preencha nome, borda, elemento, atributos, habilidade e descrição conforme o print ou o jogo. O print é opcional, aceita PNG/JPG/GIF/WebP e tem limite de 6 MB. Ele será publicado com o catálogo. O print inicia a leitura automática no navegador. Também é possível colar com Ctrl + V, arrastar para a prévia, repetir a leitura e ajustar a área da carta. Campos desconhecidos ficam em branco; os atributos e a habilidade só recebem marcação completa de transcrição quando todos os dados necessários foram preenchidos e confirmados pelo proprietário.
 
 Escolha **Deck e Meu time no planejador**, **Somente Deck** ou **Somente catálogo**, e o slot de destino. Clique em **Salvar no GitHub e Google Docs** e aguarde o resultado de ambos. O botão **Usar carta no site** aparece depois da conclusão; se a variante já existir, o formulário preserva o registro original e permite usar a carta já catalogada.
 
@@ -39,3 +39,20 @@ Fontes do aplicativo privado: `integrations/card-registration/`. Para gerar o in
 `node scripts/test-card-registration.js` verifica dados desconhecidos, entradas inválidas, preservação dos registros, duplicidade, consistência JSON/JS, CSV, endereços aceitos, posicionamento no Deck, proteção do proprietário e repetição de gravação parcial. Esses testes usam serviços simulados; não comprovam uma gravação real nas contas. A ativação e o teste nas contas do proprietário devem ser verificados separadamente.
 
 Documentação dos provedores: [aplicativos da web do Apps Script](https://developers.google.com/apps-script/guides/web), [chamadas do formulário ao servidor](https://developers.google.com/apps-script/guides/html/communication), [propriedades protegidas do script](https://developers.google.com/apps-script/guides/properties), [chaves de acesso do GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).
+
+
+## Preenchimento automático pelo print (10/11/2026)
+
+O formulário usa Tesseract.js 6.0.1 localmente no navegador. A imagem não é enviada a uma API de inteligência artificial para extração. O leitor baixa seus arquivos públicos e o modelo de inglês na primeira utilização. Não exige outra chave, mas precisa de internet para esse primeiro carregamento.
+
+São lidas separadamente as áreas de nome, identificação, habilidade e atributos. Em prints largos do visualizador do jogo, a seleção inicial tenta enquadrar a carta central; use Ajustar área se necessário. A leitura não traduz nem interpreta a habilidade: o texto reconhecido mantém o idioma do print. A aparência das cartas, contornos, texto pequeno, cortes e compressão podem produzir letras e números errados. Todos os campos precisam ser conferidos antes do salvamento.
+
+Quando a imagem é idêntica a um print já transcrito e confirmado, hashes SHA-256 dos bytes ou dos pixels permitem recuperar o registro existente sem tentar adivinhar letras. Isso só funciona para imagens com fingerprint cadastrado; uma foto parecida ou outra variante não é aceita como correspondência. Novos cadastros passam a guardar o hash dos bytes do print para repetições futuras.
+
+Os campos preenchidos automaticamente ficam destacados. Alterações manuais são preservadas, inclusive durante uma leitura em andamento. Trocar de print remove sugestões anteriores que não foram editadas, para não carregar HP ou habilidade de outra carta. Nenhuma caixa de confirmação é marcada automaticamente. Erros de carregamento e tempos excessivos liberam o preenchimento manual; o botão de salvar aguarda o término da leitura.
+
+Suportes podem ser selecionados ou detectados no print. Campos de HP/DMG e elemento ficam desativados para suportes; borda/raridade e tipo de suporte permanecem separados quando confirmados. Suportes retornam ao catálogo e não substituem cartas principais nos slots. Duplicatas são identificadas por variante ou por imagem idêntica, preservando o registro existente.
+
+Validação: `node scripts/test-card-reader.js` e `node scripts/test-card-registration.js` cobrem ausência de dados, números ambíguos, preservação de edições, área de recorte, identidade de suportes e deduplicação pelo print. Conferência real do formulário e limites da leitura são registrados no Google Docs.
+
+Referência técnica primária: [API do Tesseract.js](https://github.com/naptha/tesseract.js/blob/master/docs/api.md).

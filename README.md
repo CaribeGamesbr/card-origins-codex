@@ -96,3 +96,8 @@ Detalhes: [registro das sete cartas](docs/CARTAS_2026-11-10.md).
 
 
 Segunda remessa de 10/11/2026: 2 cartas principais e 2 suportes novos, mais 3 suportes pendentes completados nos mesmos IDs. Total atual: **419 registros = 380 principais + 39 suportes; 35 principais transcritas e 345 pendentes**. As versões-base dos suportes foram preservadas; valores Calamity não as substituem.
+
+
+### Preenchimento automático por print
+
+O cadastro privado agora aceita seleção, arraste ou Ctrl + V de um print e sugere os campos automaticamente, com revisão obrigatória. Há ajuste de área, preservação de edições manuais e reconhecimento de prints idênticos já confirmados. A leitura local pode errar letras e números; não inventa atributos ausentes nem implementa habilidades de combate. Cartas principais e suportes são tratados separadamente. [Como usar](docs/CADASTRO_CARTAS.md).

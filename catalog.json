@@ -5130,7 +5130,9 @@
     "imagePending": false,
     "pack": "Default Pack",
     "addedAt": "2026-11-09",
-    "source": "print original enviado pelo usuário em 09/11/2026"
+    "source": "print original enviado pelo usuário em 09/11/2026",
+    "imagePixelSha256": "f109d074b3054e48f4722bee2303fde23a8ae1e221075d1f425c21608d9c93d5",
+    "imageSha256": "0829bce5785f0f6e74971d7ba81aefdf375c378346796fd8c294a3de72e6715c"
   },
   {
     "id": "new-two-timing-pro-astral",
@@ -5151,7 +5153,9 @@
     "imagePending": false,
     "pack": "Default Pack",
     "addedAt": "2026-11-09",
-    "source": "print original enviado pelo usuário em 09/11/2026"
+    "source": "print original enviado pelo usuário em 09/11/2026",
+    "imagePixelSha256": "a3191aaf562095d757d482f986a7a924cc381037c9e9834968366cd9dc4690e9",
+    "imageSha256": "ec387c1adfa30d25f532207cd004472e56201d662e3a34fad0e79b521441e05e"
   },
   {
     "id": "s-357",
@@ -5389,7 +5393,9 @@
     "confirmedAt": "2026-11-10",
     "source": "print original enviado pelo usuário em 10/11/2026",
     "sourceDrive": "https://drive.google.com/file/d/1QoMfNlOq0SigoTs-1jwhAa1KIHP8sEMe/view?usp=drivesdk",
-    "importedImage": "assets/supports/UNBEATABLE%20FLAVOR%20-%20CALAMITY%20%5BScreenshot_13%5D.png"
+    "importedImage": "assets/supports/UNBEATABLE%20FLAVOR%20-%20CALAMITY%20%5BScreenshot_13%5D.png",
+    "imagePixelSha256": "8995e43cf2201322777d9b9553309a495ea1b5bb494402989d17d730e66e5876",
+    "imageSha256": "f8c661c06c936a025baa048fd5638f67789b4dc2d273f70a289bd7175d245518"
   },
   {
     "id": "s-381",
@@ -5475,7 +5481,9 @@
     "confirmedAt": "2026-11-10",
     "source": "print original enviado pelo usuário em 10/11/2026",
     "sourceDrive": "https://drive.google.com/file/d/15w78cHgbWDVvIiEH4uMYjukI6J8oaTKq/view?usp=drivesdk",
-    "importedImage": "assets/supports/ASHEN%20ARCANUM%20-%20CALAMITY%20%5BScreenshot_5%5D.png"
+    "importedImage": "assets/supports/ASHEN%20ARCANUM%20-%20CALAMITY%20%5BScreenshot_5%5D.png",
+    "imagePixelSha256": "806e286bc63a437088921d7b4be9b953a381d4c8931d78346c9deb7d553a7f20",
+    "imageSha256": "3aeaa3b683c21fbc30c98398ea35ca6db1641f1132fb02de6126ea402379252c"
   },
   {
     "id": "s-389",
@@ -5532,7 +5540,9 @@
     "confirmedAt": "2026-11-10",
     "source": "print original enviado pelo usuário em 10/11/2026",
     "sourceDrive": "https://drive.google.com/file/d/18USLVfAgY8l8mvMh6lCZiCpc-cw_umIM/view?usp=drivesdk",
-    "importedImage": "assets/supports/DORO%20-%20SHIELD%20%5Bsup2%5D.png"
+    "importedImage": "assets/supports/DORO%20-%20SHIELD%20%5Bsup2%5D.png",
+    "imagePixelSha256": "cad3ae26dce33ba644ee5f1cf259bb826885882bc8bc0224e553935ae205a76e",
+    "imageSha256": "76081755f6b880d79d787c9e02c0aff11340607b8ea0d813c4535a8a766ea0bb"
   },
   {
     "id": "new-death-ledger-god-normal",
@@ -5554,7 +5564,9 @@
     "imagePending": false,
     "addedAt": "2026-11-10",
     "source": "print original enviado pelo usuário em 10/11/2026",
-    "sourceDrive": "https://drive.google.com/file/d/1P4RuI7prPuVh0KiNliBwr367jhwhja9c/view?usp=drivesdk"
+    "sourceDrive": "https://drive.google.com/file/d/1P4RuI7prPuVh0KiNliBwr367jhwhja9c/view?usp=drivesdk",
+    "imagePixelSha256": "182eb7645f4e0196701f48d031503ba4010000940e3f1e3f0f459f184c996876",
+    "imageSha256": "f3f4499ebf61da464a5e4c793b101a009ec0574905f50fa8b450287e4743866b"
   },
   {
     "id": "new-emy-evolved-calamity",
@@ -5578,7 +5590,9 @@
     "imagePending": false,
     "addedAt": "2026-11-10",
     "source": "print original enviado pelo usuário em 10/11/2026",
-    "sourceDrive": "https://drive.google.com/file/d/142x8-e5hu_3u6pNvkF4UAaYxywE89dj4/view?usp=drivesdk"
+    "sourceDrive": "https://drive.google.com/file/d/142x8-e5hu_3u6pNvkF4UAaYxywE89dj4/view?usp=drivesdk",
+    "imagePixelSha256": "90ba4055ee7da6daa27a0b5d574c03c6ed94582581c3d487e2779db1239f4e65",
+    "imageSha256": "7e6a44156559d54c8b0f087af30c3ec7c41ce982a79a985ae518f5831f58485f"
   },
   {
     "id": "new-last-hunting-party-normal",
@@ -5600,7 +5614,9 @@
     "imagePending": false,
     "addedAt": "2026-11-10",
     "source": "print original enviado pelo usuário em 10/11/2026",
-    "sourceDrive": "https://drive.google.com/file/d/1IkBEL5UFoXYJzgbccv4JRM7Pb-SlsyLp/view?usp=drivesdk"
+    "sourceDrive": "https://drive.google.com/file/d/1IkBEL5UFoXYJzgbccv4JRM7Pb-SlsyLp/view?usp=drivesdk",
+    "imagePixelSha256": "efb3f3ba0137ab75aba73989b5ed1a02122ac86d421efffeeef450bc34ec484f",
+    "imageSha256": "88ba5226aca993f95b28f0b2ed6b28cd302c10df0d46897e827ec247b40bd033"
   },
   {
     "id": "new-holy-maiden-knight-calamity",
@@ -5622,7 +5638,9 @@
     "imagePending": false,
     "addedAt": "2026-11-10",
     "source": "print original enviado pelo usuário em 10/11/2026",
-    "sourceDrive": "https://drive.google.com/file/d/1n-X0qNkNnOCmG9-vp2h9j3mj8YNDgyEk/view?usp=drivesdk"
+    "sourceDrive": "https://drive.google.com/file/d/1n-X0qNkNnOCmG9-vp2h9j3mj8YNDgyEk/view?usp=drivesdk",
+    "imagePixelSha256": "e3b26228275f019ecd568cb2fb0fb97e37d5b611ebb0f85f421e0c33c8bc5f31",
+    "imageSha256": "bceff84ca1746f749a9c3e87fbec7e709c906e82e2ef07a3cd3b1cd5dec37826"
   },
   {
     "id": "new-no-longer-human-umbral",
@@ -5644,7 +5662,9 @@
     "imagePending": false,
     "addedAt": "2026-11-10",
     "source": "print original enviado pelo usuário em 10/11/2026",
-    "sourceDrive": "https://drive.google.com/file/d/1YXTmm9vF0j1QeQX4DvtNysCrXudhY0iH/view?usp=drivesdk"
+    "sourceDrive": "https://drive.google.com/file/d/1YXTmm9vF0j1QeQX4DvtNysCrXudhY0iH/view?usp=drivesdk",
+    "imagePixelSha256": "d6604cf4b666f660ba01d3289210be2d888df4d5bcd0d4215c14aaf141125e04",
+    "imageSha256": "0ea0e29d2dd4bdae2ea88d9973498ad5699ec9133291bbc32dcebfe16186bb5a"
   },
   {
     "id": "new-realitys-worst-duet-umbral",
@@ -5666,7 +5686,9 @@
     "imagePending": false,
     "addedAt": "2026-11-10",
     "source": "print original enviado pelo usuário em 10/11/2026",
-    "sourceDrive": "https://drive.google.com/file/d/1PPpDTmZVFuUjWZdnqCp7aAdet2zZSL4_/view?usp=drivesdk"
+    "sourceDrive": "https://drive.google.com/file/d/1PPpDTmZVFuUjWZdnqCp7aAdet2zZSL4_/view?usp=drivesdk",
+    "imagePixelSha256": "ba00bdc04e008fd6bf95008a2448efd83f0e6dbc3d7ce84295ecc9be46f178c4",
+    "imageSha256": "ed2ceb530062519372663808f60d4bbe4e2248e54a50d972f95dfd5e28f03869"
   },
   {
     "id": "new-irregular-climber-normal",
@@ -5688,7 +5710,9 @@
     "imagePending": false,
     "addedAt": "2026-11-10",
     "source": "print original enviado pelo usuário em 10/11/2026",
-    "sourceDrive": "https://drive.google.com/file/d/1OJF4ZsCftRnoeBtAulCIjGJJlSetTn5c/view?usp=drivesdk"
+    "sourceDrive": "https://drive.google.com/file/d/1OJF4ZsCftRnoeBtAulCIjGJJlSetTn5c/view?usp=drivesdk",
+    "imagePixelSha256": "972b4ab50fb4adf6178334d12e4fcd5a42cfd9172daea8f2f03b0b345836fa1b",
+    "imageSha256": "7ed14b01d7f96270933baf4f7becb36fe653d145e50721c2b8ec6763d5f3cb16"
   },
   {
     "name": "DIVINE KNIGHT",
@@ -5711,7 +5735,9 @@
     "source": "print original enviado pelo usuário em 10/11/2026",
     "sourceDrive": "https://drive.google.com/file/d/1VveGNfrjt10_0haTtvmhooQeq0GE-BLy/view?usp=drivesdk",
     "image": "assets/cards/DIVINE_KNIGHT_NORMAL.png",
-    "pack": "Default Pack"
+    "pack": "Default Pack",
+    "imagePixelSha256": "b6103bd202bdb1e62ec15e61595c8dde4610ef15642479d25af862413dab85c9",
+    "imageSha256": "fe6fd844b05b67d1a54b38b1187f0c2bb4103709501dda22b2b14ac50a4aae51"
   },
   {
     "name": "CURSED KING VESSEL",
@@ -5734,7 +5760,9 @@
     "source": "print original enviado pelo usuário em 10/11/2026",
     "sourceDrive": "https://drive.google.com/file/d/1WMLJp8FxqErfUEl22P8lBva7iXqeEk7g/view?usp=drivesdk",
     "image": "assets/cards/CURSED_KING_VESSEL_UMBRAL.png",
-    "pack": "Default Pack"
+    "pack": "Default Pack",
+    "imagePixelSha256": "1984a147a0fd161a28f14d0f7286e625180f90a410063761edaf061f6acf7a73",
+    "imageSha256": "54343ab432d3b8036b7a0addc5e0a8569527b9a4ae49526b8710b9e2a44815c4"
   },
   {
     "name": "DIVINE SPIRIT WATERS",
@@ -5756,7 +5784,9 @@
     "confirmedAt": "2026-11-10",
     "source": "print original enviado pelo usuário em 10/11/2026",
     "sourceDrive": "https://drive.google.com/file/d/18Nc0KKOotg3GZPgiNZHjWdstea1zCeox/view?usp=drivesdk",
-    "image": "assets/supports/DIVINE_SPIRIT_WATERS_CALAMITY.png"
+    "image": "assets/supports/DIVINE_SPIRIT_WATERS_CALAMITY.png",
+    "imagePixelSha256": "3b0ac9313da8f88c723198501446b01db41fc241f23a4cd680b94339211e563e",
+    "imageSha256": "93a1ff231a311fe44e16b46dd7590dd486efa02eaf3df907954c27e27c51a0a1"
   },
   {
     "name": "ASTRAL DEVOURER",
@@ -5776,6 +5806,8 @@
     "confirmedAt": "2026-11-10",
     "source": "print original enviado pelo usuário em 10/11/2026",
     "sourceDrive": "https://drive.google.com/file/d/1ISa4dw5ixMQ9i6LDjBuXga0IIsGQU3O0/view?usp=drivesdk",
-    "image": "assets/supports/ASTRAL_DEVOURER_BUFF.png"
+    "image": "assets/supports/ASTRAL_DEVOURER_BUFF.png",
+    "imagePixelSha256": "2a005b70ef9bdb74c1d6bb2646cfd0d169596e53ab4436b705ce130352f66f6f",
+    "imageSha256": "8d1e9e371ead400696a81b161cb321fe9e96df1cc3fb88b6c26ad58e3cba97b1"
   }
 ]
