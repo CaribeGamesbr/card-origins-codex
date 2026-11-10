@@ -92,6 +92,8 @@ Para calibrar, precisamos de mais andares com o mesmo inimigo e os mesmos modifi
 
 A entrada principal passa a ter dois objetivos e o andar inicial. HP, DMG, andar-base, crescimento, elemento, Dodge, Elements Mode, Path do teste manual, quantidade de tentativas e referências dos prints ficam recolhidos em **Ajustes avançados**. Os atributos de calibração e as formações salvas são preservados. A busca sugere o resultado; usar no Infinite ou salvar no Deck continua exigindo a ação do proprietário.
 
+Na migração inicial, quando andar, HP e DMG coincidem exatamente com um print conhecido, uma base antiga divergente é corrigida para o andar desse print, com aviso visível. Foi encontrada a combinação andar 1 / HP 18 / DMG 10 ainda associada à base 261. A correção passa a usar base 1. A migração ocorre uma única vez; atributos personalizados, crescimento e alterações posteriores em Ajustes avançados são preservados.
+
 | Objetivo | Cenário de comparação | Ordem do ranking |
 | --- | --- | --- |
 | Chegar mais longe | Quatro inimigos por wave, até a equipe cair ou completar até 1.000 waves, respeitando o teto do andar 20.000 | Maior chegada média; depois abates, frequência de chegada ao teto, perdas e HP restante |

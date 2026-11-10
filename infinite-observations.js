@@ -8,5 +8,6 @@ const records=Object.freeze([
 ]);
 function compare(a,b){if(!a||!b||!(a.hp>0&&a.dmg>0))throw Error('Referências inválidas.');return Object.freeze({hpChange:b.hp/a.hp-1,dmgChange:b.dmg/a.dmg-1,sameEnemy:a.name===b.name,growthConfirmed:false});}
 function scenarioFor(id,current={}){const r=records.find(r=>r.id===id);if(!r)throw Error('Referência não encontrada.');const to=Number(current.ifTo);return {...current,ifFrom:r.floor,ifBase:r.floor,ifTo:Number.isInteger(to)&&to>=r.floor&&to<=Math.min(20000,r.floor+150)?to:r.floor,ifHp:r.hp,ifDmg:r.dmg,ifElement:r.element,ifElementsMode:false};}
-return Object.freeze({records,compare,scenarioFor});
+function alignKnownBaseline(current={}){const r=records.find(r=>r.floor===Number(current.ifFrom)&&r.hp===Number(current.ifHp)&&r.dmg===Number(current.ifDmg));return r&&r.floor!==Number(current.ifBase)?{...current,ifBase:String(r.floor)}:{...current};}
+return Object.freeze({records,compare,scenarioFor,alignKnownBaseline});
 });
