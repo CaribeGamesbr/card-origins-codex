@@ -88,7 +88,7 @@
 #page-planner #tpSetupDialog .tp-status{font-size:10px;margin:0 2px}
 #page-planner #tpSetupDialog .tp-team-panel{padding:0;border:0;border-radius:0;background:transparent}
 #page-planner .tps-team{display:block;min-width:0;padding-top:8px}
-#page-planner .tps-roster{max-width:960px;gap:12px;align-items:start}
+#page-planner .tps-roster{max-width:800px;gap:12px;align-items:start}
 #page-planner .tps-team .if-section-label{margin:0 0 14px;font-size:10px}
 #page-planner .tps-team .if-section-label small{font-size:10px}
 #page-planner .tps-circuit-count{font-size:8px;color:#bbd8ff;padding:4px 6px;border:1px solid #4c6999;border-radius:4px;background:#1a2949}
@@ -108,7 +108,7 @@
 #page-planner .tps-editor summary{font-size:9px;color:#bad1ee;font-weight:700;cursor:pointer}
 #page-planner .tps-editor>label,#page-planner .tps-editor>.tp-card-fields{margin-top:12px}
 #page-planner .tps-editor>small{display:block;color:#93a7c8;font-size:9px;line-height:1.6;margin-top:10px}
-#page-planner .tps-team .if-link-strip,#page-planner .tps-team .if-totals,#page-planner .tps-team .if-buff-details{max-width:960px}
+#page-planner .tps-team .if-link-strip,#page-planner .tps-team .if-totals,#page-planner .tps-team .if-buff-details{max-width:800px}
 #page-planner .tps-team .if-link-strip{margin-top:16px;margin-bottom:10px}
 #page-planner .tps-team .if-totals>div{padding:11px}
 #page-planner .tps-team .if-totals strong{font-size:23px}
