@@ -2,7 +2,7 @@ const assert=require('node:assert/strict');
 const O=require('../infinite-observations.js');
 const [first,second]=O.records,delta=O.compare(first,second);
 assert.equal(first.hp,18);assert.equal(second.hp,22);assert(Math.abs(delta.hpChange-2/9)<1e-12);assert(Math.abs(delta.dmgChange-.1)<1e-12);
-assert.equal(delta.sameEnemy,false);assert.equal(delta.growthConfirmed,false);assert(O.records.every(r=>r.abilityComplete===false&&r.elementsMode===null));
+assert.equal(delta.sameEnemy,false);assert.equal(delta.growthConfirmed,false);assert(O.records.every(r=>r.elementsMode===null));assert(O.records.slice(0,3).every(r=>r.abilityComplete===false));
 const original={ifFrom:261,ifBase:261,ifTo:300,ifHp:6061,ifDmg:2648,ifElement:'Unknown',ifGrowth:'1',ifElementsMode:true,ifDodge:'15',ifEnemies:'2',untouched:'preserved'};
 const one=O.scenarioFor(first.id,original);
 assert.deepEqual([one.ifFrom,one.ifBase,one.ifTo,one.ifHp,one.ifDmg],[1,1,1,18,10]);assert.equal(one.ifElementsMode,false);assert.equal(one.ifGrowth,'1');assert.equal(one.untouched,'preserved');assert.equal(one.ifDodge,'15');assert.equal(original.ifBase,261);assert.equal(original.ifElementsMode,true);

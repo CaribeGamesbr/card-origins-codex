@@ -112,3 +112,44 @@ O alcance não é um máximo matemático: é a melhor candidata encontrada na bu
 - Atualizações da busca são divididas em intervalos curtos para permitir interação com o botão Parar. O teste manual e a comparação dos Paths usam o mesmo objetivo selecionado.
 
 Validação automatizada: ranking distinto de distância e velocidade, rejeição de derrota rápida como bom rush, contabilização de waves parciais, splash em três alvos adicionais, ausência de turnos em alvos mortos, limites de segurança, reprodução por semente, sete Paths, candidatos válidos, suportes únicos, interrupção e preservação do catálogo. Executar `node scripts/test-infinite-search.js`, `node scripts/test-infinite-observations.js` e `node scripts/test-tree-planner-team.js`.
+
+## Correção do resultado e referência do andar 822 — 10/11/2026
+
+Esta seção revisa os números de alcance publicados anteriormente. A combinação de crescimento hipotético, ordem de ações simplificada e efeitos com persistência não confirmada permitia mostrar o teto de 1.000 como chegada média/melhor andar. Esse teto não era uma previsão validada no Roblox. A interface principal passa a exibir **Alcance real: não calibrado**; os números hipotéticos ficam em detalhes.
+
+### Chain Avenger: inimigo observado no andar 822
+
+- O andar 822 foi informado pelo proprietário; não aparece no recorte.
+- A barra mostra **1/104.144**. Portanto, **HP máximo 104.144**, HP restante 1.
+- **DMG exibido 35.991**, observado durante o combate. Buffs ativos, elemento, Path, Tier e Elements Mode não estão confirmados; o valor não foi classificado como DMG-base sem modificadores.
+- O recorte confirma apenas um inimigo. Não comprova que os quatro da wave tenham esses mesmos atributos.
+- [Print original no Drive](https://drive.google.com/file/d/1im4NEWiR0Y6uE5I4ltLrNMkP4fP3RPjb/view); cópia em `assets/references/FLOOR_822_CHAIN_AVENGER.png`.
+
+Texto visível: “Each direct hit binds the target with a Chain (max 3); each Chain cuts its DMG by 8% (4% for Bosses). At 3 Chains, Judgment Chain Silences the enemy for 1 turn and deals 60% DMG, then its Chains break. When an ally is defeated, enter Scarlet Eyes for 3 turns: +30% DMG and each hit binds 2 Chains.”
+
+Português: cada acerto direto prende o alvo com uma Chain, até 3; cada uma reduz o DMG dele em 8% (4% contra chefes). Com 3, Judgment Chain aplica Silence por 1 turno e causa 60% do DMG, depois quebra as Chains. Quando um aliado é derrotado, entra em Scarlet Eyes por 3 turnos: +30% de DMG e cada hit aplica 2 Chains.
+
+O relato de queda perto do andar 800 com uma carta de aproximadamente 40.000 HP e 15.000 DMG foi guardado separadamente. Nome, formação e condições não foram inferidos, e esses valores não substituem nenhum registro de carta possuída. Não foi ajustada uma taxa de crescimento para forçar derrota no 800.
+
+### Teste independente e confiança do resultado
+
+Cada candidata recebe também um teste isolado contra **um** Chain Avenger com os atributos exibidos de 822. A equipe começa com HP cheio e estados reiniciados. Elements Mode e crescimento não multiplicam novamente esses valores. Chains, Silence, Scarlet Eyes e outros modificadores não são executados neste teste. Ele mede resistência no modelo; não comprova vencer a wave completa nem reproduz a run até 822.
+
+No modo alcance, a sobrevivência nesse teste independente vem antes dos desempates do cenário hipotético. No rush, a verificação é exibida separadamente e não altera a prioridade de velocidade nas waves escolhidas. Se nenhuma finalista vencer a referência, o resultado informa isso explicitamente. O crescimento entre inimigos e andares diferentes permanece sem calibração.
+
+### Correções do motor
+
+- Removida a reserva ilimitada de Overhealth de Abundance. A captura confirma que é temporário, mas não sua duração. O efeito fica omitido e o Path sai da busca automática, sem atribuir uma duração ou limite inventado. Seis Paths permanecem na busca; Abundance continua documentado com a pendência explícita.
+- O bônus de King of Curses de +10% por abate é transcrito. Sua persistência entre waves ainda não foi validada. O modelo conserva os ganhos dentro de cada wave, mas deixa de transportá-los entre andares. Isso é uma limitação conservadora do simulador, **não uma afirmação de que o jogo reinicia o bônus a cada wave**.
+- Retiradas variações aleatórias não confirmadas de HP/DMG, a chance-base presumida de errar, o bônus médio de dano inventado para Eye Deal e o Dodge aleatório de 15% atribuído a Demonic Swordsaint. Sorteios confirmados de habilidades e Paths continuam disponíveis. Sorcerer Killer não ganha acerto garantido por suposição.
+- B.O.B. de Ashey passa a acompanhar o crítico, em vez de causar dano adicional em todos os hits. Blood Wounds de Blue Wolf passam a depender do ataque do inimigo marcado, em vez de acumular em hits livres contra inimigos que não chegaram a atacar.
+- Serenity deixa de acumular proteção fatal com as cartas de resistência/revive intrínseco confirmado (Magician, Fullmetal Alchemist e Bomb Girl).
+- Limit Breaker aplica os 6 pontos percentuais adicionais de splash com Erudition e os 2% de splash fora dele, conforme a transcrição já existente. Os demais efeitos continuam parciais.
+
+### Recomendação visual completa
+
+O resultado da busca agora mostra quatro cartas ampliáveis, os três pares de Origin Circuits com nome e descrição e quatro suportes ilustrados, vinculados aos slots da própria candidata. Há um link para o guia dos circuitos. As conexões são calculadas por `infinite-formation.js`, compartilhado com o painel; mostrar um vínculo não significa que todos os seus gatilhos já estejam modelados.
+
+Regressão reproduzida: no cenário hipotético antigo (andar/base 1, HP inimigo 18, DMG 10, crescimento 1%, Elements Mode ligado), a recomendação King of Curses / Emy / Blue Wolf / Ashey com Erudition chegava ao teto de 1.000 em 120/120 testes. Com as correções, a mesma configuração deixou de completar esse teto e não venceu o teste isolado de 822. Isso valida a correção do modelo; não transforma seu novo número interno em alcance real calibrado.
+
+Testes: `test-infinite-report.js` cobre a formação independente, circuitos e imagens/efeitos de suporte, HP máximo versus restante, um único inimigo observado, ordenação pelo teste 822, exclusão de Overhealth sem duração, restrição de Serenity, splash de Limit Breaker, Blood Wounds e a recomendação antiga. O catálogo mantém **423 registros** sem alterações.
