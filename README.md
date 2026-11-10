@@ -100,3 +100,8 @@ Segunda remessa de 10/11/2026: 2 cartas principais e 2 suportes novos, mais 3 su
 ### Leitor experimental retirado
 
 O leitor automático de prints foi retirado em 10/11/2026. O código histórico e a documentação foram preservados para consulta, mas não são carregados no site. O endereço do cadastro foi removido da configuração pública e a implantação privada foi desativada. [Registro histórico](docs/CADASTRO_CARTAS.md).
+
+**Experimento privado com Gemini, ainda inativo no site:** chave configurada em propriedades protegidas e conexão confirmada. As três leituras reais de imagem falharam com HTTP 503; nenhuma extração visual foi validada. O código experimental preserva campos desconhecidos, revisão manual e as gravações existentes, com limite de 30 tentativas/dia e sem repetição automática. O menu de cadastro continua retirado até uma leitura real funcionar e ser conferida. Veja o estado atual em [Cadastro de cartas](docs/CADASTRO_CARTAS.md).
+
+
+Terceira remessa de 10/11/2026: 4 variantes principais novas e 2 imagens mais nítidas, sem duplicar as cartas existentes. Total atual: **423 registros = 384 principais + 39 suportes; 39 principais transcritas e 345 pendentes**. Referências do Infinite: andar 1 (Widow, HP 18, DMG 10) e andar 2 (Sinner Ruler of Life, HP 22, DMG 11); inimigos diferentes não confirmam uma taxa de crescimento.

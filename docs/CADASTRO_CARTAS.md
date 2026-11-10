@@ -4,6 +4,18 @@
 
 As instruções abaixo descrevem a implementação anterior e não devem ser usadas como indicação de que o recurso está ativo.
 
+## Experimento privado com Gemini — 10/11/2026
+
+O proprietário configurou `GEMINI_API_KEY` nas propriedades protegidas do mesmo projeto. O novo instalador usa visão da API do Gemini no servidor: a chave não é enviada ao navegador, incluída no código público ou colocada em URLs. `GeminiClient.js` substitui o leitor OCR no bundle experimental; `Reader.js` permanece apenas no histórico. O modelo pode ser escolhido pela propriedade `GEMINI_MODEL`.
+
+O teste de conexão consultou a API com sucesso, mas **as três tentativas reais de leitura de imagem retornaram HTTP 503**, em `gemini-3.8-flash` (duas) e `gemini-3.5-flash` (uma). Portanto, a extração visual ainda não foi validada. O menu público permanece removido, `card-admin-config.json` permanece desativado e a implantação publicada continua arquivada. O acesso de desenvolvimento pertence apenas ao proprietário. Nenhuma carta foi salva por essas tentativas e nenhum faturamento foi ativado.
+
+O envio de imagem usa a cota da conta Gemini, separada desta conversa. O aplicativo limita as tentativas a 30 por dia, reutiliza respostas bem-sucedidas do mesmo print por 30 minutos e não repete chamadas nem troca de modelo automaticamente. Isso não é uma garantia de gratuidade, disponibilidade ou qualidade igual à interpretação do assistente.
+
+O contrato de leitura exige transcrição literal do texto visível e tradução fiel para português. Atributos ausentes ou ambíguos ficam vazios; habilidades cortadas não são completadas. Edições manuais são preservadas e o proprietário precisa revisar antes de salvar no GitHub e no documento. Os testes locais verificam esse contrato, limites e preservação de dados usando respostas simuladas; não substituem uma leitura bem-sucedida na API real.
+
+O próximo passo para reativação é obter e conferir uma leitura real, atualizar uma implantação privada e restaurar os pontos de entrada do site de forma explícita. Não reativar com base apenas no teste de conexão.
+
 ---
 
 # Cadastro de cartas pelo proprietário

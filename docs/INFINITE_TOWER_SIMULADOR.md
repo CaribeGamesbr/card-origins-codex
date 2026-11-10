@@ -71,3 +71,19 @@ A interface foi reorganizada a partir do Deck Builder: quatro prints ampliáveis
 - Layout responsivo: quatro cartas em telas grandes e duas colunas no celular; seletores e ampliação usam janela com navegação por teclado.
 
 Não foram alterados o catálogo, as habilidades transcritas ou o motor de combate. No Continue, crescimento real e interações não confirmadas continuam pendentes. O novo painel facilita a preparação de testes; não torna as estimativas uma garantia de vitória.
+
+## Referências reais dos andares 1 e 2 — 10/11/2026
+
+| Andar | Inimigo | HP máximo exibido | DMG exibido |
+| --- | --- | --- | --- |
+| 1 | Widow | 18 (barra cheia: 18/18) | 10 |
+| 2 | Sinner Ruler of Life | 22 (barra cheia: 22/22) | 11 |
+| 261 | Game Princess (referência anterior) | 6.061 | 2.648 |
+
+A diferença observada entre os dois primeiros prints é HP +22,222…% e DMG +10%. São **inimigos diferentes**, com habilidades parcialmente visíveis e modificadores da run não confirmados. Isso não identifica uma lei de crescimento por andar. O valor de 1% continua uma hipótese ajustável; não foi substituído pelos percentuais observados. Nenhuma habilidade cortada foi completada ou executada por suposição.
+
+`infinite-observations.js` mantém os atributos de batalha separados do catálogo de cartas possuídas. O painel ativo (`infinite-panel.js`) exibe as referências e permite carregar HP, DMG, elemento e andar-base. O objetivo é conservado quando válido para o novo andar; caso contrário, passa para o próprio andar da referência. O crescimento, time, suportes, Path e Tier são preservados. Elements Mode é desligado ao carregar, para não reaplicar um multiplicador desconhecido sobre os valores já exibidos. Os presets não confirmam que a captura estava ou não nesse modo.
+
+Prints: [Widow / andar 1](https://drive.google.com/file/d/1Zas_zBi4g0aXAmnh1QliI90-_uvoHdTC/view) e [Sinner Ruler of Life / andar 2](https://drive.google.com/file/d/1cEVB8QIaA_GOYIbA2q8n-cm-zqD6kDfo/view). Cópias originais em `assets/references/`.
+
+Para calibrar, precisamos de mais andares com o mesmo inimigo e os mesmos modificadores, além de registros de dano, cura e habilidades durante batalhas. O motor de combate não foi alterado nesta inclusão de referências.

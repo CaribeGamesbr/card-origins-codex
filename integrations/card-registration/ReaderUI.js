@@ -12,15 +12,15 @@ function controls(){document.getElementById('save').disabled=reading;retry.disab
 function cancel(){epoch++;reading=false;reader.cancel();controls();}
 async function start(){
  const file=fileInput.files[0];if(!file||busy||currentResult)return;
- const mine=++epoch,initial=Object.fromEntries(reader.FIELDS.map(k=>[k,form.elements[k].value]));reading=true;reviewReset();controls();announce('Preparando a leitura do print… Na primeira vez, o leitor precisa ser baixado.');
+ const mine=++epoch,initial=Object.fromEntries(reader.FIELDS.map(k=>[k,form.elements[k].value]));reading=true;reviewReset();controls();announce('Preparando o print para enviar ao Gemini…');
  let timer;
  try{
-  const data=await Promise.race([reader.read(file,rect,(phase,percent)=>{if(epoch===mine)announce(phase+'… '+percent+'%');}),new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('A leitura demorou demais. Tente novamente ou preencha manualmente.')),120000);})]);
+  const data=await Promise.race([reader.read(file,rect,(phase,percent)=>{if(epoch===mine)announce(phase+(percent==null?'…':'… '+percent+'%'));}),new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('A leitura demorou demais. Tente novamente ou preencha manualmente.')),180000);})]);
   if(mine!==epoch)return;rect=data.rect;let filled=0,kept=0;const next={};
-  for(const k of reader.FIELDS){const field=form.elements[k],value=data.fields[k]||'';if(value&&value!=='Unknown'&&((k==='type'&&!typeTouched)||reader.canReplace(field.value,initial[k],lastAuto[k]))){field.value=value;field.classList.add('ocrFilled');next[k]=field.value;filled++;}else if(field.value&&field.value!=='Unknown'){kept++;}}
-  syncType();lastAuto={...lastAuto,...next};raw.textContent=data.raw;document.getElementById('ocrDetails').hidden=false;
+  for(const k of reader.FIELDS){const field=form.elements[k],value=data.fields[k]||'';if((!value||value==='Unknown')&&lastAuto[k]!==undefined&&field.value===lastAuto[k]){field.value=field.tagName==='SELECT'?(k==='type'?'':'Unknown'):'';field.classList.remove('ocrFilled');delete lastAuto[k];}if(value&&value!=='Unknown'&&((k==='type'&&!typeTouched)||reader.canReplace(field.value,initial[k],lastAuto[k]))){field.value=value;field.classList.add('ocrFilled');next[k]=field.value;filled++;}else if(field.value&&field.value!=='Unknown'){kept++;}}
+  document.dispatchEvent(new Event('gemini-vision-read'));syncType();lastAuto={...lastAuto,...next};raw.textContent=(data.raw||'')+(data.warnings?.length?'\n\nAvisos: '+data.warnings.join(' · '):'');document.getElementById('ocrDetails').hidden=false;
   const pending=Object.keys(labels).filter(k=>form.elements.type.value!=='support'||!['hp','dmg','element','border'].includes(k)).filter(k=>!form.elements[k].value||form.elements[k].value==='Unknown').map(k=>labels[k]);
-  announce((data.knownMatch?'Print idêntico a um já confirmado no catálogo. ':'' )+(filled?'Preenchi '+filled+' campos. ':'Não consegui preencher os campos com segurança. ')+(kept?'Mantive os campos que já estavam preenchidos. ':'')+'Confira tudo com o print antes de salvar.'+(pending.length?' Pendentes: '+pending.join(', ')+'.':'')+(file&&rect.w<.9?' Use Ajustar área se a seleção não corresponder à carta.':''));
+  announce(('Gemini '+data.model+(data.cached?' · leitura reutilizada do mesmo print. ':'. '))+(filled?'Preenchi '+filled+' campos. ':'Não consegui preencher os campos com segurança. ')+(kept?'Mantive os campos que já estavam preenchidos. ':'')+'Confira tudo com o print antes de salvar.'+(data.warnings?.length?' Avisos: '+data.warnings.join(' · '):'')+(pending.length?' Pendentes: '+pending.join(', ')+'.':'')+(file&&rect.w<.9?' Use Ajustar área se a seleção não corresponder à carta.':''));
  }catch(error){if(mine===epoch){await reader.cancel();announce(error.message||'Não foi possível ler. Tente ajustar a área ou preencha manualmente.',true);}}
  finally{clearTimeout(timer);if(mine===epoch){reading=false;controls();}}
 }
