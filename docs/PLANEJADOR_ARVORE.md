@@ -31,6 +31,14 @@ O editor permite marcar aprendidos e disponíveis por perfil. Importar minha ár
 
 ### Interface visual no estilo da Skill Tree
 
+**Configurar planejamento** agora apresenta a equipe no mesmo formato do painel do Infinite: quatro cartas com imagens grandes, atributos registrados, circuitos adjacentes, botões Trocar/Ampliar e setas de ordem. A troca usa busca no catálogo completo; cartas sem dados continuam identificadas como pendentes e imagens ausentes não são substituídas por outra variante. O editor de dados manuais permanece recolhido em cada carta e permite informar HP/DMG confirmados.
+
+Os totais indicam quantas cartas têm atributos registrados e mostram **parcial** quando faltam dados. Circuitos e ressonâncias são apenas uma referência visual baseada nas regras já registradas no painel do Infinite, sem somar bônus aos atributos base nem ao índice do planejador.
+
+Há quatro slots de suporte opcionais, salvos no respectivo perfil como referência. Ao mudar a ordem, cada suporte acompanha sua carta. A importação do Deck/Infinite copia os suportes da mesma origem, preservando a formação original. Perfis antigos recebem slots vazios; nenhum suporte é equipado silenciosamente. Os efeitos dos suportes continuam fora do cálculo da árvore. As restrições de suporte único já registradas são mantidas, e efeitos pendentes não são inventados.
+
+Pontos, reserva, objetivo, Path e marcações ficam abaixo da formação; **Usar time e calcular** aplica a configuração ao mapa. A reorganização está em `tree-planner-team.js` e não altera o motor de recomendações, o catálogo ou o progresso pessoal da Skill Tree.
+
 O planejador abre em tela cheia com a mesma organização do menu Skill Tree: sete ramos à esquerda, mapa de talentos no centro e detalhes à direita. O botão **Configurar** reúne time, perfil, pontos, reserva, objetivo, Path e marcações. A comparação completa e a lista de prioridades ficam em **Lista / Paths**, sem ocupar a tela principal.
 
 O mapa diferencia **sugeridos em azul**, **já aprendidos em verde** e os demais em cinza. Clicar em um talento mostra custo, efeito registrado e motivo da sugestão, e permite marcar aprendido/disponível apenas no perfil do planejador. A busca aceita nomes em inglês e português; há visão geral dos sete ramos, enquadramento, arraste, zoom e navegação entre sugestões.
@@ -44,3 +52,5 @@ Os pré-requisitos oficiais precisam ser confirmados para que o projeto possa ga
 ## Verificação
 
 `node scripts/test-tree-planner.js` verifica orçamento/reserva, zero pontos, aprendidos e disponibilidade, exclusividade de Unbound por Path, exclusão de efeitos desconhecidos, entradas inválidas e a otimização de mochila contra enumeração exaustiva de pequenos exemplos. `node scripts/test-tree-planner-map.js` verifica os sete ramos, visão geral, nós ocultos, fidelidade das conexões e preservação dos dados de origem. Verificação de sintaxe: `node --check tree-planner-ui.js` e `node --check tree-planner-map.js`.
+
+`node scripts/test-tree-planner-team.js` verifica movimentação conjunta carta/suporte, preservação do perfil, totais incompletos, circuitos adjacentes, compatibilidade com os nomes já registrados e migração dos slots de suporte.

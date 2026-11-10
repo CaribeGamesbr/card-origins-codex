@@ -78,3 +78,54 @@
 @media(max-width:970px){#page-planner .st-head-actions .st-action{min-width:90px;font-size:8px}#page-planner .st-heading h1{font-size:24px}#page-planner .st-heading p{max-width:180px}#page-planner .st-path-item{gap:4px}#page-planner .st-path-symbol{min-width:21px;width:21px;height:24px}#page-planner .st-path-middle strong{font-size:9px}#page-planner .st-path-count{font-size:6px}#page-planner .tpm-count{right:6px}#page-planner .tpm-map-top button{font-size:8px;padding:7px}#page-planner .st-detail .st-detail-emblem{height:100px;width:100px}}
 @media(max-width:780px){#page-planner.active{overflow:auto!important}#page-planner .st-scene{min-height:860px}#page-planner .st-heading h1{font-size:22px}#page-planner .st-heading p{font-size:7px;max-width:180px}#page-planner .st-head-actions .st-action{min-width:76px;max-width:80px;font-size:7px;padding:3px}#page-planner .st-head-actions .st-action-close{min-width:30px;font-size:20px}#page-planner .st-paths{top:117px;height:127px;bottom:auto}#page-planner .st-path-buttons{flex-shrink:0}#page-planner .st-path-item{min-width:143px;max-width:143px;min-height:43px}#page-planner .st-path-middle strong{font-size:10px}#page-planner .st-path-count{font-size:7px}#page-planner .tpm-legend{padding:2px 3px;gap:12px;font-size:8px}#page-planner .st-map{top:249px;bottom:272px}#page-planner .st-detail{height:235px;max-height:235px;bottom:28px;padding-bottom:16px}#page-planner .st-detail .st-detail-emblem{height:60px;width:60px}#page-planner .st-top-counter{top:54px}#page-planner .st-map-caption{font-size:8px}#page-planner .tpm-notice{font-size:8px;bottom:7px;left:7px;right:7px}#page-planner .tpm-search{top:34px;max-width:310px}#page-planner .tpm-dialog-body{padding:12px}#page-planner .tpm-dialog-head{padding:13px}#page-planner .tpm-dialog-head h2{font-size:19px}#page-planner .tpm-dialog-footer{padding:12px;flex-wrap:wrap}#page-planner .tpm-dialog-footer button{flex:1}}
 @media(max-width:460px){#page-planner .st-heading h1{font-size:18px}#page-planner .st-heading p{max-width:135px;font-size:6px}#page-planner .st-head-actions .st-action{min-width:57px;max-width:65px;font-size:6px}#page-planner .st-head-actions .st-action-close{min-width:26px}#page-planner .st-map-caption{font-size:7px}#page-planner .st-map-controls #tpmZoom{display:inline-flex}#page-planner .st-map-controls .tpm-list-control{min-width:110px;font-size:9px}}
+/* Configuration roster: same card panel used by the Infinite menu. */
+#page-planner #tpSetupDialog{width:min(1440px,calc(100vw - 24px));max-width:1440px;max-height:calc(100dvh - 20px);background:linear-gradient(150deg,#10162f,#0b1026);border-color:#6b7fc0}
+#page-planner #tpSetupDialog .tpm-dialog-head{background:linear-gradient(100deg,#243654,#39305d);padding:14px 20px}
+#page-planner #tpSetupDialog .tpm-dialog-body{padding:16px 20px;gap:12px}
+#page-planner #tpSetupDialog .tp-profile-bar{padding:10px 12px;gap:12px;align-items:center;background:#141e35;border-radius:8px}
+#page-planner #tpSetupDialog .tp-profile-bar>label{flex:1;max-width:360px;min-width:180px;font-size:9px}
+#page-planner #tpSetupDialog .tp-profile-bar button{padding:9px 12px;font-size:9px}
+#page-planner #tpSetupDialog .tp-status{font-size:10px;margin:0 2px}
+#page-planner #tpSetupDialog .tp-team-panel{padding:0;border:0;border-radius:0;background:transparent}
+#page-planner .tps-team{display:block;min-width:0;padding-top:8px}
+#page-planner .tps-roster{max-width:960px;gap:12px;align-items:start}
+#page-planner .tps-team .if-section-label{margin:0 0 14px;font-size:10px}
+#page-planner .tps-team .if-section-label small{font-size:10px}
+#page-planner .tps-circuit-count{font-size:8px;color:#bbd8ff;padding:4px 6px;border:1px solid #4c6999;border-radius:4px;background:#1a2949}
+#page-planner .tps-team .if-art-button{display:block;aspect-ratio:470/660;width:100%;height:auto;padding:0;cursor:zoom-in}
+#page-planner .tps-team .if-art-button img{height:100%;width:100%;object-fit:contain}
+#page-planner .tps-art-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;height:100%;width:100%;padding:18px;text-align:center;color:#b9c9ec;background:radial-gradient(ellipse at 50% 35%,#34305b,#11172d 75%)}
+#page-planner .tps-art-empty>b{font-size:65px;line-height:1;color:#92aad9;font-weight:400}
+#page-planner .tps-art-empty strong{font-size:13px;line-height:1.5;color:#e3eaff}
+#page-planner .tps-art-empty small{font-size:10px;color:#9baccb}
+#page-planner .tps-team .if-roster-info{padding:10px}
+#page-planner .tps-team .if-roster-info>p{font-size:9px;margin-bottom:10px;line-height:1.5;min-height:25px}
+#page-planner .tps-team .if-card-stats b{font-size:16px}
+#page-planner .tps-team .if-card-links{font-size:9px;min-height:43px}
+#page-planner .tps-team .if-card-buttons button{font-size:10px}
+#page-planner .tps-source{display:block;color:#95a9cf;font-size:7px;letter-spacing:.04em;margin-top:10px;text-align:center}
+#page-planner .tps-editor{font-size:10px;color:#adc4e4;border-top:1px solid #354768;padding-top:9px;margin-top:9px}
+#page-planner .tps-editor summary{font-size:9px;color:#bad1ee;font-weight:700;cursor:pointer}
+#page-planner .tps-editor>label,#page-planner .tps-editor>.tp-card-fields{margin-top:12px}
+#page-planner .tps-editor>small{display:block;color:#93a7c8;font-size:9px;line-height:1.6;margin-top:10px}
+#page-planner .tps-team .if-link-strip,#page-planner .tps-team .if-totals,#page-planner .tps-team .if-buff-details{max-width:960px}
+#page-planner .tps-team .if-link-strip{margin-top:16px;margin-bottom:10px}
+#page-planner .tps-team .if-totals>div{padding:11px}
+#page-planner .tps-team .if-totals strong{font-size:23px}
+#page-planner .tps-team .if-buff-details{font-size:10px;margin-top:8px;margin-bottom:18px}
+#page-planner .tps-team .if-support-title{padding-top:16px;border-top:1px solid #3a4769;margin-bottom:12px}
+#page-planner .tps-team .if-support-row{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+#page-planner .tps-team .if-support-card{min-height:103px;padding:10px;gap:10px}
+#page-planner .tps-context-note{font-size:9px;color:#9aaed0;line-height:1.6;margin:11px 0 2px}
+#page-planner .tps-dialog{width:min(960px,calc(100vw - 28px));max-width:960px}
+#page-planner .tps-dialog .if-picker-list{grid-template-columns:repeat(2,minmax(0,1fr));max-height:58dvh;overflow:auto;padding:2px 5px 2px 2px;align-content:start}
+#page-planner .tps-dialog .if-picker-item{min-height:100px}
+#page-planner .tps-dialog .tpm-dialog-body>label{font-size:11px}
+#page-planner .tps-dialog .if-detail-layout p{font-size:13px;line-height:1.7;color:#c6d4eb}
+#page-planner .tps-dialog .if-detail-layout h4{font-size:16px;color:#d8c1ef}
+#page-planner .tps-dialog .if-detail-layout small{font-size:10px;line-height:1.6;color:#9bacc6}
+#page-planner .tps-dialog .tps-detail-art{min-width:0;aspect-ratio:470/660;max-height:65dvh}
+#page-planner .tps-detail-art>img{height:100%;width:100%;object-fit:contain}
+@media(min-width:801px){#page-planner #tpSetupDialog .tp-profile-bar{flex-direction:row}#page-planner #tpSetupDialog .tp-profile-bar>div{justify-content:flex-end}}
+@media(max-width:800px){#page-planner #tpSetupDialog .tpm-dialog-body{padding:12px}#page-planner #tpSetupDialog .tp-profile-bar{align-items:stretch;flex-direction:column}#page-planner #tpSetupDialog .tp-profile-bar>label{max-width:none;min-width:0}#page-planner .tps-roster{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}#page-planner .tps-team .if-totals{grid-template-columns:repeat(2,minmax(0,1fr))}#page-planner .tps-team .if-support-row{grid-template-columns:repeat(2,minmax(0,1fr))}#page-planner .tps-team .if-section-label small{font-size:9px}#page-planner .tps-team .if-roster-info>p{min-height:0}}
+@media(max-width:520px){#page-planner #tpSetupDialog{width:calc(100vw - 12px);max-height:calc(100dvh - 12px)}#page-planner #tpSetupDialog .tpm-dialog-head{padding:12px}#page-planner .tps-roster{gap:8px}#page-planner .tps-team .if-roster-info{padding:8px}#page-planner .tps-team .if-roster-info h4{font-size:10px}#page-planner .tps-team .if-card-stats b{font-size:14px}#page-planner .tps-team .if-card-links{font-size:8px}#page-planner .tps-team .if-card-buttons button{font-size:9px}#page-planner .tps-art-empty{padding:12px;gap:10px}#page-planner .tps-art-empty>b{font-size:38px}#page-planner .tps-art-empty strong{font-size:10px}#page-planner .tps-art-empty small{font-size:8px}#page-planner .tps-dialog .if-picker-list{grid-template-columns:1fr}#page-planner .tps-dialog .if-detail-layout{grid-template-columns:1fr}#page-planner .tps-detail-art{max-height:48dvh;margin:auto}#page-planner .tps-team .if-squad-footer{font-size:8px}}
