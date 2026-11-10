@@ -16,8 +16,8 @@ function lines(part){return (part.lines||String(part.text||'').split(/\r?\n/).ma
 function parse(parts){
  const header=parts.header||{},body=parts.body||{},footer=parts.footer||{};
  const h=lines(header),b=lines(body),ht=h.map(l=>l.text).join('\n'),ft=String(footer.text||'');
- const support=/\bSUPPORT\b/i.test(ht),kind=enumValue(ht,['Buff','Heal','Shield','Debuff','Revive']);
- const fields={type:support?'support':'card',kind:kind,name:'',border:enumValue(ht,BORDERS),element:enumValue(ht,ELEMENTS),hp:stat(ft,'HP'),dmg:stat(ft,'DMG'),variant:'',number:'',pack:'',ability:'',effect:'',effectEnglish:''};
+ const support=/\bSUPPORT\b/i.test(ht)||(/\b(?:equipped|supported)\s+card\b/i.test(body.text||'')&&/\d\s*\/\s*\d/.test(ht)),kind=enumValue(ht,['Buff','Heal','Shield','Debuff','Revive']);
+ const fields={type:support?'support':/\b(?:HP|DMG)\s*[:;]/i.test(ft)?'card':'',kind:kind,name:'',border:enumValue(ht,BORDERS),element:enumValue(ht,ELEMENTS),hp:stat(ft,'HP'),dmg:stat(ft,'DMG'),variant:'',number:'',pack:'',ability:'',effect:'',effectEnglish:''};
  const isMeta=s=>BORDERS.concat(ELEMENTS,['Support','Buff','Heal','Shield','Debuff','Revive']).some(v=>new RegExp('^\\W*'+v+'\\W*$','i').test(s))||/\bPACK\b|#\s*\d|\b(?:HP|DMG)\s*:/i.test(s);
  const borderAt=h.findIndex(l=>enumValue(l.text,BORDERS)!=='Unknown');
  const names=(parts.name?lines(parts.name):h).filter((l,i)=>(parts.name||borderAt<0||i<borderAt)&&!isMeta(l.text)&&l.confidence>=45&&/[A-Za-z]{3}/.test(l.text)&&(!l.relativeY||l.relativeY<.55));
@@ -52,7 +52,7 @@ function output(data,height){const out=[];for(const block of data.blocks||[])for
 async function cancel(){runId++;const old=worker;worker=null;if(old)try{await old.terminate();}catch(e){} }
 async function digest(bytes){return [...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(x=>x.toString(16).padStart(2,'0')).join('');}
 async function knownPrint(file,img){
- try{const response=await fetch('https://caribegamesbr.github.io/card-origins-codex/catalog.json?reader='+Date.now(),{cache:'no-store'});if(!response.ok)return null;const records=await response.json();if(!Array.isArray(records))return null;const rawHash=await digest(await file.arrayBuffer());let match=records.find(c=>c.verified&&c.imageSha256===rawHash);
+ try{const response=await fetch('https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/main/catalog.json?reader='+Date.now(),{cache:'no-store'});if(!response.ok)return null;const records=await response.json();if(!Array.isArray(records))return null;const rawHash=await digest(await file.arrayBuffer());let match=records.find(c=>c.verified&&c.imageSha256===rawHash);
  if(!match&&records.some(c=>c.imagePixelSha256)){const c=document.createElement('canvas');c.width=img.naturalWidth;c.height=img.naturalHeight;const ctx=c.getContext('2d');ctx.drawImage(img,0,0);const pixelHash=await digest(ctx.getImageData(0,0,c.width,c.height).data.buffer);match=records.find(r=>r.verified&&r.imagePixelSha256===pixelHash);c.width=1;c.height=1;}
  if(!match)return null;const fields={type:match.type,kind:match.supportRole||(['Buff','Heal','Shield','Debuff','Revive'].includes(match.kind)?match.kind:'Unknown'),name:match.name,border:match.border||match.rarity||'Unknown',element:match.element||'Unknown',hp:match.hp==null?'':String(match.hp),dmg:match.dmg==null?'':String(match.dmg),variant:(match.variant||[]).join(', '),number:match.number==null?'':String(match.number),pack:match.pack||'',ability:match.ability||'',effect:match.effect||'',effectEnglish:match.effectEnglish||''};return {fields,pending:[],knownMatch:true,raw:'Print idêntico ao já transcrito e confirmado no catálogo: '+(match.fullName||match.name)+' ('+(match.border||match.kind)+'). Os dados foram recuperados desse registro, sem estimar atributos.',version:VERSION};
  }catch(e){return null;}

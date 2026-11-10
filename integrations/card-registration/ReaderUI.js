@@ -3,7 +3,7 @@
 const reader=CardPrintReader,fileInput=document.getElementById('print'),status=document.getElementById('ocrStatus'),raw=document.getElementById('ocrRaw'),retry=document.getElementById('ocrRetry'),cropButton=document.getElementById('ocrCropButton'),dialog=document.getElementById('ocrCrop'),cropCanvas=document.getElementById('ocrCanvas'),confirm=form.elements.confirmed;
 let typeTouched=false;
 let epoch=0,reading=false,lastAuto={},rect=null,cropImage=null,cropRect=null,dragStart=null;
-const labels={name:'nome',border:'borda',element:'elemento',hp:'HP',dmg:'DMG',ability:'nome da habilidade',effect:'descrição'};
+const labels={type:'tipo da carta',name:'nome',border:'borda',element:'elemento',hp:'HP',dmg:'DMG',ability:'nome da habilidade',effect:'descrição'};
 function syncType(){const support=form.elements.type.value==='support';document.getElementById('supportKindLabel').hidden=!support;for(const k of ['hp','dmg','element','variant','pack','number']){const f=form.elements[k];f.disabled=support;f.closest('label').hidden=support;}document.getElementById('destination').disabled=support;document.getElementById('slot').disabled=support;if(support)document.getElementById('destination').value='catalog';}
 form.elements.type.addEventListener('change',()=>{typeTouched=true;reviewReset();syncType();});
 function announce(text,error){status.textContent=text;status.classList.toggle('error',!!error);}
@@ -24,7 +24,7 @@ async function start(){
  }catch(error){if(mine===epoch){await reader.cancel();announce(error.message||'Não foi possível ler. Tente ajustar a área ou preencha manualmente.',true);}}
  finally{clearTimeout(timer);if(mine===epoch){reading=false;controls();}}
 }
-fileInput.addEventListener('change',()=>{cancel();for(const [k,value] of Object.entries(lastAuto)){const field=form.elements[k];if(field.value===value){field.value=field.tagName==='SELECT'?(k==='type'?'card':'Unknown'):'';field.classList.remove('ocrFilled');}}lastAuto={};syncType();rect=null;reviewReset();raw.textContent='';document.getElementById('ocrDetails').hidden=true;const file=fileInput.files[0];if(!file){announce('Escolha um print para preencher os campos automaticamente.');return;}start();});
+fileInput.addEventListener('change',()=>{cancel();for(const [k,value] of Object.entries(lastAuto)){const field=form.elements[k];if(field.value===value){field.value=field.tagName==='SELECT'?(k==='type'?'':'Unknown'):'';field.classList.remove('ocrFilled');}}lastAuto={};syncType();rect=null;reviewReset();raw.textContent='';document.getElementById('ocrDetails').hidden=true;const file=fileInput.files[0];if(!file){announce('Escolha um print para preencher os campos automaticamente.');return;}start();});
 retry.addEventListener('click',start);
 function acceptImage(file){if(!file||!/^image\/(png|jpeg|gif|webp)$/.test(file.type)||busy||currentResult||inputs.disabled)return false;const transfer=new DataTransfer();transfer.items.add(file);fileInput.files=transfer.files;fileInput.dispatchEvent(new Event('change',{bubbles:true}));return true;}
 document.addEventListener('paste',e=>{const image=[...(e.clipboardData?.files||[])].find(f=>f.type.startsWith('image/'));if(image&&acceptImage(image))e.preventDefault();});

@@ -10,7 +10,7 @@ function normalize(input,requestId,date,image){
  var name=text(input.name,100);if(!name)throw Error('Informe o nome da carta.');
  var element=input.element||'Unknown',border=input.border||'Unknown';if(elements.indexOf(element)<0||borders.indexOf(border)<0)throw Error('Elemento ou borda inválidos.');
  if(input.confirmed!=='yes'&&input.confirmed!==true)throw Error('Confirme que preencheu somente dados conferidos na carta.');
- if(input.type&&input.type!=='card'&&input.type!=='support')throw Error('Tipo de carta inválido.');
+ if(input.type!==undefined&&input.type!=='card'&&input.type!=='support')throw Error('Confirme se o print é de uma carta principal ou de um suporte.');
  if(input.type==='support'){
   var kind=border!=='Unknown'?border:(input.kind||'Unknown');if(['Unknown','Buff','Heal','Shield','Debuff','Revive','Normal','Calamity','Umbral','Astral','Paradox','Origin'].indexOf(kind)<0)throw Error('Tipo de suporte inválido.');
   var supportAbility=text(input.ability,160),supportEffect=text(input.effect,6000);
