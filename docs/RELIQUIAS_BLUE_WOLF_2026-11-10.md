@@ -1,6 +1,6 @@
 # Blue Wolf Astral — equipamento confirmado em 10/11/2026
 
-O proprietário confirmou que é **o mesmo Blue Wolf (Cursed), ID c-1, agora melhorado**. As relíquias ficam vinculadas a esse ID em `combat-loadouts.js`. Nenhuma carta duplicada foi criada. Os atributos antigos (HP 17.775, DMG 5.196) permanecem no catálogo como registro anterior; a tela de relíquias não foi interpretada como uma nova carta com atributos finais confirmados.
+O proprietário confirmou que é **o mesmo Blue Wolf (Cursed), ID c-1, agora melhorado**. As relíquias ficam vinculadas a esse ID em `combat-loadouts.js`. Nenhuma carta duplicada foi criada. A captura posterior da própria carta confirmou **HP 7.318 e DMG 2.439**. O catálogo e os simuladores agora usam esses números exibidos. Os anteriores, HP 17.775 / DMG 5.196, ficam em statsHistory, com a imagem anterior preservada. A inclusão dos bônus de relíquias nesses números de combate não foi deduzida.
 
 [Seis prints originais no Drive](https://drive.google.com/drive/folders/17Bkua6fGJhW6xg50XHF8PtfxRNNghFI-).
 
@@ -25,3 +25,7 @@ O modelo aplica a maior redução entre Hollow e a habilidade da carta; não som
 **Prism of Origin 1 peça: nenhum bônus de conjunto ativo.** O bônus de duas peças (+6% elemental) e o de quatro (Prism Charge / Origin Refraction) foram preservados como referência, sem ativar por uma peça.
 
 Não há bônus de cinco peças. HP/DMG finais informados ao simulador não recebem novamente os percentuais acima.
+
+## Confirmação na própria carta
+
+[Print confirmado no Drive](https://drive.google.com/file/d/1IWNrxW06TJzQ4Jpl6AcA30o0cd95fMl5/view). O proprietário enviou essa imagem em resposta à pergunta sobre HP/DMG fora da tela de relíquias. A própria carta mostra **HP 7.318 / DMG 2.439**, elemento Ice e a mesma habilidade Predator's Blood Moon. Esses números substituem os atributos ativos de c-1, sem criar variante duplicada ou somar +3.088 HP / +885 DMG por suposição. As cinco peças, seus percentuais e seus bônus de conjunto permanecem preservados.

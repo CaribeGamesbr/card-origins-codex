@@ -5023,13 +5023,28 @@
     "variant": [
       "Cursed"
     ],
-    "image": "assets/cards/BLUE%20WOLF%20(CURSED)%20-%20ASTRAL%20-%20ICE%20%5B001%5D.png",
+    "image": "assets/cards/BLUE_WOLF_ASTRAL_CONFIRMED_20261110.png",
     "verified": true,
-    "imagePending": true,
-    "hp": 17775,
-    "dmg": 5196,
+    "imagePending": false,
+    "hp": 7318,
+    "dmg": 2439,
     "ability": "PREDATOR'S BLOOD MOON",
-    "effect": "Ataques marcam o alvo com Prey. Quando o inimigo marcado ataca, consome a marca para roubar 10% do dano causado como HP e aplicar Blood Wound. Com 3 Blood Wounds, ataca por 1,4x DMG, remove as marcas e recupera 15% do HP máximo."
+    "effect": "Ataques marcam o alvo com Prey. Quando o inimigo marcado ataca, consome a marca para roubar 10% do dano causado como HP e aplicar Blood Wound. Com 3 Blood Wounds, ataca por 1,4x DMG, remove as marcas e recupera 15% do HP máximo.",
+    "statsHistory": [
+      {
+        "hp": 17775,
+        "dmg": 5196,
+        "image": "assets/cards/BLUE%20WOLF%20(CURSED)%20-%20ASTRAL%20-%20ICE%20%5B001%5D.png",
+        "context": "Registro anterior, substituído pela confirmação visual de 10/11/2026; preservado como histórico."
+      }
+    ],
+    "confirmedAt": "2026-11-10",
+    "source": "Carta exibida no print enviado pelo proprietário em 10/11/2026; mesmo Blue Wolf c-1 confirmado pelo proprietário.",
+    "sourceDrive": "https://drive.google.com/file/d/1IWNrxW06TJzQ4Jpl6AcA30o0cd95fMl5/view",
+    "statsContext": "displayed-card",
+    "relicFlatBonusIncluded": "unconfirmed",
+    "effectEnglish": "Attacks mark the target with Prey. When a marked enemy attacks, consume the mark to steal 10% of the damage they deal as HP and leave a Blood Wound. At 3 Blood Wounds, maul the enemy for 1.4x DMG, remove the Wounds, and heal 15% Max HP.",
+    "imageSha256": "43b53cea367a388983484a61b0b62506b4f28d8211da760f7bcd241ea361037a"
   },
   {
     "type": "card",

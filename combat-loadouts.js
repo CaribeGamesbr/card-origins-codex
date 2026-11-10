@@ -2,7 +2,8 @@
 (function(root,factory){const api=factory();if(typeof module!=='undefined'&&module.exports)module.exports=api;if(root)root.CARDO_LOADOUTS=api;})(typeof window!=='undefined'?window:null,function(){
 'use strict';
 const blueWolf={cardId:'c-1',confirmedSameCard:true,date:'2026-11-10',border:'Astral',
- readings:{hpWhite:7318,hpGreen:3088,dmgWhite:2439,dmgGreen:885,finalCardStatsConfirmed:false},
+ readings:{hpWhite:7318,hpGreen:3088,dmgWhite:2439,dmgGreen:885,finalCardStatsConfirmed:true,confirmationScope:'numbers-on-card-only',relicFlatBonusInclusionConfirmed:false},
+ cardStats:{hp:7318,dmg:2439,context:'displayed-card',sourceDrive:'https://drive.google.com/file/d/1IWNrxW06TJzQ4Jpl6AcA30o0cd95fMl5/view'},
  pieces:[
  {slot:'Crown',set:'Hollow Sanctuary',rarity:'Epic',level:12,main:{hp:11.3},sub:{shield:4.6,crit:4.9,critDmg:3,element:1.2}},
  {slot:'Core',set:'Hollow Sanctuary',rarity:'Epic',level:12,main:{damage:11},sub:{potency:4.1,hp:6.5,dot:3.4,shield:1.8}},
