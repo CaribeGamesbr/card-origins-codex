@@ -93,3 +93,6 @@ O menu **Adicionar carta** (`#register`) prepara o acesso ao formulário privado
 Sete novas variantes foram transcritas dos prints originais, preservando todos os 408 registros anteriores. Catálogo atual: **415 registros = 378 cartas principais + 37 suportes; 33 principais transcritas e 345 pendentes**. Os prints repetidos de Reality's Worst Duet e Irregular Climber não geraram duplicatas. Habilidades novas estão descritas no catálogo; seus gatilhos específicos ainda não foram implementados no combate.
 
 Detalhes: [registro das sete cartas](docs/CARTAS_2026-11-10.md).
+
+
+Segunda remessa de 10/11/2026: 2 cartas principais e 2 suportes novos, mais 3 suportes pendentes completados nos mesmos IDs. Total atual: **419 registros = 380 principais + 39 suportes; 35 principais transcritas e 345 pendentes**. As versões-base dos suportes foram preservadas; valores Calamity não as substituem.
