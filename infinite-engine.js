@@ -2,7 +2,7 @@
  * Screenshot-proven paths, card stats and observed enemy values are input data.
  * Enemy growth, unknown abilities and turn order are openly adjustable hypotheses.
  */
-(function(root,factory){const api=factory();if(typeof module!=='undefined'&&module.exports)module.exports=api;if(root)root.CARDO_INFINITE_ENGINE=api;})(typeof window!=='undefined'?window:null,function(){
+(function(root,factory){const api=factory(typeof module!=='undefined'&&module.exports?require('./infinite-combat.js'):root.CARDO_COMBAT);if(typeof module!=='undefined'&&module.exports)module.exports=api;if(root)root.CARDO_INFINITE_ENGINE=api;})(typeof window!=='undefined'?window:null,function(C){
 'use strict';
 const PATHS=[
  {id:'destruction',name:'The Destruction',short:'HP perdido → dano / Fatigue',detail:'Tier 5: +8% Power; +2,2% DMG por 10% de HP perdido; 5% Fatigue por 25% de HP perdido.',color:'#f27a6b',tier:5},
@@ -13,7 +13,7 @@ const PATHS=[
  {id:'hunt',name:'The Hunt',short:'Abates dão +16,5% DMG',detail:'Cada inimigo derrotado concede +16,5% DMG permanente ate 3 stacks.',color:'#7ccde3',tier:0},
  {id:'abundance',name:'The Abundance',short:'Overhealth: duração pendente',detail:'Overhealth é temporário, mas sua duração não foi confirmada. Esse efeito está omitido e o Path fica fora da busca automática até ser transcrito.',color:'#8ae5ae',tier:0,searchable:false}
 ];
-const SUPPORT_IDS=['s-360','s-365','s-366','s-371','s-372','s-374'];
+const SUPPORT_IDS=['s-360','s-365','s-366','s-371','s-372','s-374','s-380','s-388','new-divine-spirit-waters-calamity'];
 const DEFAULT={from:261,to:280,baseFloor:261,enemyHp:6061,enemyDmg:2648,growth:0.01,enemyElement:'Unknown',enemyDodge:0,enemiesPerFloor:1,elementsMode:false,seed:261,pressure:1};
 const SEARCH_MODES=Object.freeze({endurance:{name:'Chegar mais longe',waves:1000},rush:{name:'Rush · limpar os 4',waves:10}});
 const SEARCH_PATHS=PATHS.filter(p=>p.searchable!==false);
@@ -27,9 +27,10 @@ function valid(cards){return Array.isArray(cards)&&cards.length===4&&cards.every
 function advantage(att,def,on){if(!on||!BEATS[att]||!BEATS[def])return 1;if(BEATS[att]===def)return 1.5;if(BEATS[def]===att)return .70;return 1;}
 function linkBonus(cards){return cards.map((c,i)=>[i-1,i+1].reduce((v,j)=>{if(j<0||j>=cards.length)return v;const other=cards[j];return v+(LINKS.has([c.element,other.element].sort().join('+'))&&c.element===other.element?.06:0);},1));}
 function defaultSupports(){return ['s-371','s-372','s-365','s-366'];}
+function supportGroup(id){return ['s-372','new-divine-spirit-waters-calamity'].includes(id)?'waters':['s-366','s-374'].includes(id)?id:null;}
 function cardEffects(card){return String(card.name||'').toUpperCase();}
 function simulate(raw){
- const options={...DEFAULT,...raw},cards=options.team||[],sup=options.supports||[];
+ const options={...DEFAULT,...raw},cards=(options.team||[]).map(c=>({...c,hp:options.gear?.[c.id]?.hp||c.hp,dmg:options.gear?.[c.id]?.dmg||c.dmg})),sup=options.supports||[];
  if(!valid(cards))return {error:'Selecione 4 cartas diferentes com HP e DMG conhecidos.'};
  const start=clamp(Math.floor(+options.from||261),1,20000),goal=clamp(Math.floor(+options.to||280),start,Math.min(20000,start+999));
  const dice=rand(options.seed||261),path=PATHS.some(p=>p.id===options.path)?options.path:'destruction';
@@ -37,15 +38,16 @@ function simulate(raw){
  const hp=cards.map((c,i)=>+c.hp*(path==='erudition'?1.088:1)*(path!=='erudition'&&(sup[i]==='s-371'||sup[i]?.id==='s-371')?1.075:1));
  const max=hp.slice(),shield=cards.map(()=>0),blood=cards.map(()=>0),matter=cards.map(()=>0),flesh=cards.map(()=>0),kocKills=cards.map(()=>0),extraLife=cards.map(()=>true),supportUsed=cards.map(()=>false),clone=cards.map(()=>true);
  const link=linkBonus(cards);const kinds=cards.map(cardEffects);
+ const actors=cards.map((c,i)=>{const a=C.actor(c,options.gear?.[c.id]||{},options.context);Object.defineProperties(a,{hp:{get:()=>hp[i],set:v=>{hp[i]=v}},max:{get:()=>max[i],set:v=>{max[i]=v}},shield:{get:()=>shield[i],set:v=>{shield[i]=v}}});return a;});
  let active=0,won=0,wavesCleared=0,turns=0,kos=0,huntStack=0,decay=0,log=[],floorReached=start-1,stoppedAt=null;
  const save=(s)=>{if(options.trace!==false&&log.length<35)log.push(s);};
  // Duration of Abundance Overhealth is unconfirmed: never bank excess healing indefinitely.
- function heal(i,amount){if(amount>0)hp[i]=Math.min(max[i],hp[i]+amount);}
+ function heal(i,amount){return C.heal(actors[i],amount,C.ability(actors[i],dice));}
  function onFatal(i){
    if(hp[i]>0)return false;
    if((sup[i]?.id==='s-366'||sup[i]==='s-366')&&!supportUsed[i]){supportUsed[i]=true;hp[i]=max[i]*.65;save('Binding Vow ativou no slot '+(i+1)+' (modelo: uma vez na run).');return true;}
    if((sup[i]?.id==='s-374'||sup[i]==='s-374')&&!supportUsed[i]&&!INTRINSIC_FATAL_GUARDS.has(kinds[i])){supportUsed[i]=true;hp[i]=1;save('Serenity protegeu o slot '+(i+1)+'.');return true;}
-   if(kinds[i]==='MAGICIAN'&&extraLife[i]){extraLife[i]=false;hp[i]=1;save('Paper Substitute de Magician evitou dano fatal.');return true;}
+   if(kinds[i]==='MAGICIAN'&&extraLife[i]&&C.ability(actors[i],dice)){extraLife[i]=false;hp[i]=1;save('Paper Substitute de Magician evitou dano fatal.');return true;}
    return false;
  }
  const teammate=(i)=>cards[i],support=(i)=>String(sup[i]?.id||sup[i]||'');
@@ -56,36 +58,40 @@ function simulate(raw){
    kocKills.fill(0);
    const ratio=Math.pow(1+clamp(+options.growth||0,0,.08),floor-(+options.baseFloor||261))*clamp(+options.pressure||1,.2,5)*(options.elementsMode?1.2:1);
    let localTurns=0;
-   const enemyCount=clamp(Math.floor(+options.enemiesPerFloor||1),1,4),foes=Array.from({length:enemyCount},()=>{const max=Math.max(1,+options.enemyHp||6061)*ratio;return {max,hp:max,damage:Math.max(1,+options.enemyDmg||2648)*ratio,defeated:false}});
+   const enemyCount=clamp(Math.floor(+options.enemiesPerFloor||1),1,4),foes=Array.from({length:enemyCount},(_,j)=>{const spec=options.enemyRoster?.[j]||{},max=Math.max(1,+spec.hp||+options.enemyHp||6061)*ratio,damage=Math.max(1,+spec.dmg||+options.enemyDmg||2648)*ratio;const a=C.actor({name:spec.name||'UNKNOWN',element:spec.element||options.enemyElement,hp:max,dmg:damage},{boss:!!spec.boss,crit:spec.crit||0,debuff:spec.debuff,chance:spec.chance,duration:spec.duration});return Object.assign(a,{damage,defeated:false});});
    function defeat(enemy,i){const target=foes[enemy];if(target.defeated)return;target.defeated=true;target.hp=0;won++;if(path==='hunt')huntStack=Math.min(3,huntStack+1);if(kinds[i]==='KING OF CURSES')kocKills[i]++;}
    for(let enemy=0;enemy<enemyCount;enemy++){
      if(foes[enemy].defeated)continue;
      if(active>=4)break;
      const foeMax=foes[enemy].max;let foe=foes[enemy].hp;
-     const enemyDmg=foes[enemy].damage;let frozen=0,bleed=0,burn=0,bleedPower=0,burnPower=0,enemyTurns=0,prey=false;
+     const enemyDmg=foes[enemy].damage;let frozen=0,bleed=0,burn=0,bleedPower=0,burnPower=0,enemyTurns=0,prey=false,freeAction=false;
      decay=0;
      while(foe>0&&active<4&&localTurns<160){
        localTurns++;turns++;let i=active,c=teammate(i),name=kinds[i],s=support(i),dodgeChance=clamp(+options.enemyDodge||0,0,.90);
-       if(s==='s-365')heal(i,max[i]*.05);
-       if((s==='s-372')&&!supportUsed[i]&&hp[i]<max[i]*.5){supportUsed[i]=true;heal(i,Math.max(0,max[i]*.70-hp[i]));save('Divine Spirit Waters recuperou o slot '+(i+1)+' ate 70% HP.');}
+       const actor=actors[i],target=foes[enemy],extraAction=freeAction,canAct=extraAction||C.begin(actor,dice),allowed=C.ability(actor,dice);target.hp=foe;if(!extraAction)C.tick(actor,dice);
+       if(hp[i]<=0&&!onFatal(i)){hp[i]=0;kos++;active++;continue;}
+       if(!allowed)name='';
+       if(!extraAction&&(s==='s-365'||s==='s-380'))heal(i,max[i]*(s==='s-380'?.055:.05));
+       if((s==='s-372'||s==='new-divine-spirit-waters-calamity')&&!supportUsed[i]&&hp[i]<max[i]*.5){supportUsed[i]=true;heal(i,Math.max(0,max[i]*.70-hp[i]));save('Divine Spirit Waters recuperou o slot '+(i+1)+' ate 70% HP.');}
        // Harmony buffs are approximated as ONE-turn effects, not permanent shields.
        let harmonyDamage=false,tempShield=0;
        if(path==='harmony'){const v=dice();if(v<1/3)tempShield=max[i]*.165;else if(v<2/3)tempShield=max[i]*.22;else harmonyDamage=true;}
-       const missing=1-hp[i]/max[i];let multi=power*link[i]*advantage(c.element,options.enemyElement,options.elementsMode)*(path==='hunt'?1+.165*huntStack:1);
+       const missing=1-hp[i]/max[i];let multi=power*link[i]*advantage(c.element,target.element,options.elementsMode)*(path==='hunt'?1+.165*huntStack:1);
        if(path==='destruction')multi*=1+.22*missing;
        if(s==='s-371')multi*=1.075;
-       if(s==='s-372'&&supportUsed[i])multi*=1.10;
+       if((s==='s-372'||s==='new-divine-spirit-waters-calamity')&&supportUsed[i])multi*=s==='s-372'?1.10:1.125;
        if(s==='s-366'&&supportUsed[i])multi*=.5;
        if(harmonyDamage)multi*=1.165;
        if(name==='KING OF GAMES'&&kos===0)multi*=1.2;
        if(name==='KING OF CURSES'){multi*=1+.1*kocKills[i];if(foe>foeMax*.5)multi*=1.2;if(dodgeChance>0)multi*=1+.4*dodgeChance;}
        if(name==='BLUE WOLF'&&blood[i]>=3){multi*=1.4;blood[i]=0;heal(i,max[i]*.15);}
+       if(allowed&&C.has(actor,'elements-'+String(c.element).toLowerCase()+'-edge')&&c.element!=='Unknown'&&target.element!=='Unknown'&&advantage(c.element,target.element,true)===1)multi*=1.05;
        const sureHit=name==='KING OF CURSES';
        const chance=sureHit?1:1-dodgeChance;
        let damage=0;
-       if(dice()<chance){
-         damage=(+c.dmg)*multi;
-         const asheyCrit=name==='ASHEY'&&dice()<.5;if(asheyCrit)damage*=1.5;
+       if(canAct&&dice()<chance){
+         damage=C.basicDamage(actor)*multi;
+         const asheyCrit=name==='ASHEY'&&dice()<Math.min(1,.5+C.num(actor,'crit'));if(asheyCrit)damage*=1.5+C.num(actor,'critDmg');
          if(name==='SILVER STAR USER')damage*=1.25;
          if(name==='FULLMETAL ALCHEMIST'&&matter[i]>0){damage+=matter[i]*.6;heal(i,matter[i]*.4);matter[i]=0;}
          if(asheyCrit)damage+=c.dmg*.4*multi;
@@ -96,28 +102,39 @@ function simulate(raw){
            else if(dice()<.265)frozen=2;
          }
          if(path==='nihility')decay=Math.min(5,decay+3);
-         if(s==='s-360'){burn=2;burnPower=damage*.10;}
-         if(asheyCrit||name==='BLACK FLAME HEIR'||name==='VIRTUAL CHIMERA'){burn=Math.max(burn,asheyCrit?3:2);burnPower=Math.max(burnPower,damage*.10);}
+         const supportBurn=s==='s-360'?.10:s==='s-388'?.125:0;
+         if(asheyCrit)C.burn(actor,target,3,supportBurn,true);
+         else if(supportBurn)C.burn(actor,target,+options.debuffDuration||0,supportBurn,['FIRE DRAGON SLAYER','BLACK FLAME HEIR','VIRTUAL CHIMERA'].includes(name));
          const splashRate=(path==='erudition'?.088:0)+(s==='s-371'?(path==='erudition'?.06:.02):0);
          if(splashRate>0)for(let j=enemy+1;j<enemyCount;j++){if(foes[j].defeated)continue;foes[j].hp-=damage*splashRate;if(foes[j].hp<=0)defeat(j,i);}
-         foe-=damage;
+         const gearCrit=actor.gear.crit; if(name==='ASHEY')actor.gear={...actor.gear,crit:0};
+         C.directHit(actor,target,damage,dice,allowed);if(name==='ASHEY')actor.gear={...actor.gear,crit:gearCrit};
+         C.elemental(actor,target,dice,{enabled:options.elementsMode,duration:options.debuffDuration});
+         C.circuitHit(actor,target,cards,i);
+         if(allowed&&path==='destruction'&&C.has(actor,'infinite-destruction-unbound')&&dice()<Math.floor(missing*4)*.05){if(options.debuffDuration>0)C.apply(target,'Fatigue',options.debuffDuration);}
+         foe=target.hp;
        }
+       if(!extraAction)C.end(actor,dice,allowed);if(hp[i]<=0&&!onFatal(i)){hp[i]=0;kos++;active++;continue;}
        if(foe<=0){defeat(enemy,i);break;}
+       if(allowed&&canAct&&!freeAction&&C.has(actor,'infinite-relentless')&&dice()<.05){freeAction=true;save('Relentless: segundo ataque no slot '+(i+1)+'.');continue;}freeAction=false;
        enemyTurns++;
+       target.hp=foe;const enemyCanAct=C.begin(target,dice);C.tick(target,dice);foe=target.hp;
        if(path==='nihility'&&decay>0)foe-=foe*.033*decay;
-       if(burn>0){foe-=burnPower;burn--;}
+       if(burn>0){foe-=burnPower*(1+C.num(actor,'dot'));burn--;}
        if(bleed>0){foe-=bleedPower;bleed--;}
        if(foe<=0){defeat(enemy,i);break;}
-       if(frozen>0){frozen--;continue;}
-       let hit=enemyDmg;
-       if(name==='VECTOR STORM'){const reflected=hit*.35;hit*=.65;foe-=Math.min(reflected,c.dmg*.6);}
+       if(frozen>0){frozen--;C.end(target,dice);continue;}
+       if(!enemyCanAct){C.end(target,dice);continue;}
+       target.hp=foe;let hit=C.basicDamage(target);
+       if(C.live(target,'Whiteout')){hit*=.85;delete target.statuses.Whiteout;}
+       if(allowed&&C.has(actor,'elements-'+String(c.element).toLowerCase()+'-guard')&&advantage(target.element,c.element,true)>1)hit*=.95;
        if(name==='RABBIT GHOUL'&&dice()<.40){if(extraLife[i]){foe-=c.dmg*.6;extraLife[i]=false;if(foe<=0)defeat(enemy,i);}continue;}
        if(name==='SILVERFOX VANGUARD'&&clone[i]){clone[i]=false;hit*=.5;}
        if(tempShield>0)hit=Math.max(0,hit-tempShield);
-       if(shield[i]>0){const absorb=Math.min(shield[i],hit);shield[i]-=absorb;hit-=absorb;}
-       hp[i]-=hit;
-       if(name==='BLUE WOLF'&&prey){prey=false;blood[i]++;if(hp[i]>0)heal(i,hit*.1);}
-       if(name==='FULLMETAL ALCHEMIST'&&hit>0)matter[i]=Math.min(max[i]*.25,matter[i]+hit*.2);
+       const hpLost=C.directHit(target,actor,hit,dice,C.ability(target,dice));
+       C.elemental(target,actor,dice,{enabled:options.elementsMode,duration:options.debuffDuration});C.end(target,dice);foe=target.hp;
+       if(name==='BLUE WOLF'&&prey){prey=false;blood[i]++;if(hp[i]>0)heal(i,hpLost*.1);}
+       if(name==='FULLMETAL ALCHEMIST'&&hpLost>0)matter[i]=Math.min(max[i]*.25,matter[i]+hpLost*.2);
        if(name==='HALF GHOUL'&&hp[i]<max[i]*.35&&flesh[i]>0){heal(i,Math.min(flesh[i],max[i]*.5));flesh[i]=0;}
        if(hp[i]<=0&&!onFatal(i)){hp[i]=0;kos++;save('F'+floor+': '+c.name+' ('+c.border+') caiu.');active++;}
        if(foe<=0)defeat(enemy,i);
@@ -130,10 +147,10 @@ function simulate(raw){
    if(floor===start||floor%10===0||floor===goal)save('Andar '+floor+': '+enemyCount+'/'+enemyCount+' inimigos derrotados em '+localTurns+' ações aliadas; '+(4-kos)+'/4 cartas vivas.');
  }
  const clear=floorReached>=goal;const totalHp=hp.reduce((sum,n,i)=>sum+Math.max(0,n)/max[i],0)/4;
- return {clear,from:start,target:goal,floorReached,stoppedAt,progress:Math.max(0,floorReached-start+1)/(goal-start+1),wavesCleared,enemiesDefeated:won,kos,turns,healthFraction:totalHp,team:cards.map(x=>x.id),path,bloodWounds:blood.slice(),overhealthModelled:false,killBuffCarriedBetweenWaves:false,log};
+ return {clear,from:start,target:goal,floorReached,stoppedAt,progress:Math.max(0,floorReached-start+1)/(goal-start+1),wavesCleared,enemiesDefeated:won,kos,turns,healthFraction:totalHp,team:cards.map(x=>x.id),path,bloodWounds:blood.slice(),overhealthModelled:false,killBuffCarriedBetweenWaves:false,context:options.context,log};
 }
 function assess(cfg,trials=20){const stats=[],n=clamp(Math.round(trials),1,250);for(let i=0;i<n;i++)stats.push(simulate({...cfg,seed:(cfg.seed||261)+i*7919}));if(stats[0]?.error)return {error:stats[0].error};const wins=stats.filter(x=>x.clear),result={trials:n,clearRate:wins.length/n,avgFloor:stats.reduce((s,x)=>s+x.floorReached,0)/n,maxFloor:Math.max(...stats.map(x=>x.floorReached)),avgKos:stats.reduce((s,x)=>s+x.kos,0)/n,avgTurns:stats.reduce((s,x)=>s+x.turns,0)/n,avgHealth:stats.reduce((s,x)=>s+x.healthFraction,0)/n,avgWaves:stats.reduce((s,x)=>s+x.wavesCleared,0)/n,avgKills:stats.reduce((s,x)=>s+x.enemiesDefeated,0)/n,clearActionsPerWave:wins.length?wins.reduce((s,x)=>s+x.turns/x.wavesCleared,0)/wins.length:null,example:(wins[0]||stats.slice().sort((a,b)=>b.floorReached-a.floorReached||b.enemiesDefeated-a.enemiesDefeated||a.kos-b.kos)[0])};
- const b=cfg.benchmark;if(b&&Number.isInteger(b.floor)&&b.floor>0&&b.hp>0&&b.dmg>0){const test=assess({...cfg,benchmark:null,from:b.floor,to:b.floor,baseFloor:b.floor,enemyHp:b.hp,enemyDmg:b.dmg,enemyElement:b.element||'Unknown',growth:0,enemiesPerFloor:1,elementsMode:false,enemyDodge:0,trace:false},n);result.benchmark={floor:b.floor,name:b.name,clearRate:test.clearRate,trials:n,avgKos:test.avgKos,enemyHp:b.hp,enemyDmg:b.dmg,enemyCount:1,abilitiesModelled:false};}
+ const b=cfg.benchmark;if(b&&Number.isInteger(b.floor)&&b.floor>0&&b.hp>0&&b.dmg>0){const test=assess({...cfg,benchmark:null,from:b.floor,to:b.floor,baseFloor:b.floor,enemyHp:b.hp,enemyDmg:b.dmg,enemyElement:b.element||'Unknown',enemyRoster:[{name:'CHAIN AVENGER',hp:b.hp,dmg:b.dmg,element:b.element||'Unknown'}],growth:0,enemiesPerFloor:1,elementsMode:false,enemyDodge:0,trace:false},n);result.benchmark={floor:b.floor,name:b.name,clearRate:test.clearRate,trials:n,avgKos:test.avgKos,enemyHp:b.hp,enemyDmg:b.dmg,enemyCount:1,abilitiesModelled:true,partial:true};}
  return result;
 }
 function compareStats(a,b,objective='endurance'){
@@ -144,7 +161,7 @@ function compareStats(a,b,objective='endurance'){
  return b.avgFloor-a.avgFloor||b.avgKills-a.avgKills||b.clearRate-a.clearRate||a.avgKos-b.avgKos||b.avgHealth-a.avgHealth||a.avgTurns-b.avgTurns;
 }
 function makeSearch(roster,raw={}){
- const pool=Array.from(new Map(roster.filter(c=>Number(c.hp)>0&&Number(c.dmg)>0&&c.type==='card').map(c=>[c.id,c])).values());
+ const pool=Array.from(new Map(roster.filter(c=>Number(c.hp)>0&&Number(c.dmg)>0&&c.type==='card').map(c=>[c.id,{...c,hp:raw.gear?.[c.id]?.hp||c.hp,dmg:raw.gear?.[c.id]?.dmg||c.dmg}])).values());
  const cfg=searchScenario({...DEFAULT,...raw}),N=clamp(Math.floor(+cfg.maxTests||4000),50,30000);
  let checked=0,evaluated=0,best=null,stopped=false,unique=new Set(),leaders=[],testedPaths=Object.fromEntries(PATHS.map(p=>[p.id,{trials:0,best:null}]));const rng=rand(cfg.seed||261),rank=(a,b)=>compareStats(a.stats,b.stats,cfg.objective),key=c=>c.path+'|'+c.team.map(x=>x.id).join('|')+'|'+c.supports.join('|');
  const hpWeight=cfg.objective==='rush'?.03:.12,byRating=pool.slice().sort((a,b)=>(+b.dmg)+b.hp*hpWeight-((+a.dmg)+a.hp*hpWeight));
@@ -155,8 +172,8 @@ function makeSearch(roster,raw={}){
    const path=SEARCH_PATHS[checked%SEARCH_PATHS.length].id;const initial=valid(cfg.team)&&cfg.team.every(c=>pool.some(x=>x.id===c.id))?cfg.team:byRating.slice(0,4),team=checked<SEARCH_PATHS.length?initial.slice():pick();
    if(team.length!==4){checked++;return true;}
    let supports=checked<SEARCH_PATHS.length&&Array.isArray(cfg.supports)?cfg.supports.slice(0,4).map(s=>SUPPORT_IDS.includes(s?.id||s)?s?.id||s:null):defaultSupports();
-   while(supports.length<4)supports.push(null);const uniqueSupports=new Set();supports=supports.map(id=>{if(['s-366','s-372','s-374'].includes(id)){if(uniqueSupports.has(id))return null;uniqueSupports.add(id)}return id});
-   if(checked>=SEARCH_PATHS.length&&checked%3){const used=new Set();supports=Array.from({length:4},()=>{const available=SUPPORT_IDS.filter(id=>!['s-366','s-372','s-374'].includes(id)||!used.has(id)),id=available[Math.floor(rng()*available.length)];used.add(id);return id});}
+   while(supports.length<4)supports.push(null);const uniqueSupports=new Set();supports=supports.map(id=>{const key=supportGroup(id);if(key){if(uniqueSupports.has(key))return null;uniqueSupports.add(key)}return id});
+   if(checked>=SEARCH_PATHS.length&&checked%3){const used=new Set();supports=Array.from({length:4},()=>{const available=SUPPORT_IDS.filter(id=>!supportGroup(id)||!used.has(supportGroup(id))),id=available[Math.floor(rng()*available.length)];used.add(supportGroup(id));return id});}
    const identity=key({path,team,supports});
    if(unique.has(identity)){checked++;return true;}unique.add(identity);
    const tier=path==='destruction'?cfg.tierDestruction??5:cfg.tierOther??0;
@@ -171,5 +188,5 @@ function makeSearch(roster,raw={}){
  function result(){const finalists=Array.from(new Map([...leaders,...Object.values(testedPaths).map(p=>p.best).filter(Boolean)].map(c=>[key(c),c])).values()).sort(rank);return {checked,evaluated,maxTests:N,best,finalists,paths:testedPaths,scenario:cfg,stopped,done:checked>=N||stopped,error:pool.length<4?'São necessárias quatro cartas diferentes com atributos conhecidos.':null};}
  return {step(n=25){for(let i=0;i<n&&next();i++);return result();},stop(){stopped=true;},get result(){return result();}};
 }
-return {PATHS,SEARCH_PATHS,DEFAULT,SEARCH_MODES,SUPPORT_IDS,rand,valid,simulate,assess,compareStats,searchScenario,makeSearch,defaultSupports};
+return {PATHS,SEARCH_PATHS,DEFAULT,SEARCH_MODES,SUPPORT_IDS,supportGroup,rand,valid,simulate,assess,compareStats,searchScenario,makeSearch,defaultSupports};
 });

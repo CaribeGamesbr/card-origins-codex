@@ -72,7 +72,7 @@
  }
  const progress=loadProgress();
  function saveProgress(){
-   try{window.localStorage.setItem(progressKey,JSON.stringify({version:1,added:progress.added,purchased:progress.purchased}));return true}
+   try{window.localStorage.setItem(progressKey,JSON.stringify({version:1,added:progress.added,purchased:progress.purchased}));window.dispatchEvent(new Event('codex-skill-tree-changed'));window.dispatchEvent(new Event('codex-combat-settings-changed'));return true}
    catch(_){return false}
  }
  const purchased=()=>new Set(progress.purchased);
