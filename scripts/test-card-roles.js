@@ -1,0 +1,25 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const R=require('../card-roles.js'),catalog=require('../catalog.json'),byId=new Map(catalog.map(c=>[c.id,c])),before=JSON.stringify(catalog);
+const helpers=R.select(catalog),ids=helpers.map(c=>c.id).sort();
+assert.deepEqual(ids,['new-the-grinning-spectator-normal','c-352','new-emy-evolved-calamity','new-realitys-worst-duet-umbral','new-last-hunting-party-normal'].sort());
+assert.equal(R.select(catalog,{audience:'known'}).length,40);assert.equal(R.select(catalog,{audience:'pending'}).length,345);
+assert.deepEqual(R.select(catalog,{role:'buff'}).map(c=>c.id),['new-the-grinning-spectator-normal']);
+assert.deepEqual(R.select(catalog,{offField:true}).map(c=>c.id),['c-352'],'Off-field help must be explicit, not inferred from an ally target');
+assert.deepEqual(R.select(catalog,{role:'heal'}).map(c=>c.id).sort(),['new-emy-evolved-calamity','new-realitys-worst-duet-umbral'].sort());
+for(const id of ['c-1','c-2','new-two-timing-pro-astral']){assert(R.classify(byId.get(id)).roles.includes('tank'));assert(!R.matches(byId.get(id),'heal'));assert(!R.matches(byId.get(id),'allies'),'Self healing is not team healing');}
+for(const id of ['new-no-longer-human-umbral','new-no-longer-human-cursed-umbral','c-351','c-353'])assert(!R.matches(byId.get(id),'buff'),'Dispel and copying to oneself are not ally attribute buffs');
+assert(R.classify(byId.get('new-the-grinning-spectator-normal')).timing.includes('maior DMG'));assert(R.classify(byId.get('new-realitys-worst-duet-umbral')).timing.includes('próxima ação normal'));
+assert.equal(R.classify({...byId.get('c-352'),effect:'Texto alterado sem revisão.'}).reviewed,false,'A changed skill must invalidate old roles');
+assert.equal(R.classify({...byId.get('c-352'),id:'future-card'}).reviewed,false,'Do not transfer a role to an unseen variant');
+assert.equal(R.classify({...byId.get('c-352'),verified:false}).reviewed,false);assert.equal(R.matches(catalog.find(c=>c.type==='support'),''),false);
+assert.equal(R.classify(catalog.find(c=>c.type==='card'&&!c.verified)).roles.length,0);
+assert(R.select(catalog,{audience:'known',query:'cursed'}).some(c=>c.id==='new-no-longer-human-cursed-umbral'));
+assert.equal(R.select(catalog,{query:'PEAK'}).length,1);assert.equal(R.select(catalog,{query:'nome inexistente'}).length,0);
+const team=['c-3','new-no-longer-human-umbral','c-1','c-2'],original=team.slice(),supportTeam=['s-371','s-372','s-365','s-366'],progress={purchased:['infinite-second-wind'],added:80},unchanged=JSON.stringify({team,supportTeam,progress});
+const placed=R.place(team,'new-the-grinning-spectator-normal',1,catalog);assert.deepEqual(placed,['c-3','new-the-grinning-spectator-normal','c-1','c-2']);assert.deepEqual(team,original);
+assert.throws(()=>R.place(team,'c-1',1,catalog),/já está no slot 3/);assert.deepEqual(R.place(team,'c-1',2,catalog),team);
+assert.throws(()=>R.place(team,'s-371',0,catalog),/não encontrada/);assert.throws(()=>R.place(team,'invalid',0,catalog),/não encontrada/);for(const n of [-1,4,1.5])assert.throws(()=>R.place(team,'c-1',n,catalog),/quatro slots/);
+assert.equal(JSON.stringify({team,supportTeam,progress}),unchanged);assert.equal(JSON.stringify(catalog),before,'Role filtering and slot choice preserve the catalog');
+const browser={window:{}};vm.runInNewContext(fs.readFileSync(require.resolve('../card-roles.js'),'utf8'),browser);assert.deepEqual(Array.from(browser.window.CARDO_CARD_ROLES.select(catalog).map(c=>c.id)).sort(),ids);
+const index=fs.readFileSync(require.resolve('../index.html'),'utf8');assert(index.indexOf('src="card-roles.js')<index.indexOf('src="app.js'));assert(index.includes('id="page-roles"'));assert(index.includes('data-nav="roles"'));
+console.log('Five confirmed ally helpers, explicit off-field timing, self-heal separation, changed-skill invalidation, unknown variants, combined filters, browser export, slot bounds/duplicates and catalog/team/support/tree preservation passed.');

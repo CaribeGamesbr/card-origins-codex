@@ -7,13 +7,15 @@
   <meta name="description" content="Card Origins Codex: catálogo da coleção com cartas, suportes, mecânicas, filtros e construtor de equipes."/>
   <title>Card Origins — Codex</title>
   <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="card-roles.css?v=20261110-roles-1"/>
   <link rel="stylesheet" href="chaos.css?v=20261109-no-supports-all-cards-1"/>
   <link rel="stylesheet" href="infinite.css?v=20261110-equipment-1"/>
   <script defer src="data.js?v=20261110-cursed-424"></script>
+  <script defer src="card-roles.js?v=20261110-roles-1"></script>
   <script defer src="skill-data.js"></script>
   <link rel="stylesheet" href="tree-planner.css?v=20261109-setup-2"/>
   <script defer src="tree-planner-engine.js?v=20261109-2"></script>
-  <script defer src="app.js?v=20261110-retire-registration-1"></script>
+  <script defer src="app.js?v=20261110-roles-1"></script>
   <script defer src="skill-codex.js"></script>
   <script defer src="skill-tree-topology.js"></script>
   <script defer src="tree-planner-map.js?v=20261109-visual-1"></script>
@@ -22,6 +24,7 @@
   <script defer src="skill-tree-scene.js?v=20261110-equipment-1"></script>
   <script defer src="mode-codex.js"></script>
   <script defer src="deck.js"></script>
+  <script defer src="card-roles-ui.js?v=20261110-roles-1"></script>
   <script defer src="team-status.js"></script>
   <script defer src="chaos-engine.js?v=20261109-no-supports-all-cards-1"></script>
   <script defer src="chaos-ui.js?v=20261109-no-supports-all-cards-1"></script>
@@ -32,7 +35,7 @@
   <script defer src="infinite-observations.js?v=20261110-floor822-1"></script>
   <script defer src="infinite-formation.js?v=20261110-complete-results-1"></script>
   <script defer src="infinite-equipment-ui.js?v=20261110-cursed-424"></script>
-  <script defer src="infinite-panel.js?v=20261110-cursed-424"></script>
+  <script defer src="infinite-panel.js?v=20261110-roles-1"></script>
 </head>
 <body>
   <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg">
@@ -67,6 +70,7 @@
         <button data-nav="cards" class="nav-link"><svg><use href="#ic-cards"/></svg><span>Cartas</span><span class="nav-counter" id="navCardCount">385</span></button>
         <button data-nav="supports" class="nav-link"><svg><use href="#ic-shield"/></svg><span>Suportes</span><span class="nav-counter" id="navSupportCount">39</span></button>
         <button data-nav="builder" class="nav-link"><svg><use href="#ic-sword"/></svg><span>Deck / Time</span><span class="new-dot"></span></button>
+        <button data-nav="roles" class="nav-link"><svg><use href="#ic-shield"/></svg><span>Funções / aliados</span><span class="new-dot"></span></button>
         <button data-nav="skill" class="nav-link"><svg><use href="#ic-branches"/></svg><span>Skill Tree</span></button>
         <button data-nav="circuits" class="nav-link"><svg><use href="#ic-branches"/></svg><span>Origin Circuits</span></button>
         <button data-nav="colosseum" class="nav-link"><svg><use href="#ic-sword"/></svg><span>Colosseum</span></button>
@@ -110,6 +114,7 @@
         <section class="page" id="page-builder">
           <div class="page-intro"><div><span class="overline">TACTICAL LAB / 03</span><h1>Seu <em>Deck</em></h1><p>Monte o Team 1 com 4 cartas e 4 suportes, seguindo o painel do jogo. Veja os circuitos entre os slots e as reações possíveis.</p></div><button class="outline-btn smaller" id="clearTeam">Limpar equipe</button></div>
           <div class="builder-guide"><svg><use href="#ic-spark"/></svg><span>Os circuitos ligam somente cartas <strong>adjacentes</strong>. Os pares de reação da Tower consideram toda a equipe.</span></div>
+          <div class="role-builder-callout"><p><strong>Quem ajuda os outros slots?</strong><br>Veja cartas de buff, cura e proteção, com o alvo e o gatilho registrados.</p><button type="button" class="outline-btn smaller" data-nav="roles">Ver funções / aliados ↗</button></div>
           <div class="deck-hud" id="deckHud">
             <div class="deck-hud-header">
               <div><span class="deck-eyebrow">ORIGINS / DECK BUILDER</span><h2>DECK <span>// TEAM 1</span></h2></div>
@@ -133,6 +138,7 @@
           <div class="team-analysis"><div class="game-panel"><div class="panel-eyebrow">ORIGIN CIRCUITS</div><h2>Conexões adjacentes</h2><div id="circuitResults" class="analysis-list"></div></div><div class="game-panel"><div class="panel-eyebrow">TOWER OF GOD</div><h2>Reações potenciais</h2><div id="reactionResults" class="analysis-list"></div></div></div>
           <div class="builder-footer"><span>Seu time fica salvo somente neste navegador. Nenhuma alteração é enviada ao Roblox ou ao Google Drive.</span><button id="copyTeam" class="secondary-btn">Copiar composição <svg><use href="#ic-arrow"/></svg></button></div>
         </section>
+        <section class="page" id="page-roles"><div id="rolesLab"></div></section>
         <section class="page" id="page-skill">
           <div class="st-scene" id="skillScene" aria-label="Skill Tree interativa do Card Origins">
             <header class="st-head">
