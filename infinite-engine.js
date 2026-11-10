@@ -76,6 +76,7 @@ function simulate(raw){
        // Harmony buffs are approximated as ONE-turn effects, not permanent shields.
        let harmonyDamage=false,tempShield=0;
        if(path==='harmony'){const v=dice();if(v<1/3)tempShield=max[i]*.165;else if(v<2/3)tempShield=max[i]*.22;else harmonyDamage=true;}
+       if(tempShield>0){const priorShield=actor.shield;tempShield=C.grantShield(actor,tempShield);actor.shield=priorShield;}
        const missing=1-hp[i]/max[i];let multi=power*link[i]*advantage(c.element,target.element,options.elementsMode)*(path==='hunt'?1+.165*huntStack:1);
        if(path==='destruction')multi*=1+.22*missing;
        if(s==='s-371')multi*=1.075;
