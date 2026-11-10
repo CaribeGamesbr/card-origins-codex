@@ -1,0 +1,620 @@
+{
+  "date": "2026-11-10",
+  "scope": "39 equipable supports, visually reviewed separately from main-card team helpers. This record does not claim simulator implementation. Existing catalog records and duplicate sources are preserved.",
+  "supports": [
+    {
+      "id": "s-357",
+      "name": "LOG",
+      "border": "Buff",
+      "image": "assets/supports/LOG%20-%20BUFF%20%5BScreenshot_35%5D.png",
+      "path": "assets/supports/LOG - BUFF [Screenshot_35].png",
+      "blobSha": "cdc98eeb39693a4c525f727089737ea564e54a3b",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/LOG%20-%20BUFF%20%5BScreenshot_35%5D.png",
+      "roles": [
+        "tank"
+      ],
+      "summary": "Dodge permanente de 10% à carta deste slot.",
+      "scope": "equipped-slot",
+      "sheet": 1
+    },
+    {
+      "id": "s-358",
+      "name": "CHAKRA MASTERY",
+      "border": "Buff",
+      "image": "assets/supports/CHAKRA%20MASTERY%20-%20BUFF%20%5BScreenshot_34%5D.png",
+      "path": "assets/supports/CHAKRA MASTERY - BUFF [Screenshot_34].png",
+      "blobSha": "835fbda92c2d8995baa4c41e01b66ed2822a3add",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/CHAKRA%20MASTERY%20-%20BUFF%20%5BScreenshot_34%5D.png",
+      "roles": [
+        "buff",
+        "tank",
+        "heal"
+      ],
+      "summary": "Na entrada, um buff aleatório: 5% Dodge, 5% lifesteal ou cura de 5% Max HP ao ser atingido; alterna a cada turno para um ainda não recebido e repete após os três.",
+      "scope": "equipped-slot",
+      "sheet": 1
+    },
+    {
+      "id": "s-359",
+      "name": "CHEMICAL MASK",
+      "border": "Debuff",
+      "image": "assets/supports/CHEMICAL%20MASK%20-%20DEBUFF%20%5BScreenshot_30%5D.png",
+      "path": "assets/supports/CHEMICAL MASK - DEBUFF [Screenshot_30].png",
+      "blobSha": "a3076d4237d1c494803da75c2ba44ae762b2df14",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/CHEMICAL%20MASK%20-%20DEBUFF%20%5BScreenshot_30%5D.png",
+      "roles": [
+        "control",
+        "atk"
+      ],
+      "summary": "Aplica Poison a cada ataque; o Poison aplicado é 10% mais forte.",
+      "scope": "equipped-slot",
+      "sheet": 1
+    },
+    {
+      "id": "s-360",
+      "name": "ASHEN ARCANUM",
+      "border": "Debuff",
+      "image": "assets/supports/s-360.webp",
+      "path": "assets/supports/s-360.webp",
+      "blobSha": "b4b1d88b910fe38bf7cdee6ae81aa39944f0ffd3",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/s-360.webp",
+      "roles": [
+        "control",
+        "atk"
+      ],
+      "summary": "Burn a cada ataque; se já aplica Burn por si, transforma seus Burns em Immolation. Ambos causam 10% mais dano.",
+      "scope": "equipped-slot",
+      "sheet": 1
+    },
+    {
+      "id": "s-361",
+      "name": "MAGIC BOOK",
+      "border": "Buff",
+      "image": "assets/supports/MAGIC%20BOOK%20-%20BUFF%20%5BScreenshot_31%5D.png",
+      "path": "assets/supports/MAGIC BOOK - BUFF [Screenshot_31].png",
+      "blobSha": "a509700383ff68bc2fccf6da0fd102e3020cd6b2",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/MAGIC%20BOOK%20-%20BUFF%20%5BScreenshot_31%5D.png",
+      "roles": [
+        "control"
+      ],
+      "summary": "Na entrada, desativa a habilidade adversária por 1 turno. Uma vez por batalha por equipe.",
+      "scope": "equipped-slot",
+      "sheet": 1
+    },
+    {
+      "id": "s-362",
+      "name": "OWRIN",
+      "border": "Buff",
+      "image": "assets/supports/OWRIN%20-%20BUFF%20%5BScreenshot_27%5D.png",
+      "path": "assets/supports/OWRIN - BUFF [Screenshot_27].png",
+      "blobSha": "c409e81293afc5b9412f45862c70205e74678533",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/OWRIN%20-%20BUFF%20%5BScreenshot_27%5D.png",
+      "roles": [
+        "buff"
+      ],
+      "summary": "Ganha 5% Stats a cada turno por 3 turnos, acumulando e preservando o ganho.",
+      "scope": "equipped-slot",
+      "sheet": 1
+    },
+    {
+      "id": "s-363",
+      "name": "GUIDING STAR",
+      "border": "Shield",
+      "image": "assets/supports/GUIDING%20STAR%20-%20SHIELD%20%5BScreenshot_32%5D.png",
+      "path": "assets/supports/GUIDING STAR - SHIELD [Screenshot_32].png",
+      "blobSha": "105ce4a11c72b1ca44fe4f7061c3a65843224403",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/GUIDING%20STAR%20-%20SHIELD%20%5BScreenshot_32%5D.png",
+      "roles": [
+        "tank",
+        "protection"
+      ],
+      "summary": "Nos 3 turnos após a entrada, um ataque que removeria mais de 30% Max HP tem seu dano reduzido em 10%; armazena o valor prevenido, até 2 vezes por batalha. Ao terminar os 3 turnos, ganha escudo de 20% do valor armazenado.",
+      "scope": "equipped-slot",
+      "sheet": 1
+    },
+    {
+      "id": "s-364",
+      "name": "CHAKRA MASTERY",
+      "border": "Calamity",
+      "image": "assets/supports/CHAKRA%20MASTERY%20-%20CALAMITY%20%5BScreenshot_24%5D.png",
+      "path": "assets/supports/CHAKRA MASTERY - CALAMITY [Screenshot_24].png",
+      "blobSha": "bd472e36376cd862757e3bf9880e51623c962516",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/CHAKRA%20MASTERY%20-%20CALAMITY%20%5BScreenshot_24%5D.png",
+      "roles": [
+        "buff",
+        "tank",
+        "heal"
+      ],
+      "summary": "Chakra Mastery Calamity: ciclo de 7,5% Dodge, 7,5% lifesteal ou cura de 7,5% Max HP ao ser atingido, em vez de 5%.",
+      "scope": "equipped-slot",
+      "sheet": 1
+    },
+    {
+      "id": "s-365",
+      "name": "UNBEATABLE FLAVOR",
+      "border": "Heal",
+      "image": "assets/supports/s-365.webp",
+      "path": "assets/supports/s-365.webp",
+      "blobSha": "2412a891593911cb95ea8615ea11a34f03c6251a",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/s-365.webp",
+      "roles": [
+        "heal"
+      ],
+      "summary": "A cada turno, cura a carta equipada em 5% do Max HP.",
+      "scope": "equipped-slot",
+      "sheet": 1
+    },
+    {
+      "id": "s-366",
+      "name": "BINDING VOW",
+      "border": "Heal",
+      "image": "assets/supports/s-366.webp",
+      "path": "assets/supports/s-366.webp",
+      "blobSha": "e875328427c705472a447c4c8de0056e383de88f",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/s-366.webp",
+      "roles": [
+        "tank",
+        "heal"
+      ],
+      "summary": "No primeiro hit fatal, revive a carta a 65% HP e reduz seu dano em 50%. Uma vez por batalha, uma utilização por time.",
+      "scope": "equipped-slot",
+      "sheet": 1
+    },
+    {
+      "id": "s-367",
+      "name": "LOOK UP!",
+      "border": "Debuff",
+      "image": "assets/supports/LOOK%20UP!%20-%20DEBUFF%20%5BScreenshot_29%5D.png",
+      "path": "assets/supports/LOOK UP! - DEBUFF [Screenshot_29].png",
+      "blobSha": "7bf64fd2f131a905cd55365c73df5e8d5f6798ce",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/LOOK%20UP!%20-%20DEBUFF%20%5BScreenshot_29%5D.png",
+      "roles": [
+        "atk",
+        "control"
+      ],
+      "summary": "Cada hit tem 20% de chance de cair elefante por 30% DMG da carta equipada; ao cair, 80% de chance de Confusion por 2 turnos.",
+      "scope": "equipped-slot",
+      "sheet": 1
+    },
+    {
+      "id": "s-368",
+      "name": "MAGICAL COMPASS",
+      "border": "Buff",
+      "image": "assets/supports/MAGICAL%20COMPASS%20-%20BUFF%20%5BScreenshot_22%5D.png",
+      "path": "assets/supports/MAGICAL COMPASS - BUFF [Screenshot_22].png",
+      "blobSha": "ed0d5708fe349b26aa769a240b422041be7991fd",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/MAGICAL%20COMPASS%20-%20BUFF%20%5BScreenshot_22%5D.png",
+      "roles": [
+        "atk"
+      ],
+      "summary": "Ao atacar, 30% de chance de perfurar o inimigo por 60% do dano, ignorando defesas. Um Magical Compass por formação.",
+      "scope": "equipped-slot",
+      "sheet": 1
+    },
+    {
+      "id": "s-369",
+      "name": "WATCHFUL BLOOM",
+      "border": "Heal",
+      "image": "assets/supports/WATCHFUL%20BLOOM%20-%20HEAL%20%5BScreenshot_26%5D.png",
+      "path": "assets/supports/WATCHFUL BLOOM - HEAL [Screenshot_26].png",
+      "blobSha": "04f75e83052ab777b821912c050272fcb4051642",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/WATCHFUL%20BLOOM%20-%20HEAL%20%5BScreenshot_26%5D.png",
+      "roles": [
+        "control",
+        "heal"
+      ],
+      "summary": "Lifebleech em cada ataque e +15% à cura recebida pela carta equipada, de todas as fontes.",
+      "scope": "equipped-slot",
+      "sheet": 2
+    },
+    {
+      "id": "s-370",
+      "name": "LOG",
+      "border": "Calamity",
+      "image": "assets/supports/LOG%20-%20CALAMITY%20%5BScreenshot_25%5D.png",
+      "path": "assets/supports/LOG - CALAMITY [Screenshot_25].png",
+      "blobSha": "0b96193807870a752fb28bb45ff95f575a4b67ff",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/LOG%20-%20CALAMITY%20%5BScreenshot_25%5D.png",
+      "roles": [
+        "tank"
+      ],
+      "summary": "Log Calamity concede Dodge permanente de 12,5% à carta deste slot.",
+      "scope": "equipped-slot",
+      "sheet": 2
+    },
+    {
+      "id": "s-371",
+      "name": "LIMIT BREAKER",
+      "border": "Buff",
+      "image": "assets/supports/s-371.webp",
+      "path": "assets/supports/s-371.webp",
+      "blobSha": "ae85a790d02fa2ea5ea4693e714dc0cd979f4822",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/s-371.webp",
+      "roles": [
+        "buff",
+        "atk"
+      ],
+      "summary": "Com Erudition: +6 pontos percentuais de splash e +7,5% DMG. Caso contrário: +7,5% HP e DMG e 2% splash dos hits de alvo único a cada outro inimigo.",
+      "scope": "equipped-slot",
+      "sheet": 2
+    },
+    {
+      "id": "s-372",
+      "name": "DIVINE SPIRIT WATERS",
+      "border": "Heal",
+      "image": "assets/supports/DIVINE%20SPIRIT%20WATERS%20-%20HEAL%20%5BScreenshot_17%5D.png",
+      "path": "assets/supports/DIVINE SPIRIT WATERS - HEAL [Screenshot_17].png",
+      "blobSha": "f8621b2a4f9d6d16f1582b6c2ffe9c529a7e5485",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/DIVINE%20SPIRIT%20WATERS%20-%20HEAL%20%5BScreenshot_17%5D.png",
+      "roles": [
+        "heal",
+        "buff"
+      ],
+      "summary": "Uma vez por batalha, abaixo de 50% HP cura até 70% HP e dá +10% Stats. Um por time.",
+      "scope": "equipped-slot",
+      "sheet": 2
+    },
+    {
+      "id": "s-373",
+      "name": "GUIDING STAR",
+      "border": "Calamity",
+      "image": "assets/supports/GUIDING%20STAR%20-%20CALAMITY%20%5BScreenshot_12%5D.png",
+      "path": "assets/supports/GUIDING STAR - CALAMITY [Screenshot_12].png",
+      "blobSha": "b941dfa4db11db774ddf420ea86d701109b0bf56",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/GUIDING%20STAR%20-%20CALAMITY%20%5BScreenshot_12%5D.png",
+      "roles": [
+        "tank",
+        "protection"
+      ],
+      "summary": "Guiding Star Calamity: reduz o ataque elegível em 12,5%, até 2 vezes; escudo final de 22,5% do valor armazenado.",
+      "scope": "equipped-slot",
+      "sheet": 2
+    },
+    {
+      "id": "s-374",
+      "name": "SERENITY",
+      "border": "Buff",
+      "image": "assets/supports/SERENITY%20-%20BUFF%20%5BScreenshot_19%5D.png",
+      "path": "assets/supports/SERENITY - BUFF [Screenshot_19].png",
+      "blobSha": "71d1805dacb9e1f4366a31a8543f10ffd2a69b2f",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/SERENITY%20-%20BUFF%20%5BScreenshot_19%5D.png",
+      "roles": [
+        "tank"
+      ],
+      "summary": "Sobrevive ao primeiro hit fatal com 1 HP. Um por time; não funciona em carta que já revive ou sobrevive a fatal por si.",
+      "scope": "equipped-slot",
+      "sheet": 2
+    },
+    {
+      "id": "s-375",
+      "name": "MAELSTROM ELEMENTALIST",
+      "border": "Buff",
+      "image": "assets/supports/MAELSTROM%20ELEMENTALIST%20-%20BUFF%20%5BScreenshot_21%5D.png",
+      "path": "assets/supports/MAELSTROM ELEMENTALIST - BUFF [Screenshot_21].png",
+      "blobSha": "f97afdb850bfe0a6c83e98d0c8f38a04e0015ba6",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/MAELSTROM%20ELEMENTALIST%20-%20BUFF%20%5BScreenshot_21%5D.png",
+      "roles": [
+        "tank"
+      ],
+      "summary": "A carta equipada recebe 15% menos dano. Não se aplica se a habilidade própria dela já oferece redução de dano.",
+      "scope": "equipped-slot",
+      "sheet": 2
+    },
+    {
+      "id": "s-376",
+      "name": "CRIMSON NOVA",
+      "border": "Buff",
+      "image": "assets/supports/CRIMSON%20NOVA%20-%20BUFF%20%5BScreenshot_20%5D.png",
+      "path": "assets/supports/CRIMSON NOVA - BUFF [Screenshot_20].png",
+      "blobSha": "3f46014095719c92c28c9e4c7c5bcea92d7947f8",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/CRIMSON%20NOVA%20-%20BUFF%20%5BScreenshot_20%5D.png",
+      "roles": [
+        "buff",
+        "heal"
+      ],
+      "summary": "Com Destruction, aumenta em 3% o dano ganho e em 6% o HP curado; caso contrário a carta recebe 7,5% dos benefícios de Destruction. O print não detalha a fórmula desse caso.",
+      "scope": "equipped-slot",
+      "sheet": 2
+    },
+    {
+      "id": "s-377",
+      "name": "ATHENA",
+      "border": "Buff",
+      "image": "assets/supports/ATHENA%20-%20BUFF%20%5BScreenshot_14%5D.png",
+      "path": "assets/supports/ATHENA - BUFF [Screenshot_14].png",
+      "blobSha": "e03d3a73e9da532bb302649bd650125d0c396f3b",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/ATHENA%20-%20BUFF%20%5BScreenshot_14%5D.png",
+      "roles": [
+        "heal",
+        "tank",
+        "control"
+      ],
+      "summary": "No começo da run, dá à carta deste slot uma bênção aleatória: Healing (cura de 5% do dano recebido), Defense (10% redução de dano) ou Sealing (desativa a carta inimiga por 2 turnos).",
+      "scope": "equipped-slot",
+      "sheet": 2
+    },
+    {
+      "id": "s-378",
+      "name": "TRUCK KUN",
+      "border": "Buff",
+      "image": "assets/supports/TRUCK%20KUN%20-%20BUFF%20%5BScreenshot_15%5D.png",
+      "path": "assets/supports/TRUCK KUN - BUFF [Screenshot_15].png",
+      "blobSha": "4657526b267f1c524230f0972d5569dab30f8d3b",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/TRUCK%20KUN%20-%20BUFF%20%5BScreenshot_15%5D.png",
+      "roles": [
+        "atk"
+      ],
+      "summary": "Quando a carta equipada morre, causa 50% do DMG dela no inimigo atual.",
+      "scope": "equipped-slot",
+      "sheet": 2
+    },
+    {
+      "id": "s-379",
+      "name": "ECHO OF THE FALLEN",
+      "border": "Buff",
+      "image": "assets/supports/ECHO%20OF%20THE%20FALLEN%20-%20BUFF%20%5BScreenshot_18%5D.png",
+      "path": "assets/supports/ECHO OF THE FALLEN - BUFF [Screenshot_18].png",
+      "blobSha": "c7acd1d5c6a9041c48746cbf98e42d0c6b97fbe2",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/ECHO%20OF%20THE%20FALLEN%20-%20BUFF%20%5BScreenshot_18%5D.png",
+      "roles": [
+        "atk",
+        "tank"
+      ],
+      "summary": "Nos 3 turnos após entrar, se morrer: 80% de chance de deixar Fate Echo por 2 turnos. Não pode ser alvo; repete seu último ataque a 50% quando o inimigo age, com 40% de chance de repetir mais uma vez antes de desaparecer. Uma vez por batalha.",
+      "scope": "equipped-slot",
+      "sheet": 2
+    },
+    {
+      "id": "s-380",
+      "name": "UNBEATABLE FLAVOR",
+      "border": "Calamity",
+      "image": "assets/supports/UNBEATABLE_FLAVOR_CALAMITY.png",
+      "path": "assets/supports/UNBEATABLE_FLAVOR_CALAMITY.png",
+      "blobSha": "49824ef772b44096170715f0776921b058f011f1",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/UNBEATABLE_FLAVOR_CALAMITY.png",
+      "roles": [
+        "heal"
+      ],
+      "summary": "A cada turno, cura 5,5% Max HP da carta equipada; não confundir com versão Heal de 5%.",
+      "scope": "equipped-slot",
+      "sheet": 2
+    },
+    {
+      "id": "s-381",
+      "name": "BLADES OF VENGEANCE",
+      "border": "Buff",
+      "image": "assets/supports/BLADES%20OF%20VENGEANCE%20-%20BUFF%20%5BScreenshot_11%5D.png",
+      "path": "assets/supports/BLADES OF VENGEANCE - BUFF [Screenshot_11].png",
+      "blobSha": "94afe19bd74af3d235f43dec0985dc8f7e88fa17",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/BLADES%20OF%20VENGEANCE%20-%20BUFF%20%5BScreenshot_11%5D.png",
+      "roles": [
+        "buff",
+        "atk"
+      ],
+      "summary": "Com Hunt: +3,5% dano por kill e, após 3 kills, Enrage com um ataque adicional de 20% dano. Caso contrário: +4% dano por kill sem ataque extra.",
+      "scope": "equipped-slot",
+      "sheet": 3
+    },
+    {
+      "id": "s-382",
+      "name": "LOOK UP!",
+      "border": "Calamity",
+      "image": "assets/supports/LOOK%20UP!%20-%20CALAMITY%20%5BScreenshot_10%5D.png",
+      "path": "assets/supports/LOOK UP! - CALAMITY [Screenshot_10].png",
+      "blobSha": "75884152ea433feb85fdaa3dc0ec291c3e919010",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/LOOK%20UP!%20-%20CALAMITY%20%5BScreenshot_10%5D.png",
+      "roles": [
+        "atk",
+        "control"
+      ],
+      "summary": "Look Up Calamity tem 22,5% de chance do elefante por hit, 30% DMG e 80% de Confusion por 2 turnos.",
+      "scope": "equipped-slot",
+      "sheet": 3
+    },
+    {
+      "id": "s-383",
+      "name": "ASCENSION",
+      "border": "Buff",
+      "image": "assets/supports/ASCENSION%20-%20BUFF%20%5BScreenshot_8%5D.png",
+      "path": "assets/supports/ASCENSION - BUFF [Screenshot_8].png",
+      "blobSha": "97b3db082c3042a9864e92be88b0a7f5145b23f7",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/ASCENSION%20-%20BUFF%20%5BScreenshot_8%5D.png",
+      "roles": [
+        "buff",
+        "protection"
+      ],
+      "summary": "Em cada turno, 60% de chance de limpar todos os debuffs da carta equipada. Cada debuff removido dá 5% HP e 2% DMG, acumulando até 3 vezes.",
+      "scope": "equipped-slot",
+      "sheet": 3
+    },
+    {
+      "id": "s-384",
+      "name": "CHEMICAL MASK",
+      "border": "Calamity",
+      "image": "assets/supports/CHEMICAL%20MASK%20-%20CALAMITY%20%5BScreenshot_7%5D.png",
+      "path": "assets/supports/CHEMICAL MASK - CALAMITY [Screenshot_7].png",
+      "blobSha": "7a610d30c6c7966fe9b528de5494c08346c00153",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/CHEMICAL%20MASK%20-%20CALAMITY%20%5BScreenshot_7%5D.png",
+      "roles": [
+        "control",
+        "atk"
+      ],
+      "summary": "Chemical Mask Calamity: Poison em cada ataque, 12,5% mais forte.",
+      "scope": "equipped-slot",
+      "sheet": 3
+    },
+    {
+      "id": "s-385",
+      "name": "CHEMICAL MASK",
+      "border": "Calamity",
+      "image": "assets/supports/CHEMICAL%20MASK%20-%20CALAMITY%20%5BScreenshot_6%5D.png",
+      "path": "assets/supports/CHEMICAL MASK - CALAMITY [Screenshot_6].png",
+      "blobSha": "a09fc3eb6c306057d4d3af5af3359e959397e21c",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/CHEMICAL%20MASK%20-%20CALAMITY%20%5BScreenshot_6%5D.png",
+      "roles": [
+        "control",
+        "atk"
+      ],
+      "summary": "Outra imagem cadastrada de Chemical Mask Calamity: Poison em cada ataque, 12,5% mais forte. Registro preservado; não eliminado por semelhança.",
+      "scope": "equipped-slot",
+      "sheet": 3
+    },
+    {
+      "id": "s-386",
+      "name": "ADRENALINE",
+      "border": "Heal",
+      "image": "assets/supports/ADRENALINE%20-%20HEAL%20%5BScreenshot_9%5D.png",
+      "path": "assets/supports/ADRENALINE - HEAL [Screenshot_9].png",
+      "blobSha": "689cae3a5aa4a855838d1ac3f98e2febf46eddbc",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/ADRENALINE%20-%20HEAL%20%5BScreenshot_9%5D.png",
+      "roles": [
+        "heal"
+      ],
+      "summary": "No começo do turno da carta equipada, cura 20% do dano que ela sofreu desde o turno anterior.",
+      "scope": "equipped-slot",
+      "sheet": 3
+    },
+    {
+      "id": "s-387",
+      "name": "LOG",
+      "border": "Umbral",
+      "image": "assets/supports/LOG%20-%20UMBRAL%20%5BScreenshot_1%5D.png",
+      "path": "assets/supports/LOG - UMBRAL [Screenshot_1].png",
+      "blobSha": "80d678a5e7488baf0174af4a89dc7fcd7b499932",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/LOG%20-%20UMBRAL%20%5BScreenshot_1%5D.png",
+      "roles": [
+        "tank"
+      ],
+      "summary": "Log Umbral concede Dodge permanente de 15% à carta deste slot.",
+      "scope": "equipped-slot",
+      "sheet": 3
+    },
+    {
+      "id": "s-388",
+      "name": "ASHEN ARCANUM",
+      "border": "Calamity",
+      "image": "assets/supports/ASHEN_ARCANUM_CALAMITY.png",
+      "path": "assets/supports/ASHEN_ARCANUM_CALAMITY.png",
+      "blobSha": "302224ee979fc8303947e9ea5b4dc92746fe3b67",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/ASHEN_ARCANUM_CALAMITY.png",
+      "roles": [
+        "control",
+        "atk"
+      ],
+      "summary": "Ashen Arcanum Calamity: Burn em cada ataque; Burn próprio vira Immolation; ambos causam 12,5% mais dano.",
+      "scope": "equipped-slot",
+      "sheet": 3
+    },
+    {
+      "id": "s-389",
+      "name": "SHATTERED VEIL",
+      "border": "Calamity",
+      "image": "assets/supports/SHATTERED%20VEIL%20-%20CALAMITY%20%5Bsup1%5D.png",
+      "path": "assets/supports/SHATTERED VEIL - CALAMITY [sup1].png",
+      "blobSha": "afea9ac8b1b0267576c7c8e7a7b630e0aef29635",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/SHATTERED%20VEIL%20-%20CALAMITY%20%5Bsup1%5D.png",
+      "roles": [
+        "control",
+        "atk"
+      ],
+      "summary": "Com Remembrance: rolagem separada de +10% chance de Freeze por hit, nunca somada à base de 15%, e +17,5% ao bônus de Shatter. Caso contrário: 5,5% chance de Freeze e Shatter por 5,5% dano bônus.",
+      "scope": "equipped-slot",
+      "sheet": 3
+    },
+    {
+      "id": "s-390",
+      "name": "SCISSOR",
+      "border": "Buff",
+      "image": "assets/supports/SCISSOR%20-%20BUFF%20%5BScreenshot_4%5D.png",
+      "path": "assets/supports/SCISSOR - BUFF [Screenshot_4].png",
+      "blobSha": "e983e0bf59fc25090dc901d16ae1bb4648cf76ed",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/SCISSOR%20-%20BUFF%20%5BScreenshot_4%5D.png",
+      "roles": [
+        "buff"
+      ],
+      "summary": "Ao matar, rouba 10% do HP e DMG daquele inimigo por 2 turnos, até 2 inimigos por batalha.",
+      "scope": "equipped-slot",
+      "sheet": 3
+    },
+    {
+      "id": "s-391",
+      "name": "WATCHFUL BLOOM",
+      "border": "Calamity",
+      "image": "assets/supports/WATCHFUL%20BLOOM%20-%20CALAMITY%20%5BScreenshot_2%5D.png",
+      "path": "assets/supports/WATCHFUL BLOOM - CALAMITY [Screenshot_2].png",
+      "blobSha": "7d8af1cfc8fb4bdd920a96a70ba0d1878a7ea359",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/WATCHFUL%20BLOOM%20-%20CALAMITY%20%5BScreenshot_2%5D.png",
+      "roles": [
+        "control",
+        "heal"
+      ],
+      "summary": "Watchful Bloom Calamity: Lifebleech a cada ataque e +17,5% de cura recebida de todas as fontes.",
+      "scope": "equipped-slot",
+      "sheet": 3
+    },
+    {
+      "id": "s-392",
+      "name": "OWRIN",
+      "border": "Calamity",
+      "image": "assets/supports/OWRIN%20-%20CALAMITY%20%5BScreenshot_3%5D.png",
+      "path": "assets/supports/OWRIN - CALAMITY [Screenshot_3].png",
+      "blobSha": "cf9699af065a054972200a01a43cf02aa62fd43b",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/OWRIN%20-%20CALAMITY%20%5BScreenshot_3%5D.png",
+      "roles": [
+        "buff"
+      ],
+      "summary": "Owrin Calamity ganha 7,5% Stats por turno por 3 turnos, preservando o ganho.",
+      "scope": "equipped-slot",
+      "sheet": 3
+    },
+    {
+      "id": "s-393",
+      "name": "DORO",
+      "border": "Shield",
+      "image": "assets/supports/DORO_SHIELD.png",
+      "path": "assets/supports/DORO_SHIELD.png",
+      "blobSha": "4d5857731919e937e129fab99209613e9f12d485",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/DORO_SHIELD.png",
+      "roles": [
+        "protection"
+      ],
+      "summary": "Se eliminar o inimigo nos dois primeiros turnos após ele entrar, ganha escudo que nega 15% do próximo hit recebido.",
+      "scope": "equipped-slot",
+      "sheet": 4
+    },
+    {
+      "id": "new-divine-spirit-waters-calamity",
+      "name": "DIVINE SPIRIT WATERS",
+      "border": "Calamity",
+      "image": "assets/supports/DIVINE_SPIRIT_WATERS_CALAMITY.png",
+      "path": "assets/supports/DIVINE_SPIRIT_WATERS_CALAMITY.png",
+      "blobSha": "42176aac1e68eb5cff624728019747a77dd52daa",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/DIVINE_SPIRIT_WATERS_CALAMITY.png",
+      "roles": [
+        "heal",
+        "buff"
+      ],
+      "summary": "Abaixo de 50% HP, cura até 70% HP e ganha +12,5% Stats. Uma vez por batalha, um por time.",
+      "scope": "equipped-slot",
+      "sheet": 4
+    },
+    {
+      "id": "new-astral-devourer-buff",
+      "name": "ASTRAL DEVOURER",
+      "border": "Buff",
+      "image": "assets/supports/ASTRAL_DEVOURER_BUFF.png",
+      "path": "assets/supports/ASTRAL_DEVOURER_BUFF.png",
+      "blobSha": "9023ed7a9c5b764eab997707d4a2648ccb760017",
+      "url": "https://raw.githubusercontent.com/CaribeGamesbr/card-origins-codex/76c71b77855b5c119cff2f6a639268f051d2a9d1/assets/supports/ASTRAL_DEVOURER_BUFF.png",
+      "roles": [
+        "buff",
+        "control",
+        "tank",
+        "atk"
+      ],
+      "summary": "Na entrada, recebe um de três efeitos. Time Dilation: atrasa habilidade inimiga 1 turno; vitória em 2 turnos dá 30% de chance de passar ao próximo, senão +5% DMG após o inimigo sobreviver 2 turnos. Gravitational Pull: 35% chance de absorver 30% do dano, guardar por 2 turnos e dividir entre inimigos. Acceleration: seus debuffs fazem efeito 1 turno antes, os recebidos duram 1 turno menos.",
+      "scope": "equipped-slot",
+      "sheet": 4
+    }
+  ]
+}
