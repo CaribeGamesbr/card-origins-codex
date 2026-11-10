@@ -86,3 +86,10 @@ A configuração usa o painel visual do Infinite, com quatro cartas grandes, bus
 ## Adicionar cartas pelo site
 
 O menu **Adicionar carta** (`#register`) prepara o acesso ao formulário privado do proprietário para salvar novas cartas no GitHub e no Google Docs. Os botões **+ Nova carta** também aparecem no Deck e na configuração do planejador. É necessária uma ativação inicial das contas; enquanto a conexão não estiver pronta, a página indica a pendência e não afirma que salvou dados. Ver [ativação e funcionamento](docs/CADASTRO_CARTAS.md).
+
+
+### Cartas confirmadas em 10/11/2026
+
+Sete novas variantes foram transcritas dos prints originais, preservando todos os 408 registros anteriores. Catálogo atual: **415 registros = 378 cartas principais + 37 suportes; 33 principais transcritas e 345 pendentes**. Os prints repetidos de Reality's Worst Duet e Irregular Climber não geraram duplicatas. Habilidades novas estão descritas no catálogo; seus gatilhos específicos ainda não foram implementados no combate.
+
+Detalhes: [registro das sete cartas](docs/CARTAS_2026-11-10.md).
