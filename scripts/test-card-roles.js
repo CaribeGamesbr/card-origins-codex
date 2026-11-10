@@ -1,7 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const R=require('../card-roles.js'),catalog=require('../catalog.json'),byId=new Map(catalog.map(c=>[c.id,c])),before=JSON.stringify(catalog);
 const helpers=R.select(catalog),ids=helpers.map(c=>c.id).sort();
-assert.equal(helpers.length,46);
+assert.equal(helpers.length,51);
 assert.equal(R.select(catalog,{audience:'known'}).length,385);
 assert.deepEqual(R.select(catalog,{audience:'pending'}).map(c=>c.id),['c-270']);
 assert.deepEqual(R.select(catalog,{role:'buff'}).map(c=>c.id).sort(),['new-the-grinning-spectator-normal','c-216','c-43'].sort());
@@ -27,6 +27,8 @@ assert.equal(R.classify({...byId.get('c-216'),fullName:'Different variant'}).rev
 const audit=require('../docs/CARD_ROLE_REVIEW.json');assert.equal(audit.cards.length,385);assert.equal(new Set(audit.cards.map(c=>c.id)).size,385);for(const row of audit.cards){assert.match(row.blobSha,/^[0-9a-f]{40}$/);assert.equal(row.image,byId.get(row.id).image);assert.deepEqual(R.classify(byId.get(row.id)).roles,row.roles);}
 assert(R.select(catalog,{audience:'known',query:'cursed'}).some(c=>c.id==='new-no-longer-human-cursed-umbral'));
 assert.equal(R.select(catalog,{query:'PEAK'}).length,2);assert.equal(R.select(catalog,{query:'nome inexistente'}).length,0);
+for(const id of ['c-198','c-170','c-194','c-161','c-8']){assert(R.matches(byId.get(id),'assist'));assert(!R.matches(byId.get(id),'buff'));assert(!R.classify(byId.get(id)).offField);}
+
 const team=['c-3','new-no-longer-human-umbral','c-1','c-2'],original=team.slice(),supportTeam=['s-371','s-372','s-365','s-366'],progress={purchased:['infinite-second-wind'],added:80},unchanged=JSON.stringify({team,supportTeam,progress});
 const placed=R.place(team,'new-the-grinning-spectator-normal',1,catalog);assert.deepEqual(placed,['c-3','new-the-grinning-spectator-normal','c-1','c-2']);assert.deepEqual(team,original);
 assert.throws(()=>R.place(team,'c-1',1,catalog),/já está no slot 3/);assert.deepEqual(R.place(team,'c-1',2,catalog),team);
@@ -34,4 +36,4 @@ assert.throws(()=>R.place(team,'s-371',0,catalog),/não encontrada/);assert.thro
 assert.equal(JSON.stringify({team,supportTeam,progress}),unchanged);assert.equal(JSON.stringify(catalog),before,'Role filtering and slot choice preserve the catalog');
 const browser={window:{}};vm.runInNewContext(fs.readFileSync(require.resolve('../card-roles.js'),'utf8'),browser);assert.deepEqual(Array.from(browser.window.CARDO_CARD_ROLES.select(catalog).map(c=>c.id)).sort(),ids);
 const index=fs.readFileSync(require.resolve('../index.html'),'utf8');assert(index.indexOf('src="card-roles.js')<index.indexOf('src="app.js'));assert(index.includes('id="page-roles"'));assert(index.includes('data-nav="roles"'));
-console.log('385 image reviews, 46 team helpers, 10 explicit off-field effects, variant/source guards, self-heal separation, pending statistics, filters and catalog/team/support/tree preservation passed.');
+console.log('385 image reviews, 51 team helpers, 10 explicit off-field effects, variant/source guards, self-heal separation, pending statistics, filters and catalog/team/support/tree preservation passed.');

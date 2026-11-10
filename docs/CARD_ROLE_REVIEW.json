@@ -101,7 +101,8 @@
       "blobSha": "5724300ac7d1c4dbd129cb1b910ca9abece79db5",
       "sheet": 1,
       "roles": [
-        "buff"
+        "buff",
+        "tank"
       ],
       "scope": "ally",
       "summary": "Dá +20% Crit Chance e +25% Crit DMG ao aliado com maior DMG. Eye Deal pode gastar 5% do Max HP desse aliado para converter um erro normal em crítico garantido, sem custo fatal.",
@@ -1510,11 +1511,13 @@
       "blobSha": "cf2c0bc119f0f3e18a943466774c0769de4d0bab",
       "sheet": 8,
       "roles": [
-        "atk"
+        "tank",
+        "atk",
+        "control"
       ],
       "scope": "enemy",
-      "summary": "A habilidade tem dano adicional ou melhora os ataques da própria carta.",
-      "timing": "Confira o print desta variante para o alvo, a duração e os limites. Não há confirmação explícita de funcionamento no banco neste registro.",
+      "summary": "Na entrada fica Unseen até causar dano e depois deixa uma Shadow. O próximo dano é esquivado pela Shadow e marca o causador com Backstab: o próximo dano nele é crítico garantido e ignora escudos, consumindo a marca.",
+      "timing": "Backstab é uma condição no inimigo para o próximo dano recebido, não um buff permanente de crítico no time. O print não confirma atuação no banco.",
       "offField": false,
       "offFieldProof": "",
       "ability": ""
@@ -1816,7 +1819,7 @@
         "control"
       ],
       "scope": "self",
-      "summary": "A habilidade tem dano adicional ou melhora os ataques da própria carta. Tem sobrevivência, resistência ou recuperação própria; isso não confirma cura do time. Aplica controle ou enfraquece efeitos do inimigo.",
+      "summary": "Ao atacar, remove buffs e debuffs temporários de si e do alvo. Se o inimigo perder algum efeito, suprime sua habilidade até o fim do próximo turno dele e causa 10% Max HP por efeito removido (máximo 3); sem efeitos, segue com 25% DMG. Não recebe buffs temporários normalmente: 75% do buff vira cura própria. Pode também remover debuffs úteis aplicados por seus aliados no alvo.",
       "timing": "Confira o print desta variante para o alvo, a duração e os limites. Não há confirmação explícita de funcionamento no banco neste registro.",
       "offField": false,
       "offFieldProof": "",
@@ -2962,12 +2965,12 @@
       "blobSha": "c5d5c53e54ca8d6354d849df455071a099564a53",
       "sheet": 14,
       "roles": [
-        "atk",
+        "assist",
         "control"
       ],
-      "scope": "enemy",
-      "summary": "A habilidade tem dano adicional ou melhora os ataques da própria carta. Aplica controle ou enfraquece efeitos do inimigo.",
-      "timing": "Confira o print desta variante para o alvo, a duração e os limites. Não há confirmação explícita de funcionamento no banco neste registro.",
+      "scope": "ally",
+      "summary": "ALIEN FORCE LINK: a primeira habilidade especial de cada inimigo define a resposta do Alien Watch. Contrariar o efeito gera um Link Event; se esse inimigo for eliminado, a próxima carta Alien Force entra com sua mecânica de assinatura pronta.",
+      "timing": "Depende da família Alien Force e da eliminação do inimigo associado ao evento. O print não detalha quais cargas ou tempos significa “pronta”; não se atribuiu buff universal nem atuação no banco.",
       "offField": false,
       "offFieldProof": "",
       "ability": ""
@@ -3088,11 +3091,12 @@
       "blobSha": "4643a1dd80d1e6bf7ba0d40bafe31ea13ec36305",
       "sheet": 15,
       "roles": [
-        "tank"
+        "tank",
+        "assist"
       ],
-      "scope": "self",
-      "summary": "Tem sobrevivência, resistência ou recuperação própria; isso não confirma cura do time.",
-      "timing": "Confira o print desta variante para o alvo, a duração e os limites. Não há confirmação explícita de funcionamento no banco neste registro.",
+      "scope": "ally",
+      "summary": "ALIEN FORCE LINK: uma vez por batalha, dano fatal transforma esta carta em Seed: não age nem sofre dano por 1 turno, depois retorna com 30% Max HP e aplica Burn ao inimigo atual. Essa reconstrução gera um Link Event, que pode alimentar Celestial Verdict no time.",
+      "timing": "A sobrevivência é própria; a ajuda à combinação é gerar um evento Alien Force. Não cura outros aliados nem confirma execução no banco.",
       "offField": false,
       "offFieldProof": "",
       "ability": ""
@@ -3470,11 +3474,12 @@
       "blobSha": "5cd4b820ba1c27e2c9d74ddb4f68f90defff33f4",
       "sheet": 17,
       "roles": [
+        "assist",
         "control"
       ],
-      "scope": "enemy",
-      "summary": "Aplica controle ou enfraquece efeitos do inimigo.",
-      "timing": "Confira o print desta variante para o alvo, a duração e os limites. Não há confirmação explícita de funcionamento no banco neste registro.",
+      "scope": "ally",
+      "summary": "ALIEN FORCE LINK: cada Link Event diferente de um aliado Alien Force concede 1 Consensus (máximo 2). Uma vez por batalha, com 2, reescreve a próxima ação inimiga após resolver, apagando as curas, buffs, debuffs, escudos e turnos extras que causou; contra bosses, reduz à metade em vez de apagar.",
+      "timing": "Precisa de Link Events de aliados Alien Force. É sinergia de controle, não aumento de atributo do time; o print não diz que desfaz o dano direto da ação.",
       "offField": false,
       "offFieldProof": "",
       "ability": ""
@@ -3632,12 +3637,14 @@
       "blobSha": "c262be6dd6790633a0064bb57404b0c1f840595b",
       "sheet": 17,
       "roles": [
+        "tank",
         "atk",
-        "tank"
+        "control",
+        "assist"
       ],
-      "scope": "self",
-      "summary": "A habilidade tem dano adicional ou melhora os ataques da própria carta. Tem sobrevivência, resistência ou recuperação própria; isso não confirma cura do time.",
-      "timing": "Confira o print desta variante para o alvo, a duração e os limites. Não há confirmação explícita de funcionamento no banco neste registro.",
+      "scope": "ally",
+      "summary": "ALIEN FORCE LINK: a primeira habilidade especial que cada inimigo usa nesta carta tem seus efeitos adicionais bloqueados, mas o DMG acerta; bosses têm esses adicionais reduzidos em 25%. Seu próximo hit devolve os efeitos a 50% e aplica Frostbite. Devolver gera Link Event, que pode alimentar Celestial Verdict.",
+      "timing": "A defesa é própria e o evento ajuda uma combinação Alien Force. Não dá imunidade a todos os aliados; atuação no banco não está explícita.",
       "offField": false,
       "offFieldProof": "",
       "ability": ""
@@ -3703,11 +3710,12 @@
       "blobSha": "473e20d17650c363fda7dd1955472ad5fa2a6f95",
       "sheet": 18,
       "roles": [
-        "atk"
+        "atk",
+        "control"
       ],
       "scope": "enemy",
-      "summary": "A habilidade tem dano adicional ou melhora os ataques da própria carta.",
-      "timing": "Confira o print desta variante para o alvo, a duração e os limites. Não há confirmação explícita de funcionamento no banco neste registro.",
+      "summary": "Marca o inimigo ativo com Trick Card: o primeiro hit nele a cada turno recebe dano bônus de 10% do HP atual do alvo e aplica Bleed. Na derrota do marcado, ganha 12,5% DMG (até 2 vezes) e marca o próximo inimigo.",
+      "timing": "Amplificação condicionada à marca no inimigo; o texto não limita aquele primeiro hit à própria carta. Não foi tratada como buff global de ATK ou efeito do banco.",
       "offField": false,
       "offFieldProof": "",
       "ability": ""
@@ -3774,11 +3782,12 @@
       "blobSha": "8aea390639c3aa76596aa6c5abb631326a825571",
       "sheet": 18,
       "roles": [
-        "atk"
+        "atk",
+        "control"
       ],
       "scope": "enemy",
-      "summary": "A habilidade tem dano adicional ou melhora os ataques da própria carta.",
-      "timing": "Confira o print desta variante para o alvo, a duração e os limites. Não há confirmação explícita de funcionamento no banco neste registro.",
+      "summary": "Na entrada, conecta o inimigo atual e o de maior DMG por 3 turnos: 30% do dano recebido por um é copiado ao outro. Se um cair, o alvo restante recebe 40% DMG extra no próximo hit.",
+      "timing": "Ajuda indireta por conexão entre inimigos. Não concede atributos aos aliados nem confirma atuação fora de campo.",
       "offField": false,
       "offFieldProof": "",
       "ability": ""
@@ -4665,11 +4674,13 @@
       "blobSha": "1ce1579343b650c409061de59150b83214e4242a",
       "sheet": 22,
       "roles": [
-        "atk"
+        "tank",
+        "atk",
+        "control"
       ],
       "scope": "enemy",
-      "summary": "A habilidade tem dano adicional ou melhora os ataques da própria carta.",
-      "timing": "Confira o print desta variante para o alvo, a duração e os limites. Não há confirmação explícita de funcionamento no banco neste registro.",
+      "summary": "Na entrada fica Unseen até causar dano e depois deixa uma Shadow. O próximo dano é esquivado pela Shadow e marca o causador com Backstab: o próximo dano nele é crítico garantido e ignora escudos, consumindo a marca.",
+      "timing": "Backstab é uma condição no inimigo para o próximo dano recebido, não um buff permanente de crítico no time. O print não confirma atuação no banco.",
       "offField": false,
       "offFieldProof": "",
       "ability": ""
@@ -5574,7 +5585,7 @@
         "control"
       ],
       "scope": "self",
-      "summary": "A habilidade tem dano adicional ou melhora os ataques da própria carta. Tem sobrevivência, resistência ou recuperação própria; isso não confirma cura do time. Aplica controle ou enfraquece efeitos do inimigo.",
+      "summary": "Ao atacar, remove buffs e debuffs temporários de si e do alvo. Se o inimigo perder algum efeito, suprime sua habilidade até o fim do próximo turno dele e causa 10% Max HP por efeito removido (máximo 3); sem efeitos, segue com 25% DMG. Não recebe buffs temporários normalmente: 75% do buff vira cura própria. Pode também remover debuffs úteis aplicados por seus aliados no alvo.",
       "timing": "Confira o print desta variante para o alvo, a duração e os limites. Não há confirmação explícita de funcionamento no banco neste registro.",
       "offField": false,
       "offFieldProof": "",
@@ -6419,12 +6430,14 @@
       "blobSha": "a2c2d326ba4e42f87adcfed84b4bc3b1b22cabbe",
       "sheet": 30,
       "roles": [
+        "tank",
         "atk",
-        "tank"
+        "control",
+        "assist"
       ],
-      "scope": "self",
-      "summary": "A habilidade tem dano adicional ou melhora os ataques da própria carta. Tem sobrevivência, resistência ou recuperação própria; isso não confirma cura do time.",
-      "timing": "Confira o print desta variante para o alvo, a duração e os limites. Não há confirmação explícita de funcionamento no banco neste registro.",
+      "scope": "ally",
+      "summary": "ALIEN FORCE LINK: a primeira habilidade especial que cada inimigo usa nesta carta tem seus efeitos adicionais bloqueados, mas o DMG acerta; bosses têm esses adicionais reduzidos em 25%. Seu próximo hit devolve os efeitos a 50% e aplica Frostbite. Devolver gera Link Event, que pode alimentar Celestial Verdict.",
+      "timing": "A defesa é própria e o evento ajuda uma combinação Alien Force. Não dá imunidade a todos os aliados; atuação no banco não está explícita.",
       "offField": false,
       "offFieldProof": "",
       "ability": ""
@@ -6750,7 +6763,7 @@
         "control"
       ],
       "scope": "self",
-      "summary": "A habilidade tem dano adicional ou melhora os ataques da própria carta. Tem sobrevivência, resistência ou recuperação própria; isso não confirma cura do time. Aplica controle ou enfraquece efeitos do inimigo.",
+      "summary": "Ao atacar, remove buffs e debuffs temporários de si e do alvo. Se o inimigo perder algum efeito, suprime sua habilidade até o fim do próximo turno dele e causa 10% Max HP por efeito removido (máximo 3); sem efeitos, segue com 25% DMG. Não recebe buffs temporários normalmente: 75% do buff vira cura própria. Pode também remover debuffs úteis aplicados por seus aliados no alvo.",
       "timing": "Confira o print desta variante para o alvo, a duração e os limites. Não há confirmação explícita de funcionamento no banco neste registro.",
       "offField": false,
       "offFieldProof": "",
@@ -6915,7 +6928,7 @@
         "control"
       ],
       "scope": "self",
-      "summary": "A habilidade tem dano adicional ou melhora os ataques da própria carta. Tem sobrevivência, resistência ou recuperação própria; isso não confirma cura do time. Aplica controle ou enfraquece efeitos do inimigo.",
+      "summary": "Ao atacar, remove buffs e debuffs temporários de si e do alvo. Se o inimigo perder algum efeito, suprime sua habilidade até o fim do próximo turno dele e causa 10% Max HP por efeito removido (máximo 3); sem efeitos, segue com 25% DMG. Não recebe buffs temporários normalmente: 75% do buff vira cura própria. Pode também remover debuffs úteis aplicados por seus aliados no alvo.",
       "timing": "Confira o print desta variante para o alvo, a duração e os limites. Não há confirmação explícita de funcionamento no banco neste registro.",
       "offField": false,
       "offFieldProof": "",
