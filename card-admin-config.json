@@ -1,4 +1,6 @@
 {
   "version": 1,
-  "adminUrl": "https://script.google.com/macros/s/AKfycbwnKlsgRfliryvG2DqGlzUNQOrvndM7kp6yzmADWdIn3mZJG_Wtvhe7iQf0hiAGHYef/exec"
+  "adminUrl": "",
+  "enabled": false,
+  "disabledAt": "2026-11-10"
 }

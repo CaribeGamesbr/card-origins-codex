@@ -83,10 +83,9 @@ O painel segue a interface da **Skill Tree**: ramos à esquerda, mapa no centro 
 
 A configuração usa o painel visual do Infinite, com quatro cartas grandes, busca para trocar, ampliação, ordem, circuitos, totais parciais e suportes por slot. Suportes e circuitos são referências da formação e não entram no índice de recomendação da árvore; dados pendentes permanecem explícitos.
 
-## Adicionar cartas pelo site
+## Cadastro de cartas
 
-O menu **Adicionar carta** (`#register`) prepara o acesso ao formulário privado do proprietário para salvar novas cartas no GitHub e no Google Docs. Os botões **+ Nova carta** também aparecem no Deck e na configuração do planejador. É necessária uma ativação inicial das contas; enquanto a conexão não estiver pronta, a página indica a pendência e não afirma que salvou dados. Ver [ativação e funcionamento](docs/CADASTRO_CARTAS.md).
-
+Em 10/11/2026, a pedido do proprietário, o menu Adicionar carta, os botões + Nova carta e o formulário automático foram retirados. As próximas aquisições serão enviadas pelo chat para transcrição e atualização manual, com registro no GitHub e no Google Docs. Todas as cartas, suportes, imagens e formações existentes foram preservadas.
 
 ### Cartas confirmadas em 10/11/2026
 
@@ -98,6 +97,6 @@ Detalhes: [registro das sete cartas](docs/CARTAS_2026-11-10.md).
 Segunda remessa de 10/11/2026: 2 cartas principais e 2 suportes novos, mais 3 suportes pendentes completados nos mesmos IDs. Total atual: **419 registros = 380 principais + 39 suportes; 35 principais transcritas e 345 pendentes**. As versões-base dos suportes foram preservadas; valores Calamity não as substituem.
 
 
-### Preenchimento automático por print
+### Leitor experimental retirado
 
-O cadastro privado agora aceita seleção, arraste ou Ctrl + V de um print e sugere os campos automaticamente, com revisão obrigatória. Há ajuste de área, preservação de edições manuais e reconhecimento de prints idênticos já confirmados. A leitura local pode errar letras e números; não inventa atributos ausentes nem implementa habilidades de combate. Cartas principais e suportes são tratados separadamente. [Como usar](docs/CADASTRO_CARTAS.md).
+O leitor automático de prints foi retirado em 10/11/2026. O código histórico e a documentação foram preservados para consulta, mas não são carregados no site. O endereço do cadastro foi removido da configuração pública e a implantação privada foi desativada. [Registro histórico](docs/CADASTRO_CARTAS.md).

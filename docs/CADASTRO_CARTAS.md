@@ -1,3 +1,11 @@
+# Cadastro automático retirado em 10/11/2026
+
+**Este recurso está desativado a pedido do proprietário.** O menu, os botões de nova carta, o carregamento do leitor e a ligação com o formulário privado foram removidos do site. As novas cartas serão enviadas pelo chat para transcrição manual e registro no GitHub e no Google Docs. O catálogo de 419 registros, seus prints e os times foram preservados. A implantação privada foi arquivada; o projeto e seu código histórico não foram apagados.
+
+As instruções abaixo descrevem a implementação anterior e não devem ser usadas como indicação de que o recurso está ativo.
+
+---
+
 # Cadastro de cartas pelo proprietário
 
 O menu **Adicionar carta** (`#register`) e os botões **+ Nova carta** no Deck e na configuração do planejador abrem a entrada do cadastro. A gravação depende de uma ativação inicial na conta do proprietário. Enquanto `card-admin-config.json` não contém o endereço do aplicativo privado, a página mostra **Ativação inicial pendente** e não afirma que salvou nada.

@@ -10,17 +10,15 @@
   <link rel="stylesheet" href="chaos.css?v=20261109-no-supports-all-cards-1"/>
   <link rel="stylesheet" href="infinite.css?v=20261109-visual-team-1"/>
   <script defer src="data.js?v=20261110-cards-supports-419"></script>
-  <link rel="stylesheet" href="card-registration.css?v=20261109-1"/>
-  <script defer src="card-registration.js?v=20261110-reader-1"></script>
   <script defer src="skill-data.js"></script>
   <link rel="stylesheet" href="tree-planner.css?v=20261109-setup-2"/>
   <script defer src="tree-planner-engine.js?v=20261109-2"></script>
-  <script defer src="app.js?v=20261109-registration-1"></script>
+  <script defer src="app.js?v=20261110-retire-registration-1"></script>
   <script defer src="skill-codex.js"></script>
   <script defer src="skill-tree-topology.js"></script>
   <script defer src="tree-planner-map.js?v=20261109-visual-1"></script>
   <script defer src="tree-planner-team.js?v=20261109-setup-2"></script>
-  <script defer src="tree-planner-ui.js?v=20261109-registration-1"></script>
+  <script defer src="tree-planner-ui.js?v=20261110-retire-registration-1"></script>
   <script defer src="skill-tree-scene.js"></script>
   <script defer src="mode-codex.js"></script>
   <script defer src="deck.js"></script>
@@ -63,7 +61,6 @@
         <button data-nav="cards" class="nav-link"><svg><use href="#ic-cards"/></svg><span>Cartas</span><span class="nav-counter" id="navCardCount">380</span></button>
         <button data-nav="supports" class="nav-link"><svg><use href="#ic-shield"/></svg><span>Suportes</span><span class="nav-counter" id="navSupportCount">39</span></button>
         <button data-nav="builder" class="nav-link"><svg><use href="#ic-sword"/></svg><span>Deck / Time</span><span class="new-dot"></span></button>
-        <button data-nav="register" class="nav-link"><svg><use href="#ic-cards"/></svg><span>Adicionar carta</span><span class="new-dot"></span></button>
         <button data-nav="skill" class="nav-link"><svg><use href="#ic-branches"/></svg><span>Skill Tree</span></button>
         <button data-nav="circuits" class="nav-link"><svg><use href="#ic-branches"/></svg><span>Origin Circuits</span></button>
         <button data-nav="colosseum" class="nav-link"><svg><use href="#ic-sword"/></svg><span>Colosseum</span></button>
@@ -110,7 +107,7 @@
           <div class="deck-hud" id="deckHud">
             <div class="deck-hud-header">
               <div><span class="deck-eyebrow">ORIGINS / DECK BUILDER</span><h2>DECK <span>// TEAM 1</span></h2></div>
-              <div class="deck-actions"><button type="button" class="cr-entry-button" data-register-open>+ Nova carta</button><span class="deck-mode">INFINITE <i>◆</i> EXEMPLO DO PRINT</span><button type="button" id="deckStatusToggle" class="deck-status-toggle" aria-expanded="false" aria-controls="deckStatsPanel">◈ Ver buffs detalhados</button><button type="button" id="deckPreset" class="deck-preset">↺ Carregar time do print</button></div>
+              <div class="deck-actions"><span class="deck-mode">INFINITE <i>◆</i> EXEMPLO DO PRINT</span><button type="button" id="deckStatusToggle" class="deck-status-toggle" aria-expanded="false" aria-controls="deckStatsPanel">◈ Ver buffs detalhados</button><button type="button" id="deckPreset" class="deck-preset">↺ Carregar time do print</button></div>
             </div>
             <div class="deck-hud-body">
               <div class="deck-panel-label"><span>TEAM 1 <small>4 cartas em ordem</small></span><span id="deckCircuitCount" class="deck-live-count">0 / 3 CIRCUITS</span></div>
@@ -332,7 +329,6 @@
           <div id="infiniteLab" class="if-lab"></div>
           <div id="infiniteCodex"></div>
         </section>
-        <section class="page" id="page-register"><div class="page-intro"><div><span class="overline">COLEÇÃO / NOVAS CARTAS</span><h1>Adicionar <em>carta</em></h1><p>Cadastre a carta que você acabou de pegar e escolha onde usá-la no seu time.</p></div></div><div id="cardRegistration"><section class="cr-hero"><div><span class="cr-eyebrow">SEU CATÁLOGO SEM DEPENDER DO CHAT</span><h2>Pegou uma carta nova?</h2><p>Envie ou cole o print para preencher os campos automaticamente. Confira os dados antes de salvar. O cadastro protegido registra a carta no GitHub e no Google Docs, e depois você pode usá-la no Deck e no planejador.</p><p class="cr-note">O cadastro é exclusivo do proprietário. Os dados e o print salvos entram no catálogo público do projeto.</p></div><div class="cr-mark"><span>✦</span><strong>NOVA AQUISIÇÃO</strong><small>Dados existentes preservados</small></div></section><div class="cr-steps"><div><small>01 / REGISTRAR</small><h3>Envie o print e confira a leitura</h3><p>O leitor sugere nome, borda, elemento, atributos e habilidade. Corrija a leitura e deixe trechos desconhecidos pendentes.</p></div><div><small>02 / SALVAR</small><h3>Confira os dois destinos</h3><p>O formulário mostra o resultado do GitHub e do documento. Se uma etapa falhar, você pode concluir o registro sem duplicar a carta.</p></div><div><small>03 / USAR</small><h3>Escolha o slot do seu time</h3><p>Use a carta no Deck e, se quiser, atualize Meu time no planejador. Os pontos e os demais slots são preservados.</p></div></div><section class="cr-connection"><span id="crBadge">VERIFICANDO CONEXÃO</span><h3>Cadastro protegido</h3><p id="crStatus" role="status">Conferindo a ativação inicial…</p><div class="cr-activation" id="crActivation" hidden><p>A conexão precisa ser autorizada uma única vez na conta do proprietário. A opção de salvar ficará disponível depois da ativação.</p></div><div class="cr-actions"><a id="crLaunch" class="cr-primary" target="_blank" rel="noopener" hidden>Abrir cadastro de nova carta ↗</a><button id="crCheck" type="button">Conferir conexão</button><button id="crRefresh" type="button" hidden>Conferir publicação</button><a href="https://github.com/CaribeGamesbr/card-origins-codex/blob/main/docs/CADASTRO_CARTAS.md" target="_blank" rel="noopener">Guia de ativação do proprietário ↗</a></div><p class="cr-note">O login Google protege as gravações. Chaves de acesso não são guardadas na página pública.</p></section></div></section>
         <section class="page" id="page-planner"><div class="page-intro"><div><span class="overline">TEAM LAB / SKILL POINTS</span><h1>Planejar <em>árvore</em></h1><p>Monte um plano de talentos e Path conforme o time e os pontos disponíveis.</p></div></div><div id="treePlanner" class="tp-lab"></div></section>
         <section class="page" id="page-guide">
           <div class="page-intro"><div><span class="overline">FIELD MANUAL / 05</span><h1>Guia <em>de mecânicas</em></h1><p>Regras essenciais consolidadas a partir das capturas do guia e da sua wiki anterior.</p></div><span class="overline">GUIA DO JOGO</span></div>
