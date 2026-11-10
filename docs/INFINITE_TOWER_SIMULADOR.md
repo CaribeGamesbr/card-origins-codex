@@ -87,3 +87,26 @@ A diferença observada entre os dois primeiros prints é HP +22,222…% e DMG +1
 Prints: [Widow / andar 1](https://drive.google.com/file/d/1Zas_zBi4g0aXAmnh1QliI90-_uvoHdTC/view) e [Sinner Ruler of Life / andar 2](https://drive.google.com/file/d/1cEVB8QIaA_GOYIbA2q8n-cm-zqD6kDfo/view). Cópias originais em `assets/references/`.
 
 Para calibrar, precisamos de mais andares com o mesmo inimigo e os mesmos modificadores, além de registros de dano, cura e habilidades durante batalhas. O motor de combate não foi alterado nesta inclusão de referências.
+
+## Busca simplificada: alcance e rush — 10/11/2026
+
+A entrada principal passa a ter dois objetivos e o andar inicial. HP, DMG, andar-base, crescimento, elemento, Dodge, Elements Mode, Path do teste manual, quantidade de tentativas e referências dos prints ficam recolhidos em **Ajustes avançados**. Os atributos de calibração e as formações salvas são preservados. A busca sugere o resultado; usar no Infinite ou salvar no Deck continua exigindo a ação do proprietário.
+
+| Objetivo | Cenário de comparação | Ordem do ranking |
+| --- | --- | --- |
+| Chegar mais longe | Quatro inimigos por wave, até a equipe cair ou completar até 1.000 waves, respeitando o teto do andar 20.000 | Maior chegada média; depois abates, frequência de chegada ao teto, perdas e HP restante |
+| Rush · limpar os 4 | Dez waves a partir do andar escolhido, ou menos perto do teto 20.000; quatro inimigos por wave | Maior frequência de sequência completa; depois menos ações aliadas por wave nas sequências vencidas; abates e sobrevivência desempatem |
+
+O número de quatro inimigos por wave segue a orientação mais recente do proprietário. Ele substitui a hipótese anterior de um inimigo por andar; os campos antigos de quantidade e objetivo não determinam mais a busca automática. Os atributos dos quatro inimigos continuam aproximados a partir da referência escolhida: os prints não confirmam que os quatro tenham os mesmos atributos.
+
+O alcance não é um máximo matemático: é a melhor candidata encontrada na busca guiada sob o modelo e o limite de segurança. Quando uma equipe atinge o teto, a interface informa que ela ainda pode ir além. O modo rush mede **ações aliadas**, incluindo ataques que erram, e não segundos reais. Uma derrota rápida não recebe vantagem por ter poucas ações. Se nenhuma sequência for vencida, ações por wave aparece sem valor e o resultado indica a falha em completar a sequência.
+
+### Melhorias no motor e na busca
+
+- Cada wave mantém quatro inimigos com HP próprio. Uma wave conta como limpa somente quando todos forem derrotados. Abates por splash e reflexão são contabilizados uma única vez; alvos já derrotados não exigem ataques fictícios.
+- Erudition aplica o splash registrado de 8,8% aos outros inimigos vivos da wave, em vez de só ao próximo. Isso permite ao modelo comparar uma limpeza de vários alvos em uma ação quando o dano efetivamente for suficiente. Nenhuma habilidade inédita foi deduzida a partir de nomes, arte ou descrições incompletas.
+- São comparados cartas, ordem de entrada, os seis suportes com implementação no motor e os sete Paths. A busca mantém Destruction Tier 5 e demais Tier 0. Suportes únicos são respeitados; a formação atual participa como candidata inicial quando válida.
+- A triagem usa três amostras por candidata. As cinco líderes e a melhor de cada Path formam até doze finalistas distintas, todas comparadas com 120 testes usando as mesmas novas sementes. O resultado é escolhido novamente conforme o objetivo. A busca pode ser interrompida e entrega uma candidata conferida com aviso de resultado parcial.
+- Atualizações da busca são divididas em intervalos curtos para permitir interação com o botão Parar. O teste manual e a comparação dos Paths usam o mesmo objetivo selecionado.
+
+Validação automatizada: ranking distinto de distância e velocidade, rejeição de derrota rápida como bom rush, contabilização de waves parciais, splash em três alvos adicionais, ausência de turnos em alvos mortos, limites de segurança, reprodução por semente, sete Paths, candidatos válidos, suportes únicos, interrupção e preservação do catálogo. Executar `node scripts/test-infinite-search.js`, `node scripts/test-infinite-observations.js` e `node scripts/test-tree-planner-team.js`.

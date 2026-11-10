@@ -105,3 +105,5 @@ O leitor automático de prints foi retirado em 10/11/2026. O código histórico 
 
 
 Terceira remessa de 10/11/2026: 4 variantes principais novas e 2 imagens mais nítidas, sem duplicar as cartas existentes. Total atual: **423 registros = 384 principais + 39 suportes; 39 principais transcritas e 345 pendentes**. Referências do Infinite: andar 1 (Widow, HP 18, DMG 10) e andar 2 (Sinner Ruler of Life, HP 22, DMG 11); inimigos diferentes não confirmam uma taxa de crescimento.
+
+**Infinite Tower — busca por objetivo:** entrada simplificada com **Chegar mais longe** e **Rush · limpar os 4**. Ambos usam quatro inimigos por wave. Alcance prioriza a chegada média, com limite explícito de até 1.000 waves; rush compara dez waves e prioriza completar a sequência com poucas ações aliadas. Ajustes de batalha e referências ficam recolhidos. As finalistas são reavaliadas em 120 testes cada. Splash de Erudition agora alcança os outros inimigos vivos da wave; habilidades ainda não implementadas permanecem parciais. [Funcionamento e limitações](docs/INFINITE_TOWER_SIMULADOR.md#busca-simplificada-alcance-e-rush--10112026).
