@@ -1,7 +1,7 @@
 {
   "date": "2026-11-10",
   "baseCommit": "76c71b77855b5c119cff2f6a639268f051d2a9d1",
-  "scope": "385 main-card images; 39 equipable supports remain in the separate Supports menu. Visual role review is not full stats transcription or simulator implementation.",
+  "scope": "394 main-card images reviewed; 39 equipable supports have a separate audit. Visual role review is separate from full stats transcription and simulator implementation.",
   "cards": [
     {
       "id": "new-silverfox-vanguard-astral",
@@ -5149,11 +5149,12 @@
         "control"
       ],
       "scope": "enemy",
-      "summary": "A habilidade tem dano adicional ou melhora os ataques da própria carta. Aplica controle ou enfraquece efeitos do inimigo.",
-      "timing": "Confira o print desta variante para o alvo, a duração e os limites. Não há confirmação explícita de funcionamento no banco neste registro.",
+      "summary": "Uma vez por batalha, depois de completar 2 turnos, causa 1,5× DMG em todos os inimigos, ignorando redução de dano, escudos, Dodge e habilidades defensivas. Os sobreviventes recebem Fatigue e Immolation; esta carta perde 40% Max HP.",
+      "timing": "Precisa sobreviver e completar 2 turnos. O ataque atinge todos os inimigos vivos, não somente a carta da frente. O print não informa a duração dos debuffs.",
       "offField": false,
       "offFieldProof": "",
-      "ability": ""
+      "ability": "ATOMIC ANNIHILATION",
+      "reviewedAt": "2026-11-11"
     },
     {
       "id": "c-75",
@@ -6933,6 +6934,171 @@
       "offField": false,
       "offFieldProof": "",
       "ability": ""
+    },
+    {
+      "id": "new-slayer-of-the-past-evolved-normal",
+      "name": "SLAYER OF THE PAST (EVOLVED)",
+      "border": "Normal",
+      "image": "assets/cards/SLAYER_OF_THE_PAST_EVOLVED_NORMAL_20261111.png",
+      "blobSha": "add73328c65a7bd95c26d3ca6de7ad71d419a125",
+      "reviewedAt": "2026-11-11",
+      "roles": [
+        "tank",
+        "protection",
+        "atk"
+      ],
+      "scope": "ally",
+      "summary": "Depois de sobreviver a uma habilidade inimiga de dano, reduz em 20% os usos posteriores daquela habilidade contra toda a equipe, pelo resto da batalha. Também recebe 15% menos dano e ganha DMG próprio ao decifrar habilidades diferentes.",
+      "timing": "Exige sobreviver à habilidade primeiro; não reduz por suposição a primeira aplicação nem todos os ataques inimigos. É a forma Evolved, não Slayer of the Past comum.",
+      "offField": false,
+      "offFieldProof": "",
+      "ability": "THE SPELL ALREADY SOLVED"
+    },
+    {
+      "id": "new-the-scarlet-catalyst-calamity",
+      "name": "THE SCARLET CATALYST",
+      "border": "Calamity",
+      "image": "assets/cards/THE_SCARLET_CATALYST_CALAMITY_20261111.png",
+      "blobSha": "de25064cbccbb76f30dbac8630cc8d9f8b22fe66",
+      "reviewedAt": "2026-11-11",
+      "roles": [
+        "atk"
+      ],
+      "scope": "enemy",
+      "summary": "Contra alvo sem Burn, a ação normal causa 30% DMG nele e 15% em cada outro inimigo, aplicando Burn por 2 turnos. Contra alvo já Burning, usa 35% DMG e antecipa um tick de Burn, consumindo 1 turno desse efeito.",
+      "timing": "O dano em área depende de o alvo estar sem Burn. Não se atribuiu coeficiente de dano ao Burn: o print confirma duração, mas não seu valor-base.",
+      "offField": false,
+      "offFieldProof": "",
+      "ability": "DRAGONFIRE CONVERGENCE"
+    },
+    {
+      "id": "new-fallen-angel-umbral",
+      "name": "FALLEN ANGEL",
+      "border": "Umbral",
+      "image": "assets/cards/FALLEN_ANGEL_UMBRAL_20261111.png",
+      "blobSha": "e4985d73039b1f8d8a6351a1d7e6ec240ee445ba",
+      "reviewedAt": "2026-11-11",
+      "roles": [
+        "atk",
+        "tank",
+        "control"
+      ],
+      "scope": "self",
+      "summary": "Cartas Heart, Spade e Crown oferecem roubo de HP para si, debuffs ou redução do DMG e desativação de habilidade inimiga. A derrota de um inimigo marcado concede esquiva e DMG próprios.",
+      "timing": "Não cura outros aliados. As probabilidades das três cartas e as durações de Bleed/Confusion não constam neste print.",
+      "offField": false,
+      "offFieldProof": "",
+      "ability": "JOKER'S VERDICT"
+    },
+    {
+      "id": "new-king-of-curses-evolved-normal",
+      "name": "KING OF CURSES (EVOLVED)",
+      "border": "Normal",
+      "image": "assets/cards/KING_OF_CURSES_EVOLVED_NORMAL_20261111.png",
+      "blobSha": "799c92e423262f8050455fac29f62750b674b6da",
+      "reviewedAt": "2026-11-11",
+      "roles": [
+        "atk"
+      ],
+      "scope": "enemy",
+      "summary": "Dismantle usa 4 hits de 25% DMG acima de 50% HP; Cleave perfura a próxima carta a 50% ou menos. O ataque de entrada em todos os inimigos exige The Guardian of Hell e tem penalidades permanentes de habilidade e DMG após o uso.",
+      "timing": "A forma Evolved tem mecânica própria. A miniatura enviada não confirma a identidade de The Guardian of Hell; o ataque combinado não pode ser presumido sem esse suporte confirmado.",
+      "offField": false,
+      "offFieldProof": "",
+      "ability": "MALEVOLENT KITCHEN"
+    },
+    {
+      "id": "new-flame-pillar-normal",
+      "name": "FLAME PILLAR",
+      "border": "Normal",
+      "image": "assets/cards/FLAME_PILLAR_NORMAL_20261111.png",
+      "blobSha": "b05167635a483f7bacccf0b88332ef5578ea5545",
+      "reviewedAt": "2026-11-11",
+      "roles": [
+        "atk",
+        "tank"
+      ],
+      "scope": "self",
+      "summary": "Tem dano adicional de fogo de 15% do próprio DMG por ataque. Abaixo de 50% HP, recebe 1,5× DMG e 20% lifesteal próprios pelo resto da luta.",
+      "timing": "Não cura o time. O print não declara duração de um possível efeito periódico; não se criou um Burn permanente.",
+      "offField": false,
+      "offFieldProof": "",
+      "ability": "SET YOUR HEART ABLAZE"
+    },
+    {
+      "id": "new-northern-blade-normal",
+      "name": "NORTHERN BLADE",
+      "border": "Normal",
+      "image": "assets/cards/NORTHERN_BLADE_NORMAL_20261111.png",
+      "blobSha": "754c014d17abf451544b0f71bceccd8aadc1e2d3",
+      "reviewedAt": "2026-11-11",
+      "roles": [
+        "atk",
+        "control"
+      ],
+      "scope": "enemy",
+      "summary": "Severance corta e armazena 40% da cura ou do escudo recebidos pelo inimigo marcado; o próximo dano desta carta libera o acumulado como bônus. A marca passa ao próximo inimigo quando o alvo morre.",
+      "timing": "Ajuda indireta por enfraquecimento do inimigo. Não concede escudo, cura ou atributo aos aliados.",
+      "offField": false,
+      "offFieldProof": "",
+      "ability": "SILENT SEVERANCE"
+    },
+    {
+      "id": "new-demonic-emperor-calamity",
+      "name": "DEMONIC EMPEROR",
+      "border": "Calamity",
+      "image": "assets/cards/DEMONIC_EMPEROR_CALAMITY_20261111.png",
+      "blobSha": "eae68512b7c1548dc0e045113d24ce19611cd83a",
+      "reviewedAt": "2026-11-11",
+      "roles": [
+        "atk",
+        "tank",
+        "control"
+      ],
+      "scope": "self",
+      "summary": "Rouba 35% dos ganhos de DMG ou cura do inimigo selado. A derrota do alvo passa o selo adiante e restaura 10% Max HP desta carta.",
+      "timing": "O roubo e a cura beneficiam a própria carta; o texto não concede esse ganho a outros aliados.",
+      "offField": false,
+      "offFieldProof": "",
+      "ability": "NINE SERENITIES ART"
+    },
+    {
+      "id": "new-abyssal-pianist-calamity",
+      "name": "ABYSSAL PIANIST",
+      "border": "Calamity",
+      "image": "assets/cards/ABYSSAL_PIANIST_CALAMITY_20261111.png",
+      "blobSha": "42af06a93fea9bc1ad8388ab1cc8a79a96417b50",
+      "reviewedAt": "2026-11-11",
+      "roles": [
+        "assist",
+        "heal"
+      ],
+      "scope": "ally",
+      "summary": "Enquanto vivo em campo ou no banco, concede Echo aos outros aliados: após um acerto, mais 25% do DMG do Pianist no mesmo inimigo; em caso de erro ou esquiva, cura o aliado em 8% Max HP. Echo não dá crítico nem dispara outro Echo.",
+      "timing": "Atuação no banco está explícita. O efeito pertence aos outros aliados e depende do início do turno e do resultado do hit deles.",
+      "offField": true,
+      "offFieldProof": "While this card is alive (on the field or benched)",
+      "ability": "THE LAST NOTE IS YOURS"
+    },
+    {
+      "id": "new-demon-king-calamity",
+      "name": "DEMON KING",
+      "border": "Calamity",
+      "image": "assets/cards/DEMON_KING_CALAMITY_20261111.png",
+      "blobSha": "2220819a9efe305127210e5d7d692fd6c774a508",
+      "reviewedAt": "2026-11-11",
+      "roles": [
+        "atk",
+        "tank",
+        "control"
+      ],
+      "scope": "self",
+      "summary": "Aplica e consome Burn para dano bônus e um Stun limitado. Na primeira morte revive a 50% Max HP e limpa os próprios debuffs; após reviver, acrescenta Shock aos hits e recupera HP próprio ao eliminar.",
+      "timing": "A duração de Burn é 3 turnos. O print não declara duração de Shock nem coeficiente-base de Burn; esses valores não foram inventados.",
+      "offField": false,
+      "offFieldProof": "",
+      "ability": "DEATH DOES NOT DISMISS ME"
     }
-  ]
+  ],
+  "lastUpdated": "2026-11-11"
 }

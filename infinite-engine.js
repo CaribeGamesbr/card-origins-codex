@@ -2,8 +2,9 @@
  * Screenshot-proven paths, card stats and observed enemy values are input data.
  * Enemy growth, unknown abilities and turn order are openly adjustable hypotheses.
  */
-(function(root,factory){const api=factory(typeof module!=='undefined'&&module.exports?require('./infinite-combat.js'):root.CARDO_COMBAT);if(typeof module!=='undefined'&&module.exports)module.exports=api;if(root)root.CARDO_INFINITE_ENGINE=api;})(typeof window!=='undefined'?window:null,function(C){
+(function(root,factory){const api=factory(typeof module!=='undefined'&&module.exports?require('./infinite-combat.js'):root.CARDO_COMBAT,typeof module!=='undefined'&&module.exports?require('./infinite-search-pool.js'):root.CARDO_SEARCH_POOL,typeof module!=='undefined'&&module.exports?require('./infinite-synergy.js'):root.CARDO_SYNERGY);if(typeof module!=='undefined'&&module.exports)module.exports=api;if(root)root.CARDO_INFINITE_ENGINE=api;})(typeof window!=='undefined'?window:null,function(C,P,S){
 'use strict';
+for(const id of ['elements-quantum-extra-turn','elements-lightning-mastery','debuffs-feast-on-misery','debuffs-cruel-momentum','debuffs-tormentor-s-ward','debuffs-crushing-fatigue','debuffs-concussion'])C.IMPLEMENTED.add(id);
 const PATHS=[
  {id:'destruction',name:'The Destruction',short:'HP perdido → dano / Fatigue',detail:'Tier 5: +8% Power; +2,2% DMG por 10% de HP perdido; 5% Fatigue por 25% de HP perdido.',color:'#f27a6b',tier:5},
  {id:'remembrance',name:'The Remembrance',short:'26,5% Freeze / Shatter',detail:'26,5% de Freeze por hit, por 1 turno; atingir alvo Frozen causa +26,5% DMG.',color:'#9ddcff',tier:0},
@@ -37,7 +38,7 @@ function simulate(raw){
  const tier=clamp(Math.floor(+options.tier||0),0,5),power=1+Math.min(.08,tier*.016);
  const hp=cards.map((c,i)=>+c.hp*(path==='erudition'?1.088:1)*(path!=='erudition'&&(sup[i]==='s-371'||sup[i]?.id==='s-371')?1.075:1));
  const max=hp.slice(),shield=cards.map(()=>0),blood=cards.map(()=>0),matter=cards.map(()=>0),flesh=cards.map(()=>0),kocKills=cards.map(()=>0),extraLife=cards.map(()=>true),supportUsed=cards.map(()=>false),clone=cards.map(()=>true);
- const link=linkBonus(cards);const kinds=cards.map(cardEffects);
+ const link=linkBonus(cards);const kinds=cards.map(cardEffects);const executedSkills=new Set(),executedSynergies=new Set(),pendingSkills=new Set();
  const actors=cards.map((c,i)=>{const a=C.actor(c,options.gear?.[c.id]||{},options.context);Object.defineProperties(a,{hp:{get:()=>hp[i],set:v=>{hp[i]=v}},max:{get:()=>max[i],set:v=>{max[i]=v}},shield:{get:()=>shield[i],set:v=>{shield[i]=v}}});return a;});
  let active=0,won=0,wavesCleared=0,turns=0,kos=0,huntStack=0,decay=0,log=[],floorReached=start-1,stoppedAt=null;
  const save=(s)=>{if(options.trace!==false&&log.length<35)log.push(s);};
@@ -45,7 +46,8 @@ function simulate(raw){
  function heal(i,amount){return C.heal(actors[i],amount,C.ability(actors[i],dice));}
  function onFatal(i){
    if(hp[i]>0)return false;
-   if((sup[i]?.id==='s-366'||sup[i]==='s-366')&&!supportUsed[i]){supportUsed[i]=true;hp[i]=max[i]*.65;save('Binding Vow ativou no slot '+(i+1)+' (modelo: uma vez na run).');return true;}
+   if(C.skillFatal(actors[i],C.ability(actors[i],dice))){save('Revive da habilidade no slot '+(i+1)+'.');return true;}
+   if((sup[i]?.id==='s-366'||sup[i]==='s-366')&&!supportUsed[i]){supportUsed[i]=true;hp[i]=max[i]*.65;save('Binding Vow ativou no slot '+(i+1)+' (uma vez por andar).');return true;}
    if((sup[i]?.id==='s-374'||sup[i]==='s-374')&&!supportUsed[i]&&!INTRINSIC_FATAL_GUARDS.has(kinds[i])){supportUsed[i]=true;hp[i]=1;save('Serenity protegeu o slot '+(i+1)+'.');return true;}
    if(kinds[i]==='MAGICIAN'&&extraLife[i]&&C.ability(actors[i],dice)){extraLife[i]=false;hp[i]=1;save('Paper Substitute de Magician evitou dano fatal.');return true;}
    return false;
@@ -55,11 +57,43 @@ function simulate(raw){
    if(active>=4){stoppedAt=floor;break;}
    // +10% per kill is transcribed. Persistence between waves is not confirmed.
    // Compare its gains within each wave; do not carry an unverified thousands-kill bank.
-   kocKills.fill(0);
+   kocKills.fill(0);supportUsed.fill(false);extraLife.fill(true);clone.fill(true);blood.fill(0);matter.fill(0);flesh.fill(0);
+   // Confirmed by the owner on 2026-11-11: once-per-battle resets each floor.
+   // Reset effects, never restore missing HP or revive a defeated slot for free.
+   actors.forEach((a,i)=>{C.resetBattle(a);a.dmg=+cards[i].dmg;a.turn=0;a.statuses={};a.shield=0;a.chain=0;a.treeWardReduction=0;a.enteredBattle=false;a.sanctuaryUntil=0;a.sanctuaryNext=0;a.ward=0;});
+   const synergy=S.create();
    const ratio=Math.pow(1+clamp(+options.growth||0,0,.08),floor-(+options.baseFloor||261))*clamp(+options.pressure||1,.2,5)*(options.elementsMode?1.2:1);
    let localTurns=0;
    const enemyCount=clamp(Math.floor(+options.enemiesPerFloor||1),1,4),foes=Array.from({length:enemyCount},(_,j)=>{const spec=options.enemyRoster?.[j]||{},max=Math.max(1,+spec.hp||+options.enemyHp||6061)*ratio,damage=Math.max(1,+spec.dmg||+options.enemyDmg||2648)*ratio;const a=C.actor({name:spec.name||'UNKNOWN',element:spec.element||options.enemyElement,hp:max,dmg:damage},{boss:!!spec.boss,crit:spec.crit||0,debuff:spec.debuff,chance:spec.chance,duration:spec.duration});return Object.assign(a,{damage,defeated:false});});
-   function defeat(enemy,i){const target=foes[enemy];if(target.defeated)return;target.defeated=true;target.hp=0;won++;if(path==='hunt')huntStack=Math.min(3,huntStack+1);if(kinds[i]==='KING OF CURSES')kocKills[i]++;}
+   function defeat(enemy,i){const target=foes[enemy];if(target.defeated)return;target.defeated=true;target.hp=0;won++;if(path==='hunt')huntStack=Math.min(3,huntStack+1);if(kinds[i]==='KING OF CURSES'&&!C.cardSkill(actors[i]))kocKills[i]++;for(const ally of actors){if(C.cardSkill(ally)?.key==='demon-king'&&ally!==actors[i])continue;C.skillOnDefeat(ally,target,foes.find(f=>f.hp>0&&!f.defeated));}}
+   actors.forEach(a=>{a.allies=actors;a.opponents=foes;});foes.forEach(a=>{a.allies=foes;a.opponents=actors;});
+   function attackEffects(source,target,packet,slot){
+     if(!packet.landed||source.hp<=0)return;
+     if(path==='remembrance'){if(C.live(target,'Freeze'))delete target.statuses.Freeze;else if(dice()<.265)C.apply(target,'Freeze',1,0,source);}
+     if(path==='nihility')target.pathDecay=Math.min(5,(target.pathDecay||0)+3);
+     const supportId=support(slot),supportBurn=supportId==='s-360'?.10:supportId==='s-388'?.125:0;
+     if(supportBurn)C.burn(source,target,+options.debuffDuration||0,supportBurn,false);
+     const splashRate=(path==='erudition'?.088:0)+(supportId==='s-371'?(path==='erudition'?.06:.02):0);
+     if(splashRate>0)for(const other of foes){if(other===target||other.hp<=0)continue;skillHit(source,other,{damage:packet.damage*splashRate,noCrit:true,noProcs:true});}
+     C.elemental(source,target,dice,{enabled:options.elementalProcs!==false,duration:options.debuffDuration});
+     C.circuitHit(source,target,cards,slot);S.onHit(synergy,actors,slot,target,foes,localTurns);S.onDebuffs(synergy,actors,slot,target,localTurns,dice);
+   }
+   function skillHit(source,target,packet){
+     if(!packet.cannotMiss&&!packet.ignoreDefenses&&!packet.dot&&dice()<clamp(+options.enemyDodge||0,0,.9)){packet.landed=false;return 0;}
+     const slot=actors.indexOf(source);if(packet.normalHit&&path==='remembrance'&&C.live(target,'Freeze'))packet.damage*=1.265;
+     const lost=C.skillHit(source,target,packet,dice,C.ability(source,dice));
+     if(packet.normalHit&&slot>=0)attackEffects(source,target,packet,slot);C.skillAfterHit(source,target,lost);
+     if(lost>0){const descriptor=C.cardSkill(source);if(descriptor)executedSkills.add(descriptor.ability);}
+     const j=foes.indexOf(target);if(j>=0&&target.hp<=0)defeat(j,actors.indexOf(source)>=0?actors.indexOf(source):active);
+     return lost;
+   }
+   function plan(source,result,slot,alreadyLanded=[]){
+     const landed=new Set(alreadyLanded);for(const packet of result.hits){const loss=skillHit(source,packet.target,packet);if(!packet.dot&&(packet.landed||loss>0))landed.add(packet.target);}
+     for(const st of result.statuses){if(st.target.hp<=0||st.onlyOnHit&&!landed.has(st.target))continue;C.apply(st.target,st.key,st.turns,st.value,source);if(st.coefficientKnown===false)pendingSkills.add(st.key+': presença/duração confirmadas; dano do tick omitido sem coeficiente.');S.onDebuffs(synergy,actors,slot,st.target,localTurns,dice);}
+     for(const warning of result.pending||[])pendingSkills.add(warning);
+     if(result.selfHpCost>0)source.hp-=result.selfHpCost;
+     return landed;
+   }
    for(let enemy=0;enemy<enemyCount;enemy++){
      if(foes[enemy].defeated)continue;
      if(active>=4)break;
@@ -68,15 +102,16 @@ function simulate(raw){
      decay=0;
      while(foe>0&&active<4&&localTurns<160){
        localTurns++;turns++;let i=active,c=teammate(i),name=kinds[i],s=support(i),dodgeChance=clamp(+options.enemyDodge||0,0,.90);
-       const actor=actors[i],target=foes[enemy],extraAction=freeAction,canAct=extraAction||C.begin(actor,dice),allowed=C.ability(actor,dice);target.hp=foe;if(!extraAction)C.tick(actor,dice);
+       const actor=actors[i],target=foes[enemy],extraAction=!!freeAction,turnAction=freeAction!=='relentless',canAct=!turnAction||C.begin(actor,dice),allowed=C.ability(actor,dice);target.hp=foe;if(turnAction)C.tick(actor,dice);
+       if(!actor.enteredBattle){actor.enteredBattle=true;C.skillEntry(actor,target);}
        if(hp[i]<=0&&!onFatal(i)){hp[i]=0;kos++;active++;continue;}
        if(!allowed)name='';
-       if(!extraAction&&(s==='s-365'||s==='s-380'))heal(i,max[i]*(s==='s-380'?.055:.05));
+       if(turnAction&&(s==='s-365'||s==='s-380'))heal(i,max[i]*(s==='s-380'?.055:.05));
        if((s==='s-372'||s==='new-divine-spirit-waters-calamity')&&!supportUsed[i]&&hp[i]<max[i]*.5){supportUsed[i]=true;heal(i,Math.max(0,max[i]*.70-hp[i]));save('Divine Spirit Waters recuperou o slot '+(i+1)+' ate 70% HP.');}
        // Harmony buffs are approximated as ONE-turn effects, not permanent shields.
        let harmonyDamage=false,tempShield=0;
        if(path==='harmony'){const v=dice();if(v<1/3)tempShield=max[i]*.165;else if(v<2/3)tempShield=max[i]*.22;else harmonyDamage=true;}
-       if(tempShield>0){const priorShield=actor.shield;tempShield=C.grantShield(actor,tempShield);actor.shield=priorShield;}
+       if(tempShield>0){const priorShield=actor.shield;tempShield=C.grantShield(actor,tempShield);S.onShield(synergy,actors,i,tempShield,localTurns);actor.shield=priorShield;}
        const missing=1-hp[i]/max[i];let multi=power*link[i]*advantage(c.element,target.element,options.elementsMode)*(path==='hunt'?1+.165*huntStack:1);
        if(path==='destruction')multi*=1+.22*missing;
        if(s==='s-371')multi*=1.075;
@@ -84,13 +119,17 @@ function simulate(raw){
        if(s==='s-366'&&supportUsed[i])multi*=.5;
        if(harmonyDamage)multi*=1.165;
        if(name==='KING OF GAMES'&&kos===0)multi*=1.2;
-       if(name==='KING OF CURSES'){multi*=1+.1*kocKills[i];if(foe>foeMax*.5)multi*=1.2;if(dodgeChance>0)multi*=1+.4*dodgeChance;}
+       if(name==='KING OF CURSES'&&!C.cardSkill(actor)){multi*=1+.1*kocKills[i];if(foe>foeMax*.5)multi*=1.2;if(dodgeChance>0)multi*=1+.4*dodgeChance;}
        if(name==='BLUE WOLF'&&blood[i]>=3){multi*=1.4;blood[i]=0;heal(i,max[i]*.15);}
        if(allowed&&C.has(actor,'elements-'+String(c.element).toLowerCase()+'-edge')&&c.element!=='Unknown'&&target.element!=='Unknown'&&advantage(c.element,target.element,true)===1)multi*=1.05;
        const sureHit=name==='KING OF CURSES';
        const chance=sureHit?1:1-dodgeChance;
-       let damage=0;
-       if(canAct&&dice()<chance){
+       let damage=0,landed=false;let normalPlan=null;
+       if(canAct){
+         normalPlan=C.skillAction(actor,target,foes,{baseDamage:C.basicDamage(actor)*multi,allowed,duration:+options.debuffDuration||0});
+       }
+       if(canAct&&normalPlan?.replaceNormal){damage=C.basicDamage(actor)*multi;const hitTargets=plan(actor,normalPlan,i);landed=hitTargets.has(target);foe=target.hp;}
+       else if(canAct&&dice()<chance){
          damage=C.basicDamage(actor)*multi;
          const asheyCrit=name==='ASHEY'&&dice()<Math.min(1,.5+C.num(actor,'crit'));if(asheyCrit)damage*=1.5+C.num(actor,'critDmg');
          if(name==='SILVER STAR USER')damage*=1.25;
@@ -98,29 +137,29 @@ function simulate(raw){
          if(asheyCrit)damage+=c.dmg*.4*multi;
          if(name==='HALF GHOUL')flesh[i]=Math.min(max[i]*.5,flesh[i]+damage*.4);
          if(name==='BLUE WOLF')prey=true;
-         if(path==='remembrance'){
-           if(frozen>0){damage*=1.265;frozen=0;}
-           else if(dice()<.265)frozen=2;
-         }
-         if(path==='nihility')decay=Math.min(5,decay+3);
+         if(path==='remembrance'&&C.live(target,'Freeze'))damage*=1.265;
          const supportBurn=s==='s-360'?.10:s==='s-388'?.125:0;
-         if(asheyCrit)C.burn(actor,target,3,supportBurn,true);
-         else if(supportBurn)C.burn(actor,target,+options.debuffDuration||0,supportBurn,['FIRE DRAGON SLAYER','BLACK FLAME HEIR','VIRTUAL CHIMERA'].includes(name));
-         const splashRate=(path==='erudition'?.088:0)+(s==='s-371'?(path==='erudition'?.06:.02):0);
-         if(splashRate>0)for(let j=enemy+1;j<enemyCount;j++){if(foes[j].defeated)continue;foes[j].hp-=damage*splashRate;if(foes[j].hp<=0)defeat(j,i);}
          const gearCrit=actor.gear.crit; if(name==='ASHEY')actor.gear={...actor.gear,crit:0};
-         C.directHit(actor,target,damage,dice,allowed);if(name==='ASHEY')actor.gear={...actor.gear,crit:gearCrit};
-         C.elemental(actor,target,dice,{enabled:options.elementsMode,duration:options.debuffDuration});
-         C.circuitHit(actor,target,cards,i);
+         const beforeNormal=target.hp,normalMeta={ignoreDefenses:sureHit,cannotMiss:sureHit,damage};C.directHit(actor,target,damage,dice,allowed,normalMeta);landed=normalMeta.landed===true;C.skillAfterHit(actor,target,Math.max(0,beforeNormal-target.hp));if(name==='ASHEY')actor.gear={...actor.gear,crit:gearCrit};
+         if(asheyCrit&&landed)C.burn(actor,target,3,supportBurn,true);
+         attackEffects(actor,target,normalMeta,i);
          if(allowed&&path==='destruction'&&C.has(actor,'infinite-destruction-unbound')&&dice()<Math.floor(missing*4)*.05){if(options.debuffDuration>0)C.apply(target,'Fatigue',options.debuffDuration);}
+         if(normalPlan)plan(actor,normalPlan,i,landed?[target]:[]);
          foe=target.hp;
        }
-       if(!extraAction)C.end(actor,dice,allowed);if(foe<=0)defeat(enemy,i);let allyFell=false;if(hp[i]<=0&&!onFatal(i)){hp[i]=0;kos++;active++;allyFell=true;}
+       if(canAct){
+         if(landed){S.onHit(synergy,actors,i,target,foes,localTurns);S.onDebuffs(synergy,actors,i,target,localTurns,dice);S.chain(synergy,actor,target,foes,damage,dice,(other,n)=>skillHit(actor,other,{damage:n,noCrit:true,noProcs:true}),{enabled:options.elementalProcs!==false});}
+         for(const echo of C.allyEchoes(actor,actors,target,{landed,normal:true,dice},skillHit))if(echo.amount>0)executedSkills.add('THE LAST NOTE IS YOURS');
+         const after=C.afterSkillTurn(actor,foes,{baseDamage:C.basicDamage(actor)*multi,normal:turnAction,allowed,duration:+options.debuffDuration||0});plan(actor,after,i);
+         if(after.hits.length)save('F'+floor+': '+(C.cardSkill(actor)?.ability||name)+' atingiu '+after.hits.length+' inimigos.');
+         foe=target.hp;
+       }
+       if(turnAction)C.end(actor,dice,allowed);if(foe<=0)defeat(enemy,i);let allyFell=false;if(hp[i]<=0&&!onFatal(i)){hp[i]=0;kos++;active++;allyFell=true;}
        if(foe<=0)break;if(allyFell)continue;
-       if(allowed&&canAct&&!freeAction&&C.has(actor,'infinite-relentless')&&dice()<.05){freeAction=true;save('Relentless: segundo ataque no slot '+(i+1)+'.');continue;}freeAction=false;
+       if(allowed&&canAct&&!freeAction&&C.has(actor,'infinite-relentless')&&dice()<.05){freeAction='relentless';save('Relentless: segundo ataque no slot '+(i+1)+'.');continue;}if(allowed&&canAct&&!extraAction&&S.quantumExtra(actor,dice,options.elementalProcs!==false)){freeAction='quantum';executedSynergies.add('Quantum: Extra Turn');continue;}freeAction=false;
        enemyTurns++;
        target.hp=foe;const enemyCanAct=C.begin(target,dice);C.tick(target,dice);foe=target.hp;
-       if(path==='nihility'&&decay>0)foe-=foe*.033*decay;
+       if(path==='nihility'&&(decay>0||target.pathDecay>0))foe-=foe*.033*Math.max(decay,target.pathDecay||0);
        if(burn>0){foe-=burnPower*(1+C.num(actor,'dot'));burn--;}
        if(bleed>0){foe-=bleedPower;bleed--;}
        if(foe<=0){defeat(enemy,i);break;}
@@ -133,7 +172,7 @@ function simulate(raw){
        if(name==='SILVERFOX VANGUARD'&&clone[i]){clone[i]=false;hit*=.5;}
        if(tempShield>0)hit=Math.max(0,hit-tempShield);
        const hpLost=C.directHit(target,actor,hit,dice,C.ability(target,dice));
-       C.elemental(target,actor,dice,{enabled:options.elementsMode,duration:options.debuffDuration});C.end(target,dice);foe=target.hp;
+       C.elemental(target,actor,dice,{enabled:options.elementalProcs!==false,duration:options.debuffDuration});C.end(target,dice);foe=target.hp;
        if(name==='BLUE WOLF'&&prey){prey=false;blood[i]++;if(hp[i]>0)heal(i,hpLost*.1);}
        if(name==='FULLMETAL ALCHEMIST'&&hpLost>0)matter[i]=Math.min(max[i]*.25,matter[i]+hpLost*.2);
        if(name==='HALF GHOUL'&&hp[i]<max[i]*.35&&flesh[i]>0){heal(i,Math.min(flesh[i],max[i]*.5));flesh[i]=0;}
@@ -142,13 +181,14 @@ function simulate(raw){
      }
      if(localTurns>=160&&!foes.every(x=>x.defeated)){save('F'+floor+': limite de turnos de seguranca do modelo.');break;}
    }
+   for(const name of synergy.events)executedSynergies.add(name);
    if(!foes.every(x=>x.defeated)){stoppedAt=floor;break;}
    wavesCleared++;
    floorReached=floor;
    if(floor===start||floor%10===0||floor===goal)save('Andar '+floor+': '+enemyCount+'/'+enemyCount+' inimigos derrotados em '+localTurns+' ações aliadas; '+(4-kos)+'/4 cartas vivas.');
  }
  const clear=floorReached>=goal;const totalHp=hp.reduce((sum,n,i)=>sum+Math.max(0,n)/max[i],0)/4;
- return {clear,from:start,target:goal,floorReached,stoppedAt,progress:Math.max(0,floorReached-start+1)/(goal-start+1),wavesCleared,enemiesDefeated:won,kos,turns,healthFraction:totalHp,team:cards.map(x=>x.id),path,bloodWounds:blood.slice(),overhealthModelled:false,killBuffCarriedBetweenWaves:false,context:options.context,log};
+ return {clear,from:start,target:goal,floorReached,stoppedAt,progress:Math.max(0,floorReached-start+1)/(goal-start+1),wavesCleared,enemiesDefeated:won,kos,turns,healthFraction:totalHp,team:cards.map(x=>x.id),path,bloodWounds:blood.slice(),overhealthModelled:false,killBuffCarriedBetweenWaves:false,battleEffectsResetPerFloor:true,executedSkills:[...executedSkills],executedSynergies:[...executedSynergies],pendingSkills:[...pendingSkills],context:options.context,log};
 }
 function assess(cfg,trials=20){const stats=[],n=clamp(Math.round(trials),1,250);for(let i=0;i<n;i++)stats.push(simulate({...cfg,seed:(cfg.seed||261)+i*7919}));if(stats[0]?.error)return {error:stats[0].error};const wins=stats.filter(x=>x.clear),result={trials:n,clearRate:wins.length/n,avgFloor:stats.reduce((s,x)=>s+x.floorReached,0)/n,maxFloor:Math.max(...stats.map(x=>x.floorReached)),avgKos:stats.reduce((s,x)=>s+x.kos,0)/n,avgTurns:stats.reduce((s,x)=>s+x.turns,0)/n,avgHealth:stats.reduce((s,x)=>s+x.healthFraction,0)/n,avgWaves:stats.reduce((s,x)=>s+x.wavesCleared,0)/n,avgKills:stats.reduce((s,x)=>s+x.enemiesDefeated,0)/n,clearActionsPerWave:wins.length?wins.reduce((s,x)=>s+x.turns/x.wavesCleared,0)/wins.length:null,example:(wins[0]||stats.slice().sort((a,b)=>b.floorReached-a.floorReached||b.enemiesDefeated-a.enemiesDefeated||a.kos-b.kos)[0])};
  const b=cfg.benchmark;if(b&&Number.isInteger(b.floor)&&b.floor>0&&b.hp>0&&b.dmg>0){const test=assess({...cfg,benchmark:null,from:b.floor,to:b.floor,baseFloor:b.floor,enemyHp:b.hp,enemyDmg:b.dmg,enemyElement:b.element||'Unknown',enemyRoster:[{name:'CHAIN AVENGER',hp:b.hp,dmg:b.dmg,element:b.element||'Unknown'}],growth:0,enemiesPerFloor:1,elementsMode:false,enemyDodge:0,trace:false},n);result.benchmark={floor:b.floor,name:b.name,clearRate:test.clearRate,trials:n,avgKos:test.avgKos,enemyHp:b.hp,enemyDmg:b.dmg,enemyCount:1,abilitiesModelled:true,partial:true};}
@@ -162,15 +202,16 @@ function compareStats(a,b,objective='endurance'){
  return b.avgFloor-a.avgFloor||b.avgKills-a.avgKills||b.clearRate-a.clearRate||a.avgKos-b.avgKos||b.avgHealth-a.avgHealth||a.avgTurns-b.avgTurns;
 }
 function makeSearch(roster,raw={}){
- const pool=Array.from(new Map(roster.filter(c=>Number(c.hp)>0&&Number(c.dmg)>0&&c.type==='card').map(c=>[c.id,{...c,hp:raw.gear?.[c.id]?.hp||c.hp,dmg:raw.gear?.[c.id]?.dmg||c.dmg}])).values());
+ const pool=P.roster(roster,raw.gear||{});
  const cfg=searchScenario({...DEFAULT,...raw}),N=clamp(Math.floor(+cfg.maxTests||4000),50,30000);
  let checked=0,evaluated=0,best=null,stopped=false,unique=new Set(),leaders=[],testedPaths=Object.fromEntries(PATHS.map(p=>[p.id,{trials:0,best:null}]));const rng=rand(cfg.seed||261),rank=(a,b)=>compareStats(a.stats,b.stats,cfg.objective),key=c=>c.path+'|'+c.team.map(x=>x.id).join('|')+'|'+c.supports.join('|');
  const hpWeight=cfg.objective==='rush'?.03:.12,byRating=pool.slice().sort((a,b)=>(+b.dmg)+b.hp*hpWeight-((+a.dmg)+a.hp*hpWeight));
+ const seedTeams=P.seedTeams(pool,{profile:C.cardSkill,currentTeam:cfg.team,objective:cfg.objective,limit:96});
  function pick(){const out=[];let attempts=0;while(out.length<4&&attempts++<120){const c=rng()<.73?byRating[Math.floor(Math.pow(rng(),1.8)*byRating.length)]:pool[Math.floor(rng()*pool.length)];if(!out.some(x=>x.id===c.id))out.push(c)}return out;}
  function next(){
    if(stopped||checked>=N)return false;
    if(pool.length<4){stopped=true;return false;}
-   const path=SEARCH_PATHS[checked%SEARCH_PATHS.length].id;const initial=valid(cfg.team)&&cfg.team.every(c=>pool.some(x=>x.id===c.id))?cfg.team:byRating.slice(0,4),team=checked<SEARCH_PATHS.length?initial.slice():pick();
+   const path=SEARCH_PATHS[checked%SEARCH_PATHS.length].id;const initial=valid(cfg.team)&&cfg.team.every(c=>pool.some(x=>x.id===c.id))?cfg.team:byRating.slice(0,4),seed=seedTeams[Math.floor(checked/SEARCH_PATHS.length)%Math.max(1,seedTeams.length)],team=checked<SEARCH_PATHS.length?initial.slice():checked<seedTeams.length*SEARCH_PATHS.length?seed.team.slice():pick();
    if(team.length!==4){checked++;return true;}
    let supports=checked<SEARCH_PATHS.length&&Array.isArray(cfg.supports)?cfg.supports.slice(0,4).map(s=>SUPPORT_IDS.includes(s?.id||s)?s?.id||s:null):defaultSupports();
    while(supports.length<4)supports.push(null);const uniqueSupports=new Set();supports=supports.map(id=>{const key=supportGroup(id);if(key){if(uniqueSupports.has(key))return null;uniqueSupports.add(key)}return id});
@@ -179,7 +220,7 @@ function makeSearch(roster,raw={}){
    if(unique.has(identity)){checked++;return true;}unique.add(identity);
    const tier=path==='destruction'?cfg.tierDestruction??5:cfg.tierOther??0;
    const args={...cfg,team,supports,path,tier,seed:(cfg.seed||261)+293};
-   const a=assess({...args,trace:false},3),candidate={team,supports,path,tier,stats:a};evaluated++;
+   const a=assess({...args,trace:false},3),candidate={team,supports,path,tier,stats:a,strategy:checked<seedTeams.length*SEARCH_PATHS.length?seed?.strategy:'Exploração de combinações'};evaluated++;
    const bucket=testedPaths[path];bucket.trials++;
    if(!bucket.best||rank(candidate,bucket.best)<0)bucket.best=candidate;
    if(!best||rank(candidate,best)<0)best=candidate;
